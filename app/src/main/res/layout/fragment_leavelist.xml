@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        
+<!--         <Spinner 
+            android:id="@+id/choices_myleaves_search_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/styles_spinner_white"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentLeft="true"/>
+ -->                    
+        <Spinner 
+            android:id="@+id/choices_myleaves_search_status"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/styles_spinner_white"
+            android:layout_alignParentRight="true"/>
+        
+        <Spinner 
+            android:id="@+id/choices_myleaves_searh_type"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_spinner_white"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/choices_myleaves_search_status"/>    
+        
+    </RelativeLayout>
+
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+	    android:background="@color/menu_list_separator" />
+    
+    <ListView 
+        android:id="@+id/lists_myleaves" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:footerDividersEnabled="true"
+        android:dividerHeight="1dp"
+        android:divider="@drawable/divider_insetted" />
+
+</LinearLayout>

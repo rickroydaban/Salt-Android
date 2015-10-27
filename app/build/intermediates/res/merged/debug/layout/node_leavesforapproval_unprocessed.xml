@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+    
+    <ImageView 
+        android:id="@+id/iviews_cells_leaveforapproval_next"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="5dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/icon_next"
+        android:layout_centerVertical="true"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@id/iviews_cells_leaveforapproval_next">
+            
+        <TextView 
+            android:id="@+id/tviews_cells_leaveforapproval_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/fsizes_listcell_header"
+			android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+	    <TextView 
+	        android:id="@+id/tviews_cells_leaveforapproval_dates"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+          	android:layout_marginBottom="5dp"
+			android:textColor="@color/black"
+	        android:textSize="@dimen/fsizes_listcell_subheader"/>
+	        		
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content">
+
+	       <TextView 
+	           android:id="@+id/buttons_cells_leaveforapproval_reject"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:text="Reject"
+	           android:textColor="@color/red"
+	           android:textSize="13sp"
+	           android:layout_alignParentRight="true"
+	           android:layout_centerVertical="true"
+			   android:paddingLeft="4dp"
+			   android:paddingRight="7dp" />
+	         	       
+	       <TextView
+	           android:id="@+id/buttons_cells_leaveforapproval_approve"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:text="Approve"
+	           android:textColor="@color/green"
+	           android:textSize="13sp"
+	           android:layout_toLeftOf="@id/buttons_cells_leaveforapproval_reject"
+	           android:layout_marginLeft="5dp"
+	           android:layout_marginRight="5dp"
+	           android:layout_centerVertical="true"
+			   android:paddingLeft="4dp"
+			   android:paddingRight="7dp" />
+	       
+	        <TextView
+		        android:id="@+id/tviews_cells_leaveforapproval_name"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/orange_velosi"
+	            android:layout_centerVertical="true"
+	            android:textStyle="bold"
+				android:textSize="@dimen/fsizes_listcell_subheader"
+	            android:layout_toLeftOf="@id/buttons_cells_leaveforapproval_approve"
+	            android:layout_alignParentLeft="true" />
+		        	        	        
+	    </RelativeLayout>
+		        		    
+    </LinearLayout>    
+        
+</RelativeLayout>

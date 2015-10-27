@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="fsizes_home_pager_header">20sp</dimen>
+  <dimen name="fsizes_listcell_header">15sp</dimen>
+  <dimen name="fsizes_listcell_subheader">13sp</dimen>
+  <dimen name="fsizes_leaveforapproval_footertext">12sp</dimen>
+  <dimen name="fsizes_login_salttext">15sp</dimen>
+  <dimen name="fsizes_myleaves_newleaverequest_label">17sp</dimen>
+</resources>

@@ -1,0 +1,170 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	  
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp">
+
+	    <ImageView 
+	        android:id="@+id/homeimage"
+			android:layout_width="60dp"
+			android:layout_height="60dp"
+			android:background="@android:color/transparent"
+			android:src="@drawable/male"
+			android:padding="5dp"
+			android:scaleType="fitXY"
+			android:layout_centerHorizontal="true"/>
+	        
+	    <TextView 
+			android:id="@+id/tviews_home_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="@dimen/fsizes_listcell_header"
+			android:textStyle="bold"
+			android:text=""
+			android:layout_below="@id/homeimage"
+			android:layout_centerHorizontal="true"/>
+	    
+	    <TextView 
+	        android:id="@+id/tviews_home_currdatetime"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="07-Dec-2014 15:21:00"
+	        android:layout_below="@id/tviews_home_name"
+	        android:layout_centerHorizontal="true"
+	        android:textSize="@dimen/fsizes_listcell_subheader"
+	        android:layout_marginTop="-5dp"
+	        android:textColor="@color/menu_list_separator"/>
+		    	    
+    </RelativeLayout>
+	    	    
+<!-- 	<LinearLayout 
+		android:id="@+id/containers_controlpanel"
+		android:layout_width="match_parent"
+		android:layout_height="46dp"
+		android:orientation="horizontal"
+		android:padding="5dp"
+		android:baselineAligned="false"
+		android:layout_marginBottom="5dp">
+
+		<RelativeLayout 
+			android:layout_height="match_parent"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:gravity="center">           
+
+			<ImageView 
+				android:id="@+id/buttons_home_leaves"
+				android:layout_height="@dimen/dimens_home_controls_height"
+				android:layout_width="@dimen/dimens_home_controls_width"
+				android:src="@drawable/icon_leaves"
+				android:background="@drawable/bg_button"
+				android:padding="5dp"/>
+
+		</RelativeLayout>
+
+		<RelativeLayout 
+			android:layout_height="match_parent"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+			
+			<ImageView 
+				android:id="@+id/buttons_home_expenses"
+				android:layout_height="@dimen/dimens_home_controls_height"
+				android:layout_width="@dimen/dimens_home_controls_width"
+				android:src="@drawable/icon_expenses"
+				android:background="@drawable/bg_button"
+				android:padding="5dp"/>
+		
+		</RelativeLayout>
+
+	    <RelativeLayout 
+			android:layout_height="match_parent"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+			
+			<ImageView 
+				android:id="@+id/buttons_home_advances"
+				android:layout_height="@dimen/dimens_home_controls_height"
+				android:layout_width="@dimen/dimens_home_controls_width"
+				android:src="@drawable/icon_advances"
+				android:background="@drawable/bg_button"
+				android:padding="5dp"/>
+	
+		</RelativeLayout>
+	    
+		<RelativeLayout 
+			android:layout_height="match_parent"
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:gravity="center">
+			
+			<ImageView 
+				android:id="@+id/buttons_home_yearends"
+				android:layout_height="@dimen/dimens_home_controls_height"
+				android:layout_width="@dimen/dimens_home_controls_width"
+				android:src="@drawable/icon_yearends"
+				android:background="@drawable/bg_button"
+				android:padding="5dp"/>          
+			
+		</RelativeLayout>
+	</LinearLayout> -->
+    
+	<RelativeLayout 
+	    android:id="@+id/containers_home_pagertitle"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	    
+	    <TextView 
+	        android:id="@+id/tviews_home_pagertitle"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"   
+	        style="@style/styles_home_pagerheader"/>
+	
+	
+	    <LinearLayout 
+	        android:id="@+id/containers_home_pageindicator"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:padding="5dp"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true">
+	        
+	        <ImageView 
+	            android:layout_width="@dimen/dimens_pageindicator_node"
+	            android:layout_height="@dimen/dimens_pageindicator_node"
+	            android:layout_marginRight="@dimen/margins_pageindicator_home"
+	            android:src="@drawable/bg_pageindicator_blur"
+	            android:scaleType="fitXY"/>
+	
+	        <ImageView 
+	            android:layout_width="@dimen/dimens_pageindicator_node"
+	            android:layout_height="@dimen/dimens_pageindicator_node"
+	            android:layout_marginRight="@dimen/margins_pageindicator_home"
+	            android:src="@drawable/bg_pageindicator_blur"
+	            android:scaleType="fitXY"/>
+	        
+	        <ImageView 
+	            android:layout_width="@dimen/dimens_pageindicator_node"
+	            android:layout_height="@dimen/dimens_pageindicator_node"
+	            android:layout_marginRight="@dimen/margins_pageindicator_home"
+	            android:src="@drawable/bg_pageindicator_blur"
+	            android:scaleType="fitXY"/>
+	        
+	    </LinearLayout>
+	    
+	</RelativeLayout>
+        		
+	<applusvelosi.projects.android.salt.utils.customviews.CustomViewPager
+		android:id="@+id/home_pager"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+        
+</LinearLayout>
+

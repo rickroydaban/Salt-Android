@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="margins_pageindicator_home">3dp</dimen>
+	<dimen name="margins_claimsinput_spinner">5dp</dimen>
+	<dimen name="margin_listcell_bottom">10dp</dimen>
+</resources>

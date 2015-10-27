@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Salt</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_loading">LoadingActivity</string>
+    <string name="view_attachments"><u>View Attachments</u></string>
+    <string name="follow_up"><u>Follow Up</u></string>
+    <string name="leaves_for_approval"><u>Leaves for Approval</u></string>
+    <string name="capex_for_approval"><u>Capex for Approval</u></string>
+    <string name="recruitments_for_approval"><u>Recruitments for Approval</u></string>
+    <string name="link_change"><u>Change</u></string>
+    <string name="title_activity_splash">SplashActivity</string>
+
+</resources>

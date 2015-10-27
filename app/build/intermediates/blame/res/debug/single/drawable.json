@@ -1,0 +1,478 @@
+[
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_input_focus.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_input_focus.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_calendarnode_header.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_calendarnode_header.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p9.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p9.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_attachement.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_attachement.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_pending.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_pending.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_localholidays.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_localholidays.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p5.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p5.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/sel_input.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/sel_input.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_i_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_i_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_reject.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_reject.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_calendarnode.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_calendarnode.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_homeactivity_fore.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_homeactivity_fore.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_leave_approved_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_leave_approved_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_myclaims_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_myclaims_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_recruitmentforapproval_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_recruitmentforapproval_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_saltlogo.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_saltlogo.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/image_loadforeground.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/image_loadforeground.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_button_prev.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_button_prev.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/ic_launcher.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p10.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p10.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_up.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_up.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_mycalendar_header.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_mycalendar_header.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p3.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p3.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_logout.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_logout.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/sel_leaveforapproval_reject.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/sel_leaveforapproval_reject.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_spinner_transparent.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_spinner_transparent.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/male.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/male.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_receipt.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_receipt.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_claimforapproval_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_claimforapproval_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_down.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_down.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_mycalendar_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_mycalendar_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_monthlycalendar_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_monthlycalendar_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_back.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_back.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_home_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_home_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_newclaim.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_newclaim.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progressbar.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progressbar.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_approvedleave_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_approvedleave_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_leaves_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_leaves_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_weeklycalendar.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_weeklycalendar.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_refresh.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_refresh.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_leavesforapproval_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_leavesforapproval_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_search.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_search.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_dialog_neutralbutton.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_dialog_neutralbutton.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_corneredinput_focus.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_corneredinput_focus.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/image_loadbackground.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/image_loadbackground.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p1.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p1.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_list.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_list.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_check.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_check.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_calendarnode_weekend.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_calendarnode_weekend.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_localholidays_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_localholidays_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/sel_corneredinput.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/sel_corneredinput.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_approvedleave.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_approvedleave.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/container_dropshadow.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/container_dropshadow.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_claimsforpayment_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_claimsforpayment_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/anim_loadingdialog.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/anim_loadingdialog.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/logo_applusvelosisalt.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/logo_applusvelosisalt.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/common_signin_btn_text_light.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/drawable/common_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_login_button.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_login_button.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_recruitmentforapproval.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_recruitmentforapproval.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_calendar_flag.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_calendar_flag.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/noti_largeicon.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/noti_largeicon.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_yearends.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_yearends.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_pageindicator_focus.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_pageindicator_focus.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/logo_applusvelosi.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/logo_applusvelosi.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_close.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_close.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_add.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_add.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_mycalendar.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_mycalendar.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_myclaims.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_myclaims.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/image_receipt_default.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/image_receipt_default.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_claimsforpayment.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_claimsforpayment.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/calendar_days.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/calendar_days.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_i.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_i.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p7.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p7.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p4.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p4.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_calendarnode_weekend_sel.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_calendarnode_weekend_sel.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_button_next.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_button_next.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_next.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_next.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_prev.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_prev.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/noti_icon.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/noti_icon.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_dropdown.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_dropdown.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_rejectedleave.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_rejectedleave.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_leaves.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_leaves.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_expenses.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_expenses.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/common_signin_btn_text_dark.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/drawable/common_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_dialog_positivebutton.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_dialog_positivebutton.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_node_focus.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_node_focus.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/female.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/female.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_calendar_date.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_calendar_date.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p8.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p8.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_monthlycalendar.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_monthlycalendar.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/common_signin_btn_icon_light.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/drawable/common_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_spinner_white.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_spinner_white.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_leavesforapproval.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_leavesforapproval.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_corneredinput_blur.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_corneredinput_blur.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_button.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_button.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_input_blur.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_input_blur.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_capexforapproval.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_capexforapproval.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_button_menu_child.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_button_menu_child.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/gif_load.gif",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/gif_load.gif"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_rejectedleave_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_rejectedleave_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_logout_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_logout_sel.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_newleaverequest.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_newleaverequest.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/divider_insetted.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/divider_insetted.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_pageindicator_blur.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_pageindicator_blur.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_calendarnode_today.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_calendarnode_today.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/sel_leaveforapproval_approve.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/sel_leaveforapproval_approve.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_calendarnode_sel.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_calendarnode_sel.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/common_signin_btn_icon_dark.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/drawable/common_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_approve.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_approve.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p2.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p2.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_claimforapproval.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_claimforapproval.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_download.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_download.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_advances.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_advances.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_home.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_home.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_button_menu_root.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_button_menu_root.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_mycalendardropdown.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_mycalendardropdown.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/progbar_p6.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/progbar_p6.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/bg_loginlogo.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/bg_loginlogo.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable/icon_capexforapproval_sel.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable/icon_capexforapproval_sel.png"
+    }
+]

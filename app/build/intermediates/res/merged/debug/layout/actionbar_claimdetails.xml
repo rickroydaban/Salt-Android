@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimens_actionbar_height"
+    android:background="@color/orange_velosi" >    
+        
+    <RelativeLayout 
+        android:id="@+id/buttons_actionbar_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true">
+
+	    <ImageView 
+	        android:layout_width="@dimen/dimens_actionbar_item"
+	        android:layout_height="@dimen/dimens_actionbar_item"
+	        android:src="@drawable/icon_back"
+	        android:scaleType="fitXY" />
+	        
+    </RelativeLayout>
+    
+    <LinearLayout 
+        android:id="@+id/containers_actionbar_claimdetailcontrols"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true">
+
+	    <TextView 
+	        android:id="@+id/buttons_actionbar_process"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textStyle="bold"
+	        style="@style/styles_actionbar_item_text" />
+
+	    <TextView 
+	        android:id="@+id/buttons_actionbar_cancel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Cancel"
+	        style="@style/styles_actionbar_item_text" />
+
+	    <TextView 
+	        android:id="@+id/buttons_actionbar_trails"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Trails"
+	        style="@style/styles_actionbar_item_text" />
+		    	    
+	    <TextView 
+	        android:id="@+id/buttons_actionbar_edit"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Edit"
+	        style="@style/styles_actionbar_item_text" />
+	       	    	        
+    </LinearLayout>
+        
+    <TextView 
+        android:id="@+id/tviews_actionbar_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/styles_actionbar_title" 
+        android:layout_toRightOf="@id/buttons_actionbar_back"
+        android:layout_toLeftOf="@id/containers_actionbar_claimdetailcontrols"/>    
+    
+</RelativeLayout>

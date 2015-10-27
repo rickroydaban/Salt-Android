@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="dimens_sidebar_divider_leftmargin">17dp</dimen>
+    <dimen name="dimens_actionbar_height">50dp</dimen>
+    <dimen name="dimens_actionbar_item">20dp</dimen>
+    <dimen name="dimens_footerbar_height">45dp</dimen>
+    <dimen name="dimens_footerbar_item">25dp</dimen>
+    <dimen name="dimens_login_fieldcontainermax_width">240dp</dimen>
+    <dimen name="dimens_login_logo_height">70dp</dimen>
+    <dimen name="dimens_login_logo_width">140dp</dimen>
+    <dimen name="dimens_home_controls_height">50dp</dimen>
+    <dimen name="dimens_home_controls_width">70dp</dimen>
+    <dimen name="dimens_home_calendar_flag_height">40dp</dimen>
+    <dimen name="dimens_home_calendar_flag_width">60dp</dimen>
+    <dimen name="dimens_home_calendar_date_width">100dp</dimen>
+    <dimen name="dimens_tabnode">48dp</dimen>
+    <dimen name="dimens_mycalendarbuttons">45dp</dimen>
+    <dimen name="dimens_pageindicator_node">15dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+</resources>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>    
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+    
+  	<TableLayout
+	    android:id="@+id/container_leaveinputtable" 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="10dp"
+	    android:layout_marginTop="10dp"
+	    android:stretchColumns="1" >
+	    
+	    <TableRow 
+	        style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Leave Type"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <Spinner 
+	            android:id="@+id/choices_dialog_leaverequest_type"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+                style="@style/styles_spinner_white" />
+	        
+	    </TableRow>
+	    
+	    <TableRow 
+           style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Staff"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText 
+	            android:id="@+id/etexts_dialog_leaverequest_staff"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:enabled="false"
+	            style="@style/styles_dialog_leaverequest_inputs"  />
+	        	        
+	    </TableRow>
+	
+	    <TableRow 
+           style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Start Date"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText 
+	            android:id="@+id/etexts_dialog_leaverequest_startdate"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_dialog_leaverequest_inputs"  />
+	        
+	    </TableRow>
+	   
+	    <TableRow 
+           style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="End Date"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText
+	            android:id="@+id/etexts_dialog_leaverequest_enddate"
+	            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_dialog_leaverequest_inputs" />
+	        
+	    </TableRow>
+	    
+	    <TableRow 
+           style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="No. of Days"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <Spinner 
+	            android:id="@+id/choices_dialog_leaverequest_numdays"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+                style="@style/styles_spinner_white" />
+	        
+	    </TableRow>
+	    
+	    <TableRow 
+           style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Days"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText
+	            android:id="@+id/etexts_dialog_leaverequest_days"
+	            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               	style="@style/styles_dialog_leaverequest_inputs"
+               	android:focusable="false"
+               	android:editable="false" />
+	        
+	    </TableRow>
+	
+	
+	    <TableRow 
+           style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="No. of Holidays"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText
+	            android:id="@+id/etexts_dialog_leaverequest_numholidays"
+	            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               	style="@style/styles_dialog_leaverequest_inputs"
+               	android:focusable="false"
+               	android:editable="false" />
+	        
+	    </TableRow>
+	    
+	    <TableRow 
+           style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Working Days"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText
+	            android:id="@+id/etexts_dialog_leaverequest_workingdays"
+	            android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               	style="@style/styles_dialog_leaverequest_inputs"
+               	android:focusable="false"
+               	android:editable="false" />
+	        
+	    </TableRow>
+	    
+	    <TableRow 
+           style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Remaining Credits"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText
+	            android:id="@+id/etexts_dialog_leaverequest_remcredits"
+	            android:layout_width="match_parent"
+               	android:layout_height="wrap_content"
+               	style="@style/styles_dialog_leaverequest_inputs"
+               	android:focusable="false"
+               	android:editable="false" />
+	        
+	    </TableRow>
+           
+        <TableRow 
+            style="@style/styles_trs_inputs"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical">
+                        
+            <EditText
+                android:id="@+id/etexts_dialog_leaverequest_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                style="@style/styles_dialog_leaverequest_inputs"
+                android:hint="Notes" />
+            
+        </TableRow>		    
+        
+        <TableRow 
+            android:id="@+id/trs_dialog_leaverequest_attachment"
+            style="@style/styles_trs_inputs"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_span="2">
+
+				<TextView 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:text="Attachment"
+				    android:textStyle="bold"
+	                android:gravity="center"
+				    style="@style/styles_labels_inputs"/>
+	                
+		        <TextView 
+				    android:id="@+id/tviews_leaverequest_attachmentname"
+					android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+			        android:gravity="center"
+			        android:textSize="@dimen/fsizes_listcell_subheader"
+			        android:textColor="@color/orange_velosi"
+			        android:text="No file chosen"
+			        android:paddingTop="10dp"
+			        android:paddingBottom="5dp"
+			        android:textStyle="bold"/>
+		    	 
+		        <LinearLayout 
+		            android:layout_width="match_parent"
+		            android:layout_height="40dp"
+		            android:orientation="horizontal">
+	
+					<TextView 
+		                android:id="@+id/buttons_leaverequest_attachment_fromcamera"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:gravity="center"
+					    android:textColor="#FFF"
+					    android:textStyle="bold"
+					    android:textSize="@dimen/fsizes_listcell_subheader"
+					    android:text="Take Picture"
+					    android:background="@drawable/bg_button"
+					    android:layout_weight="1"
+						android:paddingTop="7dp"
+						android:paddingBottom="7dp"
+					    android:layout_marginRight="3dp"
+					    android:layout_marginLeft="3dp"/>
+	
+					<TextView 
+		                android:id="@+id/buttons_leaverequest_attachment_fromfiles"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:gravity="center"
+					    android:textColor="#FFF"
+					    android:textStyle="bold"
+					    android:textSize="@dimen/fsizes_listcell_subheader"
+					    android:text="Open Gallery"
+					    android:background="@drawable/bg_button"
+						android:paddingTop="7dp"
+						android:paddingBottom="7dp"
+					    android:layout_weight="1"
+					    android:layout_marginRight="3dp"
+					    android:layout_marginLeft="3dp"/>
+											            	            	            
+		        </LinearLayout>        	                
+			</LinearLayout>			    		 		
+			    	                
+        </TableRow>		    
+        	        	        		    		   	            
+ 	</TableLayout>        
+    
+</ScrollView>

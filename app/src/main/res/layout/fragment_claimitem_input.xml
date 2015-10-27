@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+            		 
+	<TableLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="10dp"
+	    android:stretchColumns="1" >
+	    
+	    <TableRow 
+	        style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Category"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <Spinner 
+	            android:id="@+id/spinners_claimiteminput_choices"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" 
+	            style="@style/styles_spinner_white"
+	            android:layout_span="2"/>
+	        
+	    </TableRow>
+	    
+	    <TableRow 
+	        style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Date "
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText 
+	            android:id="@+id/etexts_claimiteminput_expenseDate"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_dialog_leaverequest_inputs" 
+                android:layout_span="2" />
+	        
+	    </TableRow>
+	
+	    <TableRow 
+	          style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Amount"
+	            style="@style/styles_labels_inputs"/>
+	
+            <EditText 
+                android:id="@+id/etexts_claimiteminput_amount_fc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_marginRight="5dp"
+                android:text="0"
+                style="@style/styles_dialog_leaverequest_inputs" />
+	        				        				        	        	        
+   	        <Spinner 
+	            android:id="@+id/spinners_claimiteminput_currency_fc"
+	            android:layout_width="match_parent"
+	            style="@style/styles_spinner_white"
+	            android:layout_height="wrap_content" />
+
+	    </TableRow>
+	   
+	    <TableRow 
+	        style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Amount (LC) "
+	            style="@style/styles_labels_inputs"/>
+	        	        	        
+            <EditText 
+                android:id="@+id/etexts_claimiteminput_amount_lc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+	            android:layout_marginRight="5dp"
+	            android:text="0"
+                style="@style/styles_dialog_leaverequest_inputs" />
+	        
+            <EditText 
+                android:id="@+id/etexts_claimiteminput_currency_lc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+				android:enabled="false"
+                style="@style/styles_dialog_leaverequest_inputs" />
+	                                            
+	    </TableRow>
+	    
+	    <TableRow 
+	        style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Ex Rate"
+	            style="@style/styles_labels_inputs"/>
+	        
+            <EditText 
+                android:id="@+id/etexts_claimiteminput_exrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                style="@style/styles_dialog_leaverequest_inputs" 
+                android:text="1.00"
+                android:layout_span="2" />
+	            
+	    </TableRow>
+	    
+	    <TableRow 
+	        style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Tax Rate"
+	            style="@style/styles_labels_inputs"/>
+	        
+            <EditText 
+                android:id="@+id/etexts_claimiteminput_taxrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                style="@style/styles_dialog_leaverequest_inputs" 
+                android:text="1.00"
+                android:layout_span="1" />
+	            
+	        <CheckBox 
+	            android:id="@+id/cbox_claimiteminput_istaxapplied"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="Rate"/>	            
+	            
+	    </TableRow>
+
+        <TableRow 
+            android:id="@+id/trs_claimitemdetail_attendees"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs">
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/styles_labels_inputs"
+				android:paddingTop="12dp"
+				android:paddingBottom="12dp"
+                android:text="Attendees" />
+            
+			<RelativeLayout 
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:id="@+id/containers_claimitemdetail_attendees"
+			    android:layout_span="2" 
+			    android:paddingRight="5dp">
+			    
+			    <ImageView 
+			        android:id="@+id/iviews_claimitemdetail_attendees"
+			        android:layout_width="20dp"
+			        android:layout_height="20dp"
+			        android:src="@drawable/icon_next"
+			        android:layout_alignParentRight="true"
+			        android:layout_centerVertical="true"/>
+			    
+			    <TextView 
+			        android:id="@+id/tviews_claimitemdetail_attendeecount"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+	                style="@style/styles_detailoverview_compressedinputs"
+	                android:layout_toLeftOf="@id/iviews_claimitemdetail_attendees"/>		        
+	                
+			</RelativeLayout>
+            
+        </TableRow>	    
+        
+	    <TableRow 
+	        style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Project"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <Spinner 
+	            android:id="@+id/spinners_claimiteminput_project"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" 
+	            style="@style/styles_spinner_white"
+	            android:layout_span="2"/>
+	            
+	    </TableRow>	    	    
+
+	    <TableRow 
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Billable"
+	            style="@style/styles_labels_inputs" 
+                android:layout_span="1" />
+	        	        
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_span="2"
+	            android:orientation="horizontal">
+	            
+		        <CheckBox 
+		            android:id="@+id/cbox_claimiteminput_isBillable"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+	                android:layout_span="2" />
+		        
+		        <Spinner 
+		            android:id="@+id/spinners_claimiteminput_billToOffices"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_span="2" 
+		            style="@style/styles_spinner_white"
+		            android:visibility="gone"/>
+		            	            
+	        </LinearLayout>    
+			        	        	        	        	        	            
+	    </TableRow>			        
+	    	    
+	    <TableRow 
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Notes / Client to Bill"
+	            style="@style/styles_labels_inputs"
+                android:layout_span="3" />
+	        	        	        	            
+	    </TableRow>	    					    
+	    
+	    <TableRow 
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+		  <EditText 
+		      android:id="@+id/etexts_claimiteminput_notesclienttobill"
+		      android:layout_width="match_parent"
+		      android:layout_height="wrap_content"
+		      style="@style/styles_dialog_leaverequest_inputs"
+		      android:padding="10dp"
+		      android:layout_span="3"/>
+	        	        	            
+	    </TableRow>	
+	    	    
+	    <TableRow 
+	        android:id="@+id/trs_claimiteminput_mileage_header"
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:visibility="gone">
+	        
+	        <TextView 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/orange_velosi"
+	            android:text="Mileage"
+	            style="@style/styles_labels_inputs"
+                android:layout_span="3" />
+	        	        	        	            
+	    </TableRow>	    					    
+	    	    	
+	    <TableRow 
+	        android:id="@+id/trs_claimiteminput_mileage_from"
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical"
+	        android:visibility="gone">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="From"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText 
+	            android:id="@+id/etexts_claimiteminput_mileage_from"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_dialog_leaverequest_inputs" 
+                android:layout_span="2" />
+	        	        	            
+	    </TableRow>		
+	    
+	    <TableRow 
+	        android:id="@+id/trs_claimiteminput_mileage_to"
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical"
+	        android:visibility="gone">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="To"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText 
+	            android:id="@+id/etexts_claimiteminput_mileage_to"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_dialog_leaverequest_inputs" 
+                android:layout_span="2" />
+	        	        	            
+	    </TableRow>		
+		    	
+	    <TableRow 
+	        android:id="@+id/trs_claimiteminput_mileage_return"
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical"
+	        android:visibility="gone">
+	        	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Return"
+	            style="@style/styles_labels_inputs" 
+                android:layout_span="1" />
+	        	        
+	        <CheckBox 
+	            android:id="@+id/cbox_claimiteminput_mileage_isReturn"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+                android:layout_span="2" />
+	        	        	            
+	    </TableRow>		
+	    
+	    <TableRow 
+	        android:id="@+id/trs_claimiteminput_mileage_mileage"
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical"
+	        android:visibility="gone">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Mileage"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText 
+	            android:id="@+id/etexts_claimiteminput_mileage_mileage"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_dialog_leaverequest_inputs" 
+	            android:layout_marginRight="5dp"
+                android:layout_span="1" />
+	        
+	        <Spinner 
+	            android:id="@+id/spinner_claimiteminput_mileage_mileage"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" 
+	            style="@style/styles_spinner_white"
+	            android:layout_span="1"/>
+	        	        	            
+	    </TableRow>		
+	    
+	    <TableRow 
+	        android:id="@+id/trs_claimiteminput_mileage_rate"
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical"
+	        android:visibility="gone">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Rate"
+	            style="@style/styles_labels_inputs"/>
+	        
+	        <EditText 
+	            android:id="@+id/etexts_claimiteminput_mileage_rate"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_dialog_leaverequest_inputs" 
+                android:layout_span="2" />
+	        	        	            
+	    </TableRow>			    
+	    	    
+	    <TableRow 
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Description"
+	            style="@style/styles_labels_inputs"
+                android:layout_span="3" />
+	        	        	        	            
+	    </TableRow>	    					    
+	    
+	    <TableRow 
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+		  <EditText 
+		      android:id="@+id/etexts_claimiteminput_description"
+		      android:layout_width="match_parent"
+		      android:layout_height="wrap_content"
+		      style="@style/styles_dialog_leaverequest_inputs"
+		      android:padding="10dp"
+		      android:layout_span="3"/>
+	        	        	            
+	    </TableRow>	
+	    
+	    <TableRow 
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical">
+	        
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Attachment"
+	            style="@style/styles_labels_inputs"
+	            android:layout_span="1" />
+	        	            
+	        <CheckBox 
+	            android:id="@+id/cbox_claimiteminput_attachment_header"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	    </TableRow>	    					    
+	    
+	    <TableRow 
+            android:id="@+id/trs_claimiteminput_attachment_preview"
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical"
+	        android:visibility="gone">
+	        	   
+	        <TextView 
+			    android:id="@+id/tviews_claimiteminput_attachment"
+				android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+		        android:gravity="center"
+		        android:textSize="@dimen/fsizes_listcell_subheader"
+		        android:textColor="@color/orange_velosi"
+		        android:text="No file chosen"
+		        android:textStyle="bold"
+   				android:layout_span="3"/>
+		            	 	        	        	            
+	    </TableRow>		    					    
+	    	    
+	    <TableRow 
+            android:id="@+id/trs_claimiteminput_attachment_actions"
+            style="@style/styles_trs_inputs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:gravity="center_vertical"
+	        android:visibility="gone">
+	    	 
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="40dp"
+	            android:orientation="horizontal"
+			    android:layout_span="3">
+
+				<TextView 
+	                android:id="@+id/buttons_claimiteminput_attachment_fromcamera"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:gravity="center"
+				    android:textColor="#FFF"
+				    android:textStyle="bold"
+				    android:textSize="@dimen/fsizes_listcell_subheader"
+				    android:text="Take Picture"
+				    android:background="@drawable/bg_button"
+				    android:layout_weight="1"
+					android:paddingTop="7dp"
+					android:paddingBottom="7dp"
+				    android:layout_marginRight="3dp"
+				    android:layout_marginLeft="3dp"/>
+
+				<TextView 
+	                android:id="@+id/buttons_claimiteminput_attachment_fromfiles"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:gravity="center"
+				    android:textColor="#FFF"
+				    android:textStyle="bold"
+				    android:textSize="@dimen/fsizes_listcell_subheader"
+				    android:text="Open Gallery"
+				    android:background="@drawable/bg_button"
+					android:paddingTop="7dp"
+					android:paddingBottom="7dp"
+				    android:layout_weight="1"
+				    android:layout_marginRight="3dp"
+				    android:layout_marginLeft="3dp"/>
+										            	            	            
+	        </LinearLayout>
+
+		</TableRow>
+				    	    
+	</TableLayout>
+
+<!-- 		<View
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:background="@color/menu_list_separator" />
+
+		<RelativeLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+            android:background="@color/light_gray"
+		    android:padding="5dp">
+						    
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Receipt"
+                style="@style/styles_labels_inputs"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+            
+            <TextView 
+                android:id="@+id/buttons_fragment_addclaimitem_changereceipt"
+                android:layout_width="36dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@android:drawable/ic_menu_camera"
+                android:background="@drawable/bg_button"/>
+            
+		</RelativeLayout>
+
+		<View
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:background="@color/menu_list_separator" />
+														
+		<ImageView 
+		    android:id="@+id/iviews_fragment_addclaimitem_receipt"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/icon_receipt"
+		    android:scaleType="centerInside"
+		    android:layout_gravity="center"
+		    android:adjustViewBounds="true"
+		    android:padding="5dp"/>
+		
+		<View
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:background="@color/menu_list_separator" />
+				
+		<TextView 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:gravity="center"
+		    android:text="Description"
+		    style="@style/styles_labels_inputs"
+		    android:paddingTop="10dp"
+		    android:paddingBottom="10dp"
+		    android:background="@color/light_gray"/>
+
+		<View
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:background="@color/menu_list_separator" />
+								
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:padding="5dp">
+		
+		  <EditText 
+		      android:id="@+id/etexts_dialog_addclaimitem_description"
+		      android:layout_width="match_parent"
+		      android:layout_height="wrap_content"
+		      style="@style/styles_dialog_leaverequest_inputs"
+		      android:layout_span="3"/>
+		
+		</LinearLayout>
+            						
+      </LinearLayout>  -->
+</ScrollView>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+  
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <ImageView 
+            android:id="@+id/buttons_monthlycalendar_prev"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_button_prev" />
+	            
+        <ImageView 
+            android:id="@+id/buttons_monthlycalendar_next"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_button_next" />
+	                     
+         <LinearLayout 
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:gravity="center_horizontal"
+             android:layout_toRightOf="@id/buttons_monthlycalendar_prev"
+             android:layout_toLeftOf="@id/buttons_monthlycalendar_next"
+             android:orientation="horizontal">
+             
+	        <Spinner 
+	            android:id="@+id/choices_calendar_monthly_month"
+	            android:layout_width="130dp"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_spinner_white"
+	            android:layout_marginRight="5dp"/>
+	             
+	        <Spinner 
+	            android:id="@+id/choices_calendar_monthly_year"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_spinner_white"
+	            android:layout_marginRight="5dp"/>
+		        	        
+         </LinearLayout>
+         
+    </RelativeLayout>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/menu_list_separator" />
+    
+    <ListView
+	    android:id="@+id/lists_calendarmonthly"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:dividerHeight="1dp"
+	    android:divider="@drawable/divider_insetted" />
+		    
+</LinearLayout>
+
+

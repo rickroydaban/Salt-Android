@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/release/xml/analytics_global_config.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/xml/analytics_global_config.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/release/xml/global_tracker.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/release/xml/global_tracker.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/release/xml/app_tracker.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/xml/app_tracker.xml"
+    }
+]

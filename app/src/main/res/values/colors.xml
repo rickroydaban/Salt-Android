@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="darker_orange">#AA4900</color>
+  <color name="dark_orange">#D95409</color>
+  <color name="orange_velosi">#EA651A</color>
+  <color name="orange">#FE8E42</color>
+  <color name="dark_blue">#5D7B9D</color>
+  <color name="blue">#87CEEB</color>
+  <color name="black">#606060</color>
+  <color name="menu_list_separator">#AAAAAA</color>
+  <color name="sidebar_menu_separator">#B0B0B0</color>
+  <color name="light_gray">#DADADA</color>	
+  <color name="white">#EFEFEF</color>
+  <color name="list_item2">#EAEAEA</color>
+  <color name="list_item1">#FFF</color>
+  <color name="leavetype_birthday">#347C17</color>
+  <color name="leavetype_vacation">#FF8C00</color>
+  <color name="leavetype_sick">#DD133C</color>
+  <color name="leavetype_unpaid">#A52A2A</color>
+  <color name="leavetype_bereavement">#8E35EF</color>
+  <color name="leavetype_matpat">#8B0A50</color>
+  <color name="leavetype_doctor">#7F5A58</color>
+  <color name="leavetype_hospitalization">#8B7500</color>
+  <color name="leavetype_businesstrip">#FF0000</color>
+  <color name="holiday">#56A5EC</color>
+  <color name="red">#BF2033</color>
+  <color name="green">#227722</color>
+</resources>

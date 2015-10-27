@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+    
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+		<ScrollView 
+		    android:layout_width="match_parent"
+		    android:layout_height="400dp">
+		    
+				<TableLayout 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:paddingLeft="10dp"
+				    android:paddingRight="10dp"
+				    android:stretchColumns="1" >
+				    
+				    <TableRow 
+				        style="@style/styles_trs_inputs"
+				        android:layout_height="wrap_content"
+				        android:layout_width="match_parent"
+				        android:gravity="center_vertical">
+				        
+				        <TextView 
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:text="Claim Type"
+				            style="@style/styles_labels_inputs"/>
+				        
+				        <Spinner 
+				            android:id="@+id/choices_fragment_newclaim_type"
+				            android:layout_width="match_parent"
+				            android:layout_height="wrap_content" />
+				        
+				    </TableRow>
+				    
+				    <TableRow 
+		            style="@style/styles_trs_inputs"
+				        android:layout_height="wrap_content"
+				        android:layout_width="match_parent"
+				        android:gravity="center_vertical">
+				        
+				        <TextView 
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:text="Staff"
+				            style="@style/styles_labels_inputs"/>
+				        
+				        <Spinner 
+				            android:id="@+id/choices_fragment_newclaim_staff"
+				            android:layout_width="match_parent"
+				            android:layout_height="wrap_content" />
+				        
+				    </TableRow>
+				
+				    <TableRow 
+		            style="@style/styles_trs_inputs"
+				        android:layout_height="wrap_content"
+				        android:layout_width="match_parent"
+				        android:gravity="center_vertical">
+				        
+				        <TextView 
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:text="Office to Charge"
+				            style="@style/styles_labels_inputs"/>
+				        
+				        <Spinner 
+				            android:id="@+id/choices_fragment_newclaim_office"
+				            android:layout_width="match_parent"
+				            android:layout_height="wrap_content" />
+				        
+				    </TableRow>
+				   
+				    <TableRow 
+		            style="@style/styles_trs_inputs"
+				        android:layout_height="wrap_content"
+				        android:layout_width="match_parent"
+				        android:gravity="center_vertical">
+				        
+				        <TextView 
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:text="Cost Center"
+				            style="@style/styles_labels_inputs"/>
+				        
+				        <Spinner
+				            android:id="@+id/choices_fragment_newclaim_costcenter"
+				            android:layout_width="match_parent"
+		                android:layout_height="wrap_content" />
+				        
+				    </TableRow>
+				    
+				    <TableRow 
+		            style="@style/styles_trs_inputs"
+				        android:layout_height="wrap_content"
+				        android:layout_width="match_parent"
+				        android:gravity="center_vertical">
+				        
+				        <TextView 
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:text="Approver"
+				            style="@style/styles_labels_inputs"/>
+				        
+				        <Spinner 
+				            android:id="@+id/choices_fragment_newclaim_approver"
+				            android:layout_width="match_parent"
+				            android:layout_height="wrap_content" />
+				        
+				    </TableRow>
+				    
+				    <TableRow 
+		            style="@style/styles_trs_inputs"
+				        android:layout_height="wrap_content"
+				        android:layout_width="match_parent"
+				        android:gravity="center_vertical">
+				        
+				        <TextView 
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:text="Account"
+				            style="@style/styles_labels_inputs"/>
+				        
+				        <Spinner
+				            android:id="@+id/choices_fragment_newclaim_account"
+				            android:layout_width="match_parent"
+		                android:layout_height="wrap_content"/>
+				        
+				    </TableRow>
+				
+
+			 	</TableLayout>
+		</ScrollView>
+		
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal">
+		    
+		    <Button 
+		        android:id="@+id/buttons_dialog_addclaimitem_submit"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:text="Submit"
+		        style="?android:attr/buttonBarButtonStyle"
+		        android:background="@drawable/bg_dialog_neutralbutton"/>
+		    
+		    <Button 
+		        android:id="@+id/buttons_dialog_addclaimitem_cancel"
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:text="Cancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:background="@drawable/bg_dialog_neutralbutton"/>
+		    
+		</LinearLayout>
+</LinearLayout>
