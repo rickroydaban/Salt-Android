@@ -66,121 +66,121 @@ public class ItemInputFragmentClaims extends ItemInputFragment {
 	@Override
 	public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_claimitem_input, null);
-		claimHeader = app.getMyClaims().get(getArguments().getInt(KEY_CLAIMPOS));
-		spinnerCategoryNames = (Spinner) v.findViewById(R.id.spinners_claimiteminput_choices);
-		etextDate = (EditText) v.findViewById(R.id.etexts_claimiteminput_expenseDate);
-		spinnerForeignCurrencies = (Spinner) v.findViewById(R.id.spinners_claimiteminput_currency_fc);
-		etextAmountForeign = (EditText) v.findViewById(R.id.etexts_claimiteminput_amount_fc);
-		etextCurrencyLocal = (EditText) v.findViewById(R.id.etexts_claimiteminput_currency_lc);
-		etextAmountLocal = (EditText) v.findViewById(R.id.etexts_claimiteminput_amount_lc);
-		etextExchangeRate = (EditText) v.findViewById(R.id.etexts_claimiteminput_exrate);
-		buttonAttendees = (RelativeLayout) v.findViewById(R.id.containers_claimitemdetail_attendees);
-		tviewAttendeeCnt = (TextView) v.findViewById(R.id.tviews_claimitemdetail_attendeecount);
-		etextTaxRate = (EditText) v.findViewById(R.id.etexts_claimiteminput_taxrate);
-		etextDesc = (EditText) v.findViewById(R.id.etexts_claimiteminput_description);
-		etextNotesClientToBill = (EditText) v.findViewById(R.id.etexts_claimiteminput_notesclienttobill);
-		cboxApplyTaxRate = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_istaxapplied);
-		cboxApplyTaxRate.setOnCheckedChangeListener(this);
-		spinnerProject = (Spinner)v.findViewById(R.id.spinners_claimiteminput_project);
-		spinnerOffices = (Spinner)v.findViewById(R.id.spinners_claimiteminput_billToOffices);
-		cboxBillable = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_isBillable);
-		cboxBillable.setOnCheckedChangeListener(this);
-		//mileage
-		trMileageHeader = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_header);
-		trMileageFrom = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_from);
-		trMileageTo = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_to);
-		trMileageReturn = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_return);
-		trMileageMileage = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_mileage);
-		trMileageRate = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_rate);
-		etextMileageFrom = (EditText)v.findViewById(R.id.etexts_claimiteminput_mileage_from);
-		etextMileageTo = (EditText)v.findViewById(R.id.etexts_claimiteminput_mileage_to);
-		cboxMileageReturn = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_mileage_isReturn);
-		etextMileageMileage = (EditText)v.findViewById(R.id.etexts_claimiteminput_mileage_mileage);
-		spinnerMileageType = (Spinner)v.findViewById(R.id.spinner_claimiteminput_mileage_mileage);
-		etextMileageRate = (EditText)v.findViewById(R.id.etexts_claimiteminput_mileage_rate);
-		//attachment
-		cboxAttachment = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_attachment_header);
-		cboxAttachment.setOnCheckedChangeListener(this);
-		trAttachmentPreview = (TableRow)v.findViewById(R.id.trs_claimiteminput_attachment_preview);
-		trAttachmentAction = (TableRow)v.findViewById(R.id.trs_claimiteminput_attachment_actions);
-		tvAttachment = (TextView)v.findViewById(R.id.tviews_claimiteminput_attachment);
-		buttonTakePicture = (TextView)v.findViewById(R.id.buttons_claimiteminput_attachment_fromcamera);
-		buttonChooseFromFile = (TextView)v.findViewById(R.id.buttons_claimiteminput_attachment_fromfiles);
-				
-		ArrayList<String> mileageTypes = new ArrayList<String>();
-		mileageTypes.add(MilageClaimItem.MILEAGETYPE_VAL_KILOMETER);
-		mileageTypes.add(MilageClaimItem.MILEAGETYPE_VAL_MILE);
-		spinnerMileageType.setAdapter(new SimpleSpinnerAdapter(activity, mileageTypes, NodeSize.SIZE_NORMAL));
-		//initialization of categories should be done in the thread
-		if(pd == null)
-			pd = new SaltProgressDialog(activity);
-		pd.show();
-		new Thread(new ClaimItemCategoryListGetter()).start();
-		pd.show();
-		new Thread(new ClaimItemProjectListGetter()).start();
-		
-		foreignCurrencies = new ArrayList<String>();
-		for(int i=0; i<app.getCurrencies().size(); i++)
-			foreignCurrencies.add(app.getCurrencies().get(i).getCurrencySymbol());
-		spinnerForeignCurrencies.setAdapter(new ClaimItemSpinnerAdapter(activity, foreignCurrencies));
-		
-		if(getArguments().containsKey(KEY_CLAIMITEMPOS)){
-			newClaimItem = claimHeader.getPreparedClaimItemForEdit();
-			attendeeFragment = ClaimItemAttendeeListFragment.newInstance(getArguments().getInt(KEY_CLAIMPOS), getArguments().getInt(KEY_CLAIMITEMPOS));
-			etextDate.setText(newClaimItem.getExpenseDate());
-			prevSelectedForeignCurr = foreignCurrencies.indexOf(newClaimItem.getForeignCurrencyName());
-			spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
-			etextAmountForeign.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getForeignAmount()));
-			etextAmountLocal.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getLocalAmount()));
-			etextTaxRate.setText(String.valueOf(newClaimItem.getTaxAmount()));
-			cboxApplyTaxRate.setChecked(newClaimItem.isTaxApplied());
-			if(newClaimItem.isBillable()){
-				cboxBillable.setOnCheckedChangeListener(null);
-				cboxBillable.setChecked(true);
-				cboxBillable.setOnCheckedChangeListener(this);
-				cboxBillable.setText(newClaimItem.getBillableCompanyName());
-			}
-
-			etextDesc.setText(newClaimItem.getDescription());
-			if(newClaimItem.hasReceipt()){
-				cboxAttachment.setChecked(true);
-				tvAttachment.setText(newClaimItem.getAttachmentName());
-			}else
-				cboxAttachment.setChecked(false);
-
-			cboxAttachment.setChecked(newClaimItem.hasReceipt());
-
-			if(newClaimItem.getCategoryTypeID() == Category.TYPE_MILEAGE){
-				MilageClaimItem mileageItem = new MilageClaimItem(newClaimItem.getMap(), app);
-				etextMileageFrom.setText(mileageItem.getMileageFrom());
-				etextMileageTo.setText(mileageItem.getMileageTo());
-				cboxMileageReturn.setChecked(mileageItem.isMileageReturn());
-				etextMileageMileage.setText(String.valueOf(mileageItem.getMileage()));
-				spinnerMileageType.setSelection(mileageTypes.indexOf(mileageItem.getMilageTypeName()));
-				etextMileageRate.setText(String.valueOf(mileageItem.getMilageRate()));
-			}
-		}else{
-			newClaimItem = claimHeader.getPreparedClaimItemForCreation();
-			attendeeFragment = ClaimItemAttendeeListFragment.newInstance(getArguments().getInt(KEY_CLAIMPOS));
-			prevSelectedForeignCurr = foreignCurrencies.indexOf(app.getStaffOffice().getBaseCurrencyThree());
-			spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
-		}
-
-		int cnt = newClaimItem.getAttendees().size();
-		tviewAttendeeCnt.setText(String.valueOf(cnt));
-
-		spinnerForeignCurrencies.setOnItemSelectedListener(this);
-		spinnerForeignCurrencies.setTag("-1");
-		etextCurrencyLocal.setText(app.getStaffOffice().getBaseCurrencyThree());
-		etextDate.setOnFocusChangeListener(this);
-		etextDate.setOnClickListener(this);
-		etextAmountForeign.addTextChangedListener(this);
-		etextExchangeRate.addTextChangedListener(this);
-		buttonAttendees.setOnClickListener(this);
-	
-		buttonTakePicture.setOnClickListener(this);
-		buttonChooseFromFile.setOnClickListener(this);
-		tvAttachment.setOnClickListener(this);
+//		claimHeader = app.getMyClaims().get(getArguments().getInt(KEY_CLAIMPOS));
+//		spinnerCategoryNames = (Spinner) v.findViewById(R.id.spinners_claimiteminput_choices);
+//		etextDate = (EditText) v.findViewById(R.id.etexts_claimiteminput_expenseDate);
+//		spinnerForeignCurrencies = (Spinner) v.findViewById(R.id.spinners_claimiteminput_currency_fc);
+//		etextAmountForeign = (EditText) v.findViewById(R.id.etexts_claimiteminput_amount_fc);
+//		etextCurrencyLocal = (EditText) v.findViewById(R.id.etexts_claimiteminput_currency_lc);
+//		etextAmountLocal = (EditText) v.findViewById(R.id.etexts_claimiteminput_amount_lc);
+//		etextExchangeRate = (EditText) v.findViewById(R.id.etexts_claimiteminput_exrate);
+//		buttonAttendees = (RelativeLayout) v.findViewById(R.id.containers_claimitemdetail_attendees);
+//		tviewAttendeeCnt = (TextView) v.findViewById(R.id.tviews_claimitemdetail_attendeecount);
+//		etextTaxRate = (EditText) v.findViewById(R.id.etexts_claimiteminput_taxrate);
+//		etextDesc = (EditText) v.findViewById(R.id.etexts_claimiteminput_description);
+//		etextNotesClientToBill = (EditText) v.findViewById(R.id.etexts_claimiteminput_notesclienttobill);
+//		cboxApplyTaxRate = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_istaxapplied);
+//		cboxApplyTaxRate.setOnCheckedChangeListener(this);
+//		spinnerProject = (Spinner)v.findViewById(R.id.spinners_claimiteminput_project);
+//		spinnerOffices = (Spinner)v.findViewById(R.id.spinners_claimiteminput_billToOffices);
+//		cboxBillable = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_isBillable);
+//		cboxBillable.setOnCheckedChangeListener(this);
+//		//mileage
+//		trMileageHeader = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_header);
+//		trMileageFrom = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_from);
+//		trMileageTo = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_to);
+//		trMileageReturn = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_return);
+//		trMileageMileage = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_mileage);
+//		trMileageRate = (TableRow)v.findViewById(R.id.trs_claimiteminput_mileage_rate);
+//		etextMileageFrom = (EditText)v.findViewById(R.id.etexts_claimiteminput_mileage_from);
+//		etextMileageTo = (EditText)v.findViewById(R.id.etexts_claimiteminput_mileage_to);
+//		cboxMileageReturn = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_mileage_isReturn);
+//		etextMileageMileage = (EditText)v.findViewById(R.id.etexts_claimiteminput_mileage_mileage);
+//		spinnerMileageType = (Spinner)v.findViewById(R.id.spinner_claimiteminput_mileage_mileage);
+//		etextMileageRate = (EditText)v.findViewById(R.id.etexts_claimiteminput_mileage_rate);
+//		//attachment
+//		cboxAttachment = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_attachment_header);
+//		cboxAttachment.setOnCheckedChangeListener(this);
+//		trAttachmentPreview = (TableRow)v.findViewById(R.id.trs_claimiteminput_attachment_preview);
+//		trAttachmentAction = (TableRow)v.findViewById(R.id.trs_claimiteminput_attachment_actions);
+//		tvAttachment = (TextView)v.findViewById(R.id.tviews_claimiteminput_attachment);
+//		buttonTakePicture = (TextView)v.findViewById(R.id.buttons_claimiteminput_attachment_fromcamera);
+//		buttonChooseFromFile = (TextView)v.findViewById(R.id.buttons_claimiteminput_attachment_fromfiles);
+//
+//		ArrayList<String> mileageTypes = new ArrayList<String>();
+//		mileageTypes.add(MilageClaimItem.MILEAGETYPE_VAL_KILOMETER);
+//		mileageTypes.add(MilageClaimItem.MILEAGETYPE_VAL_MILE);
+//		spinnerMileageType.setAdapter(new SimpleSpinnerAdapter(activity, mileageTypes, NodeSize.SIZE_NORMAL));
+//		//initialization of categories should be done in the thread
+//		if(pd == null)
+//			pd = new SaltProgressDialog(activity);
+//		pd.show();
+//		new Thread(new ClaimItemCategoryListGetter()).start();
+//		pd.show();
+//		new Thread(new ClaimItemProjectListGetter()).start();
+//
+//		foreignCurrencies = new ArrayList<String>();
+//		for(int i=0; i<app.getCurrencies().size(); i++)
+//			foreignCurrencies.add(app.getCurrencies().get(i).getCurrencySymbol());
+//		spinnerForeignCurrencies.setAdapter(new ClaimItemSpinnerAdapter(activity, foreignCurrencies));
+//
+//		if(getArguments().containsKey(KEY_CLAIMITEMPOS)){
+//			newClaimItem = claimHeader.getPreparedClaimItemForEdit();
+//			attendeeFragment = ClaimItemAttendeeListFragment.newInstance(getArguments().getInt(KEY_CLAIMPOS), getArguments().getInt(KEY_CLAIMITEMPOS));
+//			etextDate.setText(newClaimItem.getExpenseDate());
+//			prevSelectedForeignCurr = foreignCurrencies.indexOf(newClaimItem.getForeignCurrencyName());
+//			spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
+//			etextAmountForeign.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getForeignAmount()));
+//			etextAmountLocal.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getLocalAmount()));
+//			etextTaxRate.setText(String.valueOf(newClaimItem.getTaxAmount()));
+//			cboxApplyTaxRate.setChecked(newClaimItem.isTaxApplied());
+//			if(newClaimItem.isBillable()){
+//				cboxBillable.setOnCheckedChangeListener(null);
+//				cboxBillable.setChecked(true);
+//				cboxBillable.setOnCheckedChangeListener(this);
+//				cboxBillable.setText(newClaimItem.getBillableCompanyName());
+//			}
+//
+//			etextDesc.setText(newClaimItem.getDescription());
+//			if(newClaimItem.hasReceipt()){
+//				cboxAttachment.setChecked(true);
+//				tvAttachment.setText(newClaimItem.getAttachmentName());
+//			}else
+//				cboxAttachment.setChecked(false);
+//
+//			cboxAttachment.setChecked(newClaimItem.hasReceipt());
+//
+//			if(newClaimItem.getCategoryTypeID() == Category.TYPE_MILEAGE){
+//				MilageClaimItem mileageItem = new MilageClaimItem(newClaimItem.getMap(), app);
+//				etextMileageFrom.setText(mileageItem.getMileageFrom());
+//				etextMileageTo.setText(mileageItem.getMileageTo());
+//				cboxMileageReturn.setChecked(mileageItem.isMileageReturn());
+//				etextMileageMileage.setText(String.valueOf(mileageItem.getMileage()));
+//				spinnerMileageType.setSelection(mileageTypes.indexOf(mileageItem.getMilageTypeName()));
+//				etextMileageRate.setText(String.valueOf(mileageItem.getMilageRate()));
+//			}
+//		}else{
+//			newClaimItem = claimHeader.getPreparedClaimItemForCreation();
+//			attendeeFragment = ClaimItemAttendeeListFragment.newInstance(getArguments().getInt(KEY_CLAIMPOS));
+//			prevSelectedForeignCurr = foreignCurrencies.indexOf(app.getStaffOffice().getBaseCurrencyThree());
+//			spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
+//		}
+//
+//		int cnt = newClaimItem.getAttendees().size();
+//		tviewAttendeeCnt.setText(String.valueOf(cnt));
+//
+//		spinnerForeignCurrencies.setOnItemSelectedListener(this);
+//		spinnerForeignCurrencies.setTag("-1");
+//		etextCurrencyLocal.setText(app.getStaffOffice().getBaseCurrencyThree());
+//		etextDate.setOnFocusChangeListener(this);
+//		etextDate.setOnClickListener(this);
+//		etextAmountForeign.addTextChangedListener(this);
+//		etextExchangeRate.addTextChangedListener(this);
+//		buttonAttendees.setOnClickListener(this);
+//
+//		buttonTakePicture.setOnClickListener(this);
+//		buttonChooseFromFile.setOnClickListener(this);
+//		tvAttachment.setOnClickListener(this);
 
 		return v;
 	}

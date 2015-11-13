@@ -5,8 +5,6 @@ import java.util.HashMap;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +18,8 @@ import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter;
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter.NodeSize;
-import applusvelosi.projects.android.salt.models.claimheaders.BusinessAdvance;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
-import applusvelosi.projects.android.salt.models.claimheaders.ClaimNotPaidByCC;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
-import applusvelosi.projects.android.salt.models.claimheaders.LiquidationOfBA;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.utils.OfflineGateway.SerializableClaimTypes;
 import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
 
 public class ClaimInputFragment extends ActionbarFragment implements OnItemSelectedListener{
@@ -233,93 +226,93 @@ public class ClaimInputFragment extends ActionbarFragment implements OnItemSelec
 					propSpinnerAdvances.performClick();
 			}
 			else{
-				try{
+//				try{
 //					final StaffProxy selectedLeavee = appProxies.get(propSpinnerProxyNames.getSelectedItemPosition());
 					
-					if(getArguments() == null){ //new claim header
-						if(selType.equals(ClaimHeader.TYPEDESC_CLAIMS)){
-							oldClaimHeaderJSON = ClaimPaidByCC.getEmptyJSON(app);
-							System.out.println(paidByCC.isChecked());
-							if(paidByCC.isChecked())
-								newClaimHeader = new ClaimPaidByCC(	app.getStaff().getStaffID(), app.getStaff().getFname()+" "+app.getStaff().getLname(), app.getStaff().getEmail(),
-																	app.getStaff().getOfficeID(), app.getStaff().getOfficeName(), "",
-																	app.getStaff().getCostCenterID(), app.getStaff().getCostCenterName(), 
-																	app.getStaff().getExpenseApproverID(), app.getStaff().getExpenseApproverName(), app.getStaff().getExpenseApproverEmail(),
-																	app.getStaff().getAccountID(), app.getStaff().getAccountName(), app.getStaff().getAccountEmail(),
-																	app);
-							else
-								newClaimHeader = new ClaimNotPaidByCC(	app.getStaff().getStaffID(), app.getStaff().getFname()+" "+app.getStaff().getLname(), app.getStaff().getEmail(),
-																		app.getStaff().getOfficeID(), app.getStaff().getOfficeName(), "",
-																		app.getStaff().getCostCenterID(), app.getStaff().getCostCenterName(), 
-																		app.getStaff().getExpenseApproverID(), app.getStaff().getExpenseApproverName(), app.getStaff().getExpenseApproverEmail(),
-																		app.getStaff().getAccountID(), app.getStaff().getAccountName(), app.getStaff().getAccountEmail(),
-																		app);
-						}else if(selType.equals(ClaimHeader.TYPEDESC_ADVANCES)){
-							oldClaimHeaderJSON = BusinessAdvance.getEmptyJSON(app);
-							newClaimHeader = new BusinessAdvance(	app.getStaff().getStaffID(), app.getStaff().getFname()+" "+app.getStaff().getLname(), app.getStaff().getEmail(),
-																	app.getStaff().getOfficeID(), app.getStaff().getOfficeName(), "",
-																	app.getStaff().getCostCenterID(), app.getStaff().getCostCenterName(), 
-																	app.getStaff().getExpenseApproverID(), app.getStaff().getExpenseApproverName(), app.getStaff().getExpenseApproverEmail(),
-																	app.getStaff().getAccountID(), app.getStaff().getAccountName(), app.getStaff().getAccountEmail(),
-																	app);
-						}else if(selType.equals(ClaimHeader.TYPEDESC_LIQUIDATION)){
-							String selClaimNum = propSpinnerAdvances.getSelectedItem().toString();
-							oldClaimHeaderJSON = LiquidationOfBA.getEmptyJSON(app);
-							newClaimHeader = new LiquidationOfBA(	app.getStaff().getStaffID(), app.getStaff().getFname()+" "+app.getStaff().getLname(), app.getStaff().getEmail(),
-																	app.getStaff().getOfficeID(), app.getStaff().getOfficeName(), "",
-																	app.getStaff().getCostCenterID(), app.getStaff().getCostCenterName(), 
-																	app.getStaff().getExpenseApproverID(), app.getStaff().getExpenseApproverName(), app.getStaff().getExpenseApproverEmail(),
-																	app.getStaff().getAccountID(), app.getStaff().getAccountName(), app.getStaff().getAccountEmail(),
-																	advanceNumberIDs.get(selClaimNum), selClaimNum,
-																	app);
-						}
-					}else{ //edit claim header
-						oldClaimHeaderJSON = newClaimHeader.jsonize(app);
-						newClaimHeader.editClaimHeader(paidByCC.isChecked());
-					}			
+//					if(getArguments() == null){ //new claim header
+//						if(selType.equals(ClaimHeader.TYPEDESC_CLAIMS)){
+//							oldClaimHeaderJSON = ClaimPaidByCC.getEmptyJSON(app);
+//							System.out.println(paidByCC.isChecked());
+//							if(paidByCC.isChecked())
+//								newClaimHeader = new ClaimPaidByCC(	app.getStaff().getStaffID(), app.getStaff().getFname()+" "+app.getStaff().getLname(), app.getStaff().getEmail(),
+//																	app.getStaff().getOfficeID(), app.getStaff().getOfficeName(), "",
+//																	app.getStaff().getCostCenterID(), app.getStaff().getCostCenterName(),
+//																	app.getStaff().getExpenseApproverID(), app.getStaff().getExpenseApproverName(), app.getStaff().getExpenseApproverEmail(),
+//																	app.getStaff().getAccountID(), app.getStaff().getAccountName(), app.getStaff().getAccountEmail(),
+//																	app);
+//							else
+//								newClaimHeader = new ClaimNotPaidByCC(	app.getStaff().getStaffID(), app.getStaff().getFname()+" "+app.getStaff().getLname(), app.getStaff().getEmail(),
+//																		app.getStaff().getOfficeID(), app.getStaff().getOfficeName(), "",
+//																		app.getStaff().getCostCenterID(), app.getStaff().getCostCenterName(),
+//																		app.getStaff().getExpenseApproverID(), app.getStaff().getExpenseApproverName(), app.getStaff().getExpenseApproverEmail(),
+//																		app.getStaff().getAccountID(), app.getStaff().getAccountName(), app.getStaff().getAccountEmail(),
+//																		app);
+//						}else if(selType.equals(ClaimHeader.TYPEDESC_ADVANCES)){
+//							oldClaimHeaderJSON = BusinessAdvance.getEmptyJSON(app);
+//							newClaimHeader = new BusinessAdvance(	app.getStaff().getStaffID(), app.getStaff().getFname()+" "+app.getStaff().getLname(), app.getStaff().getEmail(),
+//																	app.getStaff().getOfficeID(), app.getStaff().getOfficeName(), "",
+//																	app.getStaff().getCostCenterID(), app.getStaff().getCostCenterName(),
+//																	app.getStaff().getExpenseApproverID(), app.getStaff().getExpenseApproverName(), app.getStaff().getExpenseApproverEmail(),
+//																	app.getStaff().getAccountID(), app.getStaff().getAccountName(), app.getStaff().getAccountEmail(),
+//																	app);
+//						}else if(selType.equals(ClaimHeader.TYPEDESC_LIQUIDATION)){
+//							String selClaimNum = propSpinnerAdvances.getSelectedItem().toString();
+//							oldClaimHeaderJSON = LiquidationOfBA.getEmptyJSON(app);
+//							newClaimHeader = new LiquidationOfBA(	app.getStaff().getStaffID(), app.getStaff().getFname()+" "+app.getStaff().getLname(), app.getStaff().getEmail(),
+//																	app.getStaff().getOfficeID(), app.getStaff().getOfficeName(), "",
+//																	app.getStaff().getCostCenterID(), app.getStaff().getCostCenterName(),
+//																	app.getStaff().getExpenseApproverID(), app.getStaff().getExpenseApproverName(), app.getStaff().getExpenseApproverEmail(),
+//																	app.getStaff().getAccountID(), app.getStaff().getAccountName(), app.getStaff().getAccountEmail(),
+//																	advanceNumberIDs.get(selClaimNum), selClaimNum,
+//																	app);
+//						}
+//					}else{ //edit claim header
+//						oldClaimHeaderJSON = newClaimHeader.jsonize(app);
+//						newClaimHeader.editClaimHeader(paidByCC.isChecked());
+//					}
 
-					if(pd == null)
-						pd = new SaltProgressDialog(activity);
-					pd.show();
-					new Thread(new Runnable() {
-						
-						@Override
-						public void run() {
-							String tempResult;
-							try{
-								tempResult = app.onlineGateway.saveClaim(newClaimHeader.jsonize(app), oldClaimHeaderJSON);
-							}catch(Exception e){
-								e.printStackTrace();
-								tempResult = e.getMessage();
-							}
-							
-							final String result = tempResult;
-							new Handler(Looper.getMainLooper()).post(new Runnable() {
-								
-								@Override
-								public void run() {
-									pd.dismiss();
-									if(result == null){
-										if(getArguments()!=null && Integer.parseInt(newClaimHeader.getMap().get(ClaimHeader.KEY_TYPEID).toString()) == ClaimHeader.TYPEKEY_CLAIMS){
-											int claimPos = getArguments().getInt(KEY_CLAIMPOS);
-											app.getMyClaims().add(claimPos+1, (paidByCC.isChecked())?new ClaimPaidByCC(newClaimHeader.getMap()):new ClaimNotPaidByCC(newClaimHeader.getMap()));
-											app.getMyClaims().remove(claimPos);
-											app.offlineGateway.serializeClaimHeaders(app.getMyClaims(), SerializableClaimTypes.MY_CLAIM);
-										}
-										app.showMessageDialog(activity, "Claim Created Successfully!");
-									}else{
-										//revert to its original status
-										newClaimHeader.editClaimHeader(!paidByCC.isChecked());
-										app.showMessageDialog(activity, result);
-									}
-								}
-							});
-						}
-					}).start();
-				}catch(Exception e){
-					e.printStackTrace();
-					app.showMessageDialog(activity, "asd "+e.getMessage());
-				}
+//					if(pd == null)
+//						pd = new SaltProgressDialog(activity);
+//					pd.show();
+//					new Thread(new Runnable() {
+//
+//						@Override
+//						public void run() {
+//							String tempResult;
+//							try{
+//								tempResult = app.onlineGateway.saveClaim(newClaimHeader.jsonize(app), oldClaimHeaderJSON);
+//							}catch(Exception e){
+//								e.printStackTrace();
+//								tempResult = e.getMessage();
+//							}
+//
+//							final String result = tempResult;
+//							new Handler(Looper.getMainLooper()).post(new Runnable() {
+//
+//								@Override
+//								public void run() {
+//									pd.dismiss();
+//									if(result == null){
+//										if(getArguments()!=null && Integer.parseInt(newClaimHeader.getMap().get(ClaimHeader.KEY_TYPEID).toString()) == ClaimHeader.TYPEKEY_CLAIMS){
+//											int claimPos = getArguments().getInt(KEY_CLAIMPOS);
+//											app.getMyClaims().add(claimPos+1, (paidByCC.isChecked())?new ClaimPaidByCC(newClaimHeader.getMap()):new ClaimNotPaidByCC(newClaimHeader.getMap()));
+//											app.getMyClaims().remove(claimPos);
+//											app.offlineGateway.serializeClaimHeaders(app.getMyClaims(), SerializableClaimTypes.MY_CLAIM);
+//										}
+//										app.showMessageDialog(activity, "Claim Created Successfully!");
+//									}else{
+//										//revert to its original status
+//										newClaimHeader.editClaimHeader(!paidByCC.isChecked());
+//										app.showMessageDialog(activity, result);
+//									}
+//								}
+//							});
+//						}
+//					}).start();
+//				}catch(Exception e){
+//					e.printStackTrace();
+//					app.showMessageDialog(activity, "asd "+e.getMessage());
+//				}
 			}
 		}
 	}

@@ -61,16 +61,14 @@ public class CapexesForApprovalFragment extends ActionbarFragment implements Roo
         adapter = new CapexForApprovalAdapter(activity, capexes);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(this);
+        pd = new SaltProgressDialog(activity);
 
         syncToServer();
         return view;
     }
 
     private void syncToServer(){
-        if(pd == null)
-            pd = new SaltProgressDialog(activity);
-
-        pd.show();;
+        pd.show();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -83,10 +81,11 @@ public class CapexesForApprovalFragment extends ActionbarFragment implements Roo
                 }
 
                 final Object capexForApprovalResult = tempCapexForApprovalResult;
+
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        pd.dismiss();;
+                        pd.dismiss();
                         if(capexForApprovalResult instanceof String)
                             app.showMessageDialog(activity, capexForApprovalResult.toString());
                         else{

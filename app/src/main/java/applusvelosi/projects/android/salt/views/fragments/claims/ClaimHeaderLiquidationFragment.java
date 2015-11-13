@@ -19,17 +19,17 @@ public class ClaimHeaderLiquidationFragment extends ClaimHeaderFragment{
 		fragment.setArguments(b);
 		return fragment;
 	}
-	
+
+	@Override
+	protected String getActionbarTitle() {
+		return "Liquidation";
+	}
+
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		LiquidationOfBA liquidation = (LiquidationOfBA)claim;
 		View view = inflater.inflate(R.layout.fragment_claimdetails_liquidation, null);
 		
-		tvLineItem = (TextView)view.findViewById(R.id.tviews_claimdetail_items);
-		tvLineItem.setPaintFlags(tvLineItem.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-		tvLineItem.setOnClickListener(this);
-		
-		updateActionbar();
 		((TextView)view.findViewById(R.id.tviews_claimdetail_liquidation_id)).setText(String.valueOf(claim.getClaimNumber()));
 		((TextView)view.findViewById(R.id.tviews_claimdetail_liquidation_staff)).setText(claim.getStaffName());
 		((TextView)view.findViewById(R.id.tviews_claimdetail_liquidation_costcenter)).setText(claim.getCostCenterName());

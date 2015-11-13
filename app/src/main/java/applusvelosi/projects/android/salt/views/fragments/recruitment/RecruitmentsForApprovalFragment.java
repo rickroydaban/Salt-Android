@@ -64,14 +64,13 @@ public class RecruitmentsForApprovalFragment extends ActionbarFragment implement
         adapter = new RecruitmentForApprovalAdapter(activity, recruitments);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(this);
+        pd = new SaltProgressDialog(getActivity());
         syncToServer();
 
         return v;
     }
 
     private void syncToServer(){
-        if(pd == null)
-            pd = new SaltProgressDialog(getActivity());
 
         pd.show();;
         new Thread(new Runnable() {

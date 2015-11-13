@@ -19,37 +19,42 @@
 	        
     </RelativeLayout>
 
-    <RelativeLayout 
-        android:id="@+id/buttons_actionbar_add"
+    <LinearLayout
+        android:id="@+id/containers_actionbar_backnewrefresh_newrefresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/paddings_actionbar_buttons"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true">
 
-	    <ImageView 
-	        android:layout_width="@dimen/dimens_actionbar_item"
-	        android:layout_height="@dimen/dimens_actionbar_item"
-	        android:src="@drawable/icon_add"
-	        android:scaleType="fitXY" />
-	        
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/buttons_actionbar_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/paddings_actionbar_buttons">
 
-    <RelativeLayout 
-        android:id="@+id/buttons_actionbar_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/paddings_actionbar_buttons"
-        android:layout_toLeftOf="@id/buttons_actionbar_add"
-        android:layout_centerVertical="true">
+            <ImageView
+                android:layout_width="@dimen/dimens_actionbar_item"
+                android:layout_height="@dimen/dimens_actionbar_item"
+                android:src="@drawable/icon_add"
+                android:scaleType="fitXY" />
 
-	    <ImageView 
-	        android:layout_width="@dimen/dimens_actionbar_item"
-	        android:layout_height="@dimen/dimens_actionbar_item"
-	        android:src="@drawable/icon_refresh"
-	        android:scaleType="fitXY" />
-	        
-    </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/buttons_actionbar_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/paddings_actionbar_buttons">
+
+            <ImageView
+                android:layout_width="@dimen/dimens_actionbar_item"
+                android:layout_height="@dimen/dimens_actionbar_item"
+                android:src="@drawable/icon_refresh"
+                android:scaleType="fitXY" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
     	    
      <TextView 
         android:id="@+id/tviews_actionbar_title"
@@ -59,7 +64,7 @@
         android:textSize="@dimen/fsizes_listcell_header"
         android:textStyle="bold"
         android:layout_toRightOf="@id/buttons_actionbar_back"
-        android:layout_toLeftOf="@id/buttons_actionbar_refresh"
+        android:layout_toLeftOf="@id/containers_actionbar_backnewrefresh_newrefresh"
         android:gravity="center_vertical"/>
     
 </RelativeLayout>

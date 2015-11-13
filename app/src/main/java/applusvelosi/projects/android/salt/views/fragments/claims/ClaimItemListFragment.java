@@ -3,6 +3,8 @@ package applusvelosi.projects.android.salt.views.fragments.claims;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ import applusvelosi.projects.android.salt.utils.threads.ClaimItemLoader;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
 
-public class ClaimItemListFragment extends ActionbarFragment implements OnItemClickListener, LoaderInterface{
+public class ClaimItemListFragment extends ActionbarFragment implements OnItemClickListener{
 	private static String KEY = "claimItemListFragmentKey";
 	//action bar buttons
 	private RelativeLayout actionbarBackButton, actionbarRefreshButton, actionbarNewButton;
@@ -32,7 +34,7 @@ public class ClaimItemListFragment extends ActionbarFragment implements OnItemCl
 	private ClaimItemAdapter adapter;
 	private ClaimHeader claimHeader;
 	private ArrayList<ClaimItem> claimItems;
-		
+
 	public static ClaimItemListFragment newInstance(int position){
 		ClaimItemListFragment fragment = new ClaimItemListFragment();
 		Bundle b = new Bundle();
@@ -43,6 +45,7 @@ public class ClaimItemListFragment extends ActionbarFragment implements OnItemCl
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
+        claimHeader = app.getMyClaims().get(getArguments().getInt(KEY));
 		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backrefreshnew, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarRefreshButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_refresh);
@@ -51,27 +54,36 @@ public class ClaimItemListFragment extends ActionbarFragment implements OnItemCl
 		
 		actionbarBackButton.setOnClickListener(this);
 		actionbarRefreshButton.setOnClickListener(this);
-		actionbarNewButton.setOnClickListener(this);
 		actionbarTitleTextview.setOnClickListener(this);
 
-		return actionbarLayout;
+        if(claimHeader.getStatusID() == ClaimHeader.STATUSKEY_OPEN)
+            actionbarNewButton.setOnClickListener(this);
+        else
+            actionbarNewButton.setVisibility(View.GONE);
+        return actionbarLayout;
 	}
 	
 	@Override
 	protected View createView(LayoutInflater li, ViewGroup vg, Bundle b) {
-		claimHeader = app.getMyClaims().get(getArguments().getInt(KEY));
 		claimItems = new ArrayList<ClaimItem>();
 		claimItems.addAll(claimHeader.getClaimItems(app));
-		actionbarTitleTextview.setText("Claim Items ("+claimItems.size()+")");
+		actionbarTitleTextview.setText("Claim Item");
 		View view = li.inflate(R.layout.fragment_claimitemlist, null);
-		lv = (ListView)view.findViewById(R.id.lists_claimItemList);		
+		lv = (ListView)view.findViewById(R.id.lists_claimItemList);
 		adapter = new ClaimItemAdapter(activity, claimItems);
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
-		
+
+        pd = new SaltProgressDialog(activity);
 		return view;
 	}
-	
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		refresh();
+	}
+
 	@Override
 	public void onClick(View v) {
 		if(v == actionbarBackButton || v == actionbarTitleTextview){
@@ -81,14 +93,43 @@ public class ClaimItemListFragment extends ActionbarFragment implements OnItemCl
 			if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES)
 				activity.changeChildPage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY), -1));
 			else
-				activity.changeChildPage(ItemInputFragmentClaims.newInstanceForCreatingNewClaimItem(getArguments().getInt(KEY)));
+				activity.changeChildPage(new ClaimItemInputCategory());
 		}else if(v == actionbarRefreshButton){
-			if(pd == null)
-				pd = new SaltProgressDialog(activity);
-			
-			pd.show();
-			new Thread(new ClaimItemLoader(app, claimHeader.getClaimID(), this)).start();
+			refresh();
 		}
+	}
+
+	private void refresh(){
+		pd.show();
+		new Thread(new Runnable(){
+
+			@Override
+			public void run() {
+				Object tempResult;
+				try{
+					tempResult = app.onlineGateway.getClaimItemsWithClaimID(claimHeader.getClaimID());
+				}catch(Exception e){
+					e.printStackTrace();
+					tempResult = e.getMessage();
+				}
+
+				final Object result = tempResult;
+				new Handler(Looper.getMainLooper()).post(new Runnable() {
+					@Override
+					public void run() {
+						pd.dismiss();
+						if(result instanceof String){
+							app.showMessageDialog(activity, result.toString());
+						}else{
+							claimItems.clear();
+							claimItems.addAll((ArrayList<ClaimItem>)result);
+							adapter.notifyDataSetChanged();
+							claimHeader.updateLineItems(claimItems, app);
+						}
+					}
+				});
+			}
+		}).start();
 	}
 
 	@Override
@@ -97,20 +138,5 @@ public class ClaimItemListFragment extends ActionbarFragment implements OnItemCl
 			activity.changeChildPage(ClaimItemDetailMileageFragment.newInstance(getArguments().getInt(KEY), pos));
 		else
 			activity.changeChildPage(ClaimItemDetailGenericFragment.newInstance(getArguments().getInt(KEY), pos));
-	}
-
-	@Override
-	public void onLoadSuccess(Object claimItems) {
-		pd.dismiss();
-		this.claimItems.clear();
-		this.claimItems.addAll((ArrayList<ClaimItem>)claimItems);
-		adapter.notifyDataSetChanged();
-		claimHeader.updateLineItems(this.claimItems, app);
-	}
-
-	@Override
-	public void onLoadFailed(String failureMessage) {
-		pd.dismiss();
-		app.showMessageDialog(activity, failureMessage);
 	}
 }

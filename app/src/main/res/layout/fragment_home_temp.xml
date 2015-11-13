@@ -1,0 +1,772 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<TextView
+		android:id="@+id/tviews_home_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="@dimen/fsizes_listcell_header"
+		android:textStyle="bold"
+		android:textColor="@color/black"
+		android:layout_marginTop="25dp"
+		android:gravity="center"/>
+
+	<TextView
+		android:id="@+id/tviews_home_currdatetime"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:textSize="@dimen/fsizes_listcell_subheader"
+		android:textColor="@color/menu_list_separator"
+        android:layout_marginBottom="25dp"/>
+
+	<LinearLayout
+        android:id="@+id/containers_home_approvals"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center">
+
+		<LinearLayout
+            android:id="@+id/buttons_home_leavesforapproval"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:gravity="center"
+			android:padding="10dp">
+
+			<RelativeLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:src="@drawable/bg_circle"
+					android:scaleType="fitXY" />
+
+				<TextView
+                    android:id="@+id/tviews_home_leavesforapproval"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/orange_velosi"
+					android:textStyle="bold"
+					android:textSize="@dimen/fsizes_listcell_header"
+					android:text="200"
+					android:layout_centerInParent="true"/>
+
+			</RelativeLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Leaves"
+				android:textSize="10sp"
+				android:textColor="@color/black"
+				android:layout_marginTop="5dp"
+				android:textStyle="bold"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+            android:id="@+id/buttons_home_claimsforapproval"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:gravity="center"
+			android:padding="10dp">
+
+			<RelativeLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:src="@drawable/bg_circle"
+					android:scaleType="fitXY" />
+
+				<TextView
+                    android:id="@+id/tviews_home_claimsforapproval"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/orange_velosi"
+					android:textStyle="bold"
+					android:textSize="@dimen/fsizes_listcell_header"
+					android:text="200"
+					android:layout_centerInParent="true"/>
+
+			</RelativeLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Claims"
+				android:textSize="10sp"
+				android:textColor="@color/black"
+				android:layout_marginTop="5dp"
+				android:textStyle="bold"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+            android:id="@+id/buttons_home_recruitmentsforapproval"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:gravity="center"
+			android:padding="10dp">
+
+			<RelativeLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:src="@drawable/bg_circle"
+					android:scaleType="fitXY" />
+
+				<TextView
+                    android:id="@+id/tviews_home_recruitmentsforapproval"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="#ABABAB"
+					android:textStyle="bold"
+					android:textSize="@dimen/fsizes_listcell_header"
+					android:text="0"
+					android:layout_centerInParent="true"/>
+
+			</RelativeLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Recruitments"
+				android:textSize="10sp"
+				android:textColor="@color/black"
+				android:layout_marginTop="5dp"
+				android:textStyle="bold"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+            android:id="@+id/buttons_home_capexforapproval"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:gravity="center"
+			android:padding="10dp">
+
+			<RelativeLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:layout_width="45dp"
+					android:layout_height="45dp"
+					android:src="@drawable/bg_circle"
+					android:scaleType="fitXY" />
+
+				<TextView
+                    android:id="@+id/tviews_home_capexforapproval"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/orange_velosi"
+					android:textStyle="bold"
+					android:textSize="@dimen/fsizes_listcell_header"
+					android:text="200"
+					android:layout_centerInParent="true"/>
+
+			</RelativeLayout>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Capex"
+				android:textSize="10sp"
+				android:textColor="@color/black"
+				android:layout_marginTop="5dp"
+				android:textStyle="bold"/>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Leaves"
+                    style="@style/styles_home_leavesoverview_header"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Used"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fsizes_listcell_subheader"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:background="#808080"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Pending"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fsizes_listcell_subheader"
+                    android:gravity="center"
+                    android:paddingRight="5dp"
+                    android:background="#808080"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Remaining"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fsizes_listcell_subheader"
+                    android:gravity="center"
+                    android:paddingRight="5dp"
+                    android:background="#808080"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:text="Vacation"/>
+
+                <TextView
+                    android:id="@+id/labels_home_vacation_used"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_vacation_pending"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_vacation_rem"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:text="Sick"/>
+
+                <TextView
+                    android:id="@+id/labels_home_sick_used"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_sick_pending"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_sick_rem"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:text="Unpaid"/>
+
+                <TextView
+                    android:id="@+id/labels_home_unpaid_used"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_unpaid_pending"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textStyle="bold"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:text="Hospitalization"/>
+
+                <TextView
+                    android:id="@+id/labels_home_hospitalization_used"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_hospitalization_pending"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textStyle="bold"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:text="Business Trip"/>
+
+                <TextView
+                    android:id="@+id/labels_home_businesstrip_used"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_businesstrip_pending"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textStyle="bold"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Expenses"
+                    style="@style/styles_home_leavesoverview_header"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Claims"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fsizes_listcell_subheader"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:background="#808080"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Advaces"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fsizes_listcell_subheader"
+                    android:gravity="center"
+                    android:paddingRight="5dp"
+                    android:background="#808080"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Liquidation"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/fsizes_listcell_subheader"
+                    android:gravity="center"
+                    android:paddingRight="5dp"
+                    android:background="#808080"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:text="Open"/>
+
+                <TextView
+                    android:id="@+id/labels_home_open_claims"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_open_advances"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_open_liquidations"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:text="Submitted"/>
+
+                <TextView
+                    android:id="@+id/labels_home_submitted_claims"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_submitted_advances"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_submitted_liquidations"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:text="Approved by Manager"/>
+
+                <TextView
+                    android:id="@+id/labels_home_approvedbymanager_claims"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_approvedbymanager_advances"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_approvedbymanager_liquidations"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:text="Approved by CM"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/labels_home_approvedbycm_advances"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textStyle="bold"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:text="Approved by Accounts"/>
+
+                <TextView
+                    android:id="@+id/labels_home_approvedbyaccounts_claims"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_approvedbyaccounts_advances"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_approvedbyaccounts_liquidations"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:text="Paid"/>
+
+                <TextView
+                    android:id="@+id/labels_home_paid_claims"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_paid_advances"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_paid_liquidations"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listitem2_small"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:text="Liquidated"/>
+
+                <TextView
+                    android:id="@+id/labels_home_liquidated_claims"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/labels_home_liquidated_advances"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/labels_home_liqudated_liquidations"
+                    android:layout_span="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_listtitem1_small"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_span="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/menu_list_separator" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+</LinearLayout>
+

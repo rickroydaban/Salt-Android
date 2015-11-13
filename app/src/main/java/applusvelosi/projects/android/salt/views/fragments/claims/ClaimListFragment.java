@@ -3,6 +3,8 @@ package applusvelosi.projects.android.salt.views.fragments.claims;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,38 +22,37 @@ import applusvelosi.projects.android.salt.views.ClaimSearchFragment;
 import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
 
 public class ClaimListFragment extends ActionbarFragment implements OnItemClickListener, RootFragment{
+	private static ClaimListFragment instance;
+
 	//action bar buttons
-	private RelativeLayout actionbarMenuButton, actionbarSearchButton, actionbarRefreshButton, actionbarNewButton;
+	private RelativeLayout actionbarMenuButton, actionbarRefreshButton, actionbarNewButton;
 	
 	private ListView lv;
 	private MyClaimsAdapter adapter;
 	private ArrayList<ClaimHeader> claimHeaders;
-	private static ClaimListFragment instance;
 	private SaltProgressDialog pd;
-	
+
 	public static ClaimListFragment getInstance(){
 		if(instance == null)
 			instance = new ClaimListFragment();
-		
+
 		return instance;
 	}
-	
+
 	public static void removeInstance(){
 		if(instance != null)
 			instance = null;
-	}	
+	}
 
 	@Override
 	protected RelativeLayout setupActionbar() {
 		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_claimlist, null);
 		actionbarMenuButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_menu);
-		actionbarSearchButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_search);
 		actionbarRefreshButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_refresh);
-		actionbarNewButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_newclaim);
+        actionbarNewButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_newclaim);
 		((TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title)).setText("My Claims");
 		
 		actionbarMenuButton.setOnClickListener(this);
-		actionbarSearchButton.setOnClickListener(this);
 		actionbarRefreshButton.setOnClickListener(this);
 		actionbarNewButton.setOnClickListener(this);		
 
@@ -73,14 +74,40 @@ public class ClaimListFragment extends ActionbarFragment implements OnItemClickL
 	@Override
 	public void onResume() {
 		super.onResume();
-		refetchClaims();
+        updateList();
 	}
 	
 	private void updateList(){
 		if(pd == null)
 			pd = new SaltProgressDialog(activity);
-		
-//		app.updatenMyClaims(pd, this);
+
+        pd.show();
+		new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Object tempResult;
+                try{
+                    tempResult = app.onlineGateway.getMyClaims();
+                }catch(Exception e){
+                    e.printStackTrace();
+                    tempResult = e.getMessage();
+                }
+
+                final Object result = tempResult;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.dismiss();
+                        if(result instanceof String){
+                            app.showMessageDialog(activity, result.toString());
+                        }else{
+                            app.updateMyClaims((ArrayList<ClaimHeader>)result);
+                            refetchClaims();
+                        }
+                    }
+                });
+            }
+        }).start();
 	}
 
 	@Override
@@ -116,8 +143,6 @@ public class ClaimListFragment extends ActionbarFragment implements OnItemClickL
 			activity.changeChildPage(new ClaimInputFragment());			
 		}else if(v == actionbarRefreshButton){
 			updateList();
-		}else if(v == actionbarSearchButton){
-			activity.changeChildPage(new ClaimSearchFragment());
 		}
 	}
 
@@ -139,14 +164,4 @@ public class ClaimListFragment extends ActionbarFragment implements OnItemClickL
 			System.out.println("Null pointer exception at ClaimListFragment enableUserInteractionOnSidebarHidden()");			
 		}
 	}
-
-//	@Override
-//	public void onMyLeavesLoadSuccess() {
-//		refetchClaims();
-//	}
-//
-//	@Override
-//	public void onMyLeavesLoadFailed(String errorMessage) {
-//		app.showMessageDialog(activity, errorMessage);
-//	}
 }

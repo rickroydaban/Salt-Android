@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/menu_list_separator" />
+
+    <RelativeLayout
+        android:id="@+id/fragment_leaveinput_dates_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/iviews_nodes_next"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_next"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/fragment_leaveinput_dates_numdays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3 Days"
+            android:textSize="@dimen/fsizes_listcell_subheader"
+            android:textColor="@color/black"
+            android:layout_toLeftOf="@id/iviews_nodes_next"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_toLeftOf="@id/choices_dialog_leaverequest_numdays">
+
+            <TextView
+                android:id="@+id/fragment_leaveinput_dates_headerleavetype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/fsizes_listcell_header"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="Leave Type"
+                android:layout_toLeftOf="@id/iviews_nodes_next" />
+
+            <TextView
+                android:id="@+id/fragment_leaveinput_dates_headerdates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/fsizes_listcell_subheader"
+                android:textColor="@color/black"
+                android:text="No Selection" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/menu_list_separator" />
+
+    <ListView
+        android:id="@+id/lists_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#ABABAB"/>
+
+</LinearLayout>
+

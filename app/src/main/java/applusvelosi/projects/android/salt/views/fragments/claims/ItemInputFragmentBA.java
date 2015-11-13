@@ -39,85 +39,85 @@ public class ItemInputFragmentBA extends ItemInputFragment {
 	@Override
 	public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_claimitem_input, null);
-		claimHeader = app.getMyClaims().get(getArguments().getInt(KEY_CLAIMPOS));
-		spinnerCategoryNames = (Spinner) v.findViewById(R.id.spinners_claimiteminput_choices);
-		etextDate = (EditText) v.findViewById(R.id.etexts_claimiteminput_expenseDate);
-		spinnerForeignCurrencies = (Spinner) v.findViewById(R.id.spinners_claimiteminput_currency_fc);
-		etextAmountForeign = (EditText) v.findViewById(R.id.etexts_claimiteminput_amount_fc);
-		etextCurrencyLocal = (EditText) v.findViewById(R.id.etexts_claimiteminput_currency_lc);
-		etextAmountLocal = (EditText) v.findViewById(R.id.etexts_claimiteminput_amount_lc);
-		etextExchangeRate = (EditText) v.findViewById(R.id.etexts_claimiteminput_exrate);
-		etextTaxRate = (EditText) v.findViewById(R.id.etexts_claimiteminput_taxrate);
-		etextDesc = (EditText) v.findViewById(R.id.etexts_claimiteminput_description);
-		etextNotesClientToBill = (EditText) v.findViewById(R.id.etexts_claimiteminput_notesclienttobill);
-		cboxApplyTaxRate = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_istaxapplied);
-		cboxApplyTaxRate.setOnCheckedChangeListener(this);
-		spinnerProject = (Spinner)v.findViewById(R.id.spinners_claimiteminput_project);
-		spinnerOffices = (Spinner)v.findViewById(R.id.spinners_claimiteminput_billToOffices);
-		cboxBillable = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_isBillable);
-		cboxBillable.setOnCheckedChangeListener(this);
-		//UNLIKE CLAIMS BUSINESS ADVANCE SHOULD NOT HAVE FIELDS OF TYPE MILEAGE
-		//attachment
-		cboxAttachment = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_attachment_header);
-		cboxAttachment.setOnCheckedChangeListener(this);
-		trAttachmentPreview = (TableRow)v.findViewById(R.id.trs_claimiteminput_attachment_preview);
-		trAttachmentAction = (TableRow)v.findViewById(R.id.trs_claimiteminput_attachment_actions);
-		tvAttachment = (TextView)v.findViewById(R.id.tviews_claimiteminput_attachment);
-		buttonTakePicture = (TextView)v.findViewById(R.id.buttons_claimiteminput_attachment_fromcamera);
-		buttonChooseFromFile = (TextView)v.findViewById(R.id.buttons_claimiteminput_attachment_fromfiles);
-				
-		categoryNames = new ArrayList<String>();
-		categoryNames.add(ClaimHeader.TYPEDESC_ADVANCES);
-		
-		spinnerCategoryNames.setAdapter(new SimpleSpinnerAdapter(activity, categoryNames, NodeSize.SIZE_NORMAL));							
-		spinnerCategoryNames.setOnItemSelectedListener(ItemInputFragmentBA.this);
-		spinnerCategoryNames.setTag("-1");							
-
-		if(pd == null)
-			pd = new SaltProgressDialog(activity);
-		pd.show();
-		new Thread(new ClaimItemProjectListGetter()).start();
-		
-		foreignCurrencies = new ArrayList<String>();
-		for(int i=0; i<app.getCurrencies().size(); i++)
-			foreignCurrencies.add(app.getCurrencies().get(i).getCurrencySymbol());
-		spinnerForeignCurrencies.setAdapter(new ClaimItemSpinnerAdapter(activity, foreignCurrencies));
-		
-		if(getArguments().getInt(KEY_CLAIMITEMPOS) >= 0){
-			newClaimItem = claimHeader.getClaimItems(app).get(getArguments().getInt(KEY_CLAIMITEMPOS));
-			etextDate.setText(newClaimItem.getExpenseDate());
-			etextAmountForeign.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getForeignAmount()));
-			etextAmountLocal.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getLocalAmount()));
-			prevSelectedForeignCurr = foreignCurrencies.indexOf(newClaimItem.getForeignCurrencyName());
-			spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
-			etextTaxRate.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getTaxAmount()));
-			cboxApplyTaxRate.setChecked(newClaimItem.isTaxApplied());
-			if(newClaimItem.isBillable()){
-				cboxBillable.setOnCheckedChangeListener(null);
-				cboxBillable.setChecked(true);
-				cboxBillable.setOnCheckedChangeListener(this);
-				cboxBillable.setText(newClaimItem.getBillableCompanyName());
-			}
-
-			etextDesc.setText(newClaimItem.getDescription());
-			cboxAttachment.setChecked(newClaimItem.hasReceipt());
-		}else{
-			prevSelectedForeignCurr = foreignCurrencies.indexOf(app.getStaffOffice().getBaseCurrencyThree());
-			spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
-		}
-		
-		spinnerForeignCurrencies.setOnItemSelectedListener(this);
-		spinnerForeignCurrencies.setTag("-1");
-		String currLC = app.getStaffOffice().getBaseCurrencyName(); //parse office staff currency
-		etextCurrencyLocal.setText(currLC.substring(currLC.indexOf("(")+1, currLC.indexOf(")")));
-		etextDate.setOnClickListener(this);
-		etextAmountForeign.addTextChangedListener(this);
-		etextExchangeRate.addTextChangedListener(this);
-	
-	
-		buttonTakePicture.setOnClickListener(this);
-		buttonChooseFromFile.setOnClickListener(this);
-		tvAttachment.setOnClickListener(this);
+//		claimHeader = app.getMyClaims().get(getArguments().getInt(KEY_CLAIMPOS));
+//		spinnerCategoryNames = (Spinner) v.findViewById(R.id.spinners_claimiteminput_choices);
+//		etextDate = (EditText) v.findViewById(R.id.etexts_claimiteminput_expenseDate);
+//		spinnerForeignCurrencies = (Spinner) v.findViewById(R.id.spinners_claimiteminput_currency_fc);
+//		etextAmountForeign = (EditText) v.findViewById(R.id.etexts_claimiteminput_amount_fc);
+//		etextCurrencyLocal = (EditText) v.findViewById(R.id.etexts_claimiteminput_currency_lc);
+//		etextAmountLocal = (EditText) v.findViewById(R.id.etexts_claimiteminput_amount_lc);
+//		etextExchangeRate = (EditText) v.findViewById(R.id.etexts_claimiteminput_exrate);
+//		etextTaxRate = (EditText) v.findViewById(R.id.etexts_claimiteminput_taxrate);
+//		etextDesc = (EditText) v.findViewById(R.id.etexts_claimiteminput_description);
+//		etextNotesClientToBill = (EditText) v.findViewById(R.id.etexts_claimiteminput_notesclienttobill);
+//		cboxApplyTaxRate = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_istaxapplied);
+//		cboxApplyTaxRate.setOnCheckedChangeListener(this);
+//		spinnerProject = (Spinner)v.findViewById(R.id.spinners_claimiteminput_project);
+//		spinnerOffices = (Spinner)v.findViewById(R.id.spinners_claimiteminput_billToOffices);
+//		cboxBillable = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_isBillable);
+//		cboxBillable.setOnCheckedChangeListener(this);
+//		//UNLIKE CLAIMS BUSINESS ADVANCE SHOULD NOT HAVE FIELDS OF TYPE MILEAGE
+//		//attachment
+//		cboxAttachment = (CheckBox)v.findViewById(R.id.cbox_claimiteminput_attachment_header);
+//		cboxAttachment.setOnCheckedChangeListener(this);
+//		trAttachmentPreview = (TableRow)v.findViewById(R.id.trs_claimiteminput_attachment_preview);
+//		trAttachmentAction = (TableRow)v.findViewById(R.id.trs_claimiteminput_attachment_actions);
+//		tvAttachment = (TextView)v.findViewById(R.id.tviews_claimiteminput_attachment);
+//		buttonTakePicture = (TextView)v.findViewById(R.id.buttons_claimiteminput_attachment_fromcamera);
+//		buttonChooseFromFile = (TextView)v.findViewById(R.id.buttons_claimiteminput_attachment_fromfiles);
+//
+//		categoryNames = new ArrayList<String>();
+//		categoryNames.add(ClaimHeader.TYPEDESC_ADVANCES);
+//
+//		spinnerCategoryNames.setAdapter(new SimpleSpinnerAdapter(activity, categoryNames, NodeSize.SIZE_NORMAL));
+//		spinnerCategoryNames.setOnItemSelectedListener(ItemInputFragmentBA.this);
+//		spinnerCategoryNames.setTag("-1");
+//
+//		if(pd == null)
+//			pd = new SaltProgressDialog(activity);
+//		pd.show();
+//		new Thread(new ClaimItemProjectListGetter()).start();
+//
+//		foreignCurrencies = new ArrayList<String>();
+//		for(int i=0; i<app.getCurrencies().size(); i++)
+//			foreignCurrencies.add(app.getCurrencies().get(i).getCurrencySymbol());
+//		spinnerForeignCurrencies.setAdapter(new ClaimItemSpinnerAdapter(activity, foreignCurrencies));
+//
+//		if(getArguments().getInt(KEY_CLAIMITEMPOS) >= 0){
+//			newClaimItem = claimHeader.getClaimItems(app).get(getArguments().getInt(KEY_CLAIMITEMPOS));
+//			etextDate.setText(newClaimItem.getExpenseDate());
+//			etextAmountForeign.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getForeignAmount()));
+//			etextAmountLocal.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getLocalAmount()));
+//			prevSelectedForeignCurr = foreignCurrencies.indexOf(newClaimItem.getForeignCurrencyName());
+//			spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
+//			etextTaxRate.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, newClaimItem.getTaxAmount()));
+//			cboxApplyTaxRate.setChecked(newClaimItem.isTaxApplied());
+//			if(newClaimItem.isBillable()){
+//				cboxBillable.setOnCheckedChangeListener(null);
+//				cboxBillable.setChecked(true);
+//				cboxBillable.setOnCheckedChangeListener(this);
+//				cboxBillable.setText(newClaimItem.getBillableCompanyName());
+//			}
+//
+//			etextDesc.setText(newClaimItem.getDescription());
+//			cboxAttachment.setChecked(newClaimItem.hasReceipt());
+//		}else{
+//			prevSelectedForeignCurr = foreignCurrencies.indexOf(app.getStaffOffice().getBaseCurrencyThree());
+//			spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
+//		}
+//
+//		spinnerForeignCurrencies.setOnItemSelectedListener(this);
+//		spinnerForeignCurrencies.setTag("-1");
+//		String currLC = app.getStaffOffice().getBaseCurrencyName(); //parse office staff currency
+//		etextCurrencyLocal.setText(currLC.substring(currLC.indexOf("(")+1, currLC.indexOf(")")));
+//		etextDate.setOnClickListener(this);
+//		etextAmountForeign.addTextChangedListener(this);
+//		etextExchangeRate.addTextChangedListener(this);
+//
+//
+//		buttonTakePicture.setOnClickListener(this);
+//		buttonChooseFromFile.setOnClickListener(this);
+//		tvAttachment.setOnClickListener(this);
 
 		return v;
 	}

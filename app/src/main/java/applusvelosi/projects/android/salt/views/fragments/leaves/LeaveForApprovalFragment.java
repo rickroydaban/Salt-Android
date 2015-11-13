@@ -43,7 +43,7 @@ public class LeaveForApprovalFragment extends ActionbarFragment implements OnIte
 	private Spinner typeSpinner;
 	private ArrayList<Integer> selectedStatusesIDs;
 	private ListView lv;
-	private ArrayList<Leave> leavesForApproval;
+	private ArrayList<Leave> tempLeavesForApproval, leavesForApproval;
 	private LeavesForApprovalUnprocessedAdapter adapterUnprocessedLFA;
 	private LeavesForApprovalProcessedAdapter adapterProcessedLFA;
 	private ArrayList<String> types;
@@ -79,7 +79,8 @@ public class LeaveForApprovalFragment extends ActionbarFragment implements OnIte
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_leaveforapproval, null);
 		lv = (ListView)v.findViewById(R.id.lists_leaveforapproval);
-		leavesForApproval = new ArrayList<Leave>();
+        leavesForApproval = new ArrayList<Leave>();
+		tempLeavesForApproval = new ArrayList<Leave>();
 				
 //		yearSpinner = (Spinner)v.findViewById(R.id.choices_leaveforapproval_year);
 		typeSpinner = (Spinner)v.findViewById(R.id.choices_leaveforapproval_type);
@@ -99,8 +100,8 @@ public class LeaveForApprovalFragment extends ActionbarFragment implements OnIte
 		for(int i=0; i<Leave.getTypeDescriptionList().size(); i++)
 			types.add(Leave.getTypeDescriptionList().get(i));
 		
-		adapterUnprocessedLFA = new LeavesForApprovalUnprocessedAdapter(activity, leavesForApproval);
-		adapterProcessedLFA = new LeavesForApprovalProcessedAdapter(activity, leavesForApproval);
+		adapterUnprocessedLFA = new LeavesForApprovalUnprocessedAdapter(activity, tempLeavesForApproval);
+		adapterProcessedLFA = new LeavesForApprovalProcessedAdapter(activity, tempLeavesForApproval);
 //		yearSpinner.setAdapter(new SimpleSpinnerAdapter(activity, app.dropDownYears, NodeSize.SIZE_NORMAL));
 		typeSpinner.setAdapter(new SimpleSpinnerAdapter(activity, types, NodeSize.SIZE_NORMAL));
 
@@ -155,7 +156,8 @@ public class LeaveForApprovalFragment extends ActionbarFragment implements OnIte
 						if(leavesForApprovalResult instanceof String)
 							app.showMessageDialog(activity, leavesForApprovalResult.toString());
 						else{
-							app.updateLeavesForApproval((ArrayList<Leave>)leavesForApprovalResult);
+							leavesForApproval.clear();
+							leavesForApproval.addAll((ArrayList<Leave>) leavesForApprovalResult);
 							refetchLeaves();
 						}
 					}
@@ -165,13 +167,13 @@ public class LeaveForApprovalFragment extends ActionbarFragment implements OnIte
 	}
 	
 	private void refetchLeaves(){
-		leavesForApproval.clear();
-		for(Leave leave: app.getLeavesForApproval()){	
+		tempLeavesForApproval.clear();
+		for(Leave leave: leavesForApproval){
 //			if(leave.getYear() == Integer.parseInt(yearSpinner.getSelectedItem().toString())){//show only leaves for approval this year
 				if(selectedStatusesIDs.contains(leave.getStatusID())){ //filter by status
 					if(typeSpinner.getSelectedItem().toString().equals(leave.getTypeDescription()) || typeSpinner.getSelectedItem().toString().equals("All")){
 						if(leave.getStaffName().toLowerCase().contains(nameET.getText().toString().toLowerCase()) || nameET.getText().length()<1)
-							leavesForApproval.add(leave);
+							tempLeavesForApproval.add(leave);
 					}
 				}
 //			}
@@ -192,7 +194,7 @@ public class LeaveForApprovalFragment extends ActionbarFragment implements OnIte
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-		activity.changeChildPage(LeavesApprovalDetailFragment.newInstance(app.gson.toJson(leavesForApproval.get(pos), app.types.leave)));
+		activity.changeChildPage(LeavesApprovalDetailFragment.newInstance(app.gson.toJson(tempLeavesForApproval.get(pos), app.types.leave)));
 	}
 
 	@Override
@@ -208,7 +210,7 @@ public class LeaveForApprovalFragment extends ActionbarFragment implements OnIte
 
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
-		Leave leave= leavesForApproval.get(pos);
+		Leave leave= tempLeavesForApproval.get(pos);
 		
 		new AlertDialog.Builder(activity).setMessage(" leave by "+leave.getStaffName())
 										 .setPositiveButton("Approve", new DialogInterface.OnClickListener() {

@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFF">
+    android:background="@color/white">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginTop="50dp"
         android:background="@color/menu_list_separator" />
 
     <ListView
@@ -16,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="1px"
-	    android:divider="@drawable/divider_insetted" />
+	    android:divider="@drawable/divider_insetted"
+        android:background="#FFFFFF"/>
 
     <View
         android:layout_width="match_parent"
