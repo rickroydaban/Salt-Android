@@ -15,29 +15,13 @@ import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.views.fragments.HolidaysLocalFragment;
 
 public class OfflineGateway {
-	
-	public enum SerializableClaimTypes{
-		MY_CLAIM("ogJSONMyClaimList"),
-		FOR_APPROVAL("ogJSONClaimsForApproval"),
-		FOR_PAYMENT("ogJSONClaimsForPayment");
-		
-		private String name;
-		
-		private SerializableClaimTypes(String name){
-			this.name = name;
-		}
-		
-		public String toString(){
-			return name;
-		}		
-	}
-	
+
 	private final String PREFERENCE_KEY = "saltsharedprefskey";
 	//keys
 	private final String KEYJSONSTAFF = "ogJSONStaff";
 	private final String KEYJSONOFFICE = "ogJSONOffice";
 	private final String KEYJSONMYLEAVES = "ogJSONMyLeaveList";
-	private final String KEYJSONLEAVESFORAPPROVAL = "ogJSONLeavesForApproval";
+	private final String KEYJSONMYCLAIMS = "ogJSONMyClaimList";
 	private final String KEYJSONNATIONALHOLIDAYS = "ogJSONNationalHolidays";
 	private final String KEYJSONLOCALHOLIDAYS = "ogJSONLocalHolidays";
 	private final String KEYJSONCURRENCIES = "ogJSONCurrencies";
@@ -61,11 +45,11 @@ public class OfflineGateway {
 	}
 	
 	public void serializeCurrencies(ArrayList<Currency> currencies){
-		ArrayList<HashMap<String, Object>> myClaimMaps = new ArrayList<HashMap<String,Object>>();
+		ArrayList<HashMap<String, Object>> currenciesMap = new ArrayList<HashMap<String,Object>>();
 		for(Currency currency :currencies)
-			myClaimMaps.add(currency.getMap());
+            currenciesMap.add(currency.getMap());
 
-		editor.putString(KEYJSONCURRENCIES, app.gson.toJson(myClaimMaps, app.types.arrayListOfHashmapOfStringObject)).commit();		
+		editor.putString(KEYJSONCURRENCIES, app.gson.toJson(currenciesMap, app.types.arrayListOfHashmapOfStringObject)).commit();
 	}
 	
 	public void serializeStaffData(Staff staff, Office office){
@@ -84,30 +68,14 @@ public class OfflineGateway {
 	public void serializeMyLeaves(ArrayList<Leave> myLeaves){
 		editor.putString(KEYJSONMYLEAVES, app.gson.toJson(myLeaves, app.types.arrayListOfLeaves)).commit();
 	}
-	
-	public void serializeLeaveForApproval(ArrayList<Leave> leavesForApproval){
-		editor.putString(KEYJSONLEAVESFORAPPROVAL, app.gson.toJson(leavesForApproval, app.types.arrayListOfLeaves)).commit();		
-	}
-	
-	public void addMyLeave(SaltApplication key, Leave leave){
-		ArrayList<Leave> myLeaves = app.gson.fromJson(prefs.getString(KEYJSONMYLEAVES, "[]"), app.types.arrayListOfLeaves);
-		myLeaves.add(leave);
-		editor.putString(KEYJSONMYLEAVES, app.gson.toJson(myLeaves, app.types.arrayListOfLeaves)).commit();
-	}
-	
-	public void addLeaveForApproval(SaltApplication key, Leave leave){
-		ArrayList<Leave> leavesForApproval = app.gson.fromJson(prefs.getString(KEYJSONLEAVESFORAPPROVAL, "[]"), app.types.arrayListOfLeaves);
-		leavesForApproval.add(leave);
-		editor.putString(KEYJSONLEAVESFORAPPROVAL, app.gson.toJson(leavesForApproval, app.types.arrayListOfLeaves)).commit();		
-	}
-			
-	public void serializeClaimHeaders(ArrayList<ClaimHeader> claimHeaders, SerializableClaimTypes type){	
-		ArrayList<HashMap<String, Object>> myClaimMaps = new ArrayList<HashMap<String,Object>>();
-		for(ClaimHeader claimHeader :claimHeaders)
-			myClaimMaps.add(claimHeader.getMap());
 
-		editor.putString(type.toString(), app.gson.toJson(myClaimMaps, app.types.arrayListOfHashmapOfStringObject)).commit();
-	}
+	public void serializeMyClaims(ArrayList<ClaimHeader> claimHeaders){
+        ArrayList<HashMap<String, Object>> myClaimMaps = new ArrayList<HashMap<String,Object>>();
+        for(ClaimHeader claimHeader:claimHeaders)
+            myClaimMaps.add(claimHeader.getMap());
+
+        editor.putString(KEYJSONMYCLAIMS, app.gson.toJson(myClaimMaps, app.types.arrayListOfHashmapOfStringObject)).commit();
+    }
 
 	public Staff deserializeStaff(){
 		HashMap<String, Object>staffMap = app.gson.fromJson(prefs.getString(KEYJSONSTAFF, "{}"), app.types.hashmapOfStringObject);
@@ -130,15 +98,11 @@ public class OfflineGateway {
 	public ArrayList<Leave> deserializeMyLeaves(){
 		return app.gson.fromJson(prefs.getString(KEYJSONMYLEAVES, "[]"), app.types.arrayListOfLeaves);
 	}
-	
-	public ArrayList<Leave> deserializeLeavesForApproval(){
-		return app.gson.fromJson(prefs.getString(KEYJSONLEAVESFORAPPROVAL, "[]"), app.types.arrayListOfLeaves);
+
+	public ArrayList<HashMap<String, Object>> deserializeMyClaims(){
+		return app.gson.fromJson(prefs.getString(KEYJSONMYCLAIMS, "[]"), app.types.arrayListOfHashmapOfStringObject);
 	}
-	
-	public ArrayList<HashMap<String, Object>> deserializeClaimHeader(SerializableClaimTypes type){
-		return app.gson.fromJson(prefs.getString(type.toString(), "[]"), app.types.arrayListOfHashmapOfStringObject);
-	}
-	
+
 	public ArrayList<Currency> deserializeCurrencies(){
 		ArrayList<Currency> currencies = new ArrayList<Currency>();
 		ArrayList<HashMap<String, Object>> currencyMapList = app.gson.fromJson(prefs.getString(KEYJSONCURRENCIES, "[]"), app.types.arrayListOfHashmapOfStringObject);

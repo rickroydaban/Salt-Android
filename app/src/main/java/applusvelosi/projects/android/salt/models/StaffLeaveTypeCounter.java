@@ -54,38 +54,38 @@ public class StaffLeaveTypeCounter{
 							listener.onSyncFailed(myLeavesResult.toString());
 						}else{
 							app.updateMyLeaves((ArrayList<Leave>)myLeavesResult);
-							if(app.getStaff().isApprover()){
-								new Thread(new Runnable() {
-									Object tempLeavesForApprovalResult;
-									@Override
-									public void run() {
-										try{
-											tempLeavesForApprovalResult = app.onlineGateway.getLeavesForApproval();
-										}catch(Exception e){
-											e.printStackTrace();
-											tempLeavesForApprovalResult = e.getMessage();
-										}
-										
-										final Object leavesForApprovalResult = tempLeavesForApprovalResult;
-										new Handler(Looper.getMainLooper()).post(new Runnable() {
-											
-											@Override
-											public void run() {
-												if(leavesForApprovalResult instanceof String){
-													listener.onSyncFailed(leavesForApprovalResult.toString());
-												}else{
-													app.updateLeavesForApproval((ArrayList<Leave>)leavesForApprovalResult);
-													updateValues();
-													listener.onSyncSuccess();
-												}
-											}
-										});
-									}
-								}).start();
-							}else{
+////							if(app.getStaff().isApprover()){
+////								new Thread(new Runnable() {
+////									Object tempLeavesForApprovalResult;
+////									@Override
+////									public void run() {
+////										try{
+////											tempLeavesForApprovalResult = app.onlineGateway.getLeavesForApproval();
+////										}catch(Exception e){
+////											e.printStackTrace();
+////											tempLeavesForApprovalResult = e.getMessage();
+////										}
+////
+////										final Object leavesForApprovalResult = tempLeavesForApprovalResult;
+////										new Handler(Looper.getMainLooper()).post(new Runnable() {
+////
+////											@Override
+////											public void run() {
+////												if(leavesForApprovalResult instanceof String){
+////													listener.onSyncFailed(leavesForApprovalResult.toString());
+////												}else{
+////													app.updateLeavesForApproval((ArrayList<Leave>)leavesForApprovalResult);
+////													updateValues();
+////													listener.onSyncSuccess();
+////												}
+////											}
+////										});
+////									}
+////								}).start();
+//							}else{
 								updateValues();
 								listener.onSyncSuccess();
-							}
+//							}
 						}
 					}
 				});

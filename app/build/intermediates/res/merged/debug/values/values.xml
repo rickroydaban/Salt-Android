@@ -16,6 +16,7 @@
     <color name="dark_orange">#D95409</color>
     <color name="darker_orange">#AA4900</color>
     <color name="green">#227722</color>
+    <color name="green_light">#95d892</color>
     <color name="holiday">#56A5EC</color>
     <color name="leavetype_bereavement">#8E35EF</color>
     <color name="leavetype_birthday">#347C17</color>
@@ -138,7 +139,7 @@
     </style>
     <style name="styles_actionbar_item_text">
       <item name="android:textColor">@color/white</item>
-      <item name="android:textSize">18sp</item>
+      <item name="android:textSize">@dimen/fsizes_listcell_header</item>
       <item name="android:paddingRight">15dp</item>          
   </style>
     <style name="styles_actionbar_title">
@@ -147,19 +148,27 @@
       <item name="android:textStyle">bold</item>
   </style>
     <style name="styles_detailoverview_compressedinputs">
-    <item name="android:paddingLeft">10dp</item>
+    <item name="android:paddingLeft">5dp</item>
     <item name="android:paddingRight">5dp</item>
     <item name="android:textSize">@dimen/fsizes_listcell_header</item>
-    <item name="android:textColor">@color/menu_list_separator</item>
+    <item name="android:textColor">#909090</item>
     <item name="android:gravity">center_vertical</item>
   </style>
     <style name="styles_dialog_leaverequest_inputs">
     <item name="android:background">@drawable/sel_input</item>
     <item name="android:padding">7dp</item>
+    <item name="android:layout_marginRight">10dp</item>
+    <item name="android:textSize">@dimen/fsizes_listcell_header</item>
     <item name="android:textColor">@color/black</item>
   </style>
     <style name="styles_editable_inputs">
-      <item name="android:background">@color/white</item>
+      <item name="android:background">#FFF</item>
+      <item name="android:padding">10dp</item>
+      <item name="android:layout_marginTop">3dp</item>
+      <item name="android:layout_marginBottom">3dp</item>
+      <item name="android:layout_marginLeft">5dp</item>
+      <item name="android:layout_marginRight">7dp</item>
+      <item name="android:textSize">@dimen/fsizes_listcell_header</item>
   </style>
     <style name="styles_home_leavesoverview_header">
       <item name="android:textStyle">bold</item>
@@ -182,14 +191,15 @@
       <item name="android:textColor">@color/black</item>
   </style>
     <style name="styles_labels_inputs">
-      <item name="android:paddingLeft">5dp</item>
-		<item name="android:paddingRight">5dp</item>
+      <item name="android:paddingLeft">15dp</item>
+      <item name="android:paddingRight">5dp</item>
       <item name="android:textSize">@dimen/fsizes_listcell_header</item>
       <item name="android:textStyle">bold</item>
       <item name="android:textColor">@color/black</item>
   </style>
     <style name="styles_listitem2_small">
     <item name="android:textSize">@dimen/fsizes_listcell_subheader</item>
+    <item name="android:textColor">@color/black</item>
     <item name="android:paddingLeft">10dp</item>
     <item name="android:paddingRight">10dp</item>
     <item name="android:paddingTop">3dp</item>
@@ -198,6 +208,7 @@
   </style>
     <style name="styles_listtitem1_small">
     <item name="android:textSize">@dimen/fsizes_listcell_subheader</item>
+      <item name="android:textColor">@color/black</item>
     <item name="android:paddingLeft">10dp</item>
     <item name="android:paddingRight">10dp</item>
     <item name="android:paddingTop">3dp</item>
@@ -245,7 +256,7 @@
       <item name="android:gravity">center_vertical</item>
   </style>
     <style name="styles_trs_inputs">
-    <item name="android:paddingTop">5dp</item>
-    <item name="android:paddingBottom">5dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingBottom">10dp</item>
   </style>
 </resources>

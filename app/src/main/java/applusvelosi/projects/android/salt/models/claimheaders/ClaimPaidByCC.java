@@ -11,14 +11,8 @@ import applusvelosi.projects.android.salt.utils.OnlineGateway;
 public class ClaimPaidByCC extends ClaimHeader{
 	public static final String KEY_ISPAIDBYCOMPANYCARD = "IsPaidByCompanyCC";
 		
-	public ClaimPaidByCC(	int staffID, String staffName, String staffEmail,
-							int officeID, String officeName, String hrEmail,
-							int costCenterID, String costCenterName, 
-							int approverID, String approverName, String approverEmail,
-							int accountID, String accountName, String accountEmail,
-							SaltApplication app) throws Exception{
-		super(	staffID, staffName, staffEmail, officeID, officeName, hrEmail, costCenterID, costCenterName, approverID, approverName, 
-				approverEmail, accountID, accountName, accountEmail, app);
+	public ClaimPaidByCC(SaltApplication app, int costCenterID, String costCenterName) throws Exception{
+		super(app, costCenterID, costCenterName);
 		
 		map.put("ClaimTypeID", ClaimHeader.TYPEKEY_CLAIMS);
 		map.put("ClaimTypeName", ClaimHeader.TYPEDESC_CLAIMS);

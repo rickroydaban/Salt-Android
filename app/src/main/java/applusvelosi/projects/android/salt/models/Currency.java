@@ -1,10 +1,11 @@
 package applusvelosi.projects.android.salt.models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import org.json.JSONObject;
 
-public class Currency {
+public class Currency implements Serializable{
 	private HashMap<String, Object> map;
 	
 	public Currency(HashMap<String, Object> map){

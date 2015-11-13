@@ -9,6 +9,8 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -19,10 +21,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.adapters.lists.GroupedListAdapter;
+import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.GroupedListHeader;
 import applusvelosi.projects.android.salt.models.GroupedListSidebarItem;
 import applusvelosi.projects.android.salt.models.Staff;
@@ -47,18 +51,21 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 	private final String SIDEBARITEM_HOME = "Home";
 	private final String SIDEBARITEM_LOGOUT = "Logout";
 	private final String SIDEBARITEM_MYLEAVES = "My Leaves";
+	private final String SIDEBARITEM_MYCLAIMS = "My Claims";
 	private final String SIDEBARITEM_HOLIDAYSMONTHLY = "Holiday this Month";
 	private final String SIDEBARITEM_HOLIDAYSLOCAL = "Local Holidays";
 	private final String SIDEBARITEM_MYCALENDAR = "My Calendar";
 
 	private final String SIDEBARITEM_LEAVESFORAPPROVAL = "Leaves";
+	private final String SIDEBARITEM_CLAIMSFORAPPROVAL = "Claims";
 	private final String SIDEBARITEM_CAPEXESFORAPPROVAL = "Capex";
 	private final String SIDEBARITEM_RECRUITMENTSFORAPPROVAL = "Recruitments";
 
 	//sidebar manageability constants
 	private float maxSidebarShownWidth = 0;
 	private final int TOGGLE_SPEED = 1000;
-	
+
+    private SaltApplication app;
 	//views
 	private ListView menuList;
 	private ArrayList<GroupedListItemInterface> sidebarItems; //tells the adapter which item is to be displayed as a header or an item in the actionbar items
@@ -102,28 +109,58 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 		animationHideSidebar.setFillEnabled(true);
 		animationHideSidebar.setAnimationListener(this);
 		foreFragment.setTag(SIDEBAR_HIDDEN);
+
+        app = (SaltApplication)getApplication();
+        if(app.getCurrencies() == null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Object tempResult;
+                    try {
+                        tempResult = app.onlineGateway.getCurrencies();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        tempResult = e.getMessage();
+                    }
+
+                    final Object result = tempResult;
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(result instanceof String)
+                                Toast.makeText(HomeActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+                            else
+                                app.offlineGateway.serializeCurrencies((ArrayList<Currency>)result);
+                        }
+                    });
+                }
+            }).start();
+        }
 	}
 	
 	//sidebar
 	private void setupSidebar(){
 		menuList = (ListView)findViewById(R.id.lists_sidebar);
 		sidebarItems = new ArrayList<GroupedListItemInterface>();
-		sidebarItems.add(new GroupedListHeader("MY ACCOUNT"));
+		sidebarItems.add(new GroupedListHeader("My Account"));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOME, getResources().getDrawable(R.drawable.icon_home), getResources().getDrawable(R.drawable.icon_home_sel)));
-		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_LOGOUT, getResources().getDrawable(R.drawable.icon_logout),getResources().getDrawable(R.drawable.icon_logout_sel)));
-		sidebarItems.add(new GroupedListHeader("MY ITEMS"));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_MYLEAVES, getResources().getDrawable(R.drawable.icon_leaves), getResources().getDrawable(R.drawable.icon_leaves_sel)));
-		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSMONTHLY, getResources().getDrawable(R.drawable.icon_monthlycalendar), getResources().getDrawable(R.drawable.icon_monthlycalendar_sel)));
-		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSLOCAL, getResources().getDrawable(R.drawable.icon_localholidays), getResources().getDrawable(R.drawable.icon_localholidays_sel)));
+		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_MYCLAIMS, getResources().getDrawable(R.drawable.icon_myclaims), getResources().getDrawable(R.drawable.icon_myclaims_sel)));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_MYCALENDAR, getResources().getDrawable(R.drawable.icon_mycalendar), getResources().getDrawable(R.drawable.icon_mycalendar_sel)));
+		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_LOGOUT, getResources().getDrawable(R.drawable.icon_logout),getResources().getDrawable(R.drawable.icon_logout_sel)));
 
 		Staff staff = ((SaltApplication)getApplication()).getStaff();
 		if(staff.isAdmin() || staff.isCM() || staff.isAM()){
 			sidebarItems.add(new GroupedListHeader("FOR APPROVAL"));
 			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_LEAVESFORAPPROVAL, getResources().getDrawable(R.drawable.icon_leavesforapproval),getResources().getDrawable(R.drawable.icon_leavesforapproval_sel)));
+			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_CLAIMSFORAPPROVAL, getResources().getDrawable(R.drawable.icon_claimforapproval),getResources().getDrawable(R.drawable.icon_claimforapproval_sel)));
 			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_CAPEXESFORAPPROVAL, getResources().getDrawable(R.drawable.icon_capexforapproval), getResources().getDrawable(R.drawable.icon_capexforapproval_sel)));
 			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_RECRUITMENTSFORAPPROVAL, getResources().getDrawable(R.drawable.icon_recruitmentforapproval),getResources().getDrawable(R.drawable.icon_recruitmentforapproval_sel)));
 		}
+
+		sidebarItems.add(new GroupedListHeader("HOLIDAYS"));
+		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSMONTHLY, getResources().getDrawable(R.drawable.icon_monthlycalendar), getResources().getDrawable(R.drawable.icon_monthlycalendar_sel)));
+		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSLOCAL, getResources().getDrawable(R.drawable.icon_localholidays), getResources().getDrawable(R.drawable.icon_localholidays_sel)));
 
 		menuList.setAdapter(new GroupedListAdapter(this, sidebarItems));
 	}
@@ -267,10 +304,12 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 			if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_HOME)) toBeShownFragment = HomeFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_LOGOUT)) logout();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_MYLEAVES)) toBeShownFragment = LeaveListFragment.getInstance();
+			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_MYCLAIMS)) toBeShownFragment = ClaimListFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_HOLIDAYSMONTHLY)) toBeShownFragment = HolidaysMonthlyFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_HOLIDAYSLOCAL)) toBeShownFragment = HolidaysLocalFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_MYCALENDAR)) toBeShownFragment = CalendarMyMonthlyFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_LEAVESFORAPPROVAL)) toBeShownFragment = LeaveForApprovalFragment.getInstance();
+			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_CLAIMSFORAPPROVAL)) toBeShownFragment = ClaimforApprovalListFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_CAPEXESFORAPPROVAL)) toBeShownFragment = CapexesForApprovalFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_RECRUITMENTSFORAPPROVAL)) toBeShownFragment = RecruitmentsForApprovalFragment.getInstance();
 		}

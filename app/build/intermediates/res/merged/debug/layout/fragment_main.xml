@@ -2,16 +2,29 @@
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
    android:orientation="vertical">
-      
-  <RelativeLayout
-    android:id="@+id/actionbar_top"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dimens_actionbar_height" />
-      
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/actionbar_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@android:drawable/dialog_holo_light_frame" />
+
+        <RelativeLayout
+            android:id="@+id/actionbar_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_actionbar_height" />
+
+    </RelativeLayout>
+
+
   <RelativeLayout 
     android:id="@+id/activity_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" 
-    android:gravity="center"/>
+    android:gravity="center" />
       
   </LinearLayout>    

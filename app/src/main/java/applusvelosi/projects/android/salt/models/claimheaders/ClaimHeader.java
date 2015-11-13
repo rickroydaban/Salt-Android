@@ -1,6 +1,8 @@
 package applusvelosi.projects.android.salt.models.claimheaders;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,7 +16,7 @@ import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.models.claimitems.MilageClaimItem;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 
-public class ClaimHeader {
+public class ClaimHeader implements Serializable{
 	public static final String KEY_TYPEID = "ClaimTypeID";
 	private static final String KEY_HASLOADEDITEMS = "hasLoadedItems";
 	
@@ -169,6 +171,65 @@ public class ClaimHeader {
 	public ClaimHeader(HashMap<String, Object> map){
 		this.map = new LinkedHashMap<String, Object>();
 		this.map.putAll(map);
+	}
+
+	public ClaimHeader(SaltApplication app, int costCenterID, String costCenterName){
+		String staffName = app.getStaff().getFname()+" "+app.getStaff().getLname();
+		map = new LinkedHashMap<String, Object>();
+		map.put("AccountManagerEmail", "");
+		map.put("AccountName", app.getStaff().getAccountName());
+		map.put("AccountsEmail", app.getStaff().getAccountEmail());
+		map.put("AccountsID", app.getStaff().getAccountID());
+		map.put("Active", true);
+		map.put("ApproverID", app.getStaff().getExpenseApproverID());
+		map.put("ApproverName", app.getStaff().getExpenseApproverName());
+		map.put("ApproversEmail", app.getStaff().getExpenseApproverEmail());
+		map.put("BACNumber", "");
+		map.put("BusinessAdvanceIDCharged", 0);
+		map.put("ClaimID", 0);
+		map.put("ClaimLineItems", new JSONArray());
+		map.put("ClaimNumber", "9999-TST-999999-9999");
+		map.put("ClaimStatus", STATUSKEY_OPEN);
+		map.put("ClaimTypeID", 0);
+		map.put("ClaimTypeName", "");
+		map.put("CostCenterID", costCenterID);
+		map.put("CostCenterName", costCenterName);
+		map.put("CountryManager", 0);
+		map.put("CountryManagerEmail", "");
+		map.put("CountryManagerName", "");
+		map.put("CreatedBy", app.getStaff().getStaffID());
+		map.put("CreatedByName", staffName);
+		map.put("DateApprovedByAccount", "/Date(-2208988800000+0000)/");
+		map.put("DateApprovedByApprover", "/Date(-2208988800000+0000)/");
+		map.put("DateApprovedByDirector", "/Date(-2208988800000+0000)/");
+		map.put("DateCancelled", "/Date(-2208988800000+0000)/");
+		map.put("DateCreated", app.onlineGateway.jsonizeDate(new Date())); //might be cause because of not valid date created value
+		map.put("DateModified", "/Date(1427134500000+0000)/");
+		map.put("DatePaid", "/Date(-2208988800000+0000)/");
+		map.put("DateRejected", "/Date(-2208988800000+0000)/");
+		map.put("DateSubmitted", "/Date(1426182960000+0000)/");
+		map.put("HROfficerEmail", "");
+		map.put("IsPaidByCompanyCC", false);
+		map.put("ModifiedBy", app.getStaff().getStaffID());
+		map.put("ModifiedByName", staffName);
+		map.put("OfficeID", app.getStaff().getOfficeID());
+		map.put("OfficeName", app.getStaff().getOfficeName());
+		map.put("OfficeToCharge", app.getStaff().getOfficeID());
+		map.put("ParentClaimID", 0);
+		map.put("ParentClaimNumber", "");
+		map.put("RejectedBy", 0);
+		map.put("RejectedByName", "");
+		map.put("StaffEmail", app.getStaff().getEmail());
+		map.put("StaffID", app.getStaff().getStaffID());
+		map.put("StaffName", staffName);
+		map.put("StatusName", STATUSDESC_OPEN);
+		map.put("TotalAmount", 0);
+		map.put("TotalAmountInLC", 0);
+		map.put("TotalComputedApprovedInLC", 0);
+		map.put("TotalComputedForDeductionInLC", 0);
+		map.put("TotalComputedForPaymentInLC", 0);
+		map.put("TotalComputedInLC", 0);
+		map.put("TotalComputedRejectedInLC", 0);
 	}
 		
 	public ClaimHeader(	int staffID, String staffName, String staffEmail,
@@ -341,23 +402,23 @@ public class ClaimHeader {
 	}
 	
 	public String getDateSubmitted(){
-		return map.get("DateSubmitted").toString();
+		return getStringedDate(map.get("DateSubmitted").toString());
 	}
 	
 	public String getDateRejected(){
-		return map.get("DateRejected").toString();
+		return getStringedDate(map.get("DateRejected").toString());
 	}
 	
 	public String getDateApprovedByApprover(){
-		return map.get("DateApprovedByApprover").toString();
+		return getStringedDate(map.get("DateApprovedByApprover").toString());
 	}
 	
 	public String getDateApprovedByAccount(){
-		return map.get("DateApprovedByAccount").toString();
+		return getStringedDate(map.get("DateApprovedByAccount").toString());
 	}
 	
 	public String getDatePaid(){
-		return map.get("DatePaid").toString();
+		return getStringedDate(map.get("DatePaid").toString());
 	}
 	
 	public ArrayList<ClaimItem> getClaimItems(SaltApplication app){
@@ -507,5 +568,11 @@ public class ClaimHeader {
 	
 	public ClaimItem getPreparedClaimItemForEdit(){
 		return tempUpdatedClaimItem;
+	}
+
+	protected String getStringedDate(String stringedDate){
+		if(Integer.parseInt(stringedDate.split("-")[2]) == 1900)
+			return "-";
+		else return stringedDate;
 	}
 }

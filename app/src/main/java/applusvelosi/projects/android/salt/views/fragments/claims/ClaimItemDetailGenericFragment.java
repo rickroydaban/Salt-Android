@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
+import applusvelosi.projects.android.salt.models.ClaimItemAttendee;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
@@ -27,7 +29,7 @@ public class ClaimItemDetailGenericFragment extends ActionbarFragment implements
 	private TextView actionbarEditButton, actionbarTitle;
 	private RelativeLayout actionbarBackButton;
 	
-	private TableRow trAttendees;
+	private LinearLayout containersAttendees;
 	private ClaimHeader claimHeader;
 	private ClaimItem claimItem;
 	private TextView attachment;
@@ -72,32 +74,31 @@ public class ClaimItemDetailGenericFragment extends ActionbarFragment implements
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_desc)).setText(claimItem.getDescription());
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_project)).setText(claimItem.getProjectName());
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_taxRate)).setText(claimItem.isTaxApplied()?String.valueOf(claimItem.getTaxAmount()):"No");
-		trAttendees = (TableRow)view.findViewById(R.id.trs_claimitemdetail_attendees);
-		trAttendees.setOnClickListener(this);
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_attendeecount)).setText(String.valueOf(claimItem.getAttendees().size()));
+		containersAttendees = (LinearLayout)view.findViewById(R.id.containers_claimitemdetail_attendees);
 		if(claimItem.isBillable()){
 			((TextView)view.findViewById(R.id.tviews_claimitemdetail_billto)).setText(claimItem.getBillableCompanyName());			
 			((TextView)view.findViewById(R.id.tviews_claimitemdetail_notesorbillstoclient)).setText(claimItem.getNotes());
 		}else{
 			((TextView)view.findViewById(R.id.tviews_claimitemdetail_billto)).setText("No");
-			view.findViewById(R.id.trs_claimitemdetail_notestoclientheader).setVisibility(View.GONE);
-			view.findViewById(R.id.separators_claimitemdetail_notestoclientheader1).setVisibility(View.GONE);
-			view.findViewById(R.id.separators_claimitemdetail_notestoclientheader2).setVisibility(View.GONE);
 			view.findViewById(R.id.trs_claimitemdetail_notestoclient).setVisibility(View.GONE);
-			view.findViewById(R.id.separators_claimitemdetail_notestoclient);
 		}
 		
 		attachment = (TextView)view.findViewById(R.id.tviews_claimitemdetail_attachment);
 		if(claimItem.hasReceipt()){
 			attachment.setText(claimItem.getAttachmentName());
 			attachment.setTextColor(activity.getResources().getColor(R.color.orange_velosi));
-			attachment.setPaintFlags(attachment.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);			
-			attachment.setTypeface(null, Typeface.BOLD);
+			attachment.setTypeface(attachment.getTypeface(), Typeface.BOLD);
 			attachment.setOnClickListener(this);
 		}else{
 			attachment.setText("No");
 		}
-		
+
+		for(ClaimItemAttendee attendee :claimItem.getAttendees()){
+			TextView tvAttendeeName = (TextView)inflater.inflate(R.layout.tv_claimitemattendee, null);
+			tvAttendeeName.setText(attendee.getName());
+			containersAttendees.addView(tvAttendeeName);
+		}
+
 		return view;
 	}
 	
@@ -113,8 +114,6 @@ public class ClaimItemDetailGenericFragment extends ActionbarFragment implements
 				activity.changeChildPage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
 			else
 				activity.changeChildPage(ItemInputFragmentClaims.newInstanceForEditingClaimItem(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
-		}else if(v == trAttendees){
-			activity.changeChildPage(ClaimItemAttendeeListFragment.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
 		}else if(v == attachment){
 			try{
 				if(pd == null)

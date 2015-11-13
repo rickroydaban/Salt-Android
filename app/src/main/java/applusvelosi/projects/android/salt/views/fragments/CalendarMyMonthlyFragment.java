@@ -98,25 +98,7 @@ public class CalendarMyMonthlyFragment extends ActionbarFragment implements OnIt
 		propButtonNext = (ImageView) view.findViewById(R.id.buttons_mycalendar_nextmonth);
 		calendarView = (GridView) view.findViewById(R.id.calendar);
 		lvHolidayNames = (ListView)view.findViewById(R.id.lists_mycalendar);
-		
-//		LinearLayout builderView = (LinearLayout)LayoutInflater.from(activity).inflate(R.layout.dialog_searchstaff, null);
-//		searchStaffName = (TextView)builderView.findViewById(R.id.tviews_dialogs_searchstaff_name);
-//		searchDialog = new AlertDialog.Builder(activity).setTitle("Search Staff").setView(builderView)
-//				.setPositiveButton("Search", new DialogInterface.OnClickListener() {
-//					
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						activity.changeChildPage(CalendarStaffMonthlyFragment.newInstance(Integer.parseInt(searchStaffName.getText().toString())));
-//						dialog.dismiss();
-//					}
-//				}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//					
-//					@Override
-//					public void onClick(DialogInterface dialog, int which) {
-//						dialog.dismiss();
-//					}
-//				}).create();
-		
+
 		if(gridCalendarItems == null){
 			gridCalendarItems = new ArrayList<CalendarItem>();
 			eventListItems = new ArrayList<String>();

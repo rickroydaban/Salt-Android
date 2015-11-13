@@ -30,7 +30,6 @@ import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
 import applusvelosi.projects.android.salt.models.claimheaders.LiquidationOfBA;
 import applusvelosi.projects.android.salt.utils.FileManager;
 import applusvelosi.projects.android.salt.utils.OfflineGateway;
-import applusvelosi.projects.android.salt.utils.OfflineGateway.SerializableClaimTypes;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 import applusvelosi.projects.android.salt.utils.TypeHolder;
 import applusvelosi.projects.android.salt.utils.enums.Months;
@@ -45,6 +44,7 @@ import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParsePushBroadcastReceiver;
 
 /* The entrance point of the app
@@ -111,8 +111,8 @@ public class SaltApplication extends Application {
 	private String savedMonthlyCalendarMonth;
 	private ArrayList<Holiday> nationalHolidays;
 	private ArrayList<LocalHoliday> localHolidays;
-	private ArrayList<Leave> myLeaves, leavesForApproval;
-	private ArrayList<ClaimHeader> myClaimHeaders, claimsForApproval, claimsForPayment;
+	private ArrayList<Leave> myLeaves;
+	private ArrayList<ClaimHeader> myClaimHeaders;
 	private boolean hasLoadedMonthlyHolidays, hasLoadedLocalHolidays;
 	private ArrayList<Currency> currencies;
 	private Staff staff; 
@@ -130,8 +130,8 @@ public class SaltApplication extends Application {
 		
 		hasLoadedMonthlyHolidays = false;
 		hasLoadedLocalHolidays = false;
-		dateTimeFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss", Locale.ENGLISH);
-		dateFormatDefault = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+		dateTimeFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss", Locale.US);
+		dateFormatDefault = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 		calendar = Calendar.getInstance();
 		gson = new Gson();
 		types = new TypeHolder();
@@ -146,20 +146,13 @@ public class SaltApplication extends Application {
 			dropDownMonths.add(Months.values()[i].toString());
 		staffLeaveCounter = StaffLeaveTypeCounter.getInstance(this);
 		myClaimHeaders = new ArrayList<ClaimHeader>();
-		claimsForApproval = new ArrayList<ClaimHeader>();
-		claimsForPayment = new ArrayList<ClaimHeader>();
-		
+
 		if(offlineGateway.isLoggedIn()){
 			staff = offlineGateway.deserializeStaff();
 			office = offlineGateway.deserializeStaffOffice();
 			myLeaves = offlineGateway.deserializeMyLeaves();
-			leavesForApproval = offlineGateway.deserializeLeavesForApproval();
 			currencies = offlineGateway.deserializeCurrencies();
-			
-			downCastClaim(myClaimHeaders, offlineGateway.deserializeClaimHeader(SerializableClaimTypes.MY_CLAIM));
-			downCastClaim(claimsForApproval, offlineGateway.deserializeClaimHeader(SerializableClaimTypes.FOR_APPROVAL));
-			downCastClaim(claimsForPayment, offlineGateway.deserializeClaimHeader(SerializableClaimTypes.FOR_PAYMENT));
-			
+            downCastClaim(myClaimHeaders, offlineGateway.deserializeMyClaims());
 			nationalHolidays = offlineGateway.deserializeNationalHolidays();	
 			localHolidays = offlineGateway.deserializeLocalHolidays();
 
@@ -170,11 +163,10 @@ public class SaltApplication extends Application {
 			}
 		}else{
 			myLeaves = new ArrayList<Leave>();
-			leavesForApproval = new ArrayList<Leave>();
+			myClaimHeaders = new ArrayList<ClaimHeader>();
 			nationalHolidays = new ArrayList<Holiday>();
 			localHolidays = new ArrayList<LocalHoliday>();
-			currencies = new ArrayList<Currency>();
-		}		
+		}
 	}
 
     public void onCreate() {
@@ -223,19 +215,19 @@ public class SaltApplication extends Application {
 	public void showMessageDialog(Context context, String message){
 		new AlertDialog.Builder(context).setMessage(message)
 										.setPositiveButton("Ok", new OnClickListener() {
-											
-											@Override
-											public void onClick(DialogInterface dialog, int arg1) {
-												dialog.dismiss();
-											}
-										})
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int arg1) {
+                                                dialog.dismiss();
+                                            }
+                                        })
 										.create().show();
 	}
 	
 	public void showNetworkErrorMessage(Context context, String message){
 		new AlertDialog.Builder(context).setMessage(message)
 		.setPositiveButton("Ok", new OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int arg1) {
 				dialog.dismiss();
@@ -252,16 +244,20 @@ public class SaltApplication extends Application {
 		this.staff = staff;
 		this.office = office;
 
-		if(office.isHeadQuarter()){
-			if(office.getCMID() == staff.getStaffID()) staff.setUserPosition(Staff.USERPOSITION.USERPOSITION_CM);
-			else if(office.getRMID() == staff.getStaffID()) staff.setUserPosition(Staff.USERPOSITION.USERPOSITION_RM);
-		}else{
-			if(office.getCMID() == staff.getStaffID()) staff.setUserPosition(Staff.USERPOSITION.USERPOSITION_CFO);
-			else if(office.getRMID() == staff.getStaffID()) staff.setUserPosition(Staff.USERPOSITION.USERPOSITION_CEO);
-		}
+		if(office.getCMID() == staff.getStaffID())
+			staff.setUserPosition((office.isHeadQuarter())?Staff.USERPOSITION.USERPOSITION_CFO:Staff.USERPOSITION.USERPOSITION_CM);
+		else if(office.getRMID() == staff.getStaffID())
+			staff.setUserPosition((office.isHeadQuarter())?Staff.USERPOSITION.USERPOSITION_CEO:Staff.USERPOSITION.USERPOSITION_RM);
+		else
+			staff.setUserPosition(Staff.USERPOSITION.USERPOSITION_DEFAULT);
 
 		this.offlineGateway.serializeStaffData(staff, office);
-	}
+
+        ParseObject dataObject = new ParseObject("Usage");
+        dataObject.put("name", staff.getFname()+" "+staff.getLname());
+        dataObject.put("office", office.getName());
+        dataObject.saveInBackground();
+    }
 	
 	public void setStaff(LoginActivity key, Staff staff){ //temporary data for staff that must be only called by loginactivity class
 		this.staff = staff;
@@ -275,85 +271,22 @@ public class SaltApplication extends Application {
 		return office;
 	}
 		
-	public void updateMyLeaves(ArrayList<Leave> pMyLeaves){
-		myLeaves.clear();
-		myLeaves.addAll(pMyLeaves);
+	public void updateMyLeaves(ArrayList<Leave> myLeaves){
+		this.myLeaves.clear();
+		this.myLeaves.addAll(myLeaves);
 		offlineGateway.serializeMyLeaves(myLeaves);
 	}
-	
-	public void updateLeavesForApproval(ArrayList<Leave> pLeavesForApproval){
-		leavesForApproval.clear();
-		leavesForApproval.addAll(pLeavesForApproval);
-		offlineGateway.serializeLeaveForApproval(leavesForApproval);		
-	}		
-	
-//	public void initMyLeavesAndLeavesAsApprover(ArrayList<Leave> myleaves, ArrayList<Leave> leavesForApproval){
-//		updateMyLeaves(myleaves);
-//		updateLeavesForApproval(leavesForApproval);
-//	}
-	
-	public void initMyClaimsAndClaimsForApprovalAndPayment(ArrayList<ClaimHeader> myClaims, ArrayList<ClaimHeader> forApproval, ArrayList<ClaimHeader> forPayment){
+
+	public void updateMyClaims(ArrayList<ClaimHeader> myClaimHeaders){
 		this.myClaimHeaders.clear();
-		this.claimsForApproval.clear();
-		this.claimsForPayment.clear();
-		this.myClaimHeaders.addAll(myClaims);
-		this.claimsForApproval.addAll(forApproval);
-		this.claimsForPayment.addAll(forPayment);
-		offlineGateway.serializeClaimHeaders(myClaimHeaders, SerializableClaimTypes.MY_CLAIM);
-		offlineGateway.serializeClaimHeaders(forApproval, SerializableClaimTypes.FOR_APPROVAL);
-		offlineGateway.serializeClaimHeaders(forPayment, SerializableClaimTypes.FOR_PAYMENT);
+		this.myClaimHeaders.addAll(myClaimHeaders);
+		offlineGateway.serializeMyClaims(myClaimHeaders);
 	}
-	
-	public void initCurrencies(ArrayList<Currency> currencies){
-		this.currencies.clear();
-		this.currencies.addAll(currencies);
-		offlineGateway.serializeCurrencies(currencies);
-	}
-	
+
 	public ArrayList<Leave> getMyLeaves(){
 		return myLeaves;
 	}
-		
-	public ArrayList<Leave> getLeavesForApproval(){
-		return leavesForApproval;
-	}
-	
-//	public void updateMyClaims(final ProgressDialog pd, final AppListLoadFinishListener onLoadFinishCallback){
-//		pd.show();
-//		new Thread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				Object tempResult;
-//				try{
-//					tempResult = onlineGateway.getMyClaims();
-//				}catch(Exception e){
-//					tempResult = e.getMessage();
-//				}
-//				final Object result = tempResult;
-//				
-//				new Handler(Looper.getMainLooper()).post(new Runnable() {
-//					
-//					@Override
-//					public void run() {
-//						pd.dismiss();
-//						if(result instanceof String){
-//							if(onLoadFinishCallback != null)
-//								onLoadFinishCallback.onMyLeavesLoadFailed(result.toString());
-//						}else{
-//							myClaimHeaders.clear();
-//							myClaimHeaders.addAll((ArrayList<ClaimHeader>)result);
-//							offlineGateway.serializeClaimHeaders(myClaimHeaders, SerializableClaimTypes.MY_CLAIM);
-//
-//							if(onLoadFinishCallback != null)
-//								onLoadFinishCallback.onMyLeavesLoadSuccess();
-//						}
-//					}
-//				});
-//			}
-//		}).start();
-//	}
-	
+
 	public ArrayList<ClaimHeader> getMyClaims(){
 		return myClaimHeaders;
 	}

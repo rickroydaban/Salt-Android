@@ -48,6 +48,10 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_dark.9.png"
     },
     {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_camera.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable-hdpi/icon_camera.png"
+    },
+    {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_list.png",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable-hdpi/icon_list.png"
     },
@@ -78,6 +82,10 @@
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/common_signin_btn_text_disabled_light.9.png",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/drawable-hdpi/common_signin_btn_text_disabled_light.9.png"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_image.png",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/drawable-hdpi/icon_image.png"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/common_full_open_on_phone.png",

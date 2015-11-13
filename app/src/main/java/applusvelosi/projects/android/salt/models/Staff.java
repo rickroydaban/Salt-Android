@@ -8,6 +8,7 @@ import applusvelosi.projects.android.salt.views.LoginActivity;
 
 public class Staff {
 	public enum USERPOSITION{
+		USERPOSITION_DEFAULT,
 		USERPOSITION_CM,
 		USERPOSITION_RM,
 		USERPOSITION_CFO,
@@ -267,7 +268,8 @@ public class Staff {
 		return toValidString(map.get("ExpenseApproverName"));
 	}
 
-	public void setUserPosition(USERPOSITION userPosition){ map.put("UserPosition", userPosition); }
+	public void setUserPosition(USERPOSITION userPosition){
+		System.out.println("userposition set "+userPosition); map.put("UserPosition", userPosition); }
 
 	public USERPOSITION getUserPosition(){ return USERPOSITION.valueOf(map.get("UserPosition").toString()); }
 

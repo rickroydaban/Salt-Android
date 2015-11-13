@@ -91,44 +91,44 @@ public class OverviewLeavesFragment extends Fragment implements OnClickListener{
 	
 	public void refresh(HomeFragment key, StaffLeaveTypeCounter leaveCounter){
 		//consumed leaves reqs
-		TVconsumedVLReqs.setText(String.valueOf(leaveCounter.getApprovedVLRequests()));
-		TVconsumedSLReqs.setText(String.valueOf(leaveCounter.getApprovedSLRequests()));
-		TVconsumedULReqs.setText(String.valueOf(leaveCounter.getApprovedULRequests()));
-		TVconsumedMPLReqs.setText(String.valueOf(leaveCounter.getApproveddMPLRequests()));
-		TVconsumedDLReqs.setText(String.valueOf(leaveCounter.getApprovedDLRequests()));
-		TVconsumedBLReqs.setText(String.valueOf(leaveCounter.getApprovedBLRequests()));
-		TVconsumedHLReqs.setText(String.valueOf(leaveCounter.getApprovedHLRequests()));
-		TVconsumedBTLReqs.setText(String.valueOf(leaveCounter.getApprovedBTLRequests()));
-		//consumed leaves day
-		TVconsumedVLDays.setText(getString(leaveCounter.getApprovedVLDays()));
-		TVconsumedSLDays.setText(getString(leaveCounter.getApprovedSLDays()));
-		TVconsumedULDays.setText(getString(leaveCounter.getApprovedULDays()));
-		TVconsumedMPLDays.setText(getString(leaveCounter.getApprovedMPLDays()));
-		TVconsumedDLDays.setText(getString(leaveCounter.getApprovedDLDays()));
-		TVconsumedBLDays.setText(getString(leaveCounter.getApprovedBLDays()));
-		TVconsumedHLDays.setText(getString(leaveCounter.getApprovedHLDays()));
-		TVconsumedBTLDays.setText(getString(leaveCounter.getApprovedBTLDays()));
-
-		//balance
-		TVbalanceVL.setText(getString(leaveCounter.getRemainingVLDays()));
-		TVbalanceSL.setText(getString(leaveCounter.getRemainingSLDays()));
-		
-		//pending leaves
-		TVpendingVLReqs.setText(String.valueOf(leaveCounter.getPendingVLRequests()));
-		TVpendingULReqs.setText(String.valueOf(leaveCounter.getPendingULRequests()));
-		TVpendingVLDays.setText(String.valueOf(leaveCounter.getPendingVLDays()));
-		TVpendingULDays.setText(String.valueOf(leaveCounter.getPendingULDays()));
-		
-		//for approval
-		if(!app.getStaff().isUser()){ //user privileges only
-			TVleavesForApproval.setText((app.getStaff().isApprover())?String.valueOf(app.getLeavesForApproval().size()):"");
-			int leavesForApprovalCtr = 0;
-			for (Leave leave : app.getLeavesForApproval()) {
-				if(leave.getStatusID() == Leave.LEAVESTATUSPENDINGID && leave.isApprover(app.getStaff().getStaffID()))
-					leavesForApprovalCtr++;
-			}
-			TVleavesForApproval.setText(String.valueOf(leavesForApprovalCtr));
-		}		
+//		TVconsumedVLReqs.setText(String.valueOf(leaveCounter.getApprovedVLRequests()));
+//		TVconsumedSLReqs.setText(String.valueOf(leaveCounter.getApprovedSLRequests()));
+//		TVconsumedULReqs.setText(String.valueOf(leaveCounter.getApprovedULRequests()));
+//		TVconsumedMPLReqs.setText(String.valueOf(leaveCounter.getApproveddMPLRequests()));
+//		TVconsumedDLReqs.setText(String.valueOf(leaveCounter.getApprovedDLRequests()));
+//		TVconsumedBLReqs.setText(String.valueOf(leaveCounter.getApprovedBLRequests()));
+//		TVconsumedHLReqs.setText(String.valueOf(leaveCounter.getApprovedHLRequests()));
+//		TVconsumedBTLReqs.setText(String.valueOf(leaveCounter.getApprovedBTLRequests()));
+//		//consumed leaves day
+//		TVconsumedVLDays.setText(getString(leaveCounter.getApprovedVLDays()));
+//		TVconsumedSLDays.setText(getString(leaveCounter.getApprovedSLDays()));
+//		TVconsumedULDays.setText(getString(leaveCounter.getApprovedULDays()));
+//		TVconsumedMPLDays.setText(getString(leaveCounter.getApprovedMPLDays()));
+//		TVconsumedDLDays.setText(getString(leaveCounter.getApprovedDLDays()));
+//		TVconsumedBLDays.setText(getString(leaveCounter.getApprovedBLDays()));
+//		TVconsumedHLDays.setText(getString(leaveCounter.getApprovedHLDays()));
+//		TVconsumedBTLDays.setText(getString(leaveCounter.getApprovedBTLDays()));
+//
+//		//balance
+//		TVbalanceVL.setText(getString(leaveCounter.getRemainingVLDays()));
+//		TVbalanceSL.setText(getString(leaveCounter.getRemainingSLDays()));
+//
+//		//pending leaves
+//		TVpendingVLReqs.setText(String.valueOf(leaveCounter.getPendingVLRequests()));
+//		TVpendingULReqs.setText(String.valueOf(leaveCounter.getPendingULRequests()));
+//		TVpendingVLDays.setText(String.valueOf(leaveCounter.getPendingVLDays()));
+//		TVpendingULDays.setText(String.valueOf(leaveCounter.getPendingULDays()));
+//
+//		//for approval
+//		if(!app.getStaff().isUser()){ //user privileges only
+//			TVleavesForApproval.setText((app.getStaff().isApprover())?String.valueOf(app.getLeavesForApproval().size()):"");
+//			int leavesForApprovalCtr = 0;
+//			for (Leave leave : app.getLeavesForApproval()) {
+//				if(leave.getStatusID() == Leave.LEAVESTATUSPENDINGID && leave.isApprover(app.getStaff().getStaffID()))
+//					leavesForApprovalCtr++;
+//			}
+//			TVleavesForApproval.setText(String.valueOf(leavesForApprovalCtr));
+//		}
 	}
 	
 	private String getString(float val){

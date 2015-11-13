@@ -10,16 +10,8 @@ import applusvelosi.projects.android.salt.utils.OnlineGateway;
 
 public class LiquidationOfBA extends ClaimHeader{
 		
-	public LiquidationOfBA(	int staffID, String staffName, String staffEmail,
-							int officeID, String officeName, String hrEmail,
-							int costCenterID, String costCenterName, 
-							int approverID, String approverName, String approverEmail,
-							int accountID, String accountName, String accountEmail,
-							int BAID, String BACNumber,
-							SaltApplication app) throws Exception{
-
-		super(	staffID, staffName, staffEmail, officeID, officeName, hrEmail, costCenterID, costCenterName, approverID, approverName, 
-		approverEmail, accountID, accountName, accountEmail, app);
+	public LiquidationOfBA(SaltApplication app, int costCenterID, String costCenterName, int BAID, String BACNumber) throws Exception{
+		super(app, costCenterID, costCenterName);
 		map.put("ClaimTypeID", ClaimHeader.TYPEKEY_LIQUIDATION);
 		map.put("ClaimTypeName",ClaimHeader.TYPEDESC_LIQUIDATION);
 		map.put("BusinessAdvanceIDCharged", BAID);

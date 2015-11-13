@@ -10,6 +10,6 @@ import android.view.ViewGroup;
  */
 public interface ListAdapterInterface {
 
-    public View getView(int position, View convertView, ViewGroup parent);
-    public int getCount();
+    View getView(int position, View convertView, ViewGroup parent);
+    int getCount();
 }

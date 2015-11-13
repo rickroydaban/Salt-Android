@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
@@ -21,7 +22,12 @@ public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 		
 		return fragment;
 	}
-	
+
+	@Override
+	protected String getActionbarTitle() {
+		return "Claim";
+	}
+
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view;
@@ -30,7 +36,7 @@ public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 			ClaimPaidByCC claimPaidByCC = (ClaimPaidByCC)claim;
 			view = inflater.inflate(R.layout.fragment_claimdetails_claimpaidbycc, null);
 			
-			initializeCommonFields(view);
+//			initializeCommonFields(view);
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_id)).setText(String.valueOf(claim.getClaimNumber()));
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_staff)).setText(claim.getStaffName());
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_costcenter)).setText(claim.getCostCenterName());
@@ -38,8 +44,7 @@ public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 			
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_type)).setText(ClaimHeader.getTypeDescriptionForKey(claim.getTypeID()));
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_status)).setText(ClaimHeader.getStatusDescriptionForKey(claim.getStatusID()));
-			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_compcard)).setText("Yes");
-			
+
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_total)).setText(String.valueOf(claim.getTotalClaim()));
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_amountApproved)).setText(String.valueOf(claim.getApprovedAmount()));
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_amountRejected)).setText(String.valueOf(claim.getRejectedAmount()));
@@ -54,7 +59,7 @@ public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 			ClaimNotPaidByCC claimNotPaidByCC = (ClaimNotPaidByCC)claim;
 			view = inflater.inflate(R.layout.fragment_claimdetails_claimnotpaidbycc, null);
 			
-			initializeCommonFields(view);
+//			initializeCommonFields(view);
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_id)).setText(String.valueOf(claim.getClaimNumber()));
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_staff)).setText(claim.getStaffName());
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_costcenter)).setText(claim.getCostCenterName());
@@ -63,8 +68,7 @@ public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 			
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_type)).setText(ClaimHeader.getTypeDescriptionForKey(claim.getTypeID()));
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_status)).setText(ClaimHeader.getStatusDescriptionForKey(claim.getStatusID()));
-			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_compcard)).setText("No");
-			
+
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_total)).setText(String.valueOf(claim.getTotalClaim()));
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_amountApproved)).setText(String.valueOf(claim.getApprovedAmount()));
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_amountRejected)).setText(String.valueOf(claim.getRejectedAmount()));
@@ -75,15 +79,18 @@ public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_onAccount)).setText(claim.getDateApprovedByAccount());
 			((TextView)view.findViewById(R.id.tviews_claimdetail_claim_datepaid)).setText(claim.getDatePaid());
 		}
-		
+
+		containerLineItem = (RelativeLayout)view.findViewById(R.id.containers_claimheader_lineitems);
+		containerLineItem.setOnClickListener(this);
+
 		return view;
 	}
 
-	private void initializeCommonFields(View view){
-		tvLineItem = (TextView)view.findViewById(R.id.tviews_claimdetail_items);
-		tvLineItem.setPaintFlags(tvLineItem.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-		tvLineItem.setOnClickListener(this);
-
-		updateActionbar();		
-	}
+//	private void initializeCommonFields(View view){
+//		tvLineItem = (TextView)view.findViewById(R.id.tviews_claimdetail_items);
+//		tvLineItem.setPaintFlags(tvLineItem.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+//		tvLineItem.setOnClickListener(this);
+//
+//		updateActionbar();
+//	}
 }

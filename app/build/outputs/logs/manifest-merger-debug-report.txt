@@ -8,7 +8,7 @@ ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml
 	android:versionName
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:5:5-30
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:5:5-32
 		INJECTED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml
 	android:versionCode

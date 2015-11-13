@@ -31,7 +31,7 @@
 	    <ImageView 
 	        android:layout_width="@dimen/dimens_actionbar_item"
 	        android:layout_height="@dimen/dimens_actionbar_item"
-	        android:src="@drawable/icon_newclaim"
+	        android:src="@drawable/icon_add"
 	        android:scaleType="fitXY"/>
 	 
 	</RelativeLayout>
@@ -52,22 +52,6 @@
 	 
 	</RelativeLayout>
 
-    <RelativeLayout 
-        android:id="@+id/buttons_actionbar_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/paddings_actionbar_buttons"
-		android:layout_toLeftOf="@id/buttons_actionbar_refresh"
-        android:layout_centerVertical="true">
-    
-	    <ImageView 
-	        android:layout_width="@dimen/dimens_actionbar_item"
-	        android:layout_height="@dimen/dimens_actionbar_item"
-	        android:src="@drawable/icon_search"
-	        android:scaleType="fitXY"/>
-	 
-	</RelativeLayout>
-    	
     <TextView 
         android:id="@+id/tviews_actionbar_title"
         android:layout_width="match_parent"
@@ -77,6 +61,6 @@
         android:gravity="center_vertical"
         android:textStyle="bold"
         android:layout_toRightOf="@id/buttons_actionbar_menu"
-        android:layout_toLeftOf="@id/buttons_actionbar_search"/>    
+        android:layout_toLeftOf="@id/buttons_actionbar_refresh"/>
     
 </RelativeLayout>

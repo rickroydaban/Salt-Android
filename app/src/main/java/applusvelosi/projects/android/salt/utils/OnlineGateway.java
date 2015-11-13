@@ -36,8 +36,12 @@ import org.json.JSONObject;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+
+import com.parse.ParseObject;
+
 import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.Category;
+import applusvelosi.projects.android.salt.models.CostCenter;
 import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.Document;
 import applusvelosi.projects.android.salt.models.Holiday;
@@ -65,8 +69,8 @@ public class OnlineGateway {
 	public SaltApplication app;
 	
 	public OnlineGateway(SaltApplication app){
-//		this.apiUrl = "https://salttestapi.velosi.com/SALTService.svc/";
-		this.apiUrl = "https://saltapi.velosi.com/SALTService.svc/";
+		this.apiUrl = "https://salttestapi.velosi.com/SALTService.svc/";
+//		this.apiUrl = "https://saltapi.velosi.com/SALTService.svc/";
 		this.app = app;
 	}
 
@@ -116,10 +120,11 @@ public class OnlineGateway {
 	    int idx2 = d.indexOf(")") - 5;
 	    String s = d.substring(idx1+1, idx2);
 
-	    return app.dateFormatDefault.format(new Date(Long.valueOf(s) + SaltApplication.ONEDAY));
+//	    return app.dateFormatDefault.format(new Date(Long.valueOf(s) + SaltApplication.ONEDAY));
+		return app.dateFormatDefault.format(new Date(Long.valueOf(s)));
 	}
 
-	public String jsonizeDate(Date date) throws Exception{
+	public String jsonizeDate(Date date) {
 		return "/Date("+date.getTime()+"+0000)/";
 	}
 
@@ -159,6 +164,26 @@ public class OnlineGateway {
 			for(int i=0; i<jsonMyLeaves.length(); i++)
 				myLeaves.add(new Leave(jsonMyLeaves.getJSONObject(i), this));
 			
+			return myLeaves;
+		}catch(Exception e){
+			return e.getMessage();
+		}
+	}
+
+	public Object getMyPendingAndApprovedLeaves() throws Exception{
+		try{
+			int staffID = app.getStaff().getStaffID();
+			String filter = getURLEncodedString("WHERE year(DateFrom)=Year(getdate()) AND StaffID=" + staffID + " AND ((LeaveStatus=18)OR(LeaveStatus=20)) ORDER BY DateSubmitted DESC");
+			JSONObject myLeaveResult = new JSONObject(getHttpGetResult(apiUrl+"GetAllLeave?filter="+filter+"&requestingPerson="+staffID+"&datetime="+now())).getJSONObject("GetAllLeaveResult");
+
+			if(myLeaveResult.getJSONArray("SystemErrors").length() > 0)
+				return myLeaveResult.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
+
+			ArrayList<Leave> myLeaves = new ArrayList<Leave>();
+			JSONArray jsonMyLeaves = myLeaveResult.getJSONArray("Leaves");
+			for(int i=0; i<jsonMyLeaves.length(); i++)
+				myLeaves.add(new Leave(jsonMyLeaves.getJSONObject(i), this));
+
 			return myLeaves;
 		}catch(Exception e){
 			return e.getMessage();
@@ -281,12 +306,13 @@ public class OnlineGateway {
 				if(app.getStaff().isCorporateApprover()){
 					if(app.getStaff().getUserPosition()==Staff.USERPOSITION.USERPOSITION_CFO || app.getStaff().getUserPosition()==Staff.USERPOSITION.USERPOSITION_CEO) {
 						int statusID = (app.getStaff().getUserPosition() == Staff.USERPOSITION.USERPOSITION_CFO) ? CapexHeader.CAPEXHEADERID_APPROVEDBYRM : CapexHeader.CAPEXHEADERID_APPROVEDBYCFO;
-						filter.append("WHERE ((CountryManager=" + staffID + " AND StatusID=" + CapexHeader.CAPEXHEADERID_SUBMITTED + ") OR (RegionalManager=" + staffID + " AND StatusID=" + statusID + ")) OR (TotalAmountInUSD>3000 AND StatusID=%d");
+						filter.append("WHERE ((CountryManager=" + staffID + " AND StatusID=" + CapexHeader.CAPEXHEADERID_SUBMITTED + ")OR(RegionalManager=" + staffID + " AND StatusID=" + CapexHeader.CAPEXHEADERID_APPROVEDBYCM + "))OR(TotalAmountInUSD>3000 AND StatusID="+statusID+")");
 					}else
-						filter.append("WHERE (CountryManager="+staffID+" AND StatusID="+CapexHeader.CAPEXHEADERID_SUBMITTED+") OR (RegionalManager="+staffID+" AND StatusID="+CapexHeader.CAPEXHEADERID_APPROVEDBYCM+")");
+						filter.append("WHERE (CountryManager="+staffID+" AND StatusID="+CapexHeader.CAPEXHEADERID_SUBMITTED+")OR(RegionalManager="+staffID+" AND StatusID="+CapexHeader.CAPEXHEADERID_APPROVEDBYCM+")");
 				}else
 					filter.append("WHERE CountryManager="+staffID+" AND StatusID="+ CapexHeader.CAPEXHEADERID_SUBMITTED);
-			}
+			}else
+				filter.append("WHERE CapexID=0");
 
 			filter.append(" ORDER BY DateCreated DESC");
 			String encodedFilter = getURLEncodedString(filter.toString());
@@ -302,6 +328,7 @@ public class OnlineGateway {
 
 			return capexesForApproval;
 		}catch(Exception e){
+			e.printStackTrace();
 			return e.getMessage();
 		}
 	}
@@ -313,10 +340,10 @@ public class OnlineGateway {
 
 			if(app.getStaff().isCM()){
 				if(app.getStaff().isCorporateApprover()){
-					if(app.getStaff().getUserPosition() == Staff.USERPOSITION.USERPOSITION_CEO)
-						filter.append("WHERE StatusID="+ Recruitment.RECRUITMENT_STATUSID_APPROVEDBYMHR+" AND ((CountryManager="+app.getStaff().getStaffID()+" AND StatusID="+Recruitment.RECRUITMENT_STATUSID_SUBMITTED+") OR  (RegionalManager="+app.getStaff().getStaffID()+" AND StatusID="+Recruitment.RECRUITMENT_STATUSID_APPROVEDBYCM+"))");
-					else
-						filter.append("WHERE (CountryManager="+app.getStaff().getStaffID()+" AND StatusID="+Recruitment.RECRUITMENT_STATUSID_SUBMITTED+") OR  (RegionalManager="+app.getStaff().getStaffID()+" AND StatusID="+Recruitment.RECRUITMENT_STATUSID_APPROVEDBYCM+")");
+					if(app.getStaff().getUserPosition() == Staff.USERPOSITION.USERPOSITION_CEO) {
+						filter.append("WHERE StatusID=" + Recruitment.RECRUITMENT_STATUSID_APPROVEDBYMHR + "OR((CountryManager=" + app.getStaff().getStaffID() + " AND StatusID=" + Recruitment.RECRUITMENT_STATUSID_SUBMITTED + ")OR(RegionalManager=" + app.getStaff().getStaffID() + " AND StatusID=" + Recruitment.RECRUITMENT_STATUSID_APPROVEDBYCM + "))");
+					}else
+						filter.append("WHERE (CountryManager="+app.getStaff().getStaffID()+" AND StatusID="+Recruitment.RECRUITMENT_STATUSID_SUBMITTED+")OR(RegionalManager="+app.getStaff().getStaffID()+" AND StatusID="+Recruitment.RECRUITMENT_STATUSID_APPROVEDBYCM+")");
 				}else
 					filter.append("WHERE CountryManager="+app.getStaff().getStaffID()+" AND StatusID="+Recruitment.RECRUITMENT_STATUSID_SUBMITTED);
 			}else if(app.getStaff().getStaffID() == SaltApplication.MAINHRID){
@@ -447,6 +474,21 @@ public class OnlineGateway {
 		return categories;
 	}
 
+	public Object getCostCentersByOfficeID() throws Exception{
+		JSONObject result = new JSONObject(getHttpGetResult(apiUrl+"GetCostCenterByOFfice?officeID="+app.getStaff().getOfficeID()+"&requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetCostCenterByOfficeResult");
+		if(result.getJSONArray("SystemErrors").length() > 0)
+			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
+
+		ArrayList<CostCenter> costCenters = new ArrayList<CostCenter>();
+		JSONArray jsonCostCenters = result.getJSONArray("CostCenters");
+		for(int i = 0; i<jsonCostCenters.length(); i++){
+			JSONObject jsonCostCenter = jsonCostCenters.getJSONObject(i);
+			costCenters.add(new CostCenter(jsonCostCenter.getInt("CostCenterID"), jsonCostCenter.getString("Description")));
+		}
+
+		return costCenters;
+	}
+
 	public Object getClaimItemProjectsByCostCenter(int costCenterID) throws Exception{
 		JSONObject result = new JSONObject(getHttpGetResult(apiUrl+"GetProjectByCostCenter?costCenterID="+costCenterID+"&requestingperson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetProjectByCostCenterResult");
 		if(result.getJSONArray("SystemErrors").length() > 0)
@@ -475,7 +517,21 @@ public class OnlineGateway {
 		return offices;		
 	}
 
-	public String getForexRate(String currFrom, String currTo) throws Exception{
+	public Object getCurrencies() throws Exception{
+		JSONObject result = new JSONObject(getHttpGetResult(apiUrl+"GetAllCurrencies?requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetAllCurrenciesResult");
+		if(result.getJSONArray("SystemErrors").length() > 0)
+			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
+
+		ArrayList<Currency> currencies = new ArrayList<Currency>();
+		JSONArray jsonCurrencies = result.getJSONArray("Currencies");
+		for(int i=0; i<jsonCurrencies.length(); i++)
+			currencies.add(new Currency(jsonCurrencies.getJSONObject(i)));
+
+		return currencies;
+	}
+
+
+	public Object getForexRate(String currFrom, String currTo) throws Exception{
 		String html = getHttpGetResult("http://www.google.com/finance/converter?a=1&from=" + currFrom + "&to=" + currTo);
 		int parentDivStartPos = html.indexOf("<div id=currency_converter_result>"); 
 		int parentDivEndPos = html.indexOf("<input type=submit value=\"Convert\">\n</div>", parentDivStartPos);
@@ -488,7 +544,7 @@ public class OnlineGateway {
 				int spanEndPos = parentDivSubstring.indexOf("</span>");				
 				if(spanStartPos!=-1 && spanEndPos!=-1){
 					StringBuilder tempSpanSubstring = new StringBuilder(parentDivSubstring.substring(spanStartPos, spanEndPos));
-					return tempSpanSubstring.substring(tempSpanSubstring.indexOf(">")+1, tempSpanSubstring.length()).split(" ")[0];
+					return Float.parseFloat(tempSpanSubstring.substring(tempSpanSubstring.indexOf(">")+1, tempSpanSubstring.length()).split(" ")[0]);
 				}else
 					return "HTML Parsing error. Target source code of container span for rate string might have been changed. Please contact developer";				
 			}else
@@ -511,7 +567,13 @@ public class OnlineGateway {
 		
 		if(result.getInt("ProcessedClaimID") == -1)
 			return "No Changes were made";
-		
+
+
+		ParseObject dataObject = new ParseObject("Requests");
+		dataObject.put("requester", app.getStaff().getFname() + " " + app.getStaff().getLname());
+		dataObject.put("type", "Claim");
+		dataObject.saveInBackground();
+
 		return null;
 	}
 
@@ -529,6 +591,11 @@ public class OnlineGateway {
 		if(result.getInt("ProcessedCapexID") < 0)
 			return "No changes were made";
 
+		ParseObject dataObject = new ParseObject("Approvals");
+		dataObject.put("approver", app.getStaff().getFname()+" "+app.getStaff().getLname());
+		dataObject.put("type", "Capex");
+		dataObject.saveInBackground();
+
 		return "OK";
 	}
 
@@ -545,6 +612,11 @@ public class OnlineGateway {
 
 		if(result.getInt("ProcessedRecruitmentRequestID") < 0)
 			return "No changes were made";
+
+		ParseObject dataObject = new ParseObject("Approvals");
+		dataObject.put("approver", app.getStaff().getFname()+" "+app.getStaff().getLname());
+		dataObject.put("type", "Recruitment");
+		dataObject.saveInBackground();
 
 		return "OK";
 	}
@@ -714,18 +786,29 @@ public class OnlineGateway {
 		JSONObject result = new JSONObject(getHttpGetResult(apiUrl+"SaveLeave?newLeave="+newLeaveJson+"&oldLeave="+oldLeaveJson+"&requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("SaveLeaveResult");
 		if(result.getJSONArray("SystemErrors").length() > 0)
 			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
-		
+
+		ParseObject dataObject = new ParseObject("Requests");
+		dataObject.put("requester", app.getStaff().getFname() + " " + app.getStaff().getLname());
+		dataObject.put("type", "Leave");
+		dataObject.saveInBackground();
+
 		return null;
 	}
 	
 	public String changeLeaveStatus(String leaveJson, int statusID) throws Exception{ 
 		System.out.println("Will change to "+Leave.getLeaveStatusDescForKey(statusID));
 		JSONObject result = new JSONObject(getHttpGetResult(apiUrl+"ApproveLeave?leave="+leaveJson+"&status="+statusID+"&requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("ApproveLeaveResult");
-		System.out.println("change leave status result "+result);
+		System.out.println("change leave status result " + result);
 //		app.fileManager.saveToTextFile(result.toString());
 		if(result.getJSONArray("SystemErrors").length() > 0)
 			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
-		
+
+		if(statusID == Leave.LEAVESTATUSAPPROVEDKEY || statusID == Leave.LEAVESTATUSREJECTEDKEY){
+			ParseObject dataObject = new ParseObject("Approvals");
+			dataObject.put("approver", app.getStaff().getFname()+" "+app.getStaff().getLname());
+			dataObject.put("type", "Leave");
+			dataObject.saveInBackground();
+		}
 		return null;		
 	}
 		

@@ -154,5 +154,5 @@ public class LoginActivity extends Activity implements OnClickListener{
 			}else
 				app.showMessageDialog(this, "Username and password are required");
 		}
-	}	
+	}
 }

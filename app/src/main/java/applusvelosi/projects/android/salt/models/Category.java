@@ -1,10 +1,11 @@
 package applusvelosi.projects.android.salt.models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import org.json.JSONObject;
 
-public class Category {
+public class Category implements Serializable{
 	public static final int TYPE_MILEAGE = 1;
 	public static final int TYPE_BUSINESSADVANCE = 4;
 	public static final int TYPE_ASSET = 7;

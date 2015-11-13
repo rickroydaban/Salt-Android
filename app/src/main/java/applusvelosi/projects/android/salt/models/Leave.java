@@ -11,6 +11,8 @@ import android.net.wifi.WifiEnterpriseConfig.Eap;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 
 public class Leave {
+	public enum Duration { ONEDAY, AM, PM};
+
 	private static String LEAVETYPEBIRTHDAY = "1-Birthday Leave-Birthday";
 	private static String LEAVETYPEVACATION = "2-Vacation/Holiday-VacationOrHoliday";
 	private static String LEAVETYPESICK = "3-Sick Leave-Sick";

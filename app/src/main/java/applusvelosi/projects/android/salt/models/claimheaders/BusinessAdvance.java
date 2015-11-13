@@ -10,15 +10,10 @@ import applusvelosi.projects.android.salt.utils.OnlineGateway;
 
 public class BusinessAdvance extends ClaimHeader{
 
-	public BusinessAdvance(	int staffID, String staffName, String staffEmail,
-							int officeID, String officeName, String hrEmail,
-							int costCenterID, String costCenterName, 
-							int approverID, String approverName, String approverEmail,
-							int accountID, String accountName, String accountEmail,
-							SaltApplication app) throws Exception{
+	public BusinessAdvance(SaltApplication app, int costCenterID, String costCenterName) throws Exception{
 
-		super(	staffID, staffName, staffEmail, officeID, officeName, hrEmail, costCenterID, costCenterName, approverID, approverName, 
-				approverEmail, accountID, accountName, accountEmail, app);
+		super(app, costCenterID, costCenterName);
+		map.put("DateApprovedByDirector", app.onlineGateway.dJsonizeDate(map.get("DateApprovedByDirector").toString()));
 		map.put("ClaimTypeID", ClaimHeader.TYPEKEY_ADVANCES);
 		map.put("ClaimTypeName",ClaimHeader.TYPEDESC_ADVANCES);
 	}
@@ -65,6 +60,7 @@ public class BusinessAdvance extends ClaimHeader{
 		
 	public BusinessAdvance(JSONObject jsonClaim, SaltApplication app) throws Exception{
 		super(jsonClaim, app);
+		map.put("DateApprovedByDirector", app.onlineGateway.dJsonizeDate(map.get("DateApprovedByDirector").toString()));
 	}
 
 	public BusinessAdvance(HashMap<String, Object> map) {
@@ -78,9 +74,9 @@ public class BusinessAdvance extends ClaimHeader{
 	public String getCMEmail(){
 		return map.get("CountryManagerEmail").toString();
 	}
-	
+
 	public String getDateApprovedByCM(){
-		return map.get("DateApprovedByDirector").toString();
+		return getStringedDate(map.get("DateApprovedByDirector").toString());
 	}
 	
 }

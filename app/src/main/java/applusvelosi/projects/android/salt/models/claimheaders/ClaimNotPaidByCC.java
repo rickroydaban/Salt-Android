@@ -10,14 +10,8 @@ import applusvelosi.projects.android.salt.utils.OnlineGateway;
 
 public class ClaimNotPaidByCC extends ClaimHeader{
 	
-	public ClaimNotPaidByCC(	int staffID, String staffName, String staffEmail,
-								int officeID, String officeName, String hrEmail,
-								int costCenterID, String costCenterName, 
-								int approverID, String approverName, String approverEmail,
-								int accountID, String accountName, String accountEmail,
-								SaltApplication app) throws Exception{
-		super(	staffID, staffName, staffEmail, officeID, officeName, hrEmail, costCenterID, costCenterName, approverID, approverName, 
-				approverEmail, accountID, accountName, accountEmail, app);
+	public ClaimNotPaidByCC(SaltApplication app, int costCenterID, String costCenterName) throws Exception{
+		super(app, costCenterID, costCenterName);
 		map.put("ClaimTypeID", 1);
 		map.put("ClaimTypeName","Claim");
 		map.put("IsPaidByCompanyCC", false);

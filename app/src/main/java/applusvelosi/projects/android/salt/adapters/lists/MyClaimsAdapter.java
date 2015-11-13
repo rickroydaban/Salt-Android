@@ -30,22 +30,25 @@ public class MyClaimsAdapter extends BaseAdapter{
 			holder = new ClaimNodeHolder();
 			view = activity.getLayoutInflater().inflate(R.layout.node_myclaims, null);
 			holder.tvClaimNumber = (TextView)view.findViewById(R.id.tviews_myclaims_node_name);
-			holder.tvType = (TextView)view.findViewById(R.id.tviews_myclaims_node_type);
-			holder.tvStatus = (TextView)view.findViewById(R.id.tviews_myclaims_node_status);			
-			holder.tvCostCenter = (TextView)view.findViewById(R.id.tviews_myclaims_node_chargeTo);
+			holder.tvStatus = (TextView)view.findViewById(R.id.tviews_myclaims_node_status);
 			holder.tvTotal = (TextView)view.findViewById(R.id.tviews_myclaims_node_total);
-			
+
 			view.setTag(holder);
 		}
 		
 		holder = (ClaimNodeHolder)view.getTag();
 		ClaimHeader claimHeader = claimHeaders.get(pos);
 		holder.tvClaimNumber.setText(claimHeader.getClaimNumber());
-		holder.tvType.setText(ClaimHeader.getTypeDescriptionForKey(claimHeader.getTypeID()));
 		holder.tvStatus.setText(ClaimHeader.getStatusDescriptionForKey(claimHeader.getStatusID()));
-		holder.tvCostCenter.setText(claimHeader.getCostCenterName());
 		holder.tvTotal.setText(String.valueOf(claimHeader.getTotalClaim()));
-		
+
+		if(claimHeader.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYACCOUNTS || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYAPPROVER || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYCOUNTRYMANAGER)
+			holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.green));
+		else if(claimHeader.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYACCOUNTS || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYAPPROVER || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYCOUNTRYMANAGER || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDFORSALARYDEDUCTION || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_RETURN)
+			holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.red));
+		else
+			holder.tvStatus.setTextColor(activity.getResources().getColor(R.color.black));
+
 		return view;
 	}
 
@@ -65,6 +68,7 @@ public class MyClaimsAdapter extends BaseAdapter{
 	}
 	
 	private class ClaimNodeHolder{ 
-		public TextView tvClaimNumber, tvType, tvStatus, tvCostCenter, tvTotal;
+//		public TextView tvClaimNumber, tvType, tvStatus, tvCostCenter, tvTotal;
+		public TextView tvClaimNumber, tvStatus, tvTotal;
 	}
 }

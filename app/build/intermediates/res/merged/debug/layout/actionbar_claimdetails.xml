@@ -42,13 +42,6 @@
 	        style="@style/styles_actionbar_item_text" />
 
 	    <TextView 
-	        android:id="@+id/buttons_actionbar_trails"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Trails"
-	        style="@style/styles_actionbar_item_text" />
-		    	    
-	    <TextView 
 	        android:id="@+id/buttons_actionbar_edit"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
