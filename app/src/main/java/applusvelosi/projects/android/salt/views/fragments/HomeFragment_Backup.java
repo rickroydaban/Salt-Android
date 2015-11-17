@@ -33,7 +33,7 @@ import applusvelosi.projects.android.salt.views.fragments.homepages.OverviewClai
 import applusvelosi.projects.android.salt.views.fragments.homepages.OverviewLeavesFragment;
 import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveInputType;
 
-public class HomeFragment_Backup extends ActionbarFragment implements RootFragment, OnPageChangeListener, StaffLeaveSyncListener{
+public class HomeFragment_Backup extends HomeActionbarFragment implements RootFragment, OnPageChangeListener, StaffLeaveSyncListener{
 	private static HomeFragment_Backup instance;
 	//action bar buttons
 	private RelativeLayout actionbarMenuButton, actionbarRefresh, actionbarCalendarButton, actionbarNewLeaveButton, actionbarNewClaimButton;

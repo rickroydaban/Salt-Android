@@ -16,9 +16,9 @@ import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.claimitems.MilageClaimItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.FileManager.AttachmentDownloadListener;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class ClaimItemDetailMileageFragment extends ActionbarFragment implements AttachmentDownloadListener{
+public class ClaimItemDetailMileageFragment extends HomeActionbarFragment implements AttachmentDownloadListener{
 	private static final String KEY_CLAIMID = "myclaimitemdetailclaimIDkey";
 	private static final String KEY_CLAIMITEMID = "myclaimitemdetailclaimitemIDKey";
 	//action bar buttons
@@ -77,7 +77,7 @@ public class ClaimItemDetailMileageFragment extends ActionbarFragment implements
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_notesorbillstoclient)).setText(claimItem.getNotes());
 		trAttendees = (TableRow)view.findViewById(R.id.trs_claimitemdetail_attendees);
 		trAttendees.setOnClickListener(this);
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_attendeecount)).setText(String.valueOf(claimItem.getAttendees().size()));
+//		((TextView)view.findViewById(R.id.tviews_claimitemdetail_attendeecount)).setText(String.valueOf(claimItem.getAttendees().size()));
 		if(claimItem.isBillable()){
 			((TextView)view.findViewById(R.id.tviews_claimitemdetail_billto)).setText(claimItem.getBillableCompanyName());			
 			((TextView)view.findViewById(R.id.tviews_claimitemdetail_notesorbillstoclient)).setText(claimItem.getNotes());
@@ -113,7 +113,7 @@ public class ClaimItemDetailMileageFragment extends ActionbarFragment implements
 		}else if(v == actionbarEditButton){
 			activity.changeChildPage(ItemInputFragmentClaims.newInstanceForEditingClaimItem(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
 		}else if(v == trAttendees){
-			activity.changeChildPage(ClaimItemAttendeeListFragment.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
+//			activity.changeChildPage(ClaimItemAttendeeListFragment.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
 		}else if(v == tvAttachment){
 			try{
 				if(pd == null)

@@ -14,13 +14,12 @@ import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.HeaderDetailAdapter;
-import applusvelosi.projects.android.salt.adapters.lists.SimpleAdapter;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/12/15.
  */
-public class RFADetailBenefitsFragment extends ActionbarFragment implements AdapterView.OnItemClickListener{
+public class RFADetailBenefitsFragment extends HomeActionbarFragment implements AdapterView.OnItemClickListener{
     public static String KEY_RECRUITMENTJSON = "RFADetailBenefitsFragmentKeyRecruitmentJSON";
 
     private RelativeLayout actionbarButtonBack;

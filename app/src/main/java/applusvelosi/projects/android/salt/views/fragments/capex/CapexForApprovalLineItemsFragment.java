@@ -17,12 +17,12 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.HeaderDetailAdapter;
 import applusvelosi.projects.android.salt.models.capex.CapexLineItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/13/15.
  */
-public class CapexForApprovalLineItemsFragment extends ActionbarFragment implements AdapterView.OnItemClickListener{
+public class CapexForApprovalLineItemsFragment extends HomeActionbarFragment implements AdapterView.OnItemClickListener{
     public static String KEY_CAPEXHEADERID = "CapexForApprovalLineItemsFragmentCapexHeaderID";
 
     private SaltProgressDialog pd;

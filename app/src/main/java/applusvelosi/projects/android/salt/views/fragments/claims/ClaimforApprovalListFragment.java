@@ -14,9 +14,9 @@ import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.utils.interfaces.DataGetterInterface;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class ClaimforApprovalListFragment extends ActionbarFragment implements DataGetterInterface, OnItemClickListener, OnItemLongClickListener,
+public class ClaimforApprovalListFragment extends HomeActionbarFragment implements DataGetterInterface, OnItemClickListener, OnItemLongClickListener,
 																		  RootFragment{	
 	//action bar buttons
 	RelativeLayout actionbarSearchButton, actionbarRefreshButton, actionbarMenuButton;

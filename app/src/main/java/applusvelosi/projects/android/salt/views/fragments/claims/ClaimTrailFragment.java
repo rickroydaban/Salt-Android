@@ -19,9 +19,9 @@ import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.ClaimTrailAdapter;
 import applusvelosi.projects.android.salt.models.ClaimTrail;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class ClaimTrailFragment extends ActionbarFragment implements OnItemSelectedListener{
+public class ClaimTrailFragment extends HomeActionbarFragment implements OnItemSelectedListener{
 	private static final String CLAIMTRAILKEY_CLAIMTRAILS = "claimTrailKey_claimtrails";
 	private static final String CLAIMTRAILKEY_CLAIMID = "claimTrailKey_claimID";
 	private RelativeLayout buttonActionbarBack, buttonActionbarAdd;

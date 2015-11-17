@@ -1,6 +1,5 @@
 package applusvelosi.projects.android.salt.views.fragments;
 
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -10,33 +9,22 @@ import java.util.TimerTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.StaffLeaveTypeCounter;
 import applusvelosi.projects.android.salt.models.StaffLeaveTypeCounter.StaffLeaveSyncListener;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.utils.customviews.CustomViewPager;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
 import applusvelosi.projects.android.salt.views.fragments.claims.ClaimHeaderInputType;
-import applusvelosi.projects.android.salt.views.fragments.claims.ClaimInputFragment;
-import applusvelosi.projects.android.salt.views.fragments.homepages.OverviewAdvancesFragment;
-import applusvelosi.projects.android.salt.views.fragments.homepages.OverviewClaimsFragment;
 import applusvelosi.projects.android.salt.views.fragments.homepages.OverviewLeavesFragment;
-import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveInputFragment;
 import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveInputType;
 
-public class HomeFragment extends ActionbarFragment implements RootFragment, StaffLeaveSyncListener{
+public class HomeFragment extends HomeActionbarFragment implements RootFragment, StaffLeaveSyncListener{
 	private static HomeFragment instance;
 	//action bar buttons
 	private RelativeLayout actionbarMenuButton, actionbarRefresh, actionbarCalendarButton, actionbarNewLeaveButton, actionbarNewClaimButton;

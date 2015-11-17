@@ -72,16 +72,16 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_rfa_detail.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimdetails_businessadvance.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimdetails_businessadvance.xml"
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/iv_receipt.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/iv_receipt.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_calendar_mycalendar.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_calendar_mycalendar.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/iv_receipt.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/iv_receipt.xml"
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimdetails_businessadvance.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimdetails_businessadvance.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/dialog_addclaimattendee.xml",

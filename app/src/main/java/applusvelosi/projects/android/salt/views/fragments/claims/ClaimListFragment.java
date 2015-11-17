@@ -18,10 +18,9 @@ import applusvelosi.projects.android.salt.adapters.lists.MyClaimsAdapter;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
-import applusvelosi.projects.android.salt.views.ClaimSearchFragment;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class ClaimListFragment extends ActionbarFragment implements OnItemClickListener, RootFragment{
+public class ClaimListFragment extends HomeActionbarFragment implements OnItemClickListener, RootFragment{
 	private static ClaimListFragment instance;
 
 	//action bar buttons

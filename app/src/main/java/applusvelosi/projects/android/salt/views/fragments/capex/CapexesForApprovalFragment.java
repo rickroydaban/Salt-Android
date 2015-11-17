@@ -18,12 +18,12 @@ import applusvelosi.projects.android.salt.adapters.lists.CapexForApprovalAdapter
 import applusvelosi.projects.android.salt.models.capex.CapexHeader;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/9/15.
  */
-public class CapexesForApprovalFragment extends ActionbarFragment implements RootFragment, AdapterView.OnItemClickListener{
+public class CapexesForApprovalFragment extends HomeActionbarFragment implements RootFragment, AdapterView.OnItemClickListener{
     private static CapexesForApprovalFragment instance;
     //action bar buttons
     private RelativeLayout actionbarMenuButton, actionbarRefreshButton;

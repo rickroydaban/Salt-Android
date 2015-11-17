@@ -131,9 +131,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2"
-                android:layout_marginLeft="13dp"/>
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2"/>
 
         </TableRow>
 
@@ -167,9 +166,11 @@
                     android:id="@+id/etexts_claimiteminput_lc_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="0.00"
+                    android:text="0.00"
                     android:inputType="numberDecimal"
                     style="@style/styles_editable_inputs"
+                    android:textColor="@android:color/black"
+                    android:enabled="false"
                     android:layout_toLeftOf="@id/tviews_claimiteminput_lc_curr"/>
 
             </RelativeLayout>
@@ -183,9 +184,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2"
-                android:layout_marginLeft="13dp"/>
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2"/>
 
         </TableRow>
 
@@ -217,9 +217,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2"
-                android:layout_marginLeft="13dp"/>
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2"/>
 
         </TableRow>
 
@@ -253,6 +252,7 @@
                     style="@style/styles_editable_inputs"
                     android:layout_toLeftOf="@id/cboxs_claimiteminput_tax"
                     android:inputType="numberDecimal"
+                    android:text="(Tax Not Applicable)"
                     android:enabled="false"/>
 
             </RelativeLayout>
@@ -339,7 +339,8 @@
                     android:textColor="#909090"
                     android:text="No Selection"
                     android:paddingLeft="7dp"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/buttons_claimiteminput_camera"/>
 
             </RelativeLayout>
 
@@ -391,7 +392,7 @@
                 android:id="@+id/etexts_claimiteminput_project"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="0.00"
+                android:enabled="false"
                 style="@style/styles_editable_inputs" />
 
         </TableRow>
@@ -403,9 +404,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2"
-                android:layout_marginLeft="13dp"/>
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2"/>
 
         </TableRow>
 
@@ -498,21 +498,21 @@
             android:layout_height="wrap_content"
             style="@style/styles_trs">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/styles_labels_detail"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="Attendees" />
+
             <RelativeLayout
                 android:id="@+id/containers_claimiteminput_attendees"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_span="2">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/styles_labels_detail"
-                    android:paddingTop="13dp"
-                    android:paddingBottom="13dp"
-                    android:text="Attendees" />
+                android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/iviews_nodes_next"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:padding="5dp"
@@ -520,6 +520,15 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/icon_next"
                     android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/tviews_claimiteminput_attendees"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_editable_inputs"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/iviews_nodes_next"
+                    android:textColor="@color/menu_list_separator"/>
 
             </RelativeLayout>
 

@@ -60,17 +60,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".views.LoginActivity"
-            android:label="@string/title_activity_home"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".views.HomeActivity"
-            android:label="@string/title_activity_splash"
-            android:screenOrientation="portrait" >
-        </activity>
-
+        <activity android:name=".views.LoginActivity" android:screenOrientation="portrait" />
+        <activity android:name=".views.HomeActivity" android:screenOrientation="portrait" />
+        <activity android:name=".views.NewClaimItemActivity" android:screenOrientation="portrait" />
 
         <!-- Push Notification !-->
         <service android:name="com.parse.PushService" />

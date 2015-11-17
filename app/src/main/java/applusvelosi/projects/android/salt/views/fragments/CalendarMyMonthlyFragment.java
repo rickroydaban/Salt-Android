@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -37,7 +34,7 @@ import applusvelosi.projects.android.salt.utils.enums.CalendarItemTypes;
 import applusvelosi.projects.android.salt.utils.interfaces.CalendarMonthlyInterface;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
 
-public class CalendarMyMonthlyFragment extends ActionbarFragment implements OnItemSelectedListener, RootFragment, CalendarMonthlyInterface{
+public class CalendarMyMonthlyFragment extends HomeActionbarFragment implements OnItemSelectedListener, RootFragment, CalendarMonthlyInterface{
 	private static CalendarMyMonthlyFragment instance;
 	//action bar buttons
 	private RelativeLayout actionbarMenuButton, actionbarRefreshButton;

@@ -9,24 +9,20 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-
 import java.io.File;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.AttachmentAdapter;
-import applusvelosi.projects.android.salt.adapters.lists.SimpleAdapter;
 import applusvelosi.projects.android.salt.utils.FileManager;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/12/15.
  */
-public class RFADetailAttachmentFragment extends ActionbarFragment implements AdapterView.OnItemClickListener, FileManager.AttachmentDownloadListener{
+public class RFADetailAttachmentFragment extends HomeActionbarFragment implements AdapterView.OnItemClickListener, FileManager.AttachmentDownloadListener{
     public static String KEY_RECRUITMENTJSON = "RFADetailAttachmentFragmentKeyRecruitmentJSON";
 
     private RelativeLayout actionbarButtonBack;

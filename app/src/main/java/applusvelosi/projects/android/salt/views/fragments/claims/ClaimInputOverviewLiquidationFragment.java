@@ -6,7 +6,6 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,14 +18,13 @@ import applusvelosi.projects.android.salt.models.CostCenter;
 import applusvelosi.projects.android.salt.models.claimheaders.BusinessAdvance;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimheaders.LiquidationOfBA;
-import applusvelosi.projects.android.salt.utils.OfflineGateway;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 11/5/15.
  */
-public class ClaimInputOverviewLiquidationFragment extends ActionbarFragment {
+public class ClaimInputOverviewLiquidationFragment extends HomeActionbarFragment {
     public static final String KEY_CLAIMPOS = "claimkey";
     private RelativeLayout actionbarButtonBack;
     private TextView actionbarTitle, actionbarButtonSave;

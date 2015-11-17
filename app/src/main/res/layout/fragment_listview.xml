@@ -4,11 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFF">
-    
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/menu_list_separator" />
+
     <ListView 
         android:id="@+id/lists_lv" 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:dividerHeight="1px"
 	    android:divider="@drawable/divider_insetted" />
     

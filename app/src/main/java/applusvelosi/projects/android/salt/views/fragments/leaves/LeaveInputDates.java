@@ -28,12 +28,12 @@ import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/27/15.
  */
-public class LeaveInputDates extends ActionbarFragment implements ListAdapterInterface{
+public class LeaveInputDates extends HomeActionbarFragment implements ListAdapterInterface{
     private final String NO_SELECTION = "No Selection";
     private enum ITEMTYPE{DEFAULT, NONWORKINGDAY, LEAVEDAY};
     private enum SELECTIONTYPE{FIRST, SECOND, THIRD, CANCEL};

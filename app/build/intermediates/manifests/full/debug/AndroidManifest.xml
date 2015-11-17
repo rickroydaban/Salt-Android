@@ -73,14 +73,13 @@
         </activity>
         <activity
             android:name="applusvelosi.projects.android.salt.views.LoginActivity"
-            android:label="@string/title_activity_home"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.HomeActivity"
-            android:label="@string/title_activity_splash"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="applusvelosi.projects.android.salt.views.NewClaimItemActivity"
+            android:screenOrientation="portrait" />
 
         <!-- Push Notification ! -->
         <service android:name="com.parse.PushService" />

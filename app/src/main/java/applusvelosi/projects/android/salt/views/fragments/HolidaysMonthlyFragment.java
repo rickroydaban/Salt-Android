@@ -25,7 +25,7 @@ import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
 
-public class HolidaysMonthlyFragment extends ActionbarFragment implements RootFragment, OnItemSelectedListener{
+public class HolidaysMonthlyFragment extends HomeActionbarFragment implements RootFragment, OnItemSelectedListener{
 	
 	private static HolidaysMonthlyFragment instance;
 	//action bar buttons

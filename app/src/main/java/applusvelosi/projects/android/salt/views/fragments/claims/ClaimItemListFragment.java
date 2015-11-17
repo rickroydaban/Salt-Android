@@ -2,6 +2,7 @@ package applusvelosi.projects.android.salt.views.fragments.claims;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,12 +19,11 @@ import applusvelosi.projects.android.salt.adapters.lists.ClaimItemAdapter;
 import applusvelosi.projects.android.salt.models.Category;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
-import applusvelosi.projects.android.salt.utils.interfaces.LoaderInterface;
-import applusvelosi.projects.android.salt.utils.threads.ClaimItemLoader;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class ClaimItemListFragment extends ActionbarFragment implements OnItemClickListener{
+public class ClaimItemListFragment extends HomeActionbarFragment implements OnItemClickListener{
 	private static String KEY = "claimItemListFragmentKey";
 	//action bar buttons
 	private RelativeLayout actionbarBackButton, actionbarRefreshButton, actionbarNewButton;
@@ -92,8 +92,11 @@ public class ClaimItemListFragment extends ActionbarFragment implements OnItemCl
 			claimHeader.prepareForCreatingNewClamItem(app);
 			if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES)
 				activity.changeChildPage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY), -1));
-			else
-				activity.changeChildPage(new ClaimItemInputCategory());
+			else{
+				Intent intent = new Intent(activity, NewClaimItemActivity.class);
+				intent.putExtra(NewClaimItemActivity.INTENTKEY_CLAIMHEADER, app.gson.toJson(claimHeader.getMap()));
+				startActivity(intent);
+			}
 		}else if(v == actionbarRefreshButton){
 			refresh();
 		}

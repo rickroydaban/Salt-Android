@@ -12,17 +12,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
-import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveInputDates;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/26/15.
  */
-public class ClaimHeaderInputType extends ActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
+public class ClaimHeaderInputType extends HomeActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
     //actionbar buttons
     private TextView actionbarTitle;
     private RelativeLayout actionbarButtonBack;

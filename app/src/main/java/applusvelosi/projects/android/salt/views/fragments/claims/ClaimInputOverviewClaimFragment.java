@@ -19,14 +19,13 @@ import applusvelosi.projects.android.salt.models.CostCenter;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimNotPaidByCC;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
-import applusvelosi.projects.android.salt.utils.OfflineGateway;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 11/5/15.
  */
-public class ClaimInputOverviewClaimFragment extends ActionbarFragment {
+public class ClaimInputOverviewClaimFragment extends HomeActionbarFragment {
     public static final String KEY_CLAIMPOS = "claimkey";
     private RelativeLayout actionbarButtonBack;
     private TextView actionbarTitle, actionbarButtonSave;

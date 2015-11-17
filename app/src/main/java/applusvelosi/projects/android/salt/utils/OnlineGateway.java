@@ -59,6 +59,7 @@ import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
 import applusvelosi.projects.android.salt.models.claimheaders.LiquidationOfBA;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.models.claimitems.MilageClaimItem;
+import applusvelosi.projects.android.salt.models.claimitems.Project;
 import applusvelosi.projects.android.salt.models.recruitments.Recruitment;
 import applusvelosi.projects.android.salt.utils.enums.ObjectTypes;
 import applusvelosi.projects.android.salt.views.LoginActivity;
@@ -494,11 +495,11 @@ public class OnlineGateway {
 		if(result.getJSONArray("SystemErrors").length() > 0)
 			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
 
-		HashMap<String, Integer> projects= new HashMap<String, Integer>();
+		ArrayList<Project> projects = new ArrayList<Project>();
 		JSONArray jsonProjects = result.getJSONArray("Projects");
 		for(int i=0; i<jsonProjects.length(); i++){ //exclude of type assets since they are only for capex
 			JSONObject jsonProject = jsonProjects.getJSONObject(i);
-			projects.put(jsonProject.getString("ProjectName"), jsonProject.getInt("ProjectID"));
+			projects.add(new Project(jsonProject.getInt("ProjectID"), jsonProject.getString("ProjectName")));
 		}
 		
 		return projects;

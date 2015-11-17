@@ -39,9 +39,9 @@ import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.HomeActivity;
 import applusvelosi.projects.android.salt.views.HomeActivity.CameraCaptureListener;
 import applusvelosi.projects.android.salt.views.HomeActivity.FileSelectionListener;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public abstract class ItemInputFragment extends ActionbarFragment implements CameraCaptureListener, FileSelectionListener, AttachmentDownloadListener,
+public abstract class ItemInputFragment extends HomeActionbarFragment implements CameraCaptureListener, FileSelectionListener, AttachmentDownloadListener,
 																				OnItemSelectedListener, OnCheckedChangeListener, TextWatcher, OnFocusChangeListener {
 	public static final String KEY_CLAIMITEMPOS = "claimitemkey";
 	public static final String KEY_CLAIMPOS = "claimposkey";
@@ -78,7 +78,7 @@ public abstract class ItemInputFragment extends ActionbarFragment implements Cam
 	protected int prevSelectedForeignCurr = 0; //IMPORTANT! need to take note of the prev selected currency so that it can switch back in case of lost internet connection
 	@Override
 	protected RelativeLayout setupActionbar() {
-		sdr = new SimpleDateFormat("yyyy-MM-dd--HH-mm-ss", Locale.getDefault());
+		sdr = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
 		RelativeLayout actionbarLayout = (RelativeLayout) activity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
 		actionbarBackButton = (RelativeLayout) actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarSaveButton = (TextView) actionbarLayout.findViewById(R.id.buttons_actionbar_done);
@@ -104,29 +104,29 @@ public abstract class ItemInputFragment extends ActionbarFragment implements Cam
 						
 						@Override
 						public void run() {
-							String tempResult;
+							Object tempResult;
 							try{
 								tempResult = app.onlineGateway.getForexRate(spinnerForeignCurrencies.getSelectedItem().toString(), etextCurrencyLocal.getText().toString());
 							}catch(Exception e){
 								tempResult = e.getMessage();
 							}
 							
-							final String result = tempResult;
+							final Object result = tempResult;
 							new Handler(Looper.getMainLooper()).post(new Runnable() {
 								
 								@Override
 								public void run() {
 									pd.dismiss();
-									try{
-										float rate = Float.parseFloat(result); //make sure rate is a float before updating the rate field
-										etextExchangeRate.setText(String.valueOf(rate));
-										cboxApplyTaxRate.setChecked(false);
-										cboxApplyTaxRate.setEnabled(false);
-									}catch(NumberFormatException e){
-										System.out.println("prev "+prevSelectedForeignCurr);
-										spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
-										app.showMessageDialog(activity, result);
-									}
+//									try{
+//										float rate = Float.parseFloat(result); //make sure rate is a float before updating the rate field
+//										etextExchangeRate.setText(String.valueOf(rate));
+//										cboxApplyTaxRate.setChecked(false);
+//										cboxApplyTaxRate.setEnabled(false);
+//									}catch(NumberFormatException e){
+//										System.out.println("prev "+prevSelectedForeignCurr);
+//										spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
+//										app.showMessageDialog(activity, result);
+//									}
 								}
 							});
 						}
@@ -192,7 +192,7 @@ public abstract class ItemInputFragment extends ActionbarFragment implements Cam
 			fileintent.setType("gagt/sdf");
 			activity.startActivityForResult(fileintent, HomeActivity.RESULT_BROWSEFILES);
 		}else if(v == buttonAttendees){
-			activity.changeChildPage(attendeeFragment);
+//			activity.changeChildPage(attendeeFragment);
 		}
 	}
 

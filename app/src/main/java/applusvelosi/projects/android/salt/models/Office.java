@@ -35,6 +35,7 @@ public class Office {
 			temp.put("Active", jsonOffice.getString("Active"));
 			temp.put("CountryManager",jsonOffice.getString("CountryManager"));
 			temp.put("RegionalManager", jsonOffice.getString("RegionalManager"));
+			temp.put("DefaultTax", jsonOffice.getString("DefaultTax"));
 		}
 		
 		map = temp;
@@ -153,6 +154,8 @@ public class Office {
 	public int getRMID(){
 		return Integer.parseInt(map.get("RegionalManager").toString());
 	}
+
+	public float getDefaultTax(){ return Float.parseFloat(map.get("DefaultTax").toString()); }
 
 	public HashMap<String, String> getMap(){
 		return map;

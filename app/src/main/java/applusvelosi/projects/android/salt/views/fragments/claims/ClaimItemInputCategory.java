@@ -17,16 +17,18 @@ import java.util.Comparator;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Category;
-import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 
 /**
  * Created by Velosi on 10/26/15.
  */
-public class ClaimItemInputCategory extends ActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
+public class ClaimItemInputCategory extends LinearNavActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
+    private NewClaimItemActivity activity;
     //actionbar buttons
     private TextView actionbarTitle;
     private RelativeLayout actionbarButtonBack;
@@ -35,11 +37,10 @@ public class ClaimItemInputCategory extends ActionbarFragment implements ListAda
     private ListAdapter adapter;
     private ListView lv;
 
-    private SaltProgressDialog pd;
-
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
+        activity = (NewClaimItemActivity)getActivity();
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
         actionbarTitle.setText("Select Category");
@@ -61,8 +62,7 @@ public class ClaimItemInputCategory extends ActionbarFragment implements ListAda
 
         lv.setOnItemClickListener(this);
 
-        pd = new SaltProgressDialog(activity);
-        pd.show();
+        activity.startLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -78,10 +78,10 @@ public class ClaimItemInputCategory extends ActionbarFragment implements ListAda
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        pd.dismiss();
                         if(result instanceof String){
-                            app.showMessageDialog(activity, result.toString());
+                            activity.finishLoading(result.toString());
                         }else{
+                            activity.finishLoading();
                             categories.clear();
                             categories.addAll((ArrayList<Category>) result);
                             Collections.sort(categories, new Comparator<Category>() {
@@ -96,13 +96,14 @@ public class ClaimItemInputCategory extends ActionbarFragment implements ListAda
                 });
             }
         }).start();
+
         return view;
     }
 
     @Override
     public void onClick(View v) {
         if(v == actionbarButtonBack || v == actionbarTitle)
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
     }
 
     @Override
@@ -112,7 +113,7 @@ public class ClaimItemInputCategory extends ActionbarFragment implements ListAda
 
         if(view == null){
             holder = new Holder();
-            view = activity.getLayoutInflater().inflate(R.layout.node_headeronly, null);
+            view = linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.node_headeronly, null);
             holder.tvTitle = (TextView)view.findViewById(R.id.tviews_nodes_headeronly_header);
             view.setTag(holder);
         }
@@ -130,7 +131,8 @@ public class ClaimItemInputCategory extends ActionbarFragment implements ListAda
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activity.changeChildPage(ClaimItemInputCurrency.newInstance(categories.get(position)));
+        activity.updateCategory(this, categories.get(position));
+        linearNavFragmentActivity.changePage(new ClaimItemInputProject());
     }
 
     private class Holder{

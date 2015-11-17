@@ -11,20 +11,18 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.CapexLineItemQoutationAdapter;
-import applusvelosi.projects.android.salt.adapters.lists.SimpleAdapter;
 import applusvelosi.projects.android.salt.models.capex.CapexLineItemQoutation;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/13/15.
  */
-public class CapexLineItemQoutationsFragment extends ActionbarFragment implements AdapterView.OnItemClickListener{
+public class CapexLineItemQoutationsFragment extends HomeActionbarFragment implements AdapterView.OnItemClickListener{
     private static final String KEY = "CapexLineItemQoutationFragmentKey";
 
     private RelativeLayout actionbarButtonBack, actionbarButtonRefresh;

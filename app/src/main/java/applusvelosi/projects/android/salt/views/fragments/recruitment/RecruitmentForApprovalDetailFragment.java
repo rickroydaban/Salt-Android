@@ -19,12 +19,12 @@ import org.json.JSONObject;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.recruitments.Recruitment;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/12/15.
  */
-public class RecruitmentForApprovalDetailFragment extends ActionbarFragment {
+public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment {
     //actionbar
     private SaltProgressDialog pd;
     private RelativeLayout actionbarButtonBack;

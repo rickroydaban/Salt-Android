@@ -8,15 +8,12 @@ import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.models.ClaimTrail;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.utils.interfaces.LoaderInterface;
-import applusvelosi.projects.android.salt.utils.threads.ClaimItemLoader;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public abstract class ClaimHeaderFragment extends ActionbarFragment{
+public abstract class ClaimHeaderFragment extends HomeActionbarFragment {
 	protected static final String KEY = "myclaimdetailgetclaimforappwithposition";
 	//action bar buttons
 	protected TextView actionbarEditButton, actionbarProcessButton, actionbarCancelButton, textviewActionbarTitle;

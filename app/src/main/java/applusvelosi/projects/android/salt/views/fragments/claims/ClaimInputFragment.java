@@ -20,9 +20,9 @@ import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter.NodeSize;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class ClaimInputFragment extends ActionbarFragment implements OnItemSelectedListener{
+public class ClaimInputFragment extends HomeActionbarFragment implements OnItemSelectedListener{
 	private final String HEADER_OFFICE = " -Office- ";
 	private final String HEADER_CHARGETO = " -Cost Center- ";
 	private final String HEADER_APPROVER = " -Approver- ";

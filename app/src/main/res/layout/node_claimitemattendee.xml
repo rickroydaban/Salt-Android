@@ -6,23 +6,26 @@
     android:padding="10dp">
             
     <TextView 
-        android:id="@+id/tviews_cells_claimitemattendee_name"
+        android:id="@+id/tviews_nodes_claimitemattendee_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/fsizes_listcell_header"
+        android:textColor="@color/black"
         android:textStyle="bold"/>
 
     <TextView 
-        android:id="@+id/tviews_cells_claimitemattendee_jobtitle"
+        android:id="@+id/tviews_nodes_claimitemattendee_jobtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_listcell_bottom"
+        android:textColor="@color/black"
 	  	android:textSize="@dimen/fsizes_listcell_subheader" />
     
     <TextView 
-        android:id="@+id/tviews_cells_claimitemattendee_description"
+        android:id="@+id/tviews_nodes_claimitemattendee_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
 	  	android:textSize="@dimen/fsizes_listcell_subheader" />
                         
 </LinearLayout>    

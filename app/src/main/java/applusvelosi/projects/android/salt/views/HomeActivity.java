@@ -31,7 +31,7 @@ import applusvelosi.projects.android.salt.models.GroupedListHeader;
 import applusvelosi.projects.android.salt.models.GroupedListSidebarItem;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.utils.interfaces.GroupedListItemInterface;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 import applusvelosi.projects.android.salt.views.fragments.HolidaysLocalFragment;
 import applusvelosi.projects.android.salt.views.fragments.HolidaysMonthlyFragment;
 import applusvelosi.projects.android.salt.views.fragments.CalendarMyMonthlyFragment;
@@ -73,7 +73,7 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 	private RelativeLayout foreFragment, foreFragmentShadow; //the main display whose display corresponds to the selected item in the sidebar
 	private TranslateAnimation animationShowSidebar, animationHideSidebar;
 	//holders
-	private ActionbarFragment toBeShownFragment;
+	private HomeActionbarFragment toBeShownFragment;
 	private GroupedListSidebarItem lastMenuItemClicked;
 
 	//flags for sidebar visibility
@@ -195,7 +195,7 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 		mainFragment.setupActionbar(actionbarLayout);
 	}
 	
-	public void changeChildPage(ActionbarFragment fragment){
+	public void changeChildPage(HomeActionbarFragment fragment){
 		mainFragment.changePage(fragment);
 	}
 	

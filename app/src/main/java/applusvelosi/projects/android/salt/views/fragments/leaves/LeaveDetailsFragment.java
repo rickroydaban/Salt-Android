@@ -17,9 +17,9 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.R.color;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class LeaveDetailsFragment extends ActionbarFragment {
+public class LeaveDetailsFragment extends HomeActionbarFragment {
 	private static final String KEY_LEAVEPOS = "myleavesdetailfragmentkey";
 	//action bar button
 	private TextView buttonActionbarEdit, buttonActionbarCancel, buttonFollowUp, textViewActionbarTitle;

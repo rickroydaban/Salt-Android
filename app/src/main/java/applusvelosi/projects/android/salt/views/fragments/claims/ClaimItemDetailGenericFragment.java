@@ -2,7 +2,6 @@ package applusvelosi.projects.android.salt.views.fragments.claims;
 
 import java.io.File;
 
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import applusvelosi.projects.android.salt.R;
@@ -20,9 +18,9 @@ import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.FileManager.AttachmentDownloadListener;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class ClaimItemDetailGenericFragment extends ActionbarFragment implements AttachmentDownloadListener{
+public class ClaimItemDetailGenericFragment extends HomeActionbarFragment implements AttachmentDownloadListener{
 	private static final String KEY_CLAIMID = "myclaimitemdetailclaimIDkey";
 	private static final String KEY_CLAIMITEMID = "myclaimitemdetailclaimitemIDKey";
 	//action bar buttons
@@ -93,11 +91,11 @@ public class ClaimItemDetailGenericFragment extends ActionbarFragment implements
 			attachment.setText("No");
 		}
 
-		for(ClaimItemAttendee attendee :claimItem.getAttendees()){
-			TextView tvAttendeeName = (TextView)inflater.inflate(R.layout.tv_claimitemattendee, null);
-			tvAttendeeName.setText(attendee.getName());
-			containersAttendees.addView(tvAttendeeName);
-		}
+//		for(ClaimItemAttendee attendee :claimItem.getAttendees()){
+//			TextView tvAttendeeName = (TextView)inflater.inflate(R.layout.tv_claimitemattendee, null);
+//			tvAttendeeName.setText(attendee.getName());
+//			containersAttendees.addView(tvAttendeeName);
+//		}
 
 		return view;
 	}

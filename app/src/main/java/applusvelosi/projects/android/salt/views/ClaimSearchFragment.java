@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class ClaimSearchFragment extends ActionbarFragment{
+public class ClaimSearchFragment extends HomeActionbarFragment {
 	RelativeLayout buttonActionbarCancel;
 	TextView buttonActionbarSave, tviewActionbarTitle;
 	

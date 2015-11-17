@@ -17,9 +17,9 @@ import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class LeavesApprovalDetailFragment extends ActionbarFragment {
+public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
 	private static final String KEY = "myleavesapprovaldetailfragmentkey";
 	private final String CANCEL = "Cancel";
 	//action bar buttons

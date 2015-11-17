@@ -47,9 +47,9 @@ public class ClaimItem {
 		map.put("DateRejected", app.onlineGateway.dJsonizeDate(jsonClaimItem.getString("DateRejected")));
 
 		ArrayList<HashMap<String, Object>> attendeeMaps = new ArrayList<HashMap<String,Object>>();
-		for(int i=0; i<jsonClaimItem.getJSONArray("Attendees").length(); i++)
-			attendeeMaps.add(new ClaimItemAttendee(jsonClaimItem.getJSONArray("Attendees").getJSONObject(i)).getMap());
-		map.put("Attendees", app.gson.toJson(attendeeMaps, app.types.arrayListOfHashmapOfStringObject));
+//		for(int i=0; i<jsonClaimItem.getJSONArray("Attendees").length(); i++)
+//			attendeeMaps.add(new ClaimItemAttendee(jsonClaimItem.getJSONArray("Attendees").getJSONObject(i)).getMap());
+//		map.put("Attendees", app.gson.toJson(attendeeMaps, app.types.arrayListOfHashmapOfStringObject));
 				 
 		if(Boolean.parseBoolean(jsonClaimItem.getString("IsWithReceipt"))){
 			JSONArray jsonAttachments = jsonClaimItem.getJSONArray("Attachment");
@@ -185,25 +185,25 @@ public class ClaimItem {
 		return map;
 	}
 	
-	public ArrayList<ClaimItemAttendee> getAttendees() {
-		ArrayList<ClaimItemAttendee> attendees = new ArrayList<ClaimItemAttendee>();
-		ArrayList<HashMap<String, Object>> attendeeMaps = app.gson.fromJson(map.get("Attendees").toString(), app.types.arrayListOfHashmapOfStringObject);
-		for(HashMap<String, Object> map :attendeeMaps)
-			attendees.add(new ClaimItemAttendee(map));
-		
-		return attendees;
-	}
+//	public ArrayList<ClaimItemAttendee> getAttendees() {
+//		ArrayList<ClaimItemAttendee> attendees = new ArrayList<ClaimItemAttendee>();
+//		ArrayList<HashMap<String, Object>> attendeeMaps = app.gson.fromJson(map.get("Attendees").toString(), app.types.arrayListOfHashmapOfStringObject);
+//		for(HashMap<String, Object> map :attendeeMaps)
+//			attendees.add(new ClaimItemAttendee(map));
+//
+//		return attendees;
+//	}
 	
 	public void updateAttachmentName(String name){
 		map.put("OrigDocName", name);
 	}
 	
-	public void updateAttendees(SaltApplication app, ArrayList<ClaimItemAttendee> attendees){
-		ArrayList<HashMap<String, Object>> attendeeMaps = new ArrayList<HashMap<String,Object>>();
-		for(int i=0; i<attendees.size(); i++)
-			attendeeMaps.add(attendees.get(i).getMap());
-		map.put("Attendees", app.gson.toJson(attendeeMaps, app.types.arrayListOfHashmapOfStringObject));
-	}
+//	public void updateAttendees(SaltApplication app, ArrayList<ClaimItemAttendee> attendees){
+//		ArrayList<HashMap<String, Object>> attendeeMaps = new ArrayList<HashMap<String,Object>>();
+//		for(int i=0; i<attendees.size(); i++)
+//			attendeeMaps.add(attendees.get(i).getMap());
+//		map.put("Attendees", app.gson.toJson(attendeeMaps, app.types.arrayListOfHashmapOfStringObject));
+//	}
 	
 	public int getAttendeeRequirementTypeID(){
 		return Integer.parseInt(map.get("Attendee").toString());

@@ -44,9 +44,9 @@ import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.HomeActivity;
 import applusvelosi.projects.android.salt.views.HomeActivity.CameraCaptureListener;
 import applusvelosi.projects.android.salt.views.HomeActivity.FileSelectionListener;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class LeaveInputFragment extends ActionbarFragment implements OnItemSelectedListener, TextWatcher, OnFocusChangeListener,
+public class LeaveInputFragment extends HomeActionbarFragment implements OnItemSelectedListener, TextWatcher, OnFocusChangeListener,
 																	 CameraCaptureListener, FileSelectionListener, AttachmentDownloadListener{
 	/******************* CONSTANTS *****************/
 	private final String HEADERSPINNERTYPE = "Select Leave Type";

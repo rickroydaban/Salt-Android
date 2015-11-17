@@ -18,7 +18,7 @@ import applusvelosi.projects.android.salt.adapters.lists.CalendarListAdapter;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 
-public class CalendarWeeklyFragment extends ActionbarFragment implements OnClickListener{	
+public class CalendarWeeklyFragment extends HomeActionbarFragment implements OnClickListener{
 	private static CalendarWeeklyFragment instance;
 	//action bar buttons
 	private RelativeLayout actionbarBackButton, actionbarRefreshButton;

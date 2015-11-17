@@ -7,18 +7,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.security.Key;
 import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.capex.CapexLineItem;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/13/15.
  */
-public class CapexForApprovalLineItemDetailsFragment extends ActionbarFragment{
+public class CapexForApprovalLineItemDetailsFragment extends HomeActionbarFragment {
     public static String KEY = "capexForApprovalLineItemDetailFragmentKey";
 
     //actionbar

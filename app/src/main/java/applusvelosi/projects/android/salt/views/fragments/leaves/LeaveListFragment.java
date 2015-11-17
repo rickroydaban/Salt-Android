@@ -22,9 +22,9 @@ import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
-public class LeaveListFragment extends ActionbarFragment implements OnItemClickListener, OnItemSelectedListener, RootFragment{
+public class LeaveListFragment extends HomeActionbarFragment implements OnItemClickListener, OnItemSelectedListener, RootFragment{
 	private static LeaveListFragment instance;
 	//action bar buttons
 	private RelativeLayout actionbarMenuButton, actionbarNewButton, actionbarRefreshButton;

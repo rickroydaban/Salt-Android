@@ -7,18 +7,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.capex.CapexLineItemQoutation;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/13/15.
  */
-public class CapexLineItemQoutationDetailFragment extends ActionbarFragment{
+public class CapexLineItemQoutationDetailFragment extends HomeActionbarFragment {
     public static String KEY = "capexLineItemQoutationDetailFragmentKey";
 
     //actionbar

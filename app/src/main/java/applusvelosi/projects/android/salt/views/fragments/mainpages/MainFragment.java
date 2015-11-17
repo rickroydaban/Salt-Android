@@ -11,7 +11,7 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
 import applusvelosi.projects.android.salt.views.HomeActivity;
 import applusvelosi.projects.android.salt.views.fragments.HomeFragment;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 public class MainFragment extends Fragment{
 	private static MainFragment instance;
@@ -37,7 +37,7 @@ public class MainFragment extends Fragment{
 		return view;
 	}
 		
-	public void changePage(ActionbarFragment fragment){
+	public void changePage(HomeActionbarFragment fragment){
 		if(fragment == null)
 			fragment = HomeFragment.getInstance();
 		

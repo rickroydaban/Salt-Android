@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -28,16 +25,14 @@ import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter.NodeSize;
 import applusvelosi.projects.android.salt.models.CalendarEvent;
 import applusvelosi.projects.android.salt.models.CalendarItem;
-import applusvelosi.projects.android.salt.models.ClaimItemAttendee;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.models.CalendarEvent.CalendarEventDuration;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.enums.CalendarItemTypes;
 import applusvelosi.projects.android.salt.utils.interfaces.CalendarMonthlyInterface;
-import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
 
-public class CalendarStaffMonthlyFragment extends ActionbarFragment implements OnItemSelectedListener, CalendarMonthlyInterface{
+public class CalendarStaffMonthlyFragment extends HomeActionbarFragment implements OnItemSelectedListener, CalendarMonthlyInterface{
 	private static String KEY_STAFFID = "calendarstaffmonthlyfragmentkeystaffid";
 	
 	//action bar buttons

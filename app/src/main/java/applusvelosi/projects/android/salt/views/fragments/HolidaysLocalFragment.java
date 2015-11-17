@@ -23,7 +23,7 @@ import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.interfaces.GroupedListItemInterface;
 import applusvelosi.projects.android.salt.utils.interfaces.RootFragment;
 
-public class HolidaysLocalFragment extends ActionbarFragment implements RootFragment{	
+public class HolidaysLocalFragment extends HomeActionbarFragment implements RootFragment{
 	private static HolidaysLocalFragment instance;
 	//action bar buttons
 	private RelativeLayout actionbarLayout, actionbarMenuButton, actionbarRefreshButton;

@@ -19,15 +19,14 @@ import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.capex.CapexHeader;
-import applusvelosi.projects.android.salt.models.recruitments.Recruitment;
 import applusvelosi.projects.android.salt.utils.FileManager;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.ActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 
 /**
  * Created by Velosi on 10/13/15.
  */
-public class CapexForApprovalDetailFragment extends ActionbarFragment implements FileManager.AttachmentDownloadListener{
+public class CapexForApprovalDetailFragment extends HomeActionbarFragment implements FileManager.AttachmentDownloadListener{
     private static String KEY = "capexforapprovaldetailfragmentkey";
     //actionbar
     private RelativeLayout actionbarButtonBack;
