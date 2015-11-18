@@ -36,12 +36,13 @@ import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.utils.FileManager.AttachmentDownloadListener;
 import applusvelosi.projects.android.salt.utils.SaltDatePicker;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.utils.interfaces.CameraCaptureInterface;
+import applusvelosi.projects.android.salt.utils.interfaces.FileSelectionInterface;
 import applusvelosi.projects.android.salt.views.HomeActivity;
-import applusvelosi.projects.android.salt.views.HomeActivity.CameraCaptureListener;
-import applusvelosi.projects.android.salt.views.HomeActivity.FileSelectionListener;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public abstract class ItemInputFragment extends HomeActionbarFragment implements CameraCaptureListener, FileSelectionListener, AttachmentDownloadListener,
+public abstract class ItemInputFragment extends LinearNavActionbarFragment implements AttachmentDownloadListener,
 																				OnItemSelectedListener, OnCheckedChangeListener, TextWatcher, OnFocusChangeListener {
 	public static final String KEY_CLAIMITEMPOS = "claimitemkey";
 	public static final String KEY_CLAIMPOS = "claimposkey";
@@ -79,7 +80,7 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 	@Override
 	protected RelativeLayout setupActionbar() {
 		sdr = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-		RelativeLayout actionbarLayout = (RelativeLayout) activity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
+		RelativeLayout actionbarLayout = (RelativeLayout) linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
 		actionbarBackButton = (RelativeLayout) actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarSaveButton = (TextView) actionbarLayout.findViewById(R.id.buttons_actionbar_done);
 		actionbarTitleTextview = (TextView) actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -88,8 +89,8 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 		actionbarSaveButton.setOnClickListener(this);
 		actionbarTitleTextview.setOnClickListener(this);
 
-		activity.setOnCameraCaptureListener(this);
-		activity.setOnFileSelectionListener(this);		
+//		activity.setOnCameraCaptureListener(this);
+//		activity.setOnFileSelectionListener(this);
 		return actionbarLayout;
 	}
 
@@ -98,7 +99,7 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 		if(parent.getTag()!=null && Integer.parseInt(parent.getTag().toString()) != pos){
 			if(parent == spinnerForeignCurrencies){
 				if(!etextCurrencyLocal.getText().toString().equals(spinnerForeignCurrencies.getSelectedItem().toString())){
-					if(pd == null) pd = new SaltProgressDialog(activity);
+					if(pd == null) pd = new SaltProgressDialog(linearNavFragmentActivity);
 					pd.show();
 					new Thread(new Runnable() {
 						
@@ -158,23 +159,23 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 	@Override
 	public void onClick(View v) {
 		if (v == actionbarBackButton || v == actionbarTitleTextview) {
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		} else if (v == etextDate) {
-			new SaltDatePicker(activity, etextDate);
+			new SaltDatePicker(linearNavFragmentActivity, etextDate);
 		} else if (v == tvAttachment) {
-			try{
-				System.out.println(tvAttachment.getTag());
-				if(tvAttachment.getTag() != null){
-					File attachment = (File)tvAttachment.getTag();  
-					String ext = "."+attachment.getName().substring(attachment.getName().lastIndexOf('.')+1, attachment.getName().length());
-					app.fileManager.openAttachment(activity, ext, attachment);
-				}else{
-					System.out.println("is null");
-					app.fileManager.openAttachment(activity, newClaimItem.getAttachmentExtension(), prevSelectedAttachment);
-				}
-			}catch(Exception e){
-				app.showMessageDialog(activity, e.getMessage());
-			}
+//			try{
+//				System.out.println(tvAttachment.getTag());
+//				if(tvAttachment.getTag() != null){
+//					File attachment = (File)tvAttachment.getTag();
+//					String ext = "."+attachment.getName().substring(attachment.getName().lastIndexOf('.')+1, attachment.getName().length());
+//					app.fileManager.openAttachment(activity, ext, attachment);
+//				}else{
+//					System.out.println("is null");
+//					app.fileManager.openAttachment(activity, newClaimItem.getAttachmentExtension(), prevSelectedAttachment);
+//				}
+//			}catch(Exception e){
+//				app.showMessageDialog(activity, e.getMessage());
+//			}
 		} else if (v == buttonTakePicture) {
 			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 			try {
@@ -182,15 +183,15 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 				intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(capturedPhoto));
 				prevSelectedAttachment = (File)tvAttachment.getTag();
 				tvAttachment.setTag(capturedPhoto);
-				activity.startActivityForResult(intent, HomeActivity.RESULT_CAMERA);
+//				activity.startActivityForResult(intent, HomeActivity.RESULT_CAMERA);
 			} catch (Exception e) {
 				e.printStackTrace();
-				app.showMessageDialog(activity, e.getMessage());
+				app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
 			}
 		} else if (v == buttonChooseFromFile) {
 			Intent fileintent = new Intent(Intent.ACTION_GET_CONTENT);
 			fileintent.setType("gagt/sdf");
-			activity.startActivityForResult(fileintent, HomeActivity.RESULT_BROWSEFILES);
+//			activity.startActivityForResult(fileintent, HomeActivity.RESULT_BROWSEFILES);
 		}else if(v == buttonAttendees){
 //			activity.changeChildPage(attendeeFragment);
 		}
@@ -200,33 +201,33 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 	public void onFocusChange(View v, boolean isFocused) {
 		if(isFocused){
 			if(v == etextDate)
-				new SaltDatePicker(activity, etextDate);
+				new SaltDatePicker(linearNavFragmentActivity, etextDate);
 		}
 	}
 	
-	@Override
-	public void onCameraCaptureSuccess() {
-		//uploading of attachment should be done before sending a request to create a claim item
-		updateAttachment(capturedPhoto);
-	}
+//	@Override
+//	public void onCameraCaptureSuccess() {
+//		//uploading of attachment should be done before sending a request to create a claim item
+//		updateAttachment(capturedPhoto);
+//	}
 	
-	@Override
-	public void onCameraCaptureFailed() {
-		tvAttachment.setTag(prevSelectedAttachment);
-		tvAttachment.setText((prevSelectedAttachment!=null)?prevSelectedAttachment.getName():"No File Chosen");
-	}
+//	@Override
+//	public void onCameraCaptureFailed() {
+//		tvAttachment.setTag(prevSelectedAttachment);
+//		tvAttachment.setText((prevSelectedAttachment!=null)?prevSelectedAttachment.getName():"No File Chosen");
+//	}
 	
-	@Override
-	public void onFileSelectionSuccess(File file) {
-		//uploading of attachment should be done before sending a request to create a claim item
-		updateAttachment(file);
-	}
+//	@Override
+//	public void onFileSelectionSuccess(File file) {
+//		//uploading of attachment should be done before sending a request to create a claim item
+//		updateAttachment(file);
+//	}
 	
-	@Override
-	public void onFileSelectionFailed() {
-		tvAttachment.setTag(prevSelectedAttachment);
-		tvAttachment.setText((prevSelectedAttachment!=null)?prevSelectedAttachment.getName():"No File Chosen");
-	}
+//	@Override
+//	public void onFileSelectionFailed() {
+//		tvAttachment.setTag(prevSelectedAttachment);
+//		tvAttachment.setText((prevSelectedAttachment!=null)?prevSelectedAttachment.getName():"No File Chosen");
+//	}
 	
 	private void updateAttachment(File file){
 //		pd.show();
@@ -240,16 +241,16 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if(buttonView == cboxAttachment){
-			trAttachmentPreview.setVisibility((isChecked)?View.VISIBLE:View.GONE);
-			trAttachmentAction.setVisibility((isChecked)?View.VISIBLE:View.GONE);
-			if(getArguments().containsKey(KEY_CLAIMITEMPOS)){
-				try {
-					app.fileManager.downloadAttachment(activity, newClaimItem, pd, this);
-				} catch (Exception e) {
-					e.printStackTrace();
-					app.showMessageDialog(activity, e.getMessage());
-				}				
-			}
+//			trAttachmentPreview.setVisibility((isChecked)?View.VISIBLE:View.GONE);
+//			trAttachmentAction.setVisibility((isChecked)?View.VISIBLE:View.GONE);
+//			if(getArguments().containsKey(KEY_CLAIMITEMPOS)){
+//				try {
+//					app.fileManager.downloadAttachment(activity, newClaimItem, pd, this);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					app.showMessageDialog(activity, e.getMessage());
+//				}
+//			}
 		}else if(buttonView == cboxApplyTaxRate){
 			etextTaxRate.setEnabled((isChecked)?true:false);
 		}else if (buttonView == cboxBillable){
@@ -275,7 +276,7 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 	
 	@Override
 	public void onAttachmentDownloadFailed(String errorMessage) {
-		app.showMessageDialog(activity, errorMessage);
+		app.showMessageDialog(linearNavFragmentActivity, errorMessage);
 	}
 	
 	@Override
@@ -303,12 +304,12 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 				public void run() {
 					pd.dismiss();					
 					if(result instanceof String){
-						new AlertDialog.Builder(activity).setMessage("Cannot load projects. "+result)
+						new AlertDialog.Builder(linearNavFragmentActivity).setMessage("Cannot load projects. "+result)
 														 .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
 															
 															@Override
 															public void onClick(DialogInterface dialog, int which) {
-																activity.onBackPressed();
+																linearNavFragmentActivity.onBackPressed();
 															}
 														}).create().show();
 					}else{
@@ -318,7 +319,7 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 						for(String projectName: projectNameIDs.keySet())
 							projectNames.add(projectName);
 						
-						spinnerProject.setAdapter(new SimpleSpinnerAdapter(activity, projectNames, NodeSize.SIZE_SMALL));							
+						spinnerProject.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, projectNames, NodeSize.SIZE_SMALL));
 						if(getArguments().getInt(KEY_CLAIMITEMPOS) >= 0)
 							spinnerProject.setSelection(projectNames.indexOf(newClaimItem.getProjectName()));
 						spinnerProject.setOnItemSelectedListener(ItemInputFragment.this);
@@ -350,7 +351,7 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 					spinnerOffices.setVisibility(View.VISIBLE);
 					cboxBillable.setVisibility(View.GONE);
 					if(result instanceof String)
-						app.showMessageDialog(activity, "Cannot load offices. "+result);
+						app.showMessageDialog(linearNavFragmentActivity, "Cannot load offices. "+result);
 					else{
 						offices = new ArrayList<Office>();
 						officeNames = new ArrayList<String>();
@@ -360,7 +361,7 @@ public abstract class ItemInputFragment extends HomeActionbarFragment implements
 						for(Office office :offices)
 							officeNames.add(office.getName());
 						
-						spinnerOffices.setAdapter(new SimpleSpinnerAdapter(activity, officeNames, NodeSize.SIZE_SMALL));							
+						spinnerOffices.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, officeNames, NodeSize.SIZE_SMALL));
 						spinnerOffices.setOnItemSelectedListener(ItemInputFragment.this);
 						spinnerOffices.setTag("0");
 					}

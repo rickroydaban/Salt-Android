@@ -15,12 +15,13 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/26/15.
  */
-public class ClaimHeaderInputType extends HomeActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
+public class ClaimHeaderInputType extends LinearNavActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
     //actionbar buttons
     private TextView actionbarTitle;
     private RelativeLayout actionbarButtonBack;
@@ -32,7 +33,7 @@ public class ClaimHeaderInputType extends HomeActionbarFragment implements ListA
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
         actionbarTitle.setText("Select Header Type");
@@ -63,7 +64,7 @@ public class ClaimHeaderInputType extends HomeActionbarFragment implements ListA
     @Override
     public void onClick(View v) {
         if(v == actionbarButtonBack || v == actionbarTitle)
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
     }
 
     @Override
@@ -73,7 +74,7 @@ public class ClaimHeaderInputType extends HomeActionbarFragment implements ListA
 
         if(view == null){
             holder = new Holder();
-            view = activity.getLayoutInflater().inflate(R.layout.node_headeronly, null);
+            view = linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.node_headeronly, null);
             holder.tvTitle = (TextView)view.findViewById(R.id.tviews_nodes_headeronly_header);
             view.setTag(holder);
         }
@@ -91,12 +92,12 @@ public class ClaimHeaderInputType extends HomeActionbarFragment implements ListA
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(position == 0)
-           activity.changeChildPage(new ClaimInputOverviewClaimFragment());
-        else if(position == 1)
-            activity.changeChildPage(new ClaimInputOverviewAdvancesFragment());
-        else
-            activity.changeChildPage(new ClaimInputOverviewLiquidationFragment());
+//        if(position == 0)
+//           activity.changeChildPage(new ClaimInputOverviewClaimFragment());
+//        else if(position == 1)
+//            activity.changeChildPage(new ClaimInputOverviewAdvancesFragment());
+//        else
+//            activity.changeChildPage(new ClaimInputOverviewLiquidationFragment());
     }
 
     private class Holder{

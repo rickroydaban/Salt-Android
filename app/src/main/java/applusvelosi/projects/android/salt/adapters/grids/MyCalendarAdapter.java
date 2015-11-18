@@ -12,13 +12,9 @@ import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.CalendarEvent;
 import applusvelosi.projects.android.salt.models.CalendarItem;
-import applusvelosi.projects.android.salt.models.CalendarEvent.CalendarEventDuration;
 import applusvelosi.projects.android.salt.utils.customviews.SquareGridItemView;
-import applusvelosi.projects.android.salt.utils.enums.CalendarEventTypes;
 import applusvelosi.projects.android.salt.utils.enums.CalendarItemTypes;
 import applusvelosi.projects.android.salt.utils.interfaces.CalendarMonthlyInterface;
-import applusvelosi.projects.android.salt.views.HomeActivity;
-import applusvelosi.projects.android.salt.views.fragments.CalendarMyMonthlyFragment;
 
 public class MyCalendarAdapter  extends BaseAdapter implements OnClickListener{
 	//calendar node background classification
@@ -40,18 +36,19 @@ public class MyCalendarAdapter  extends BaseAdapter implements OnClickListener{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		SquareGridItemView row = (SquareGridItemView)calendarGrid.getActivity().getLayoutInflater().inflate(R.layout.calendarcell_monthly, parent, false);
-	
-		TextView gridcell = (TextView)row.findViewById(R.id.calendar_day_gridcell);
 		CalendarItem calendarItem = calendarItems.get(position);
-		
+        SquareGridItemView row;
+        TextView gridcell;
+
 		if(calendarItem.getItemType() == CalendarItemTypes.TYPE_HEADER){
+            row = (SquareGridItemView)calendarGrid.getActivity().getLayoutInflater().inflate(R.layout.calendarcell_monthly_header, parent, false);
+            gridcell = (TextView)row.findViewById(R.id.calendar_day_gridcell);
 			gridcell.setTextColor(Color.parseColor("#FFFFFF"));
 			gridcell.setBackgroundColor(calendarGrid.getActivity().getResources().getColor(R.color.black));
-//		}else if(calendarItem.getItemType() == CalendarItemTypes.TYPE_OUTMONTH || calendarItem.getItemType() == CalendarItemTypes.TYPE_NONWORKINGDAY){
-//			gridcell.setTextColor(Color.parseColor("#ABABAB"));
-//		}else if(calendarItem.getItemType() == CalendarItemTypes.TYPE_DAYOFMONTH  || calendarItem.getItemType() == CalendarItemTypes.TYPE_NOW){
 		}else{
+			row = (SquareGridItemView)calendarGrid.getActivity().getLayoutInflater().inflate(R.layout.calendarcell_monthly_item, parent, false);
+			gridcell = (TextView)row.findViewById(R.id.calendar_day_gridcell);
+
 			if(calendarItem.getEvents()!=null && calendarItem.getEvents().size()>0){
 				LinearLayout indicatorContainer = (LinearLayout)row.findViewById(R.id.container_mycalendar_cells_events);
 				for(int i=0; i<calendarItem.getEvents().size(); i++){
@@ -89,11 +86,10 @@ public class MyCalendarAdapter  extends BaseAdapter implements OnClickListener{
 				gridcell.setTextColor(Color.parseColor("#ABABAB"));
 					
 			gridcell.setTag(position);
-			gridcell.setOnClickListener(this);			
+			gridcell.setOnClickListener(this);
 		}
 		
 		gridcell.setText(calendarItem.getLabel());
-		
 		return row;
 	}
 

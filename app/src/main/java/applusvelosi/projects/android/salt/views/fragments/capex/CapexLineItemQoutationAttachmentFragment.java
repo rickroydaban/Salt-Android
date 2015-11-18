@@ -17,12 +17,13 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.AttachmentAdapter;
 import applusvelosi.projects.android.salt.utils.FileManager;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/12/15.
  */
-public class CapexLineItemQoutationAttachmentFragment extends HomeActionbarFragment implements AdapterView.OnItemClickListener, FileManager.AttachmentDownloadListener{
+public class CapexLineItemQoutationAttachmentFragment extends LinearNavActionbarFragment implements AdapterView.OnItemClickListener, FileManager.AttachmentDownloadListener{
     public static String KEY = "CapexLineItemQoutationAttachmentFragment";
 
     private RelativeLayout actionbarButtonBack;
@@ -44,7 +45,7 @@ public class CapexLineItemQoutationAttachmentFragment extends HomeActionbarFragm
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
         actionbarTitle.setText("Attachments");
@@ -59,7 +60,7 @@ public class CapexLineItemQoutationAttachmentFragment extends HomeActionbarFragm
     protected View createView(LayoutInflater li, ViewGroup container, Bundle savedInstanceState) {
         View view = li.inflate(R.layout.fragment_listview, null);
         lv = (ListView)view.findViewById(R.id.lists_lv);
-        pd = new SaltProgressDialog(activity);
+        pd = new SaltProgressDialog(linearNavFragmentActivity);
 
         attachments = app.gson.fromJson(getArguments().getString(KEY), app.types.arrayListOfHashmapOfStringObject);
 
@@ -67,9 +68,9 @@ public class CapexLineItemQoutationAttachmentFragment extends HomeActionbarFragm
         for(HashMap<String, Object> attachment :attachments)
             attachmentNames.add(attachment.get("OrigDocName").toString());
 
-        adapter = new AttachmentAdapter(activity, attachmentNames);
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener(this);
+//        adapter = new AttachmentAdapter(linearNavFragmentActivity, attachmentNames);
+//        lv.setAdapter(adapter);
+//        lv.setOnItemClickListener(this);
 
         return view;
     }
@@ -77,7 +78,7 @@ public class CapexLineItemQoutationAttachmentFragment extends HomeActionbarFragm
     @Override
     public void onClick(View v) {
         if(v == actionbarButtonBack || v == actionbarTitle)
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
     }
 
     @Override
@@ -91,17 +92,17 @@ public class CapexLineItemQoutationAttachmentFragment extends HomeActionbarFragm
         try {
             app.fileManager.downloadDocument(docID, refID, objectTypeID, filename, pd, this);
         }catch(Exception e){
-            app.showMessageDialog(activity, e.getMessage());
+            app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
         }
     }
 
     @Override
     public void onAttachmentDownloadFinish(File downloadedFile) {
-        app.fileManager.openDocument(activity, downloadedFile);
+        app.fileManager.openDocument(linearNavFragmentActivity, downloadedFile);
     }
 
     @Override
     public void onAttachmentDownloadFailed(String errorMessage) {
-        app.showMessageDialog(activity, errorMessage);
+        app.showMessageDialog(linearNavFragmentActivity, errorMessage);
     }
 }

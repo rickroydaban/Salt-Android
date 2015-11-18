@@ -11,34 +11,37 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.ClaimDetailActivity;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public abstract class ClaimHeaderFragment extends HomeActionbarFragment {
+public abstract class ClaimHeaderFragment extends LinearNavActionbarFragment {
 	protected static final String KEY = "myclaimdetailgetclaimforappwithposition";
 	//action bar buttons
 	protected TextView actionbarEditButton, actionbarProcessButton, actionbarCancelButton, textviewActionbarTitle;
 	protected RelativeLayout actionbarBackButton;
-	protected ClaimHeader claim;
 	protected int itemCnt;
 	protected Animation flashAnimation;
 	protected RelativeLayout containerLineItem;
-	private SaltProgressDialog pd;
-		
+
+	private ClaimDetailActivity activity;
+    protected ClaimHeader claim;
 	@Override
 	protected RelativeLayout setupActionbar() {
+        activity = (ClaimDetailActivity)linearNavFragmentActivity;
+        claim = activity.claimHeader;
 		flashAnimation = new AlphaAnimation(0.0f, 1.0f);
 		flashAnimation.setDuration(500); //You can manage the blinking time with this parameter
 		flashAnimation.setRepeatMode(Animation.REVERSE);
 		flashAnimation.setRepeatCount(Animation.INFINITE);
 		
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_claimdetails, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_claimdetails, null);
 		actionbarEditButton = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_edit);
 		actionbarProcessButton = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_process);
 		actionbarCancelButton = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_cancel);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		textviewActionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
 		textviewActionbarTitle.setText(getActionbarTitle());
-		claim = app.getMyClaims().get(getArguments().getInt(KEY));
 
         if(claim.getStatusID() == ClaimHeader.STATUSKEY_OPEN){
             actionbarEditButton.setOnClickListener(this);
@@ -72,10 +75,10 @@ public abstract class ClaimHeaderFragment extends HomeActionbarFragment {
 			actionbarEditButton.setVisibility(View.VISIBLE);
 			//will have to double check to ensure that only the assigned approver can approver the claim
 			if(app.getStaff().isAdmin() || claim.getApproverID()==app.getStaff().getStaffID()){
-				ArrayList<ClaimItem> claimItems = claim.getClaimItems(app);
+				ArrayList<ClaimItem> claimItems = activity.claimHeader.getClaimItems(app);
 				int toBeProcessedItemCnt = 0;
 				for(ClaimItem claimItem :claimItems){
-					if(claimItem.getStatusID() == claim.getStatusID())
+					if(claimItem.getStatusID() == activity.claimHeader.getStatusID())
 						toBeProcessedItemCnt++;
 				}
 				
@@ -93,11 +96,11 @@ public abstract class ClaimHeaderFragment extends HomeActionbarFragment {
 	@Override
 	public void onClick(View v) {
 		if(v == actionbarBackButton || v == textviewActionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarEditButton){
-			activity.changeChildPage(ClaimInputFragment.newInstance(getArguments().getInt(KEY)));
+			linearNavFragmentActivity.changePage(ClaimInputFragment.newInstance(getArguments().getInt(KEY)));
 		}else if(v == containerLineItem) {
-            activity.changeChildPage(ClaimItemListFragment.newInstance(getArguments().getInt(KEY)));
+			linearNavFragmentActivity.changePage(ClaimItemListFragment.newInstance(getArguments().getInt(KEY)));
 		}
 	}
 

@@ -11,12 +11,13 @@ import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.capex.CapexLineItemQoutation;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/13/15.
  */
-public class CapexLineItemQoutationDetailFragment extends HomeActionbarFragment {
+public class CapexLineItemQoutationDetailFragment extends LinearNavActionbarFragment {
     public static String KEY = "capexLineItemQoutationDetailFragmentKey";
 
     //actionbar
@@ -39,7 +40,7 @@ public class CapexLineItemQoutationDetailFragment extends HomeActionbarFragment 
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
         actionbarTitle.setText("Qoutation Detail");
@@ -79,9 +80,9 @@ public class CapexLineItemQoutationDetailFragment extends HomeActionbarFragment 
     @Override
     public void onClick(View v) {
         if(v == actionbarButtonBack || v == actionbarTitle)
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
         else if(v == containerAttahcments) {
-            activity.changeChildPage(CapexLineItemQoutationAttachmentFragment.newInstance(app.gson.toJson(qoutation.getAttachments(), app.types.arrayListOfHashmapOfStringObject)));
+            linearNavFragmentActivity.changePage(CapexLineItemQoutationAttachmentFragment.newInstance(app.gson.toJson(qoutation.getAttachments(), app.types.arrayListOfHashmapOfStringObject)));
         }
     }
 }

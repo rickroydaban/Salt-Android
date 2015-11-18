@@ -14,15 +14,6 @@ import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
 
 public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 
-	public static ClaimHeaderClaimFragment newInstance(int pos){
-		ClaimHeaderClaimFragment fragment = new ClaimHeaderClaimFragment();
-		Bundle b = new Bundle();
-		b.putInt(KEY, pos);
-		fragment.setArguments(b);
-		
-		return fragment;
-	}
-
 	@Override
 	protected String getActionbarTitle() {
 		return "Claim";
@@ -31,7 +22,7 @@ public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view;
-		
+
 		if(Boolean.parseBoolean(claim.getMap().get(ClaimPaidByCC.KEY_ISPAIDBYCOMPANYCARD).toString())){ //claim paid by company card
 			ClaimPaidByCC claimPaidByCC = (ClaimPaidByCC)claim;
 			view = inflater.inflate(R.layout.fragment_claimdetails_claimpaidbycc, null);

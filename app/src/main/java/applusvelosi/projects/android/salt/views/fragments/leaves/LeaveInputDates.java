@@ -28,12 +28,13 @@ import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/27/15.
  */
-public class LeaveInputDates extends HomeActionbarFragment implements ListAdapterInterface{
+public class LeaveInputDates extends LinearNavActionbarFragment implements ListAdapterInterface{
     private final String NO_SELECTION = "No Selection";
     private enum ITEMTYPE{DEFAULT, NONWORKINGDAY, LEAVEDAY};
     private enum SELECTIONTYPE{FIRST, SECOND, THIRD, CANCEL};
@@ -58,7 +59,6 @@ public class LeaveInputDates extends HomeActionbarFragment implements ListAdapte
     private AlertDialog submitDialog;
     private LinearLayout dialogView;
     private EditText etNotes;
-    private SaltProgressDialog pd;
 
     public static LeaveInputDates newInstance(int leaveTypeID){
         LeaveInputDates frag = new LeaveInputDates();
@@ -71,7 +71,7 @@ public class LeaveInputDates extends HomeActionbarFragment implements ListAdapte
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backedit, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backedit, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarButtonClear = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_edit);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -118,20 +118,19 @@ public class LeaveInputDates extends HomeActionbarFragment implements ListAdapte
             startCalendar.set(Calendar.DAY_OF_MONTH, 1);
         }
 
-        pd = new SaltProgressDialog(activity);
-        pd.show();
+        linearNavFragmentActivity.startLoading();
         new Thread(new MyLeavesAndHolidaysUpdater()).start();
 
         dialogView = (LinearLayout)inflater.inflate(R.layout.dialog_textinput, null);
         etNotes = (EditText)dialogView.getChildAt(0);
-        submitDialog = new AlertDialog.Builder(activity).setTitle("").setView(dialogView)
+        submitDialog = new AlertDialog.Builder(linearNavFragmentActivity).setTitle("").setView(dialogView)
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         String startDateStr = app.dateFormatDefault.format(leaveStartCalendar.getTime());
                         String endDateStr = app.dateFormatDefault.format(leaveEndCalendar.getTime());
-                        Toast.makeText(activity, startDateStr + " - " + endDateStr, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(linearNavFragmentActivity, startDateStr + " - " + endDateStr, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -161,7 +160,7 @@ public class LeaveInputDates extends HomeActionbarFragment implements ListAdapte
                 submitDialog.show();
             }
         }else if(v == actionbarButtonBack || v == actionbarTitle){
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
         }
     }
 
@@ -271,7 +270,7 @@ public class LeaveInputDates extends HomeActionbarFragment implements ListAdapte
 
         if(view == null){
             holder = new Holder();
-            view = activity.getLayoutInflater().inflate(R.layout.node_listviewcalendar, null);
+            view = linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.node_listviewcalendar, null);
 
             holder.bgSun = (ImageView)view.findViewById(R.id.iviews_listviewcalendar_nodes_0);
             holder.bgMon = (ImageView)view.findViewById(R.id.iviews_listviewcalendar_nodes_1);
@@ -430,27 +429,28 @@ public class LeaveInputDates extends HomeActionbarFragment implements ListAdapte
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    pd.dismiss();
                     HashMap<String, Float> leaveDays = new HashMap<String, Float>();
                     nonworkingDays.clear();
                     if(leaveResult instanceof String || holidayResult instanceof String){
-                        new AlertDialog.Builder(activity).setTitle("").setMessage((leaveResult instanceof String)?leaveResult.toString():holidayResult.toString())
+                        linearNavFragmentActivity.finishLoading(leaveResult.toString()+", "+holidayResult.toString());
+                        new AlertDialog.Builder(linearNavFragmentActivity).setTitle("").setMessage((leaveResult instanceof String)?leaveResult.toString():holidayResult.toString())
                                 .setNegativeButton("Back", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
-                                        activity.onBackPressed();
+                                        linearNavFragmentActivity.onBackPressed();
                                     }
                                 })
                                 .setPositiveButton("Refresh", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
-                                        pd.show();
+                                        linearNavFragmentActivity.startLoading();
                                         new Thread(new MyLeavesAndHolidaysUpdater()).start();
                                     }
                                 }).setCancelable(false).create().show();
                     }else{ //successfully fetched data
+                        linearNavFragmentActivity.finishLoading();
                         for(Holiday holiday :(ArrayList<Holiday>)holidayResult) {
                             if(!nonworkingDays.contains(holiday.getStringedDate()))
                                 nonworkingDays.add(holiday.getStringedDate());
@@ -488,7 +488,7 @@ public class LeaveInputDates extends HomeActionbarFragment implements ListAdapte
                                         comparatorDate.set(Calendar.DAY_OF_MONTH, comparatorDate.get(Calendar.DAY_OF_MONTH)+1);
                                     }
                                 }catch(Exception e){
-                                    app.showMessageDialog(activity, e.getMessage());
+                                    app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
                                 }
                             }
                         }

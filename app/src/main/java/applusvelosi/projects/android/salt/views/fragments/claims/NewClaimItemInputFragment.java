@@ -32,9 +32,12 @@ import java.util.Date;
 import java.util.Locale;
 
 import applusvelosi.projects.android.salt.R;
+import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.Category;
 import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.utils.interfaces.CameraCaptureInterface;
+import applusvelosi.projects.android.salt.utils.interfaces.FileSelectionInterface;
 import applusvelosi.projects.android.salt.views.HomeActivity;
 import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
@@ -42,7 +45,7 @@ import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFrag
 /**
  * Created by Velosi on 10/26/15.
  */
-public class NewClaimItemInputFragment extends LinearNavActionbarFragment implements CompoundButton.OnCheckedChangeListener, TextWatcher, HomeActivity.CameraCaptureListener, HomeActivity.FileSelectionListener {
+public class NewClaimItemInputFragment extends LinearNavActionbarFragment implements CompoundButton.OnCheckedChangeListener, TextWatcher, CameraCaptureInterface, FileSelectionInterface {
     private NewClaimItemActivity activity;
 
     //actionbar buttons
@@ -158,7 +161,7 @@ public class NewClaimItemInputFragment extends LinearNavActionbarFragment implem
             try {
                 attachedFile = File.createTempFile("attachment", ".jpg", new File(app.fileManager.getDirForCapturedAttachments()));
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(attachedFile));
-                activity.startActivityForResult(intent, NewClaimItemActivity.RESULT_CAMERA);
+                activity.startActivityForResult(intent, SaltApplication.RESULT_CAMERA);
             } catch (Exception e) {
                 e.printStackTrace();
                 app.showMessageDialog(activity, e.getMessage());
@@ -166,7 +169,7 @@ public class NewClaimItemInputFragment extends LinearNavActionbarFragment implem
         }else if (v == buttonFile) {
             Intent fileintent = new Intent(Intent.ACTION_GET_CONTENT);
             fileintent.setType("gagt/sdf");
-            activity.startActivityForResult(fileintent, NewClaimItemActivity.RESULT_FILES);
+            activity.startActivityForResult(fileintent, SaltApplication.RESULT_BROWSEFILES);
         }else if(v == tvAttachment){
             app.fileManager.openDocument(activity, activity.getAttachment());
         }else if(v == actionbarDone){

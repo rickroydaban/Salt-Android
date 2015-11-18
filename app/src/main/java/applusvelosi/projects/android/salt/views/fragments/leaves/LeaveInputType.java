@@ -15,12 +15,13 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/26/15.
  */
-public class LeaveInputType extends HomeActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
+public class LeaveInputType extends LinearNavActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
     //actionbar buttons
     private TextView actionbarTitle;
     private RelativeLayout actionbarButtonBack;
@@ -32,7 +33,7 @@ public class LeaveInputType extends HomeActionbarFragment implements ListAdapter
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
         actionbarTitle.setText("Select Leave Type");
@@ -70,7 +71,7 @@ public class LeaveInputType extends HomeActionbarFragment implements ListAdapter
     @Override
     public void onClick(View v) {
         if(v == actionbarButtonBack || v == actionbarTitle)
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
     }
 
     @Override
@@ -80,7 +81,7 @@ public class LeaveInputType extends HomeActionbarFragment implements ListAdapter
 
         if(view == null){
             holder = new Holder();
-            view = activity.getLayoutInflater().inflate(R.layout.node_headeronly, null);
+            view = linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.node_headeronly, null);
             holder.tvTitle = (TextView)view.findViewById(R.id.tviews_nodes_headeronly_header);
             view.setTag(holder);
         }
@@ -98,7 +99,7 @@ public class LeaveInputType extends HomeActionbarFragment implements ListAdapter
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activity.changeChildPage(LeaveInputDates.newInstance(Leave.getLeaveTypeIDForDesc(leaveTypes.get(position))));
+        linearNavFragmentActivity.changePage(LeaveInputDates.newInstance(Leave.getLeaveTypeIDForDesc(leaveTypes.get(position))));
     }
 
     private class Holder{

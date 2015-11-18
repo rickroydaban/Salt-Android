@@ -17,9 +17,11 @@ import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
+public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 	private static final String KEY = "myleavesapprovaldetailfragmentkey";
 	private final String CANCEL = "Cancel";
 	//action bar buttons
@@ -35,7 +37,7 @@ public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_leaveforapprovaldetail, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_leaveforapprovaldetail, null);
 		containerActionbarRightbuttons = (LinearLayout)actionbarLayout.findViewById(R.id.containers_actionbar_leavedetails_approver);
 		buttonActionbarBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		buttonActionbarApprove = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_approve);
@@ -60,16 +62,16 @@ public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
 	
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		builderView = (LinearLayout)LayoutInflater.from(activity).inflate(R.layout.dialog_textinput, null);
+		builderView = (LinearLayout)LayoutInflater.from(linearNavFragmentActivity).inflate(R.layout.dialog_textinput, null);
 		rejectionReason = (EditText)builderView.getChildAt(0);
-		dialogReject = new AlertDialog.Builder(activity).setTitle("Reject").setView(builderView)
+		dialogReject = new AlertDialog.Builder(linearNavFragmentActivity).setTitle("Reject").setView(builderView)
 														.setPositiveButton("Reject", new DialogInterface.OnClickListener() {
 															
 															@Override
 															public void onClick(DialogInterface dialog, int which) {
 																dialog.dismiss();
 																if(pd == null)
-																	pd = new SaltProgressDialog(activity);			
+																	pd = new SaltProgressDialog(linearNavFragmentActivity);
 																pd.show();
 																new Thread(new Runnable() {
 																	
@@ -90,11 +92,11 @@ public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
 																			public void run() {
 																				pd.dismiss();
 																				if(result != null)
-																					app.showMessageDialog(activity, result);
+																					app.showMessageDialog(linearNavFragmentActivity, result);
 																				else{
-																					app.showMessageDialog(activity, "Leave Rejected!");
-																					activity.changeChildPage(LeaveForApprovalFragment.getInstance());
-																					LeaveForApprovalFragment.getInstance().sync();									
+//																					app.showMessageDialog(linearNavFragmentActivity, "Leave Rejected!");
+//																					linearNavFragmentActivity.changePage(LeaveForApprovalFragment.getInstance());
+//																					LeaveForApprovalFragment.getInstance().sync();
 																				}
 																				
 //																				if(result != null){
@@ -173,10 +175,10 @@ public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
 	@Override
 	public void onClick(View v) {
 		if(v == buttonActionbarBack || v == textviewActionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == buttonActionbarApprove){
 			if(pd == null)
-				pd = new SaltProgressDialog(activity);			
+				pd = new SaltProgressDialog(linearNavFragmentActivity);
 			pd.show();
 			new Thread(new Runnable() {
 				
@@ -198,11 +200,11 @@ public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
 						public void run() {							
 							pd.dismiss();
 							if(result != null)
-								app.showMessageDialog(activity, result);
+								app.showMessageDialog(linearNavFragmentActivity, result);
 							else{
-								app.showMessageDialog(activity, "Leave Approved!");
-								activity.changeChildPage(LeaveForApprovalFragment.getInstance());
-								LeaveForApprovalFragment.getInstance().sync();									
+//								app.showMessageDialog(linearNavFragmentActivity, "Leave Approved!");
+//								linearNavFragmentActivity.changePage(LeaveForApprovalFragment.getInstance());
+//								LeaveForApprovalFragment.getInstance().sync();
 							}
 
 //							if(result != null){
@@ -218,7 +220,7 @@ public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
 		}else if(v == buttonActionbarReject){
 			if(buttonActionbarReject.getText().equals(CANCEL)){
 				if(pd == null)
-					pd = new SaltProgressDialog(activity);			
+					pd = new SaltProgressDialog(linearNavFragmentActivity);
 				pd.show();
 				new Thread(new Runnable() {
 					
@@ -240,10 +242,10 @@ public class LeavesApprovalDetailFragment extends HomeActionbarFragment {
 							public void run() {
 								pd.dismiss();
 								if(result != null)
-									app.showMessageDialog(activity, result);
+									app.showMessageDialog(linearNavFragmentActivity, result);
 								else{
-									app.showMessageDialog(activity, "Leave Cancelled!");
-									activity.changeChildPage(LeaveForApprovalFragment.getInstance());
+									app.showMessageDialog(linearNavFragmentActivity, "Leave Cancelled!");
+//									linearNavFragmentActivity.changePage(LeaveForApprovalFragment.getInstance());
 									LeaveForApprovalFragment.getInstance().sync();									
 								}
 								

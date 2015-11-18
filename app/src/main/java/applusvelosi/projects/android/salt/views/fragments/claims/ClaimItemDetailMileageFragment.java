@@ -16,9 +16,10 @@ import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.claimitems.MilageClaimItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.FileManager.AttachmentDownloadListener;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class ClaimItemDetailMileageFragment extends HomeActionbarFragment implements AttachmentDownloadListener{
+public class ClaimItemDetailMileageFragment extends LinearNavActionbarFragment implements AttachmentDownloadListener{
 	private static final String KEY_CLAIMID = "myclaimitemdetailclaimIDkey";
 	private static final String KEY_CLAIMITEMID = "myclaimitemdetailclaimitemIDKey";
 	//action bar buttons
@@ -32,7 +33,7 @@ public class ClaimItemDetailMileageFragment extends HomeActionbarFragment implem
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backedit, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backedit, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarEditButton = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_edit);
 		actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -93,7 +94,7 @@ public class ClaimItemDetailMileageFragment extends HomeActionbarFragment implem
 		tvAttachment = (TextView)view.findViewById(R.id.tviews_claimitemdetail_attachment);
 		if(claimItem.hasReceipt()){
 			tvAttachment.setText(claimItem.getAttachmentName());
-			tvAttachment.setTextColor(activity.getResources().getColor(R.color.orange_velosi));
+			tvAttachment.setTextColor(linearNavFragmentActivity.getResources().getColor(R.color.orange_velosi));
 			tvAttachment.setPaintFlags(tvAttachment.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);			
 			tvAttachment.setTypeface(null, Typeface.BOLD);
 			tvAttachment.setOnClickListener(this);
@@ -107,36 +108,36 @@ public class ClaimItemDetailMileageFragment extends HomeActionbarFragment implem
 	@Override
 	public void onClick(View v) {
 		if(v == actionbarBackButton){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarEditButton){
-			activity.changeChildPage(ItemInputFragmentClaims.newInstanceForEditingClaimItem(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
+//			linearNavFragmentActivity.changePage(ItemInputFragmentClaims.newInstanceForEditingClaimItem(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
 		}else if(v == trAttendees){
 //			activity.changeChildPage(ClaimItemAttendeeListFragment.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
 		}else if(v == tvAttachment){
-			try{
-				if(pd == null)
-					pd = new SaltProgressDialog(activity);
-				app.fileManager.downloadAttachment(activity, claimItem, pd, this);
-			}catch(Exception e){
-				app.showMessageDialog(activity, e.getMessage());
-			}			
+//			try{
+//				if(pd == null)
+//					pd = new SaltProgressDialog(linearNavFragmentActivity);
+//				app.fileManager.downloadAttachment(linearNavFragmentActivity, claimItem, pd, this);
+//			}catch(Exception e){
+//				app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
+//			}
 		}
 	}
 
 	@Override
 	public void onAttachmentDownloadFinish(File file) {
-    	try {
-			app.fileManager.openAttachment(activity, claimItem.getAttachmentExtension(), file);
-		} catch (Exception e) {
-			((SaltApplication)activity.getApplication()).showMessageDialog(activity, e.getMessage());
-		}            								
+//    	try {
+//			app.fileManager.openAttachment(linearNavFragmentActivity, claimItem.getAttachmentExtension(), file);
+//		} catch (Exception e) {
+//			((SaltApplication)linearNavFragmentActivity.getApplication()).showMessageDialog(linearNavFragmentActivity, e.getMessage());
+//		}
 	}
 	
 	@Override
 	public void onAttachmentDownloadFailed(String errorMessage) {
-		app.showMessageDialog(activity, "Download Failed! "+errorMessage);
+		app.showMessageDialog(linearNavFragmentActivity, "Download Failed! "+errorMessage);
 	}
 
 }

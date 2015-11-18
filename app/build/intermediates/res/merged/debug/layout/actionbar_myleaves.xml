@@ -31,7 +31,7 @@
 	    <ImageView 
 	        android:layout_width="@dimen/dimens_actionbar_item"
 	        android:layout_height="@dimen/dimens_actionbar_item"
-	        android:src="@drawable/icon_newleaverequest"
+	        android:src="@drawable/icon_add"
 	        android:scaleType="fitXY"/>
 	 
 	</RelativeLayout>    

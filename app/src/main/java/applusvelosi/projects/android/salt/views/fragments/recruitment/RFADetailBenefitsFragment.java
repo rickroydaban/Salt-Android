@@ -14,12 +14,13 @@ import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.HeaderDetailAdapter;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/12/15.
  */
-public class RFADetailBenefitsFragment extends HomeActionbarFragment implements AdapterView.OnItemClickListener{
+public class RFADetailBenefitsFragment extends LinearNavActionbarFragment implements AdapterView.OnItemClickListener{
     public static String KEY_RECRUITMENTJSON = "RFADetailBenefitsFragmentKeyRecruitmentJSON";
 
     private RelativeLayout actionbarButtonBack;
@@ -40,7 +41,7 @@ public class RFADetailBenefitsFragment extends HomeActionbarFragment implements 
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
         actionbarTitle.setText("Other Benefits");
@@ -61,9 +62,9 @@ public class RFADetailBenefitsFragment extends HomeActionbarFragment implements 
         for(HashMap<String, Object> benefit :benefits)
             headerDetails.add(new StringBuilder().append(benefit.get("BenefitName")).append(HeaderDetailAdapter.DELIMETER).append(benefit.get("ActualCost").toString()).toString());
 
-        adapter = new HeaderDetailAdapter(activity, headerDetails);
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener(this);
+//        adapter = new HeaderDetailAdapter(linearNavFragmentActivity, headerDetails);
+//        lv.setAdapter(adapter);
+//        lv.setOnItemClickListener(this);
 
         return view;
     }
@@ -71,7 +72,7 @@ public class RFADetailBenefitsFragment extends HomeActionbarFragment implements 
     @Override
     public void onClick(View v) {
         if(v == actionbarButtonBack || v == actionbarTitle)
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
     }
 
     @Override

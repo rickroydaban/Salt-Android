@@ -19,12 +19,13 @@ import applusvelosi.projects.android.salt.models.claimheaders.BusinessAdvance;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimheaders.LiquidationOfBA;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 11/5/15.
  */
-public class ClaimInputOverviewLiquidationFragment extends HomeActionbarFragment {
+public class ClaimInputOverviewLiquidationFragment extends LinearNavActionbarFragment {
     public static final String KEY_CLAIMPOS = "claimkey";
     private RelativeLayout actionbarButtonBack;
     private TextView actionbarTitle, actionbarButtonSave;
@@ -39,7 +40,7 @@ public class ClaimInputOverviewLiquidationFragment extends HomeActionbarFragment
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarButtonSave = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_done);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -67,7 +68,7 @@ public class ClaimInputOverviewLiquidationFragment extends HomeActionbarFragment
         tvApprover.setText(app.getStaff().getExpenseApproverName());
 
         costCenters = new ArrayList<CostCenter>();
-        pd = new SaltProgressDialog(activity);
+        pd = new SaltProgressDialog(linearNavFragmentActivity);
         pd.show();
         new Thread(new Runnable() {
             @Override
@@ -85,8 +86,8 @@ public class ClaimInputOverviewLiquidationFragment extends HomeActionbarFragment
                     public void run() {
                         pd.dismiss();
                         if(result instanceof String){
-                            app.showMessageDialog(activity, result.toString());
-                            activity.onBackPressed();
+                            app.showMessageDialog(linearNavFragmentActivity, result.toString());
+                            linearNavFragmentActivity.onBackPressed();
                         }else{
                             costCenters.addAll((ArrayList<CostCenter>)result);
                             costCenterNodes = new ArrayList<LinearLayout>();
@@ -115,7 +116,7 @@ public class ClaimInputOverviewLiquidationFragment extends HomeActionbarFragment
     @Override
     public void onClick(View v) {
         if(v == actionbarButtonBack || v == actionbarTitle){
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
         }else if(v == actionbarButtonSave){
             if(selectedCostCenterPos > 0){
                 final String oldClaimHeaderJSON;
@@ -150,12 +151,12 @@ public class ClaimInputOverviewLiquidationFragment extends HomeActionbarFragment
                                                 app.getMyClaims().add(claimPos+1, new BusinessAdvance(newClaimHeader.getMap()));
                                                 app.getMyClaims().remove(claimPos);
                                                 app.offlineGateway.serializeMyClaims(app.getMyClaims());
-                                                Toast.makeText(activity, "Liquidation Updated Successfully", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(linearNavFragmentActivity, "Liquidation Updated Successfully", Toast.LENGTH_SHORT).show();
                                             }else
-                                                Toast.makeText(activity, "Liquidation Created Successfully", Toast.LENGTH_SHORT).show();
-                                            activity.onBackPressed();
+                                                Toast.makeText(linearNavFragmentActivity, "Liquidation Created Successfully", Toast.LENGTH_SHORT).show();
+                                            linearNavFragmentActivity.onBackPressed();
                                         }else{
-                                            app.showMessageDialog(activity, result);
+                                            app.showMessageDialog(linearNavFragmentActivity, result);
                                         }
 
                                     }
@@ -164,11 +165,11 @@ public class ClaimInputOverviewLiquidationFragment extends HomeActionbarFragment
                         }).start();
                     }catch(Exception e){
                         e.printStackTrace();
-                        app.showMessageDialog(activity, e.getMessage());
+                        app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
                     }
                 }
             }else{
-                app.showMessageDialog(activity, "Please select a cost center");
+                app.showMessageDialog(linearNavFragmentActivity, "Please select a cost center");
             }
         }else{
             if(v.getTag() != null){ //cost center nodes each has defined tags

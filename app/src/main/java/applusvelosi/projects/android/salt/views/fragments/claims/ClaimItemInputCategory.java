@@ -17,11 +17,9 @@ import java.util.Comparator;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Category;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
 import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 
 /**

@@ -1,17 +1,15 @@
 package applusvelosi.projects.android.salt.views;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,8 +17,10 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import applusvelosi.projects.android.salt.R;
@@ -31,20 +31,18 @@ import applusvelosi.projects.android.salt.models.GroupedListHeader;
 import applusvelosi.projects.android.salt.models.GroupedListSidebarItem;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.utils.interfaces.GroupedListItemInterface;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
-import applusvelosi.projects.android.salt.views.fragments.HolidaysLocalFragment;
-import applusvelosi.projects.android.salt.views.fragments.HolidaysMonthlyFragment;
-import applusvelosi.projects.android.salt.views.fragments.CalendarMyMonthlyFragment;
-import applusvelosi.projects.android.salt.views.fragments.claims.ClaimListFragment;
-import applusvelosi.projects.android.salt.views.fragments.claims.ClaimforApprovalListFragment;
-import applusvelosi.projects.android.salt.views.fragments.claims.ClaimforPaymentListFragment;
-import applusvelosi.projects.android.salt.views.fragments.HomeFragment;
-import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveForApprovalFragment;
-import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveListFragment;
-import applusvelosi.projects.android.salt.views.fragments.capex.CapexesForApprovalFragment;
-import applusvelosi.projects.android.salt.views.fragments.homepages.OverviewLeavesFragment;
-import applusvelosi.projects.android.salt.views.fragments.mainpages.MainFragment;
-import applusvelosi.projects.android.salt.views.fragments.recruitment.RecruitmentsForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.HolidaysLocalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.HolidaysMonthlyFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.CalendarMyMonthlyFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.ClaimListFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.ClaimforApprovalListFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.HomeFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveListFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.CapexesForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.MainFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RecruitmentsForApprovalFragment;
 
 public class HomeActivity extends FragmentActivity implements AnimationListener, OnItemClickListener{
 	//constants used for sidebar item labels
@@ -66,52 +64,39 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 	private final int TOGGLE_SPEED = 1000;
 
     private SaltApplication app;
-	//views
+
+    //views
 	private ListView menuList;
 	private ArrayList<GroupedListItemInterface> sidebarItems; //tells the adapter which item is to be displayed as a header or an item in the actionbar items
-	private MainFragment mainFragment; //parent view of sidebar and main display
 	private RelativeLayout foreFragment, foreFragmentShadow; //the main display whose display corresponds to the selected item in the sidebar
 	private TranslateAnimation animationShowSidebar, animationHideSidebar;
+	private MainFragment mainFragment;
 	//holders
-	private HomeActionbarFragment toBeShownFragment;
+	private RootFragment toBeShownFragment;
 	private GroupedListSidebarItem lastMenuItemClicked;
 
 	//flags for sidebar visibility
 	private final String SIDEBAR_HIDDEN = "sidebar_hidden";
 	private final String SIDEBAR_SHOWN = "sidebar_shown";
 
-	//activity result mapping
-	public static final int RESULT_CAMERA = 1;
-	public static final int RESULT_BROWSEFILES = 2;
-	private CameraCaptureListener cameraCaptureListener;
-	private FileSelectionListener fileSelectionListener;
-
 	private View menuButton;
-	
+    private int loaderCnt = 0;
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 
-		setContentView(R.layout.activity_home);			
-		setupSidebar();
-//		System.out.println("density " + getResources().getDisplayMetrics().density);
-		foreFragment = (RelativeLayout)findViewById(R.id.containers_activities_home_fore);
-		foreFragmentShadow = (RelativeLayout)findViewById(R.id.containers_activities_home_foreshadow);
-		mainFragment = MainFragment.getInstance(this);
-		getSupportFragmentManager().beginTransaction().replace(foreFragment.getId(), mainFragment).commit();
-		//animations
-		animationShowSidebar = new TranslateAnimation(0, maxSidebarShownWidth, 0, 0);
-		animationShowSidebar.setDuration(TOGGLE_SPEED);
-		animationShowSidebar.setFillEnabled(true);
-		animationShowSidebar.setAnimationListener(this);
-		animationHideSidebar = new TranslateAnimation(0, -maxSidebarShownWidth, 0, 0);
-		animationHideSidebar.setDuration(TOGGLE_SPEED);
-		animationHideSidebar.setFillEnabled(true);
-		animationHideSidebar.setAnimationListener(this);
-		foreFragment.setTag(SIDEBAR_HIDDEN);
+		setContentView(R.layout.activity_home);
 
         app = (SaltApplication)getApplication();
-        if(app.getCurrencies() == null) {
+		foreFragment = (RelativeLayout)findViewById(R.id.containers_activities_home_fore);
+		foreFragmentShadow = (RelativeLayout)findViewById(R.id.containers_activities_home_foreshadow);
+		mainFragment = new MainFragment();
+		setupSidebar();
+		getSupportFragmentManager().beginTransaction().replace(foreFragment.getId(), mainFragment).commit();
+		initAnimations();
+
+        if(app.getCurrencies() == null) { //get currencies from background if it is null
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -163,16 +148,24 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSLOCAL, getResources().getDrawable(R.drawable.icon_localholidays), getResources().getDrawable(R.drawable.icon_localholidays_sel)));
 
 		menuList.setAdapter(new GroupedListAdapter(this, sidebarItems));
+        menuList.post(new Runnable() {
+            @Override
+            public void run() {
+                selectMenu(1);
+            }
+        });
 	}
 
+	//needs to call this so that we can have proper position of our forefragment's shadow when sidebar list is shown
 	public void updateMaxSidebarShowWidth(float width){
 		if(width>maxSidebarShownWidth)
 			maxSidebarShownWidth = width;
 	}
 
+
 	private void hideSidebar(){
 		foreFragment.startAnimation(animationHideSidebar);
-		mainFragment.currRootFragment.enableUserInteractionsOnSidebarHidden();
+		mainFragment.getCurrRootFragment().disableUserInteractionsOnSidebarShown();
 		menuList.setOnItemClickListener(null);
 	}
 	
@@ -182,100 +175,30 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 			hideSidebar();
 		}else{
 			foreFragment.startAnimation(animationShowSidebar);
-			mainFragment.currRootFragment.disableUserInteractionsOnSidebarShown();
+			mainFragment.getCurrRootFragment().disableUserInteractionsOnSidebarShown();
 			menuList.setOnItemClickListener(this);
 		}
 	}
-	
-	public MainFragment getMainFragment(){
-		return mainFragment;
-	}
-		
-	public void setupActionbar(RelativeLayout actionbarLayout){
-		mainFragment.setupActionbar(actionbarLayout);
-	}
-	
-	public void changeChildPage(HomeActionbarFragment fragment){
+
+	public void changeChildPage(RootFragment fragment){
 		mainFragment.changePage(fragment);
 	}
-	
-	@Override
-	public void onBackPressed() {
-		if(getSupportFragmentManager().getBackStackEntryCount() < 1){
-			new AlertDialog.Builder(this).setMessage("Are you sure you want to exit SALT?")
-										 .setPositiveButton("Yes", new OnClickListener() {
-											
-											@Override
-											public void onClick(DialogInterface dialog, int which) {
-												dialog.dismiss();
-												HomeActivity.super.onBackPressed();											
-											}
-										})
-										.setNegativeButton("No", new OnClickListener() {
-											
-											@Override
-											public void onClick(DialogInterface dialog, int which) {
-												dialog.dismiss();
-											}
-										}).create().show();
-//			toggleSidebar();
-		}else
-			super.onBackPressed();											
 
-	}
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent returnedIntent) {
-		super.onActivityResult(requestCode, resultCode, returnedIntent);
-		
-		switch(requestCode){
-			case RESULT_CAMERA:
-				if(resultCode == RESULT_OK) cameraCaptureListener.onCameraCaptureSuccess();
-				else cameraCaptureListener.onCameraCaptureFailed();
-				break;      
-				
-			case RESULT_BROWSEFILES:
-				if(resultCode == RESULT_OK){
-					Cursor cursor = null;
-					try { 
-					    String[] proj = { MediaStore.Images.Media.DATA };
-					    cursor = getContentResolver().query(returnedIntent.getData(),  proj, null, null, null);
-					    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-					    cursor.moveToFirst();
-					    fileSelectionListener.onFileSelectionSuccess(new File(cursor.getString(column_index)));
-					} finally {
-						if (cursor != null) {
-							cursor.close();
-						}
-					}		
-				}
-				else fileSelectionListener.onFileSelectionFailed();
-				break;
-		}
+	public void setupActionbar(RelativeLayout actionbar){
+		mainFragment.setupActionbar(actionbar);
 	}
 
-	//method only allows to accept one camera capture listener at a time
-	public void setOnCameraCaptureListener(CameraCaptureListener cameraCaptureListener){
-		this.cameraCaptureListener = cameraCaptureListener;
-	}
-	
-	//methods only allows to accept one file selection listener at a time
-	public void setOnFileSelectionListener(FileSelectionListener fileSelectionListener){
-		this.fileSelectionListener = fileSelectionListener;
-	}
-	
-	
 	@Override
 	public void onAnimationStart(Animation animation) {
-		foreFragment.setTag((animation==animationShowSidebar)?SIDEBAR_SHOWN:SIDEBAR_HIDDEN);
+		foreFragment.setTag((animation == animationShowSidebar) ? SIDEBAR_SHOWN : SIDEBAR_HIDDEN);
 	}
 
 	@Override
 	public void onAnimationEnd(Animation animation) {
-		foreFragment.setX((animation==animationShowSidebar)?maxSidebarShownWidth:0);
-		foreFragmentShadow.setX(maxSidebarShownWidth-10);
+		foreFragment.setX((animation == animationShowSidebar) ? maxSidebarShownWidth : 0);
+		foreFragmentShadow.setX(maxSidebarShownWidth - 10);
 
-		mainFragment.currRootFragment.enableListButtonOnSidebarAnimationFinished();
+		mainFragment.getCurrRootFragment().enableUserInteractionsOnSidebarHidden();
 		
 		if(animation == animationHideSidebar)
 			mainFragment.changePage(toBeShownFragment);
@@ -289,7 +212,9 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		selectMenu(pos);
-		hideSidebar();		
+
+        if(foreFragment.getTag().equals(SIDEBAR_SHOWN))
+    		hideSidebar();
 	}	
 	
 	private void selectMenu(int pos){
@@ -316,34 +241,86 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 	}
 
 	private void logout(){
+
 		HomeFragment.removeInstance();
 		LeaveListFragment.removeInstance();
 		HolidaysLocalFragment.removeInstance();
 		CalendarMyMonthlyFragment.removeInstance();
 		ClaimListFragment.removeInstance();
 		ClaimforApprovalListFragment.removeInstance();
-		ClaimforPaymentListFragment.removeInstance();
 
 		((SaltApplication)getApplication()).offlineGateway.logout();
 		startActivity(new Intent(this, LoginActivity.class));
 		finish();
 	}
 
-	public void linkToLeavesForApproval(OverviewLeavesFragment key){
+	public void linkToLeavesForApproval(HomeFragment key){
 		selectMenu(3);
 		changeChildPage(LeaveForApprovalFragment.getInstance());
 	}
-	
-	public interface CameraCaptureListener{
-		
-		public void onCameraCaptureSuccess();
-		public void onCameraCaptureFailed();
+
+    private void initAnimations(){
+		animationShowSidebar = new TranslateAnimation(0, maxSidebarShownWidth, 0, 0);
+		animationShowSidebar.setDuration(TOGGLE_SPEED);
+		animationShowSidebar.setFillEnabled(true);
+		animationShowSidebar.setAnimationListener(this);
+		animationHideSidebar = new TranslateAnimation(0, -maxSidebarShownWidth, 0, 0);
+		animationHideSidebar.setDuration(TOGGLE_SPEED);
+		animationHideSidebar.setFillEnabled(true);
+		animationHideSidebar.setAnimationListener(this);
+		foreFragment.setTag(SIDEBAR_HIDDEN);
 	}
-	
-	public interface FileSelectionListener{
-		
-		public void onFileSelectionSuccess(File file);
-		public void onFileSelectionFailed();
+
+    public void startLoading(){
+        if(loaderCnt == 0 ){
+            mainFragment.containersLoader.setVisibility(View.VISIBLE);
+            mainFragment.containersLoader.startAnimation(app.animationShow);
+            mainFragment.ivLoader.setVisibility(View.VISIBLE);
+            mainFragment.tviewsLoader.setText("Loading");
+            mainFragment.tviewsLoader.setTextColor(getResources().getColor(R.color.black));
+        }
+
+        loaderCnt++;
+    }
+
+    public void finishLoading(){
+        loaderCnt--;
+        if(loaderCnt == 0){
+            mainFragment.containersLoader.setVisibility(View.GONE);
+            mainFragment.containersLoader.startAnimation(app.animationHide);
+        }
 	}
+
+    public void finishLoading(String error){
+        loaderCnt--;
+        if(loaderCnt == 0) {
+            mainFragment.ivLoader.setVisibility(View.GONE);
+            if (error.contains("No address associated with hostname"))
+                error = "Server Connection Failed";
+            mainFragment.tviewsLoader.setText(error);
+            mainFragment.tviewsLoader.setTextColor(getResources().getColor(R.color.red));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mainFragment.containersLoader.getVisibility() == View.GONE)
+            new AlertDialog.Builder(this).setMessage("Are you sure you want to exit SALT?")
+                .setPositiveButton("Yes", new OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        HomeActivity.super.onBackPressed();
+                    }
+                }).setNegativeButton("No", new OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        })
+                .create().show();
+    }
 
 }

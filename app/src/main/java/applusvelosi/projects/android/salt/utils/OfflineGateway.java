@@ -12,7 +12,6 @@ import applusvelosi.projects.android.salt.models.LocalHoliday;
 import applusvelosi.projects.android.salt.models.Office;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
-import applusvelosi.projects.android.salt.views.fragments.HolidaysLocalFragment;
 
 public class OfflineGateway {
 

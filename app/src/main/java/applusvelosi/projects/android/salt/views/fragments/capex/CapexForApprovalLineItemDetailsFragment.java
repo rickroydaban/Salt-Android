@@ -11,12 +11,14 @@ import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.capex.CapexLineItem;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.LinearNavFragmentActivity;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/13/15.
  */
-public class CapexForApprovalLineItemDetailsFragment extends HomeActionbarFragment {
+public class CapexForApprovalLineItemDetailsFragment extends LinearNavActionbarFragment {
     public static String KEY = "capexForApprovalLineItemDetailFragmentKey";
 
     //actionbar
@@ -39,7 +41,7 @@ public class CapexForApprovalLineItemDetailsFragment extends HomeActionbarFragme
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
         actionbarTitle.setText("Line Item Detail");
@@ -74,11 +76,12 @@ public class CapexForApprovalLineItemDetailsFragment extends HomeActionbarFragme
         return view;
     }
 
+
     @Override
     public void onClick(View v) {
         if(v == actionbarButtonBack || v == actionbarTitle)
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
         else if(v == containerQoutaions)
-            activity.changeChildPage(CapexLineItemQoutationsFragment.newInstance(capexLineItem.getCapexLineItemID()));
+            linearNavFragmentActivity.changePage(CapexLineItemQoutationsFragment.newInstance(capexLineItem.getCapexLineItemID()));
     }
 }

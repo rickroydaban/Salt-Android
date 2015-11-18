@@ -20,9 +20,10 @@ import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter.NodeSize;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class ClaimInputFragment extends HomeActionbarFragment implements OnItemSelectedListener{
+public class ClaimInputFragment extends LinearNavActionbarFragment implements OnItemSelectedListener{
 	private final String HEADER_OFFICE = " -Office- ";
 	private final String HEADER_CHARGETO = " -Cost Center- ";
 	private final String HEADER_APPROVER = " -Approver- ";
@@ -53,7 +54,7 @@ public class ClaimInputFragment extends HomeActionbarFragment implements OnItemS
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarSaveButton = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_done);
 		actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -101,12 +102,12 @@ public class ClaimInputFragment extends HomeActionbarFragment implements OnItemS
 		advanceNumberIDs = new HashMap<String, Integer>();
 		advances.add(HEADER_BUSINESSADVANCE);
 				
-		propSpinnerTypes.setAdapter(new SimpleSpinnerAdapter(activity, types, NodeSize.SIZE_NORMAL));
-		propSpinnerProxyNames.setAdapter(new SimpleSpinnerAdapter(activity, claimStaffs, NodeSize.SIZE_NORMAL));
-		propSpinnerOffices.setAdapter(new SimpleSpinnerAdapter(activity, offices, NodeSize.SIZE_NORMAL));
-		propSpinnerCostCenters.setAdapter(new SimpleSpinnerAdapter(activity, costCenters, NodeSize.SIZE_NORMAL));
-		propSpinnerApprovers.setAdapter(new SimpleSpinnerAdapter(activity, approvers, NodeSize.SIZE_NORMAL));
-		propSpinnerAdvances.setAdapter(new SimpleSpinnerAdapter(activity, advances, NodeSize.SIZE_NORMAL));
+		propSpinnerTypes.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, types, NodeSize.SIZE_NORMAL));
+		propSpinnerProxyNames.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, claimStaffs, NodeSize.SIZE_NORMAL));
+		propSpinnerOffices.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, offices, NodeSize.SIZE_NORMAL));
+		propSpinnerCostCenters.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, costCenters, NodeSize.SIZE_NORMAL));
+		propSpinnerApprovers.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, approvers, NodeSize.SIZE_NORMAL));
+		propSpinnerAdvances.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, advances, NodeSize.SIZE_NORMAL));
 
 		propSpinnerOffices.setEnabled(false);
 		propSpinnerCostCenters.setEnabled(false);
@@ -117,7 +118,7 @@ public class ClaimInputFragment extends HomeActionbarFragment implements OnItemS
 			if(claimHeader.getTypeID()==ClaimHeader.TYPEKEY_ADVANCES && claimHeader.getStatusID()==ClaimHeader.STATUSKEY_PAID){
 				advanceNumberIDs.put(claimHeader.getClaimNumber(), claimHeader.getClaimID());
 				advances.add(claimHeader.getClaimNumber());
-				propSpinnerAdvances.setAdapter(new SimpleSpinnerAdapter(activity, advances, NodeSize.SIZE_NORMAL));
+				propSpinnerAdvances.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, advances, NodeSize.SIZE_NORMAL));
 				break;
 			}
 		}
@@ -206,7 +207,7 @@ public class ClaimInputFragment extends HomeActionbarFragment implements OnItemS
 	@Override
 	public void onClick(View v) {
 		if(v == actionbarBackButton || v == actionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarSaveButton){
 			String selType = propSpinnerTypes.getSelectedItem().toString();
 			String selOffice = propSpinnerOffices.getSelectedItem().toString();

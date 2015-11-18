@@ -17,8 +17,9 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.CalendarListAdapter;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class CalendarWeeklyFragment extends HomeActionbarFragment implements OnClickListener{
+public class CalendarWeeklyFragment extends LinearNavActionbarFragment implements OnClickListener{
 	private static CalendarWeeklyFragment instance;
 	//action bar buttons
 	private RelativeLayout actionbarBackButton, actionbarRefreshButton;
@@ -38,7 +39,7 @@ public class CalendarWeeklyFragment extends HomeActionbarFragment implements OnC
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backrefresh, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backrefresh, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarRefreshButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_refresh);
 		actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -60,8 +61,8 @@ public class CalendarWeeklyFragment extends HomeActionbarFragment implements OnC
 			holidays = new ArrayList<Holiday>();
 			sync();
 		}
-		adapter = new CalendarListAdapter(activity, holidays);
-		lv.setAdapter(adapter);
+//		adapter = new CalendarListAdapter(linearNavFragmentActivity, holidays);
+//		lv.setAdapter(adapter);
 		
 	
 		
@@ -109,7 +110,7 @@ public class CalendarWeeklyFragment extends HomeActionbarFragment implements OnC
 	@Override
 	public void onClick(View view) {
 		if(view == actionbarBackButton || view == actionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(view == actionbarRefreshButton){
 			sync();
 		}

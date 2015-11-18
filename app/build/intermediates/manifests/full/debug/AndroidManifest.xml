@@ -64,7 +64,8 @@
 
         <activity
             android:name="applusvelosi.projects.android.salt.views.SplashActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -78,7 +79,16 @@
             android:name="applusvelosi.projects.android.salt.views.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="applusvelosi.projects.android.salt.views.NewLeaveRequestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="applusvelosi.projects.android.salt.views.LeaveDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="applusvelosi.projects.android.salt.views.NewClaimItemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="applusvelosi.projects.android.salt.views.ClaimDetailActivity"
             android:screenOrientation="portrait" />
 
         <!-- Push Notification ! -->

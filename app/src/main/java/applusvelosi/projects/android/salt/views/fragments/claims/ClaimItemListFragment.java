@@ -21,9 +21,10 @@ import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class ClaimItemListFragment extends HomeActionbarFragment implements OnItemClickListener{
+public class ClaimItemListFragment extends LinearNavActionbarFragment implements OnItemClickListener{
 	private static String KEY = "claimItemListFragmentKey";
 	//action bar buttons
 	private RelativeLayout actionbarBackButton, actionbarRefreshButton, actionbarNewButton;
@@ -46,7 +47,7 @@ public class ClaimItemListFragment extends HomeActionbarFragment implements OnIt
 	@Override
 	protected RelativeLayout setupActionbar() {
         claimHeader = app.getMyClaims().get(getArguments().getInt(KEY));
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backrefreshnew, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backrefreshnew, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarRefreshButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_refresh);
 		actionbarNewButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_add);
@@ -70,11 +71,11 @@ public class ClaimItemListFragment extends HomeActionbarFragment implements OnIt
 		actionbarTitleTextview.setText("Claim Item");
 		View view = li.inflate(R.layout.fragment_claimitemlist, null);
 		lv = (ListView)view.findViewById(R.id.lists_claimItemList);
-		adapter = new ClaimItemAdapter(activity, claimItems);
-		lv.setAdapter(adapter);
-		lv.setOnItemClickListener(this);
-
-        pd = new SaltProgressDialog(activity);
+//		adapter = new ClaimItemAdapter(linearNavFragmentActivity, claimItems);
+//		lv.setAdapter(adapter);
+//		lv.setOnItemClickListener(this);
+//
+//        pd = new SaltProgressDialog(linearNavFragmentActivity);
 		return view;
 	}
 
@@ -87,16 +88,16 @@ public class ClaimItemListFragment extends HomeActionbarFragment implements OnIt
 	@Override
 	public void onClick(View v) {
 		if(v == actionbarBackButton || v == actionbarTitleTextview){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarNewButton){
-			claimHeader.prepareForCreatingNewClamItem(app);
-			if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES)
-				activity.changeChildPage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY), -1));
-			else{
-				Intent intent = new Intent(activity, NewClaimItemActivity.class);
-				intent.putExtra(NewClaimItemActivity.INTENTKEY_CLAIMHEADER, app.gson.toJson(claimHeader.getMap()));
-				startActivity(intent);
-			}
+//			claimHeader.prepareForCreatingNewClamItem(app);
+//			if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES)
+//				linearNavFragmentActivity.changePage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY), -1));
+//			else{
+//				Intent intent = new Intent(linearNavFragmentActivity, NewClaimItemActivity.class);
+//				intent.putExtra(NewClaimItemActivity.INTENTKEY_CLAIMHEADER, app.gson.toJson(claimHeader.getMap()));
+//				startActivity(intent);
+//			}
 		}else if(v == actionbarRefreshButton){
 			refresh();
 		}
@@ -122,7 +123,7 @@ public class ClaimItemListFragment extends HomeActionbarFragment implements OnIt
 					public void run() {
 						pd.dismiss();
 						if(result instanceof String){
-							app.showMessageDialog(activity, result.toString());
+							app.showMessageDialog(linearNavFragmentActivity, result.toString());
 						}else{
 							claimItems.clear();
 							claimItems.addAll((ArrayList<ClaimItem>)result);
@@ -138,8 +139,8 @@ public class ClaimItemListFragment extends HomeActionbarFragment implements OnIt
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		if(claimHeader.getClaimItems(app).get(pos).getCategoryTypeID() == Category.TYPE_MILEAGE) //type mileage
-			activity.changeChildPage(ClaimItemDetailMileageFragment.newInstance(getArguments().getInt(KEY), pos));
+			linearNavFragmentActivity.changePage(ClaimItemDetailMileageFragment.newInstance(getArguments().getInt(KEY), pos));
 		else
-			activity.changeChildPage(ClaimItemDetailGenericFragment.newInstance(getArguments().getInt(KEY), pos));
+			linearNavFragmentActivity.changePage(ClaimItemDetailGenericFragment.newInstance(getArguments().getInt(KEY), pos));
 	}
 }

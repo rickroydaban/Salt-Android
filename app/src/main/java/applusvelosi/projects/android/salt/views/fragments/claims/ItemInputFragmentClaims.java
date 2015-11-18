@@ -197,16 +197,16 @@ public class ItemInputFragmentClaims extends ItemInputFragment {
 			else if(cboxBillable.isChecked() && spinnerOffices.getSelectedItem().toString().equals(HEADER_BILLTO) && etextNotesClientToBill.length()==0) 
 				spinnerOffices.performClick();
 			else if(Float.parseFloat(etextAmountForeign.getText().toString()) > categories.get(spinnerCategoryNames.getSelectedItemPosition()).getSpendLimit())
-				app.showMessageDialog(activity, "The amount requested is higher than the category's spend limit");
+				app.showMessageDialog(linearNavFragmentActivity, "The amount requested is higher than the category's spend limit");
 			else if(etextDate.length() < 1)
-				app.showMessageDialog(activity, "Please select expense date");
+				app.showMessageDialog(linearNavFragmentActivity, "Please select expense date");
 			else if(etextDesc.length() < 1)
-				app.showMessageDialog(activity, "Please input description of this item");
+				app.showMessageDialog(linearNavFragmentActivity, "Please input description of this item");
 			else if(categories.get(spinnerCategoryNames.getSelectedItemPosition()-1).getCategoryTypeID()==1 &&
 					etextMileageFrom.equals("") && etextMileageTo.equals("") && etextMileageMileage.equals("")){//type mileage
-				if(etextMileageFrom.equals("")) app.showMessageDialog(activity, "Please input start location of mileage");
-				else if(etextMileageTo.equals("")) app.showMessageDialog(activity, "Please input destination of mileage");
-				else if(etextMileageMileage.equals("")) app.showMessageDialog(activity, "Please input mileage value");
+				if(etextMileageFrom.equals("")) app.showMessageDialog(linearNavFragmentActivity, "Please input start location of mileage");
+				else if(etextMileageTo.equals("")) app.showMessageDialog(linearNavFragmentActivity, "Please input destination of mileage");
+				else if(etextMileageMileage.equals("")) app.showMessageDialog(linearNavFragmentActivity, "Please input mileage value");
 			}else{
 				int chargeToID;
 				String chargeToName;
@@ -239,7 +239,7 @@ public class ItemInputFragmentClaims extends ItemInputFragment {
 					}
 				}catch(Exception e){
 					e.printStackTrace();
-					app.showMessageDialog(activity, e.getMessage());
+					app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
 				}
 			}
 		}
@@ -310,7 +310,7 @@ public class ItemInputFragmentClaims extends ItemInputFragment {
 				public void run() {
 					pd.dismiss();
 					if(result instanceof String)
-						app.showMessageDialog(activity, "Failed to load categories. "+result);
+						app.showMessageDialog(linearNavFragmentActivity, "Failed to load categories. "+result);
 					else{
 						categories = new ArrayList<Category>();
 						categories.addAll((ArrayList<Category>)result);
@@ -319,7 +319,7 @@ public class ItemInputFragmentClaims extends ItemInputFragment {
 						for(Category category :categories)
 							categoryNames.add(category.getName());
 						
-						spinnerCategoryNames.setAdapter(new SimpleSpinnerAdapter(activity, categoryNames, NodeSize.SIZE_SMALL));							
+						spinnerCategoryNames.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, categoryNames, NodeSize.SIZE_SMALL));
 						if(getArguments().containsKey(KEY_CLAIMITEMPOS))
 							spinnerCategoryNames.setSelection(categoryNames.indexOf(newClaimItem.getCategoryName()));
 						spinnerCategoryNames.setOnItemSelectedListener(ItemInputFragmentClaims.this);

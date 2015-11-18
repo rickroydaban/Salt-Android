@@ -41,20 +41,22 @@ import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.utils.FileManager.AttachmentDownloadListener;
 import applusvelosi.projects.android.salt.utils.SaltDatePicker;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.utils.interfaces.CameraCaptureInterface;
+import applusvelosi.projects.android.salt.utils.interfaces.FileSelectionInterface;
 import applusvelosi.projects.android.salt.views.HomeActivity;
-import applusvelosi.projects.android.salt.views.HomeActivity.CameraCaptureListener;
-import applusvelosi.projects.android.salt.views.HomeActivity.FileSelectionListener;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.LeaveDetailActivity;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveListFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class LeaveInputFragment extends HomeActionbarFragment implements OnItemSelectedListener, TextWatcher, OnFocusChangeListener,
-																	 CameraCaptureListener, FileSelectionListener, AttachmentDownloadListener{
+public class LeaveInputFragment extends LinearNavActionbarFragment implements OnItemSelectedListener, TextWatcher, OnFocusChangeListener,
+		CameraCaptureInterface, FileSelectionInterface, AttachmentDownloadListener{
 	/******************* CONSTANTS *****************/
 	private final String HEADERSPINNERTYPE = "Select Leave Type";
 	private final String HEADERSPINNERNUMDAYS = "Select Days";
 	private final String HALFDAYLEAVE_AM = "0.5 Days AM";
 	private final String HALFDAYLEAVE_PM = "0.5 Days PM";
 	private final String ONEDAYLEAVE = "1 Day";
-	public static final String KEY_LEAVEPOS = "leavekey";
 	//action bar buttons
 	private TextView actionbarSaveButton, actionbarTitle;
 	private RelativeLayout actionbarBackButton;
@@ -73,19 +75,10 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 	private File capturedPhoto;
 	private SimpleDateFormat sdr;
 
-	public static LeaveInputFragment newInstance(int appLeavePos){
-		LeaveInputFragment frag = new LeaveInputFragment();
-		Bundle b = new Bundle();
-		b.putInt(KEY_LEAVEPOS, appLeavePos);
-		frag.setArguments(b);
-		
-		return frag;
-	}
-		
 	@Override
 	protected RelativeLayout setupActionbar() {
 		sdr = new SimpleDateFormat("yyyy-MM-dd--HH-mm-ss", Locale.getDefault());
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarSaveButton = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_done);
 		actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -102,29 +95,29 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 		View v = inflater.inflate(R.layout.fragment_leave_input, null);
 
 		if(app.getStaffOffice().getHROfficerID()==0 || !app.getStaffOffice().isActive())
-			new AlertDialog.Builder(activity).setTitle(null)
+			new AlertDialog.Builder(linearNavFragmentActivity).setTitle(null)
 											 .setMessage("No HR officer is currently assigned to your office. Kindly contact account manager for assistance.")
 											 .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
 												
 												@Override
 												public void onClick(DialogInterface dialog, int which) {
-													activity.onBackPressed();
+													linearNavFragmentActivity.onBackPressed();
 												}
 											}).create().show();	
 		
 		if(app.getStaff().getApprover1ID()==0 || !app.getStaff().isActive())
-			new AlertDialog.Builder(activity).setTitle(null)
+			new AlertDialog.Builder(linearNavFragmentActivity).setTitle(null)
 											 .setMessage("A leave approver should be assigned to your account before you can request for a leave. Kindly contact account manager for assistance.")
 											 .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
 												
 												@Override
 												public void onClick(DialogInterface dialog, int which) {
-													activity.onBackPressed();
+													linearNavFragmentActivity.onBackPressed();
 												}
 											}).create().show();
 			
 		
-		pd = new SaltProgressDialog(activity);
+		pd = new SaltProgressDialog(linearNavFragmentActivity);
 		propSpinnerTypes = (Spinner)v.findViewById(R.id.choices_dialog_leaverequest_type);
 		propFieldStaff = (EditText)v.findViewById(R.id.etexts_dialog_leaverequest_staff);
 		propSpinnerDays = (Spinner)v.findViewById(R.id.choices_dialog_leaverequest_numdays);
@@ -150,7 +143,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 				propListTypes.add(Leave.getTypeDescriptionList().get(i));
 		}
 		
-		propSpinnerTypes.setAdapter(new SimpleSpinnerAdapter(activity, propListTypes, NodeSize.SIZE_NORMAL));
+		propSpinnerTypes.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, propListTypes, NodeSize.SIZE_NORMAL));
 		propFieldStaff.setText(app.getStaff().getFname()+" "+app.getStaff().getLname());
 
 		propListDays = new ArrayList<String>();
@@ -166,13 +159,13 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 			propListDays.add(i+" Days");
 			propDictDays.put(i+" Days", i);
 		}
-		propSpinnerDays.setAdapter(new SimpleSpinnerAdapter(activity, propListDays, NodeSize.SIZE_NORMAL));		
+		propSpinnerDays.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, propListDays, NodeSize.SIZE_NORMAL));
 				
 		propSpinnerTypes.setTag(-1); //set to -1 so that end date field aftertextchange will work
 		propSpinnerDays.setTag(-1);
 
 		if(getArguments() != null){
-			toBeEditedLeave = app.getMyLeaves().get(getArguments().getInt(KEY_LEAVEPOS));	
+			toBeEditedLeave = app.getMyLeaves().get(((LeaveDetailActivity)getActivity()).leavePos);
 			if(toBeEditedLeave != null){				
 				propSpinnerTypes.setSelection(propListTypes.indexOf(toBeEditedLeave.getTypeDescription()));
 				propFieldStaff.setText(toBeEditedLeave.getStaffName());
@@ -211,8 +204,8 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 		propFieldAttachmentName.setOnClickListener(this);
 		propButtonTakePicture.setOnClickListener(this);
 		propButtonOpenGallery.setOnClickListener(this);
-		activity.setOnCameraCaptureListener(this);
-		activity.setOnFileSelectionListener(this);
+//		activity.setOnCameraCaptureListener(this);
+//		activity.setOnFileSelectionListener(this);
 		
 		return v;
 	}
@@ -230,7 +223,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 					propFieldDateEnd.setText(app.dateFormatDefault.format(new Date(startDate.getTime()+addableDays)));	
 					//process for setting other fields is different for manual selection
 				}catch(Exception e){
-					app.showMessageDialog(activity, e.getMessage());
+					app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
 				}	
 			}else if(parent == propSpinnerTypes && pos>0){ //updates 
 				if(propFieldDay.length() > 0){
@@ -303,7 +296,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 									propFieldDateEnd.setEnabled(false);
 									propSpinnerDays.setEnabled(false);
 								}
-								app.showMessageDialog(activity, leaveResult.toString());
+								app.showMessageDialog(linearNavFragmentActivity, leaveResult.toString());
 								propFieldDateEnd.getText().clear();
 							}else{	//successfully fetch data								
 								if(propFieldDateEnd.length()<1){ //no updating of values yet. Just enable the disabled fields
@@ -322,14 +315,14 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 										}
 										
 										if(hasHolidayOnStartDate){ //can actually proceed filing leave even if holiday specially for special case scenarios
-											app.showMessageDialog(activity, "Date selected is a holiday. ("+holidayName+")");
+											app.showMessageDialog(linearNavFragmentActivity, "Date selected is a holiday. ("+holidayName+")");
 										}
 										
 										propFieldDateEnd.setEnabled(true);
 										propSpinnerDays.setEnabled(true);
 									}catch(Exception e){ 
 										propFieldDateStart.getText().clear();
-										app.showMessageDialog(activity, e.getMessage()); 
+										app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
 									}
 								}else{ //update fields
 									try { //interval day checking for leaves and holidays
@@ -375,7 +368,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 											handleAutoCompleteFieldErrors(editable, "Already requested leave during dates/time specified");
 										else{
 											if(holidayCtr > 0) //can actually proceed filing leave even if holiday specially for special case scenarios
-												app.showMessageDialog(activity, "Date interval has holiday(s)");
+												app.showMessageDialog(linearNavFragmentActivity, "Date interval has holiday(s)");
 
 //											int interval = (int)((endDate.getTime()-startDate.getTime())/SaltApplication.ONEDAY)+3; //add one for the spinner header and half days
 											int interval = (int)((endCalendar.getTimeInMillis()-startCalendar.getTimeInMillis())/SaltApplication.ONEDAY)+3;
@@ -454,7 +447,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 		propFieldRemCredits.getText().clear();
 		propFieldWorkingDays.getText().clear();												
 		
-		app.showMessageDialog(activity, errorMessage);
+		app.showMessageDialog(linearNavFragmentActivity, errorMessage);
 		
 	}
 
@@ -469,10 +462,10 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 		if(isFocused){
 			if(v == propFieldDateStart){
 				System.out.println("TEST focused propfielddatestart");
-				new StartDatePickerDialog(activity, propFieldDateStart);
+				new StartDatePickerDialog(linearNavFragmentActivity, propFieldDateStart);
 			}else if(v == propFieldDateEnd){
 				System.out.println("TEST focused propfielddateend");
-				new EndDatePickerDialog(activity, propFieldDateEnd);
+				new EndDatePickerDialog(linearNavFragmentActivity, propFieldDateEnd);
 			}				
 		}
 	}
@@ -480,7 +473,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 	@Override
 	public void onClick(View v) {
 		if(v == actionbarBackButton || v == actionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarSaveButton){
 			if(propSpinnerTypes.getSelectedItemPosition() > 0){
 				if(propFieldDateStart.getText().length() > 0){
@@ -532,44 +525,44 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 									public void run(){
 										actionbarSaveButton.setEnabled(true);
 										pd.dismiss();
-										((InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+										((InputMethodManager) linearNavFragmentActivity.getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 										if(saveLeaveResult != null)
-											app.showMessageDialog(activity, "Failed to save leave "+saveLeaveResult);
+											app.showMessageDialog(linearNavFragmentActivity, "Failed to save leave "+saveLeaveResult);
 										else{
-											new AlertDialog.Builder(activity).setTitle(null)
-																			 .setMessage((getArguments()==null)?"Leave Submitted!":"Leave Saved Successsfully")
-																			 .setCancelable(false)
-																			 .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
-																				
-																				@Override
-																				public void onClick(DialogInterface dialog, int which) {
-																					activity.changeChildPage(LeaveListFragment.getInstance());
-																					new Thread(new Runnable() {
-																						
-																						@Override
-																						public void run() {
-																							String tempFollowUpLeaveResult;
-																							
-																							try{
-																								tempFollowUpLeaveResult = app.onlineGateway.followUpLeave((toBeCreatedLeave!=null)?toBeCreatedLeave.getJSONStringForProcessingLeave():toBeEditedLeave.getJSONStringForProcessingLeave());
-																							}catch(Exception e){
-																								e.printStackTrace();
-																								tempFollowUpLeaveResult = e.getMessage();
-																							}
-																							
-																							final String followUpLeaveResult = tempFollowUpLeaveResult;
-																							new Handler(Looper.getMainLooper()).post(new Runnable() {
-																								
-																								@Override
-																								public void run() {
-																									if(followUpLeaveResult != null)
-																										app.showMessageDialog(activity, "Failed to send email to approver(s): "+followUpLeaveResult);
-																								}
-																							});
-																						}
-																					}).start();	
-																				}
-																			}).create().show();
+//											new AlertDialog.Builder(linearNavFragmentActivity).setTitle(null)
+//																			 .setMessage((getArguments()==null)?"Leave Submitted!":"Leave Saved Successsfully")
+//																			 .setCancelable(false)
+//																			 .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+//
+//																				@Override
+//																				public void onClick(DialogInterface dialog, int which) {
+//																					linearNavFragmentActivity.changePage(LeaveListFragment.getInstance());
+//																					new Thread(new Runnable() {
+//
+//																						@Override
+//																						public void run() {
+//																							String tempFollowUpLeaveResult;
+//
+//																							try{
+//																								tempFollowUpLeaveResult = app.onlineGateway.followUpLeave((toBeCreatedLeave!=null)?toBeCreatedLeave.getJSONStringForProcessingLeave():toBeEditedLeave.getJSONStringForProcessingLeave());
+//																							}catch(Exception e){
+//																								e.printStackTrace();
+//																								tempFollowUpLeaveResult = e.getMessage();
+//																							}
+//
+//																							final String followUpLeaveResult = tempFollowUpLeaveResult;
+//																							new Handler(Looper.getMainLooper()).post(new Runnable() {
+//
+//																								@Override
+//																								public void run() {
+//																									if(followUpLeaveResult != null)
+//																										app.showMessageDialog(activity, "Failed to send email to approver(s): "+followUpLeaveResult);
+//																								}
+//																							});
+//																						}
+//																					}).start();
+//																				}
+//																			}).create().show();
 
 										}										
 									}
@@ -580,29 +573,29 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 						e.printStackTrace();
 					}				
 				}else
-					app.showMessageDialog(activity, "All fields are required");
+					app.showMessageDialog(linearNavFragmentActivity, "All fields are required");
 			}else{
-				app.showMessageDialog(activity, "Please select a leave type");
+				app.showMessageDialog(linearNavFragmentActivity, "Please select a leave type");
 				propSpinnerTypes.performClick();
 			}
 		}else if(v == propFieldDateStart){
-			new StartDatePickerDialog(activity, propFieldDateStart);
+			new StartDatePickerDialog(linearNavFragmentActivity, propFieldDateStart);
 		}else if(v == propFieldDateEnd){
-			new EndDatePickerDialog(activity, propFieldDateEnd);
+			new EndDatePickerDialog(linearNavFragmentActivity, propFieldDateEnd);
 //			new EDatePickerDialog(activity, propFieldDateEnd);
 		}else if(v == propFieldAttachmentName){
-			try{
-				if(propFieldAttachmentName.getTag() != null){
-					File attachment = (File)propFieldAttachmentName.getTag();  
-					String ext = "."+attachment.getName().substring(attachment.getName().lastIndexOf('.')+1, attachment.getName().length());
-					app.fileManager.openAttachment(activity, ext, attachment);
-				}else{
-					app.showMessageDialog(activity, "Let Leave Models have attachmetn");
-//					app.fileManager.openAttachment(activity, newLeave.getAttachmentExtension(), prevSelectedAttachment);
-				}
-			}catch(Exception e){
-				app.showMessageDialog(activity, e.getMessage());
-			}			
+//			try{
+//				if(propFieldAttachmentName.getTag() != null){
+//					File attachment = (File)propFieldAttachmentName.getTag();
+//					String ext = "."+attachment.getName().substring(attachment.getName().lastIndexOf('.')+1, attachment.getName().length());
+//					app.fileManager.openAttachment(activity, ext, attachment);
+//				}else{
+//					app.showMessageDialog(activity, "Let Leave Models have attachmetn");
+////					app.fileManager.openAttachment(activity, newLeave.getAttachmentExtension(), prevSelectedAttachment);
+//				}
+//			}catch(Exception e){
+//				app.showMessageDialog(activity, e.getMessage());
+//			}
 		}else if(v == propButtonTakePicture){
 			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 			try {
@@ -610,15 +603,15 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 				intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(capturedPhoto));
 				prevSelectedAttachment = (File)propFieldAttachmentName.getTag();
 				propFieldAttachmentName.setTag(capturedPhoto);
-				activity.startActivityForResult(intent, HomeActivity.RESULT_CAMERA);
+				linearNavFragmentActivity.startActivityForResult(intent, SaltApplication.RESULT_CAMERA);
 			} catch (Exception e) {
 				e.printStackTrace();
-				app.showMessageDialog(activity, e.getMessage());
+				app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
 			}
 		}else if(v == propButtonOpenGallery){
 			Intent fileintent = new Intent(Intent.ACTION_GET_CONTENT);
 			fileintent.setType("gagt/sdf");
-			activity.startActivityForResult(fileintent, HomeActivity.RESULT_BROWSEFILES);
+			linearNavFragmentActivity.startActivityForResult(fileintent, SaltApplication.RESULT_BROWSEFILES);
 		}
 
 	}
@@ -636,7 +629,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 					getDatePicker().setMaxDate(today.getTimeInMillis());				
 			}catch(Exception e){
 				e.printStackTrace();
-				app.showMessageDialog(activity, e.getMessage());
+				app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
 			}
 		}		
 	}
@@ -653,7 +646,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 					getDatePicker().setMaxDate(today.getTime());				
 			}catch(Exception e){
 				e.printStackTrace();
-				app.showMessageDialog(activity, e.getMessage());
+				app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
 			}
 		}		
 	}
@@ -716,7 +709,7 @@ public class LeaveInputFragment extends HomeActionbarFragment implements OnItemS
 	
 	@Override
 	public void onAttachmentDownloadFailed(String errorMessage) {
-		app.showMessageDialog(activity, errorMessage);
+		app.showMessageDialog(linearNavFragmentActivity, errorMessage);
 	}
 	
 }

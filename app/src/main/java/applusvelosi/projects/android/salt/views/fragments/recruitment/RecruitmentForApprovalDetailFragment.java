@@ -19,12 +19,14 @@ import org.json.JSONObject;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.recruitments.Recruitment;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RecruitmentsForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/12/15.
  */
-public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment {
+public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFragment {
     //actionbar
     private SaltProgressDialog pd;
     private RelativeLayout actionbarButtonBack;
@@ -47,7 +49,7 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
 
     @Override
     protected RelativeLayout setupActionbar() {
-        RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
         actionbarTitle.setText("Recruitment Detail");
@@ -62,7 +64,7 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         recruitment = RecruitmentsForApprovalFragment.getInstance().getSelectedRecruitment(this);
 
-        pd = new SaltProgressDialog(activity);
+        pd = new SaltProgressDialog(linearNavFragmentActivity);
         View view = inflater.inflate(R.layout.fragment_rfa_detail, null);
         buttonApprove = (TextView)view.findViewById(R.id.buttons_rfadetail_approve);
         buttonReject = (TextView)view.findViewById(R.id.buttons_rfadetail_reject);
@@ -124,7 +126,7 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
                         pd.dismiss();
 
                         if(result instanceof String)
-                            app.showMessageDialog(activity, result.toString());
+                            app.showMessageDialog(linearNavFragmentActivity, result.toString());
                         else{
                             try {
                                 recruitment = new Recruitment((JSONObject) result, app.onlineGateway);
@@ -156,9 +158,9 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
                                 cboxSpecificPerson.setChecked(recruitment.isSpecificPerson());
                                 cboxPositionMayBePermanent.setChecked(recruitment.isPositionMayBePermanent());
 
-                                dialogViewReject = (LinearLayout)LayoutInflater.from(activity).inflate(R.layout.dialog_textinput, null);
+                                dialogViewReject = (LinearLayout)LayoutInflater.from(linearNavFragmentActivity).inflate(R.layout.dialog_textinput, null);
                                 tviewDialogRejectReason = (EditText)dialogViewReject.getChildAt(0);
-                                dialogReject = new AlertDialog.Builder(activity).setTitle("Reject").setView(dialogViewReject)
+                                dialogReject = new AlertDialog.Builder(linearNavFragmentActivity).setTitle("Reject").setView(dialogViewReject)
                                            .setPositiveButton("Reject", new DialogInterface.OnClickListener() {
 
                                                @Override
@@ -173,7 +175,7 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
                                                        else if (recruitment.getStatusID() == Recruitment.RECRUITMENT_STATUSID_APPROVEDBYMHR)
                                                            changeApprovalStatus(Recruitment.RECRUITMENT_STATUSID_REJECTEDBYCEO, "NA", tviewDialogRejectReason.getText().toString());
                                                    }else
-                                                       app.showMessageDialog(activity, "Please input a reason for rejection");
+                                                       app.showMessageDialog(linearNavFragmentActivity, "Please input a reason for rejection");
                                                }
                                            })
                                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -184,9 +186,9 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
                                                }
                                            }).create();
 
-                                dialogViewReturn = (LinearLayout)LayoutInflater.from(activity).inflate(R.layout.dialog_textinput, null);
+                                dialogViewReturn = (LinearLayout)LayoutInflater.from(linearNavFragmentActivity).inflate(R.layout.dialog_textinput, null);
                                 tviewDialogReturnReason = (EditText)dialogViewReturn.getChildAt(0);
-                                dialogReturn = new AlertDialog.Builder(activity).setTitle("Return").setView(dialogViewReturn)
+                                dialogReturn = new AlertDialog.Builder(linearNavFragmentActivity).setTitle("Return").setView(dialogViewReturn)
                                         .setPositiveButton("Return", new DialogInterface.OnClickListener(){
 
                                             @Override
@@ -194,7 +196,7 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
                                                 if(tviewDialogReturnReason.getText().length()>0) {
                                                     changeApprovalStatus(Recruitment.RECRUITMENT_STATUSID_OPEN, "DateProcessedByCountryManager", tviewDialogReturnReason.getText().toString());
                                                 }else
-                                                    app.showMessageDialog(activity, "Please input a reason for rejection");
+                                                    app.showMessageDialog(linearNavFragmentActivity, "Please input a reason for rejection");
                                             }
                                         })
                                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
@@ -205,7 +207,7 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
                                             }
                                         }).create();
                             }catch(Exception e){
-                                app.showMessageDialog(activity, e.getMessage());
+                                app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
                             }
                         }
                     }
@@ -219,11 +221,11 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
     @Override
     public void onClick(View v) {
         if(v == containersAttachments){
-            activity.changeChildPage(RFADetailAttachmentFragment.newInstance(app.gson.toJson(recruitment.getAttachments(), app.types.arrayListOfHashmapOfStringObject)));
+//            linearNavFragmentActivity.changePage(RFADetailAttachmentFragment.newInstance(app.gson.toJson(recruitment.getAttachments(), app.types.arrayListOfHashmapOfStringObject)));
         }else if(v == containersOtherBenefits){
-            activity.changeChildPage(RFADetailBenefitsFragment.newInstance(app.gson.toJson(recruitment.getOtherBenefits(), app.types.arrayListOfHashmapOfStringObject)));
+//            linearNavFragmentActivity.changePage(RFADetailBenefitsFragment.newInstance(app.gson.toJson(recruitment.getOtherBenefits(), app.types.arrayListOfHashmapOfStringObject)));
         }else if(v == actionbarButtonBack || v == actionbarTitle){
-            activity.onBackPressed();
+            linearNavFragmentActivity.onBackPressed();
         }else if(v == buttonApprove){
             if(recruitment.getStatusID() == Recruitment.RECRUITMENT_STATUSID_SUBMITTED) changeApprovalStatus(Recruitment.RECRUITMENT_STATUSID_APPROVEDBYCM, "DateProcessedByCountryManager", "Approved");
             else if(recruitment.getStatusID() == Recruitment.RECRUITMENT_STATUSID_APPROVEDBYCM) changeApprovalStatus(Recruitment.RECRUITMENT_STATUSID_APPROVEDBYRM, "DateProcessedByRegionalManager", "Approved");
@@ -255,12 +257,12 @@ public class RecruitmentForApprovalDetailFragment extends HomeActionbarFragment 
                     @Override
                     public void run() {
                         pd.dismiss();
-                        new AlertDialog.Builder(activity).setMessage((result.equals("OK"))?"Updated Successfully":result)
+                        new AlertDialog.Builder(linearNavFragmentActivity).setMessage((result.equals("OK"))?"Updated Successfully":result)
                                                          .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                                              @Override
                                                              public void onClick(DialogInterface dialog, int which) {
                                                                  dialog.dismiss();
-                                                                activity.onBackPressed();
+                                                                 linearNavFragmentActivity.onBackPressed();
                                                              }
                                                          }).show();
                     }

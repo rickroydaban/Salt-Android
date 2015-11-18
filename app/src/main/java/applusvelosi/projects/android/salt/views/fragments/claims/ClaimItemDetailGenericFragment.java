@@ -13,14 +13,14 @@ import android.widget.TextView;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
-import applusvelosi.projects.android.salt.models.ClaimItemAttendee;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.FileManager.AttachmentDownloadListener;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class ClaimItemDetailGenericFragment extends HomeActionbarFragment implements AttachmentDownloadListener{
+public class ClaimItemDetailGenericFragment extends LinearNavActionbarFragment implements AttachmentDownloadListener{
 	private static final String KEY_CLAIMID = "myclaimitemdetailclaimIDkey";
 	private static final String KEY_CLAIMITEMID = "myclaimitemdetailclaimitemIDKey";
 	//action bar buttons
@@ -35,7 +35,7 @@ public class ClaimItemDetailGenericFragment extends HomeActionbarFragment implem
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backedit, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backedit, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarEditButton = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_edit);
 		actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -84,7 +84,7 @@ public class ClaimItemDetailGenericFragment extends HomeActionbarFragment implem
 		attachment = (TextView)view.findViewById(R.id.tviews_claimitemdetail_attachment);
 		if(claimItem.hasReceipt()){
 			attachment.setText(claimItem.getAttachmentName());
-			attachment.setTextColor(activity.getResources().getColor(R.color.orange_velosi));
+			attachment.setTextColor(linearNavFragmentActivity.getResources().getColor(R.color.orange_velosi));
 			attachment.setTypeface(attachment.getTypeface(), Typeface.BOLD);
 			attachment.setOnClickListener(this);
 		}else{
@@ -103,38 +103,38 @@ public class ClaimItemDetailGenericFragment extends HomeActionbarFragment implem
 	@Override
 	public void onClick(View v) {
 		if(v == actionbarBackButton){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarEditButton){
 			claimHeader.prepareForUpdatingClaimItem(getArguments().getInt(KEY_CLAIMITEMID), app);
-			if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES)
-				activity.changeChildPage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
-			else
-				activity.changeChildPage(ItemInputFragmentClaims.newInstanceForEditingClaimItem(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
+//			if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES)
+//				linearNavFragmentActivity.changePage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
+//			else
+//				linearNavFragmentActivity.changePage(ItemInputFragmentClaims.newInstanceForEditingClaimItem(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
 		}else if(v == attachment){
-			try{
-				if(pd == null)
-					pd = new SaltProgressDialog(activity);
-				app.fileManager.downloadAttachment(activity, claimItem, pd, this);
-			}catch(Exception e){
-				app.showMessageDialog(activity, e.getMessage());
-			}
+//			try{
+//				if(pd == null)
+//					pd = new SaltProgressDialog(activity);
+//				app.fileManager.downloadAttachment(activity, claimItem, pd, this);
+//			}catch(Exception e){
+//				app.showMessageDialog(activity, e.getMessage());
+//			}
         }
 	}
 
 	@Override
 	public void onAttachmentDownloadFinish(File file) {
-    	try {
-			app.fileManager.openAttachment(activity, claimItem.getAttachmentExtension(), file);
-		} catch (Exception e) {
-			e.printStackTrace();
-			((SaltApplication)activity.getApplication()).showMessageDialog(activity, e.getMessage());
-		}            								
+//    	try {
+//			app.fileManager.openAttachment(linearNavFragmentActivity, claimItem.getAttachmentExtension(), file);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			((SaltApplication)activity.getApplication()).showMessageDialog(activity, e.getMessage());
+//		}
 	}
 	
 	@Override
 	public void onAttachmentDownloadFailed(String errorMessage) {
-		app.showMessageDialog(activity, "Download Failed! "+errorMessage);
+		app.showMessageDialog(linearNavFragmentActivity, "Download Failed! "+errorMessage);
 	}
 }

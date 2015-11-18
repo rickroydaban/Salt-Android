@@ -7,15 +7,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class ClaimSearchFragment extends HomeActionbarFragment {
+public class ClaimSearchFragment extends LinearNavActionbarFragment {
 	RelativeLayout buttonActionbarCancel;
 	TextView buttonActionbarSave, tviewActionbarTitle;
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
 		buttonActionbarCancel = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		buttonActionbarSave = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_done);
 		tviewActionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -37,9 +38,9 @@ public class ClaimSearchFragment extends HomeActionbarFragment {
 	@Override
 	public void onClick(View view) {
 		if(view == buttonActionbarCancel || view == tviewActionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(view == buttonActionbarSave){
-			app.showMessageDialog(activity, "Searched");
+			app.showMessageDialog(linearNavFragmentActivity, "Searched");
 		}
 	}
 

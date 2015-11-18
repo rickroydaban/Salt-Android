@@ -15,11 +15,14 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
+import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.Category;
 import applusvelosi.projects.android.salt.models.ClaimItemAttendee;
 import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.Project;
+import applusvelosi.projects.android.salt.utils.interfaces.CameraCaptureInterface;
+import applusvelosi.projects.android.salt.utils.interfaces.FileSelectionInterface;
 import applusvelosi.projects.android.salt.views.fragments.claims.ClaimItemInputCategory;
 import applusvelosi.projects.android.salt.views.fragments.claims.ClaimItemInputCurrency;
 import applusvelosi.projects.android.salt.views.fragments.claims.ClaimItemInputProject;
@@ -29,18 +32,15 @@ import applusvelosi.projects.android.salt.views.fragments.claims.ClaimItemInputP
  */
 public class NewClaimItemActivity extends LinearNavFragmentActivity {
     public static final String INTENTKEY_CLAIMHEADER  = "claimheaderkey";
-    public static final int RESULT_CAMERA = 1;
-    public static final int RESULT_FILES = 2;
 
     private Currency currency;
     private Category category;
     private Project project;
     private ArrayList<ClaimItemAttendee> attendees;
     private File attachment;
-    private HomeActivity.CameraCaptureListener cameraCaptureListener;
-    private HomeActivity.FileSelectionListener fileSelectionListener;
+    private CameraCaptureInterface cameraCaptureListener;
+    private FileSelectionInterface fileSelectionListener;
 
-    private Thread threadCategoriesGetter, threadProjectsGetter;
     public ClaimHeader claimHeader;
 
     @Override
@@ -55,8 +55,8 @@ public class NewClaimItemActivity extends LinearNavFragmentActivity {
     public void updateCategory(ClaimItemInputCategory key, Category category){ this.category = category; }
     public void updateProject(ClaimItemInputProject key, Project project){ this.project = project; }
     public void updateAttachmentUri(File attachmentUri){this.attachment = attachmentUri; }
-    public void setCameraListener(HomeActivity.CameraCaptureListener listener){ this.cameraCaptureListener = listener; }
-    public void setFileSelectionListener(HomeActivity.FileSelectionListener listener){ this.fileSelectionListener = listener; }
+    public void setCameraListener(CameraCaptureInterface listener){ this.cameraCaptureListener = listener; }
+    public void setFileSelectionListener(FileSelectionInterface listener){ this.fileSelectionListener = listener; }
     public ArrayList<ClaimItemAttendee> getAttendees(){ return attendees;}
     public File getAttachment(){ return attachment; }
     public Currency getCurrency(){ return currency; }
@@ -69,7 +69,7 @@ public class NewClaimItemActivity extends LinearNavFragmentActivity {
 
 
         switch(requestCode){
-            case RESULT_CAMERA:
+            case SaltApplication.RESULT_CAMERA:
                 if(resultCode == RESULT_OK){
                     cameraCaptureListener.onCameraCaptureSuccess();
                 }else {
@@ -78,7 +78,7 @@ public class NewClaimItemActivity extends LinearNavFragmentActivity {
                 }
                 break;
 
-            case RESULT_FILES:
+            case SaltApplication.RESULT_BROWSEFILES:
                 if(resultCode == RESULT_OK){
                     Cursor cursor = null;
                     try{
@@ -99,4 +99,6 @@ public class NewClaimItemActivity extends LinearNavFragmentActivity {
                 break;
         }
     }
+
+
 }

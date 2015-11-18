@@ -12,10 +12,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+
 import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.models.Leave;
@@ -35,8 +37,8 @@ import applusvelosi.projects.android.salt.utils.TypeHolder;
 import applusvelosi.projects.android.salt.utils.enums.Months;
 import applusvelosi.projects.android.salt.views.LoginActivity;
 import applusvelosi.projects.android.salt.views.SplashActivity;
-import applusvelosi.projects.android.salt.views.fragments.HolidaysLocalFragment;
-import applusvelosi.projects.android.salt.views.fragments.HolidaysMonthlyFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.HolidaysLocalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.HolidaysMonthlyFragment;
 //import com.google.android.gms.analytics.GoogleAnalytics;
 //import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -45,7 +47,6 @@ import com.google.gson.Gson;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
-import com.parse.ParsePushBroadcastReceiver;
 
 /* The entrance point of the app
  * after the app has been opened, the system
@@ -96,6 +97,8 @@ public class SaltApplication extends Application {
 		return mTrackers.get(trackerId);
 	}
 
+	public static final int RESULT_CAMERA = 1;
+	public static final int RESULT_BROWSEFILES = 2;
     public static final long ONEDAY = 24*60*60*1000;
 	public static final String DEFAULT_FLOAT_FORMAT = "%.2f";
 	public static final int MAINHRID = 198;
@@ -121,6 +124,7 @@ public class SaltApplication extends Application {
 	public ArrayList<String> dropDownYears, dropDownMonths;
 	public StaffLeaveTypeCounter staffLeaveCounter;
 	public int thisYear;
+	public Animation animationShow, animationHide;
 	
 	//initializes all objects that are needed by different objects living within the app
 	public void initializeApp(SplashActivity key){
@@ -167,6 +171,13 @@ public class SaltApplication extends Application {
 			nationalHolidays = new ArrayList<Holiday>();
 			localHolidays = new ArrayList<LocalHoliday>();
 		}
+
+		animationShow = new AlphaAnimation(0.0f,1.0f);
+		animationShow.setDuration(1000);
+
+		animationHide = new AlphaAnimation(1.0f,0.0f);
+		animationHide.setDuration(1000);
+
 	}
 
     public void onCreate() {

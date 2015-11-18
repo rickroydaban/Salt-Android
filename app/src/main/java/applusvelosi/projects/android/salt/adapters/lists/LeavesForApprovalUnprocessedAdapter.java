@@ -20,7 +20,7 @@ import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.HomeActivity;
-import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveForApprovalFragment;
 
 public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements OnClickListener{
 	

@@ -17,10 +17,12 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.R.color;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
-import applusvelosi.projects.android.salt.views.fragments.HomeActionbarFragment;
+import applusvelosi.projects.android.salt.views.LeaveDetailActivity;
+import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public class LeaveDetailsFragment extends HomeActionbarFragment {
-	private static final String KEY_LEAVEPOS = "myleavesdetailfragmentkey";
+public class LeaveDetailsFragment extends LinearNavActionbarFragment {
+	private LeaveDetailActivity activity;
 	//action bar button
 	private TextView buttonActionbarEdit, buttonActionbarCancel, buttonFollowUp, textViewActionbarTitle;
 	private RelativeLayout buttonActionbarBack;
@@ -32,7 +34,8 @@ public class LeaveDetailsFragment extends HomeActionbarFragment {
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
-		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_myleavedetails, null);
+		activity = (LeaveDetailActivity)getActivity();
+		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_myleavedetails, null);
 		buttonActionbarBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		buttonActionbarEdit = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_edit);
 		buttonActionbarCancel = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_cancel);
@@ -47,22 +50,13 @@ public class LeaveDetailsFragment extends HomeActionbarFragment {
 		
 		return actionbarLayout;
 	}
-	
-	public static LeaveDetailsFragment newInstance(int appLeavePos){
-		LeaveDetailsFragment fragment = new LeaveDetailsFragment();
-		Bundle b = new Bundle();
-		b.putInt(KEY_LEAVEPOS, appLeavePos);
-		fragment.setArguments(b);
-		return fragment;
-	}
-	
+
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		leave = app.getMyLeaves().get(getArguments().getInt(KEY_LEAVEPOS));	
-			
 		View view = inflater.inflate(R.layout.fragment_leave_details, null);
 		buttonFollowUp = (TextView)view.findViewById(R.id.buttons_myleavesoverview_followup);
-		
+
+        leave = app.getMyLeaves().get(((LeaveDetailActivity)getActivity()).leavePos);
 		if(leave.getStatusID() != Leave.LEAVESTATUSPENDINGID){
 			try{
 				if(leave.getStatusID()==Leave.LEAVESTATUSAPPROVEDKEY && app.dateFormatDefault.parse(leave.getStartDate()).compareTo(new Date())>0)
@@ -71,10 +65,10 @@ public class LeaveDetailsFragment extends HomeActionbarFragment {
 					pendingButtonContainer.setVisibility(View.GONE);
 			}catch(Exception e){
 				e.printStackTrace();
-				app.showMessageDialog(activity, e.getMessage());
+				app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
 			}
 			
-			buttonFollowUp.setTextColor(color.light_gray);
+			buttonFollowUp.setTextColor(linearNavFragmentActivity.getResources().getColor(color.light_gray));
 			buttonFollowUp.setText("Follow up");
 		}else
 			buttonFollowUp.setOnClickListener(this);
@@ -111,17 +105,17 @@ public class LeaveDetailsFragment extends HomeActionbarFragment {
 	@Override
 	public void onClick(View v) {
 		if(v == buttonActionbarBack || v == textViewActionbarTitle){
-			activity.onBackPressed();
+			linearNavFragmentActivity.onBackPressed();
 		}else if(v == buttonActionbarEdit){
-			activity.changeChildPage(LeaveInputFragment.newInstance(getArguments().getInt(KEY_LEAVEPOS)));
+			linearNavFragmentActivity.changePage(new LeaveInputFragment());
 		}else if(v == buttonActionbarCancel){
-			new AlertDialog.Builder(activity).setMessage("Are you sure you want to cancel this leave request?")
+			new AlertDialog.Builder(linearNavFragmentActivity).setMessage("Are you sure you want to cancel this leave request?")
 											 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 												
 												@Override
 												public void onClick(DialogInterface dialog, int which) {
 													if(pd == null)
-														pd = new SaltProgressDialog(activity);			
+														pd = new SaltProgressDialog(linearNavFragmentActivity);
 													pd.show();
 													new Thread(new Runnable() {
 														
@@ -142,10 +136,10 @@ public class LeaveDetailsFragment extends HomeActionbarFragment {
 																	pd.dismiss();
 																	
 																	if(result != null)
-																		app.showMessageDialog(activity, result);
+																		app.showMessageDialog(linearNavFragmentActivity, result);
 																	else{
 																		pendingButtonContainer.setVisibility(View.GONE);
-																		buttonFollowUp.setTextColor(color.light_gray);
+																		buttonFollowUp.setTextColor(linearNavFragmentActivity.getResources().getColor(R.color.light_gray));
 																		buttonFollowUp.setText("Follow up");
 																		buttonFollowUp.setEnabled(false);
 																		tviewStatusDesc.setText(Leave.LEAVESTATUSCANCELLEDDESC);
@@ -166,7 +160,7 @@ public class LeaveDetailsFragment extends HomeActionbarFragment {
 											}).create().show();
 		}else if(v == buttonFollowUp){
 			if(pd == null)
-				pd = new SaltProgressDialog(activity);			
+				pd = new SaltProgressDialog(linearNavFragmentActivity);
 			pd.show();
 			new Thread(new Runnable() {
 				
@@ -187,7 +181,7 @@ public class LeaveDetailsFragment extends HomeActionbarFragment {
 						@Override
 						public void run() {
 							pd.dismiss();							
-							app.showMessageDialog(activity, (result != null)?result:"Follow up sent!");
+							app.showMessageDialog(linearNavFragmentActivity, (result != null)?result:"Follow up sent!");
 						}
 					});
 					
