@@ -47,8 +47,19 @@
                 android:layout_span="2" />           
                 
         </TableRow>
-        
-        <TableRow 
+
+       <TableRow
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="20dp"
+               android:layout_span="2" />
+
+       </TableRow>
+
+       <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/styles_trs">

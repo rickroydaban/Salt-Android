@@ -1,8 +1,10 @@
 package applusvelosi.projects.android.salt.models.claimheaders;
 
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import applusvelosi.projects.android.salt.SaltApplication;
@@ -35,7 +37,7 @@ public class ClaimPaidByCC extends ClaimHeader{
 	public float getForDeductionAmount() {
 		return Float.parseFloat(map.get("TotalComputedForDeductionInLC").toString());
 	}
-	
+
 //	public void updateDeductionAmount(float deduction){
 //		this.forDeductionAmount = deduction;
 //	}	

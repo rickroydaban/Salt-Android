@@ -31,7 +31,6 @@ public class ClaimItemInputCategory extends LinearNavActionbarFragment implement
     private TextView actionbarTitle;
     private RelativeLayout actionbarButtonBack;
 
-    private ArrayList<Category> categories;
     private ListAdapter adapter;
     private ListView lv;
 
@@ -52,48 +51,43 @@ public class ClaimItemInputCategory extends LinearNavActionbarFragment implement
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listviewdetail, null);
-        categories = new ArrayList<Category>();
 
         lv = (ListView)view.findViewById(R.id.lists_lv);
         adapter = new ListAdapter(this);
-        lv.setAdapter(adapter);
 
-        lv.setOnItemClickListener(this);
-
-        activity.startLoading();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Object tempResult;
-                try{
-                    tempResult = app.onlineGateway.getClaimItemCategoryByOffice();
-                }catch(Exception e){
-                    e.printStackTrace();
-                    tempResult = e.getMessage();
-                }
-
-                final Object result = tempResult;
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(result instanceof String){
-                            activity.finishLoading(result.toString());
-                        }else{
-                            activity.finishLoading();
-                            categories.clear();
-                            categories.addAll((ArrayList<Category>) result);
-                            Collections.sort(categories, new Comparator<Category>() {
-                                @Override
-                                public int compare(Category lhs, Category rhs) {
-                                    return lhs.getName().compareToIgnoreCase(rhs.getName().toString());
-                                }
-                            });
-                            adapter.notifyDataSetChanged();
-                        }
+        if(activity.getCategories() == null){
+            activity.startLoading();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Object tempResult;
+                    try{
+                        tempResult = app.onlineGateway.getClaimItemCategoryByOffice(activity.claimHeader.getTypeID());
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        tempResult = e.getMessage();
                     }
-                });
-            }
-        }).start();
+
+                    final Object result = tempResult;
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(result instanceof String){
+                                activity.finishLoading(result.toString());
+                            }else{
+                                activity.finishLoading();
+                                activity.updateCategoryList(ClaimItemInputCategory.this, (ArrayList<Category>) result);
+                                lv.setAdapter(adapter);
+                                lv.setOnItemClickListener(ClaimItemInputCategory.this);
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }else{
+            lv.setAdapter(adapter);
+            lv.setOnItemClickListener(this);
+        }
 
         return view;
     }
@@ -117,19 +111,19 @@ public class ClaimItemInputCategory extends LinearNavActionbarFragment implement
         }
 
         holder = (Holder)view.getTag();
-        holder.tvTitle.setText(categories.get(position).getName());
+        holder.tvTitle.setText(activity.getCategories().get(position).getName());
 
         return view;
     }
 
     @Override
     public int getCount() {
-        return categories.size();
+        return activity.getCategories().size();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activity.updateCategory(this, categories.get(position));
+        activity.updateCategory(this, position);
         linearNavFragmentActivity.changePage(new ClaimItemInputProject());
     }
 

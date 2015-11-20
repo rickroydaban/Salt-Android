@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.support.annotation.ArrayRes;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,9 +35,10 @@ public class NewClaimItemActivity extends LinearNavFragmentActivity {
     public static final String INTENTKEY_CLAIMHEADER  = "claimheaderkey";
 
     private Currency currency;
-    private Category category;
-    private Project project;
+    private int categoryPos, projectPos;
     private ArrayList<ClaimItemAttendee> attendees;
+    private ArrayList<Category> categories;
+    private ArrayList<Project> projects;
     private File attachment;
     private CameraCaptureInterface cameraCaptureListener;
     private FileSelectionInterface fileSelectionListener;
@@ -48,20 +50,45 @@ public class NewClaimItemActivity extends LinearNavFragmentActivity {
         super.onCreate(savedInstanceState);
         claimHeader = new ClaimHeader((HashMap<String, Object>)app.gson.fromJson(getIntent().getExtras().getString(INTENTKEY_CLAIMHEADER), app.types.hashmapOfStringObject));
         attendees = new ArrayList<ClaimItemAttendee>();
+
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_view, new ClaimItemInputCategory()).commit();
     }
 
     public void updateCurrency(ClaimItemInputCurrency key, Currency currency){ this.currency = currency; }
-    public void updateCategory(ClaimItemInputCategory key, Category category){ this.category = category; }
-    public void updateProject(ClaimItemInputProject key, Project project){ this.project = project; }
+    public void updateCategory(ClaimItemInputCategory key, int categoryPos){ this.categoryPos = categoryPos; }
+    public void updateProject(ClaimItemInputProject key, int projectPos){ this.projectPos = projectPos; }
     public void updateAttachmentUri(File attachmentUri){this.attachment = attachmentUri; }
     public void setCameraListener(CameraCaptureInterface listener){ this.cameraCaptureListener = listener; }
     public void setFileSelectionListener(FileSelectionInterface listener){ this.fileSelectionListener = listener; }
     public ArrayList<ClaimItemAttendee> getAttendees(){ return attendees;}
     public File getAttachment(){ return attachment; }
     public Currency getCurrency(){ return currency; }
-    public Category getCategory(){ return category; }
-    public Project getProject(){ return project; }
+    public Category getCategory(){ return categories.get(categoryPos); }
+    public Project getProject(){ return projects.get(projectPos); }
+
+    public void updateProjectList(ClaimItemInputProject key, ArrayList<Project> projects){
+        this.projects = new ArrayList<Project>();
+        this.projects.addAll(projects);
+        Collections.sort(projects, new Comparator<Project>() {
+            @Override
+            public int compare(Project lhs, Project rhs) {
+                return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
+            }
+        });
+    }
+    public void updateCategoryList(ClaimItemInputCategory key, ArrayList<Category> categories){
+        this.categories = new ArrayList<Category>();
+        this.categories.addAll(categories);
+        Collections.sort(categories, new Comparator<Category>() {
+            @Override
+            public int compare(Category lhs, Category rhs) {
+                return lhs.getName().compareToIgnoreCase(rhs.getName().toString());
+            }
+        });
+    }
+
+    public ArrayList<Project> getProjects(){ return projects; }
+    public ArrayList<Category> getCategories(){ return categories; }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

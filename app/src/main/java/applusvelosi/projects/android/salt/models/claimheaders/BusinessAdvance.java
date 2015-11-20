@@ -13,7 +13,6 @@ public class BusinessAdvance extends ClaimHeader{
 	public BusinessAdvance(SaltApplication app, int costCenterID, String costCenterName) throws Exception{
 
 		super(app, costCenterID, costCenterName);
-		map.put("DateApprovedByDirector", app.onlineGateway.dJsonizeDate(map.get("DateApprovedByDirector").toString()));
 		map.put("ClaimTypeID", ClaimHeader.TYPEKEY_ADVANCES);
 		map.put("ClaimTypeName",ClaimHeader.TYPEDESC_ADVANCES);
 	}

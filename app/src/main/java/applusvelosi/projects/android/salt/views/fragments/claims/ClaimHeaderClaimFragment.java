@@ -2,11 +2,15 @@ package applusvelosi.projects.android.salt.views.fragments.claims;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimNotPaidByCC;
@@ -77,7 +81,7 @@ public class ClaimHeaderClaimFragment extends ClaimHeaderFragment{
 		return view;
 	}
 
-//	private void initializeCommonFields(View view){
+	//	private void initializeCommonFields(View view){
 //		tvLineItem = (TextView)view.findViewById(R.id.tviews_claimdetail_items);
 //		tvLineItem.setPaintFlags(tvLineItem.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
 //		tvLineItem.setOnClickListener(this);

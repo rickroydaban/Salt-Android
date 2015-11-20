@@ -1,5 +1,6 @@
 package applusvelosi.projects.android.salt.models;
 
+import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +9,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.net.wifi.WifiEnterpriseConfig.Eap;
+
+import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 
-public class Leave {
+public class Leave implements Serializable{
 	public enum Duration { ONEDAY, AM, PM};
 
 	private static String LEAVETYPEBIRTHDAY = "1-Birthday Leave-Birthday";
@@ -169,7 +172,16 @@ public class Leave {
 	
 	private HashMap<String, Object> mapLeave;
 	private int posOnAppLeaves;
-	
+
+	public Leave(HashMap<String, Object> map){ //for passing from intent
+		mapLeave = new HashMap<String, Object>();
+		mapLeave.putAll(map);
+	}
+
+	public String jsonize(SaltApplication app){
+		return app.gson.toJson(mapLeave);
+	}
+
 	//new leave request
 	public Leave(Staff staff, float staffRemVL, float staffRemSL, int typeID, int statusID, String dateFrom, String dateTo, float days,  float workingDays, String notes, String dateSubmitted){
 		mapLeave = new HashMap<String, Object>();

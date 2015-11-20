@@ -110,7 +110,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:animateLayoutChanges="true"
             android:layout_marginBottom="20dp"/>
 
         <TextView
@@ -120,7 +119,6 @@
             android:textSize="@dimen/fsizes_listcell_subheader"
             android:textColor="@color/common_signin_btn_dark_text_disabled"
             android:textStyle="bold"
-            android:paddingTop="20dp"
             android:paddingBottom="7dp"
             android:gravity="center"/>
 
@@ -133,10 +131,8 @@
             android:id="@+id/containers_claiminputoverview_advances"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:animateLayoutChanges="true"
-            android:layout_marginBottom="20dp"/>
-
+            android:orientation="vertical"/>
 
     </LinearLayout>
+
 </ScrollView>

@@ -33,7 +33,6 @@ public class ClaimItemInputProject extends LinearNavActionbarFragment implements
     private TextView actionbarTitle;
     private RelativeLayout actionbarBack;
 
-    private ArrayList<Project> projects;
     private ListAdapter adapter;
     private ListView lv;
 
@@ -54,47 +53,44 @@ public class ClaimItemInputProject extends LinearNavActionbarFragment implements
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listviewdetail, null);
-        projects = new ArrayList<Project>();
 
         lv = (ListView)view.findViewById(R.id.lists_lv);
         adapter = new ListAdapter(this);
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener(this);
 
-        activity.startLoading();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Object tempResult;
-                try{
-                    tempResult = app.onlineGateway.getClaimItemProjectsByCostCenter(activity.claimHeader.getCostCenterID());
-                }catch(Exception e){
-                    e.printStackTrace();
-                    tempResult = e.getMessage();
-                }
+        if(activity.getProjects() == null){
 
-                final Object result = tempResult;
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(result instanceof String)
-                            activity.finishLoading(result.toString());
-                        else{
-                            activity.finishLoading();
-                            projects.clear();
-                            projects.addAll((ArrayList<Project>) result);
-                            Collections.sort(projects, new Comparator<Project>() {
-                                @Override
-                                public int compare(Project lhs, Project rhs) {
-                                    return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
-                                }
-                            });
-                            adapter.notifyDataSetChanged();
-                        }
+            activity.startLoading();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Object tempResult;
+                    try{
+                        tempResult = app.onlineGateway.getClaimItemProjectsByCostCenter(activity.claimHeader.getCostCenterID());
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        tempResult = e.getMessage();
                     }
-                });
-            }
-        }).start();
+
+                    final Object result = tempResult;
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(result instanceof String)
+                                activity.finishLoading(result.toString());
+                            else{
+                                activity.finishLoading();
+                                activity.updateProjectList(ClaimItemInputProject.this, (ArrayList<Project>) result);
+                                lv.setAdapter(adapter);
+                                lv.setOnItemClickListener(ClaimItemInputProject.this);
+                            }
+                        }
+                    });
+                }
+            }).start();
+        }else{
+            lv.setAdapter(adapter);
+            lv.setOnItemClickListener(this);
+        }
         return view;
     }
 
@@ -111,14 +107,14 @@ public class ClaimItemInputProject extends LinearNavActionbarFragment implements
         }
 
         holder = (Holder)v.getTag();
-        holder.tvName.setText(projects.get(position).getName());
+        holder.tvName.setText(activity.getProjects().get(position).getName());
 
         return v;
     }
 
     @Override
     public int getCount() {
-        return projects.size();
+        return activity.getProjects().size();
     }
 
     @Override
@@ -130,7 +126,7 @@ public class ClaimItemInputProject extends LinearNavActionbarFragment implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activity.updateProject(this, projects.get(position));
+        activity.updateProject(this, position);
         linearNavFragmentActivity.changePage(new ClaimItemInputCurrency());
     }
 

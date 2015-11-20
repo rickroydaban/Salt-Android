@@ -165,7 +165,6 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 
 	private void hideSidebar(){
 		foreFragment.startAnimation(animationHideSidebar);
-		mainFragment.getCurrRootFragment().disableUserInteractionsOnSidebarShown();
 		menuList.setOnItemClickListener(null);
 	}
 	
@@ -175,7 +174,6 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 			hideSidebar();
 		}else{
 			foreFragment.startAnimation(animationShowSidebar);
-			mainFragment.getCurrRootFragment().disableUserInteractionsOnSidebarShown();
 			menuList.setOnItemClickListener(this);
 		}
 	}
@@ -198,16 +196,23 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 		foreFragment.setX((animation == animationShowSidebar) ? maxSidebarShownWidth : 0);
 		foreFragmentShadow.setX(maxSidebarShownWidth - 10);
 
-		mainFragment.getCurrRootFragment().enableUserInteractionsOnSidebarHidden();
-		
+
 		if(animation == animationHideSidebar)
 			mainFragment.changePage(toBeShownFragment);
-		
+
+		try{
+			if(animation == animationShowSidebar)mainFragment.getCurrRootFragment().disableUserInteractionsOnSidebarShown();
+			else mainFragment.getCurrRootFragment().enableUserInteractionsOnSidebarHidden();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
 		menuButton.setEnabled(true);
 	}
 
 	@Override
-	public void onAnimationRepeat(Animation animation) {}
+	public void onAnimationRepeat(Animation animation) {
+	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {

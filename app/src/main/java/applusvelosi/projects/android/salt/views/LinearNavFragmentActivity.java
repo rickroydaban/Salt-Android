@@ -75,8 +75,10 @@ public class LinearNavFragmentActivity extends FragmentActivity{
 
     @Override
     public void onBackPressed() {
-        if(containersLoader.getVisibility() == View.GONE)
-
+        if(ivLoader.getVisibility() == View.GONE || containersLoader.getVisibility() == View.GONE) {
+            if(containersLoader.getVisibility() == View.VISIBLE)
+                containersLoader.setVisibility(View.GONE);
             super.onBackPressed();
+        }
     }
 }

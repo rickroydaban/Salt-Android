@@ -16,144 +16,11 @@ import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.models.claimitems.MilageClaimItem;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 
-public class ClaimHeader implements Serializable{
-	public static final String KEY_TYPEID = "ClaimTypeID";
-	private static final String KEY_HASLOADEDITEMS = "hasLoadedItems";
-	
-	private static final String TYPE_CLAIMS = "1-Claim";
-	private static final String TYPE_ADVANCES = "2-Business Advance";
-	private static final String TYPE_LIQUIDATION = "3-Liquidation of BA";
-	
-	private static final String STATUS_OPEN = "1-Open";
-	private static final String STATUS_SUBMITTED = "2-Submitted";
-	private static final String STATUS_APPROVEDBYAPPROVER = "3-Approved by Approver";
-	private static final String STATUS_REJECTEDBYAPPROVER = "4-Rejected by Approver";
-	private static final String STATUS_CANCELLED = "5-Cancelled";
-	private static final String STATUS_PAID = "6-Paid";
-	private static final String STATUS_APPROVEDBYCOUNTRYMANAGER = "7-Approved by Country Manager";
-	private static final String STATUS_REJECTEDBYCOUNTRYMANAGER = "9-Rejected by Country Manager";
-	private static final String STATUS_REJECTEDBYACCOUNTS = "11-Rejected by Accounts";
-	private static final String STATUS_APPROVEDBYACCOUNTS = "16-Approved by Accounts";
-	private static final String STATUS_RETURN = "17-Return";
-	private static final String STATUS_PAIDUNDERCOMPANYCARD = "24-Paid Under Company Card";
-	private static final String STATUS_REJECTEDFORSALARYDEDUCTION = "25-Rejected For Salary Deduction";
-			
-	public static int TYPEKEY_CLAIMS, TYPEKEY_ADVANCES, TYPEKEY_LIQUIDATION;
-	public static String TYPEDESC_CLAIMS, TYPEDESC_ADVANCES, TYPEDESC_LIQUIDATION;
-	public static int STATUSKEY_OPEN, STATUSKEY_SUBMITTED, STATUSKEY_APPROVEDBYAPPROVER, STATUSKEY_REJECTEDBYAPPROVER, STATUSKEY_CANCELLED,
-					  STATUSKEY_PAID, STATUSKEY_APPROVEDBYCOUNTRYMANAGER, STATUSKEY_REJECTEDBYCOUNTRYMANAGER, STATUSKEY_RETURN,
-					  STATUSKEY_REJECTEDBYACCOUNTS, STATUSKEY_APPROVEDBYACCOUNTS, STATUSKEY_PAIDUNDERCOMPANYCARD, STATUSKEY_REJECTEDFORSALARYDEDUCTION;
-	public static String STATUSDESC_OPEN, STATUSDESC_SUBMITTED, STATUSDESC_APPROVEDBYAPPROVER, STATUSDESC_REJECTEDBYAPPROVER, STATUSDESC_CANCELLED,
-						 STATUSDESC_PAID, STATUSDESC_APPROVEDBYCOUNTRYMANAGER, STATUSDESC_REJECTEDBYCOUNTRYMANAGER, STATUSDESC_RETURN,
-						 STATUSDESC_REJECTEDBYACCOUNTS, STATUSDESC_APPROVEDBYACCOUNTS, STATUSDESC_PAIDUNDERCOMPANYCARD, STATUSDESC_REJECTEDFORSALARYDEDUCTION;
-	
-	private static ArrayList<String> typeDescriptionList, statusDescriptionList;
-	
-	static{
-		TYPEKEY_CLAIMS = Integer.parseInt(TYPE_CLAIMS.split("-")[0]);
-		TYPEKEY_ADVANCES = Integer.parseInt(TYPE_ADVANCES.split("-")[0]);
-		TYPEKEY_LIQUIDATION = Integer.parseInt(TYPE_LIQUIDATION.split("-")[0]);
-		
-		TYPEDESC_CLAIMS = TYPE_CLAIMS.split("-")[1];
-		TYPEDESC_ADVANCES = TYPE_ADVANCES.split("-")[1];
-		TYPEDESC_LIQUIDATION = TYPE_LIQUIDATION.split("-")[1];
+public class ClaimHeader{
+    public static final String KEY_TYPEID = "ClaimTypeID";
 
-		STATUSKEY_OPEN = Integer.parseInt(STATUS_OPEN.split("-")[0]);
-		STATUSKEY_SUBMITTED = Integer.parseInt(STATUS_SUBMITTED.split("-")[0]);
-		STATUSKEY_APPROVEDBYAPPROVER = Integer.parseInt(STATUS_APPROVEDBYAPPROVER.split("-")[0]);
-		STATUSKEY_REJECTEDBYAPPROVER = Integer.parseInt(STATUS_REJECTEDBYAPPROVER.split("-")[0]);
-		STATUSKEY_CANCELLED = Integer.parseInt(STATUS_CANCELLED.split("-")[0]);
-		STATUSKEY_PAID = Integer.parseInt(STATUS_PAID.split("-")[0]);
-		STATUSKEY_APPROVEDBYCOUNTRYMANAGER = Integer.parseInt(STATUS_APPROVEDBYCOUNTRYMANAGER.split("-")[0]);
-		STATUSKEY_REJECTEDBYCOUNTRYMANAGER = Integer.parseInt(STATUS_REJECTEDBYCOUNTRYMANAGER.split("-")[0]);
-		STATUSKEY_REJECTEDBYACCOUNTS = Integer.parseInt(STATUS_REJECTEDBYACCOUNTS.split("-")[0]);
-		STATUSKEY_APPROVEDBYACCOUNTS = Integer.parseInt(STATUS_APPROVEDBYACCOUNTS.split("-")[0]);
-		STATUSKEY_RETURN = Integer.parseInt(STATUS_RETURN.split("-")[0]);
-		STATUSKEY_PAIDUNDERCOMPANYCARD = Integer.parseInt(STATUS_PAIDUNDERCOMPANYCARD.split("-")[0]);
-		STATUSKEY_REJECTEDFORSALARYDEDUCTION = Integer.parseInt(STATUS_REJECTEDFORSALARYDEDUCTION.split("-")[0]);
-
-		STATUSDESC_OPEN = STATUS_OPEN.split("-")[1];
-		STATUSDESC_SUBMITTED = STATUS_SUBMITTED.split("-")[1];
-		STATUSDESC_APPROVEDBYAPPROVER = STATUS_APPROVEDBYAPPROVER.split("-")[1];
-		STATUSDESC_REJECTEDBYAPPROVER = STATUS_REJECTEDBYAPPROVER.split("-")[1];
-		STATUSDESC_CANCELLED = STATUS_CANCELLED.split("-")[1];
-		STATUSDESC_PAID = STATUS_PAID.split("-")[1];
-		STATUSDESC_APPROVEDBYCOUNTRYMANAGER = STATUS_APPROVEDBYCOUNTRYMANAGER.split("-")[1];
-		STATUSDESC_REJECTEDBYCOUNTRYMANAGER = STATUS_REJECTEDBYCOUNTRYMANAGER.split("-")[1];
-		STATUSDESC_REJECTEDBYACCOUNTS = STATUS_REJECTEDBYACCOUNTS.split("-")[1];
-		STATUSDESC_APPROVEDBYACCOUNTS = STATUS_APPROVEDBYACCOUNTS.split("-")[1];
-		STATUSDESC_RETURN = STATUS_RETURN.split("-")[1];
-		STATUSDESC_PAIDUNDERCOMPANYCARD = STATUS_PAIDUNDERCOMPANYCARD.split("-")[1];
-		STATUSDESC_REJECTEDFORSALARYDEDUCTION = STATUS_REJECTEDFORSALARYDEDUCTION.split("-")[1];
-		
-		typeDescriptionList = new ArrayList<String>();
-		typeDescriptionList.add(TYPEDESC_CLAIMS);
-		typeDescriptionList.add(TYPEDESC_ADVANCES);
-		typeDescriptionList.add(TYPEDESC_LIQUIDATION);
-
-		statusDescriptionList = new ArrayList<String>();
-		statusDescriptionList.add(STATUSDESC_OPEN);
-		statusDescriptionList.add(STATUSDESC_SUBMITTED);
-		statusDescriptionList.add(STATUSDESC_APPROVEDBYAPPROVER);
-		statusDescriptionList.add(STATUSDESC_REJECTEDBYAPPROVER);
-		statusDescriptionList.add(STATUSDESC_CANCELLED);
-		statusDescriptionList.add(STATUSDESC_PAID);
-		statusDescriptionList.add(STATUSDESC_APPROVEDBYCOUNTRYMANAGER);
-		statusDescriptionList.add(STATUSDESC_REJECTEDBYCOUNTRYMANAGER);
-		statusDescriptionList.add(STATUSDESC_REJECTEDBYACCOUNTS);
-		statusDescriptionList.add(STATUSDESC_APPROVEDBYACCOUNTS);
-		statusDescriptionList.add(STATUSDESC_RETURN);
-		statusDescriptionList.add(STATUSDESC_PAIDUNDERCOMPANYCARD);
-		statusDescriptionList.add(STATUSDESC_REJECTEDFORSALARYDEDUCTION);
-	}
-	
-	public static String getTypeDescriptionForKey(int key){
-		if(key == TYPEKEY_ADVANCES) return TYPEDESC_ADVANCES;
-		else if(key == TYPEKEY_CLAIMS) return TYPEDESC_CLAIMS;
-		else return TYPEDESC_LIQUIDATION;
-	}
-	
-	public static int getTypeKeyForDescription(String description){
-		if(description == TYPEDESC_ADVANCES) return TYPEKEY_ADVANCES;
-		else if(description == TYPEDESC_CLAIMS) return TYPEKEY_CLAIMS;
-		else return TYPEKEY_LIQUIDATION;
-	}
-	
-	public static String getStatusDescriptionForKey(int key){
-		if(key == STATUSKEY_OPEN) return STATUSDESC_OPEN;
-		else if(key == STATUSKEY_SUBMITTED) return STATUSDESC_SUBMITTED;
-		else if(key == STATUSKEY_APPROVEDBYAPPROVER) return STATUSDESC_APPROVEDBYAPPROVER;
-		else if(key == STATUSKEY_REJECTEDBYAPPROVER) return STATUSDESC_REJECTEDBYAPPROVER;
-		else if(key == STATUSKEY_CANCELLED) return STATUSDESC_CANCELLED;
-		else if(key == STATUSKEY_PAID) return STATUSDESC_PAID;
-		else if(key == STATUSKEY_APPROVEDBYCOUNTRYMANAGER) return STATUSDESC_APPROVEDBYCOUNTRYMANAGER;
-		else if(key == STATUSKEY_REJECTEDBYCOUNTRYMANAGER) return STATUSDESC_REJECTEDBYCOUNTRYMANAGER;
-		else if(key == STATUSKEY_REJECTEDBYACCOUNTS) return STATUSDESC_REJECTEDBYACCOUNTS;
-		else if(key == STATUSKEY_APPROVEDBYACCOUNTS) return STATUSDESC_APPROVEDBYACCOUNTS;
-		else if(key == STATUSKEY_RETURN) return STATUSDESC_RETURN;
-		else if(key == STATUSKEY_PAIDUNDERCOMPANYCARD) return STATUSDESC_PAIDUNDERCOMPANYCARD;
-		else return STATUSDESC_REJECTEDFORSALARYDEDUCTION;
-	}
-	
-	public static int getStatusKeyForDescription(String description){
-		if(description == STATUSDESC_OPEN) return STATUSKEY_OPEN;
-		else if(description == STATUSDESC_SUBMITTED) return STATUSKEY_SUBMITTED;
-		else if(description == STATUSDESC_APPROVEDBYAPPROVER) return STATUSKEY_APPROVEDBYAPPROVER;
-		else if(description == STATUSDESC_REJECTEDBYAPPROVER) return STATUSKEY_REJECTEDBYAPPROVER;
-		else if(description == STATUSDESC_CANCELLED) return STATUSKEY_CANCELLED;
-		else if(description == STATUSDESC_PAID) return STATUSKEY_PAID;
-		else if(description == STATUSDESC_APPROVEDBYCOUNTRYMANAGER) return STATUSKEY_APPROVEDBYCOUNTRYMANAGER;
-		else if(description == STATUSDESC_REJECTEDBYCOUNTRYMANAGER) return STATUSKEY_REJECTEDBYCOUNTRYMANAGER;
-		else if(description == STATUSDESC_REJECTEDBYACCOUNTS) return STATUSKEY_REJECTEDBYACCOUNTS;
-		else if(description == STATUSDESC_APPROVEDBYACCOUNTS) return STATUSKEY_APPROVEDBYACCOUNTS;
-		else if(description == STATUSDESC_RETURN) return STATUSKEY_RETURN;
-		else if(description == STATUSDESC_PAIDUNDERCOMPANYCARD) return STATUSKEY_PAIDUNDERCOMPANYCARD;
-		else return STATUSKEY_REJECTEDFORSALARYDEDUCTION;		
-	}
-	
-//	protected HashMap<String, Object> map;
 	protected LinkedHashMap<String, Object> map;
-	
+
 	public ClaimHeader(JSONObject jsonClaim, SaltApplication app) throws Exception{
 		map = new LinkedHashMap<String, Object>();
 		map.putAll(OnlineGateway.toMap(jsonClaim));
@@ -165,7 +32,6 @@ public class ClaimHeader implements Serializable{
 		map.put("DateRejected", app.onlineGateway.dJsonizeDate(map.get("DateRejected").toString()));
 		map.put("DateApprovedByAccount", app.onlineGateway.dJsonizeDate(map.get("DateApprovedByAccount").toString()));
 		map.put("DatePaid", app.onlineGateway.dJsonizeDate(map.get("DatePaid").toString()));
-		map.put(KEY_HASLOADEDITEMS, false); //not from web service, signifies wether items on this claims has been already loaded or not
 	}
 	
 	public ClaimHeader(HashMap<String, Object> map){
@@ -296,6 +162,22 @@ public class ClaimHeader implements Serializable{
 		map.put("TotalComputedRejectedInLC", 0);
 	}
 
+    public void cancelClaim(SaltApplication app) throws Exception{
+//		map.put("ClaimLineItems", new JSONArray());
+        map.put("ClaimStatus",STATUSKEY_CANCELLED);
+		map.put("StatusName", STATUSDESC_CANCELLED);
+//		map.put("ModifiedBy", app.getStaff().getStaffID());
+//		map.put("ModifiedByName", app.getStaff().getFname()+" "+app.getStaff().getLname());
+//        map.put("DateCreated", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(map.get("DateCreated").toString())));
+        map.put("DateCancelled", app.onlineGateway.jsonizeDate(new Date()));
+        map.put("DateSubmitted", app.onlineGateway.jsonizeDate(new Date()));
+//        map.put("DateApprovedByApprover", "/Date(-2208988800000+0000)/");
+//        map.put("DateRejected", "/Date(-2208988800000+0000)/");
+//        map.put("DateApprovedByAccount", "/Date(-2208988800000+0000)/");
+//        map.put("DatePaid", "/Date(-2208988800000+0000)/");
+//        map.put("DateApprovedByDirector", "/Date(-2208988800000+0000)/");
+    }
+
 	public void editClaimHeader(boolean isPaidByCC){
 		if(getTypeID() == TYPEKEY_CLAIMS)
 			map.put("IsPaidByCompanyCC", isPaidByCC);
@@ -306,7 +188,6 @@ public class ClaimHeader implements Serializable{
 		for(ClaimItem item :items)
 			claimItemMaps.add(item.getMap());
 		
-		map.put(KEY_HASLOADEDITEMS, true);
 		map.put("ClaimLineItems", app.gson.toJson(claimItemMaps, app.types.arrayListOfHashmapOfStringObject));
 	}
 	
@@ -434,11 +315,7 @@ public class ClaimHeader implements Serializable{
 		
 		return claimItems;
 	}
-	
-	public boolean hasLoadedClaimItems(){
-		return Boolean.parseBoolean(map.get(KEY_HASLOADEDITEMS).toString());
-	}
-	
+
 	public HashMap<String, Object> getMap(){
 		return map;
 	}
@@ -471,13 +348,6 @@ public class ClaimHeader implements Serializable{
 		jsonizableMap.put("TotalComputedInLC", Float.parseFloat(jsonizableMap.get("TotalComputedInLC").toString()));
 		jsonizableMap.put("TotalComputedRejectedInLC", Float.parseFloat(jsonizableMap.get("TotalComputedRejectedInLC").toString()));
 		//convert date into epoch form otherwise request will fail
-//		jsonizableMap.put("DateCreated", app.onlineGateway.jsonizeDate(map.get("DateCreated").toString()));
-//		jsonizableMap.put("DateCancelled", app.onlineGateway.jsonizeDate(map.get("DateCancelled").toString()));
-//		jsonizableMap.put("DateSubmitted", app.onlineGateway.jsonizeDate(map.get("DateSubmitted").toString()));
-//		jsonizableMap.put("DateApprovedByApprover", app.onlineGateway.jsonizeDate(map.get("DateApprovedByApprover").toString()));
-//		jsonizableMap.put("DateRejected", app.onlineGateway.jsonizeDate(map.get("DateRejected").toString()));
-//		jsonizableMap.put("DateApprovedByAccount", app.onlineGateway.jsonizeDate(map.get("DateApprovedByAccount").toString()));
-//		jsonizableMap.put("DatePaid", app.onlineGateway.jsonizeDate(map.get("DatePaid").toString()));
 		jsonizableMap.put("DateCreated", map.get("DateCreated").toString());
 		jsonizableMap.put("DateCancelled", map.get("DateCancelled").toString());
 		jsonizableMap.put("DateSubmitted", map.get("DateSubmitted").toString());
@@ -485,12 +355,52 @@ public class ClaimHeader implements Serializable{
 		jsonizableMap.put("DateRejected", map.get("DateRejected").toString());
 		jsonizableMap.put("DateApprovedByAccount", map.get("DateApprovedByAccount").toString());
 		jsonizableMap.put("DatePaid", map.get("DatePaid").toString());
-		//does not need to pass the claim items along with saving claim header
+
+        //does not need to pass the claim items along with saving claim header
 		jsonizableMap.put("ClaimLineItems", new ArrayList<Object>());
-		jsonizableMap.remove(KEY_HASLOADEDITEMS);
 		return app.gson.toJson(jsonizableMap, app.types.hashmapOfStringObject);
 	}
-	
+
+    public String jsonize(SaltApplication app, int key) throws Exception{
+        LinkedHashMap<String, Object> jsonizableMap = new LinkedHashMap<String, Object>();
+        jsonizableMap.putAll(map);
+        jsonizableMap.put("AccountsID", Integer.parseInt(jsonizableMap.get("AccountsID").toString()));
+        jsonizableMap.put("Active", Boolean.parseBoolean(jsonizableMap.get("Active").toString()));
+        jsonizableMap.put("ApproverID", Integer.parseInt(jsonizableMap.get("ApproverID").toString()));
+        jsonizableMap.put("BusinessAdvanceIDCharged", Integer.parseInt(jsonizableMap.get("BusinessAdvanceIDCharged").toString()));
+        jsonizableMap.put("ClaimID", Integer.parseInt(jsonizableMap.get("ClaimID").toString()));
+        jsonizableMap.put("ClaimStatus", Integer.parseInt(jsonizableMap.get("ClaimStatus").toString()));
+        jsonizableMap.put("ClaimTypeID", Integer.parseInt(jsonizableMap.get("ClaimTypeID").toString()));
+        jsonizableMap.put("CostCenterID", Integer.parseInt(jsonizableMap.get("CostCenterID").toString()));
+        jsonizableMap.put("CountryManager", Integer.parseInt(jsonizableMap.get("CountryManager").toString()));
+        jsonizableMap.put("CreatedBy", Integer.parseInt(jsonizableMap.get("CreatedBy").toString()));
+        jsonizableMap.put("IsPaidByCompanyCC", Boolean.parseBoolean(jsonizableMap.get("IsPaidByCompanyCC").toString()));
+        jsonizableMap.put("ModifiedBy", Integer.parseInt(jsonizableMap.get("ModifiedBy").toString()));
+        jsonizableMap.put("OfficeID", Integer.parseInt(jsonizableMap.get("OfficeID").toString()));
+        jsonizableMap.put("OfficeToCharge", Integer.parseInt(jsonizableMap.get("OfficeToCharge").toString()));
+        jsonizableMap.put("ParentClaimID", Integer.parseInt(jsonizableMap.get("ParentClaimID").toString()));
+        jsonizableMap.put("RejectedBy", Integer.parseInt(jsonizableMap.get("RejectedBy").toString()));
+        jsonizableMap.put("StaffID", Integer.parseInt(jsonizableMap.get("StaffID").toString()));
+        jsonizableMap.put("TotalAmount", Float.parseFloat(jsonizableMap.get("TotalAmount").toString()));
+        jsonizableMap.put("TotalAmountInLC", Float.parseFloat(jsonizableMap.get("TotalAmountInLC").toString()));
+        jsonizableMap.put("TotalComputedApprovedInLC", Float.parseFloat(jsonizableMap.get("TotalComputedApprovedInLC").toString()));
+        jsonizableMap.put("TotalComputedForDeductionInLC", Float.parseFloat(jsonizableMap.get("TotalComputedForDeductionInLC").toString()));
+        jsonizableMap.put("TotalComputedForPaymentInLC", Float.parseFloat(jsonizableMap.get("TotalComputedForPaymentInLC").toString()));
+        jsonizableMap.put("TotalComputedInLC", Float.parseFloat(jsonizableMap.get("TotalComputedInLC").toString()));
+        jsonizableMap.put("TotalComputedRejectedInLC", Float.parseFloat(jsonizableMap.get("TotalComputedRejectedInLC").toString()));
+        //convert date into epoch form otherwise request will fail
+        jsonizableMap.put("DateCreated", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(map.get("DateCreated").toString())));
+        jsonizableMap.put("DateCancelled", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(map.get("DateCancelled").toString())));
+        jsonizableMap.put("DateSubmitted", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(map.get("DateSubmitted").toString())));
+        jsonizableMap.put("DateApprovedByApprover", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(map.get("DateApprovedByApprover").toString())));
+        jsonizableMap.put("DateRejected", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(map.get("DateRejected").toString())));
+        jsonizableMap.put("DateApprovedByAccount", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(map.get("DateApprovedByAccount").toString())));
+        jsonizableMap.put("DatePaid", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(map.get("DatePaid").toString())));
+        //does not need to pass the claim items along with saving claim header
+        jsonizableMap.put("ClaimLineItems", new ArrayList<Object>());
+        return app.gson.toJson(jsonizableMap, app.types.hashmapOfStringObject);
+    }
+
 	public static String getEmptyJSON(SaltApplication app) throws Exception{
 		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
 		map.put("AccountManagerEmail", "");
@@ -552,27 +462,164 @@ public class ClaimHeader implements Serializable{
 	}	
 	
 	//for creating new claim item
-	private ClaimItem tempNewClaimItem, tempUpdatedClaimItem;
+//	private ClaimItem tempNewClaimItem, tempUpdatedClaimItem;
 	
-	public void prepareForCreatingNewClamItem(SaltApplication app){
-		tempNewClaimItem = new ClaimItem(app);
-	}
+//	public void prepareForCreatingNewClamItem(SaltApplication app){
+//		tempNewClaimItem = new ClaimItem(app);
+//	}
 
-	public ClaimItem getPreparedClaimItemForCreation(){
-		return tempNewClaimItem;
-	}
+//	public ClaimItem getPreparedClaimItemForCreation(){
+//		return tempNewClaimItem;
+//	}
 
-	public void prepareForUpdatingClaimItem(int claimItemPos, SaltApplication app){
-		tempUpdatedClaimItem = getClaimItems(app).get(claimItemPos);
-	}
-	
-	public ClaimItem getPreparedClaimItemForEdit(){
-		return tempUpdatedClaimItem;
-	}
+//	public void prepareForUpdatingClaimItem(int claimItemPos, SaltApplication app){
+//		tempUpdatedClaimItem = getClaimItems(app).get(claimItemPos);
+//	}
+//
+//	public ClaimItem getPreparedClaimItemForEdit(){
+//		return tempUpdatedClaimItem;
+//	}
 
 	protected String getStringedDate(String stringedDate){
 		if(Integer.parseInt(stringedDate.split("-")[2]) == 1900)
 			return "-";
 		else return stringedDate;
+	}
+
+	private static final String TYPE_CLAIMS = "1-Claim";
+	private static final String TYPE_ADVANCES = "2-Business Advance";
+	private static final String TYPE_LIQUIDATION = "3-Liquidation of BA";
+
+	private static final String STATUS_OPEN = "1-Open";
+	private static final String STATUS_SUBMITTED = "2-Submitted";
+	private static final String STATUS_APPROVEDBYAPPROVER = "3-Approved by Approver";
+	private static final String STATUS_REJECTEDBYAPPROVER = "4-Rejected by Approver";
+	private static final String STATUS_CANCELLED = "5-Cancelled";
+	private static final String STATUS_PAID = "6-Paid";
+	private static final String STATUS_APPROVEDBYCOUNTRYMANAGER = "7-Approved by Country Manager";
+	private static final String STATUS_REJECTEDBYCOUNTRYMANAGER = "9-Rejected by Country Manager";
+	private static final String STATUS_REJECTEDBYACCOUNTS = "11-Rejected by Accounts";
+	private static final String STATUS_APPROVEDBYACCOUNTS = "16-Approved by Accounts";
+	private static final String STATUS_RETURN = "17-Return";
+    private static final String STATUS_LIQUIDATED = "23-Liquidated";
+	private static final String STATUS_PAIDUNDERCOMPANYCARD = "24-Paid Under Company Card";
+	private static final String STATUS_REJECTEDFORSALARYDEDUCTION = "25-Rejected For Salary Deduction";
+
+	public static int TYPEKEY_CLAIMS, TYPEKEY_ADVANCES, TYPEKEY_LIQUIDATION;
+	public static String TYPEDESC_CLAIMS, TYPEDESC_ADVANCES, TYPEDESC_LIQUIDATION;
+	public static int STATUSKEY_OPEN, STATUSKEY_SUBMITTED, STATUSKEY_APPROVEDBYAPPROVER, STATUSKEY_REJECTEDBYAPPROVER, STATUSKEY_CANCELLED,
+			STATUSKEY_PAID, STATUSKEY_APPROVEDBYCOUNTRYMANAGER, STATUSKEY_REJECTEDBYCOUNTRYMANAGER, STATUSKEY_RETURN,
+			STATUSKEY_REJECTEDBYACCOUNTS, STATUSKEY_APPROVEDBYACCOUNTS, STATUSKEY_PAIDUNDERCOMPANYCARD, STATUSKEY_REJECTEDFORSALARYDEDUCTION, STATUSKEY_LIQUIDATED;
+	public static String STATUSDESC_OPEN, STATUSDESC_SUBMITTED, STATUSDESC_APPROVEDBYAPPROVER, STATUSDESC_REJECTEDBYAPPROVER, STATUSDESC_CANCELLED,
+			STATUSDESC_PAID, STATUSDESC_APPROVEDBYCOUNTRYMANAGER, STATUSDESC_REJECTEDBYCOUNTRYMANAGER, STATUSDESC_RETURN,
+			STATUSDESC_REJECTEDBYACCOUNTS, STATUSDESC_APPROVEDBYACCOUNTS, STATUSDESC_PAIDUNDERCOMPANYCARD, STATUSDESC_REJECTEDFORSALARYDEDUCTION, STATUSDESC_LIQUIDATED;
+
+	private static ArrayList<String> typeDescriptionList, statusDescriptionList;
+
+	static{
+		TYPEKEY_CLAIMS = Integer.parseInt(TYPE_CLAIMS.split("-")[0]);
+		TYPEKEY_ADVANCES = Integer.parseInt(TYPE_ADVANCES.split("-")[0]);
+		TYPEKEY_LIQUIDATION = Integer.parseInt(TYPE_LIQUIDATION.split("-")[0]);
+
+		TYPEDESC_CLAIMS = TYPE_CLAIMS.split("-")[1];
+		TYPEDESC_ADVANCES = TYPE_ADVANCES.split("-")[1];
+		TYPEDESC_LIQUIDATION = TYPE_LIQUIDATION.split("-")[1];
+
+		STATUSKEY_OPEN = Integer.parseInt(STATUS_OPEN.split("-")[0]);
+		STATUSKEY_SUBMITTED = Integer.parseInt(STATUS_SUBMITTED.split("-")[0]);
+		STATUSKEY_APPROVEDBYAPPROVER = Integer.parseInt(STATUS_APPROVEDBYAPPROVER.split("-")[0]);
+		STATUSKEY_REJECTEDBYAPPROVER = Integer.parseInt(STATUS_REJECTEDBYAPPROVER.split("-")[0]);
+		STATUSKEY_CANCELLED = Integer.parseInt(STATUS_CANCELLED.split("-")[0]);
+		STATUSKEY_PAID = Integer.parseInt(STATUS_PAID.split("-")[0]);
+		STATUSKEY_APPROVEDBYCOUNTRYMANAGER = Integer.parseInt(STATUS_APPROVEDBYCOUNTRYMANAGER.split("-")[0]);
+		STATUSKEY_REJECTEDBYCOUNTRYMANAGER = Integer.parseInt(STATUS_REJECTEDBYCOUNTRYMANAGER.split("-")[0]);
+		STATUSKEY_REJECTEDBYACCOUNTS = Integer.parseInt(STATUS_REJECTEDBYACCOUNTS.split("-")[0]);
+		STATUSKEY_APPROVEDBYACCOUNTS = Integer.parseInt(STATUS_APPROVEDBYACCOUNTS.split("-")[0]);
+		STATUSKEY_RETURN = Integer.parseInt(STATUS_RETURN.split("-")[0]);
+		STATUSKEY_PAIDUNDERCOMPANYCARD = Integer.parseInt(STATUS_PAIDUNDERCOMPANYCARD.split("-")[0]);
+		STATUSKEY_REJECTEDFORSALARYDEDUCTION = Integer.parseInt(STATUS_REJECTEDFORSALARYDEDUCTION.split("-")[0]);
+        STATUSKEY_LIQUIDATED = Integer.parseInt(STATUS_LIQUIDATED.split("-")[0]);
+
+		STATUSDESC_OPEN = STATUS_OPEN.split("-")[1];
+		STATUSDESC_SUBMITTED = STATUS_SUBMITTED.split("-")[1];
+		STATUSDESC_APPROVEDBYAPPROVER = STATUS_APPROVEDBYAPPROVER.split("-")[1];
+		STATUSDESC_REJECTEDBYAPPROVER = STATUS_REJECTEDBYAPPROVER.split("-")[1];
+		STATUSDESC_CANCELLED = STATUS_CANCELLED.split("-")[1];
+		STATUSDESC_PAID = STATUS_PAID.split("-")[1];
+		STATUSDESC_APPROVEDBYCOUNTRYMANAGER = STATUS_APPROVEDBYCOUNTRYMANAGER.split("-")[1];
+		STATUSDESC_REJECTEDBYCOUNTRYMANAGER = STATUS_REJECTEDBYCOUNTRYMANAGER.split("-")[1];
+		STATUSDESC_REJECTEDBYACCOUNTS = STATUS_REJECTEDBYACCOUNTS.split("-")[1];
+		STATUSDESC_APPROVEDBYACCOUNTS = STATUS_APPROVEDBYACCOUNTS.split("-")[1];
+		STATUSDESC_RETURN = STATUS_RETURN.split("-")[1];
+		STATUSDESC_PAIDUNDERCOMPANYCARD = STATUS_PAIDUNDERCOMPANYCARD.split("-")[1];
+		STATUSDESC_REJECTEDFORSALARYDEDUCTION = STATUS_REJECTEDFORSALARYDEDUCTION.split("-")[1];
+        STATUSDESC_LIQUIDATED = STATUS_LIQUIDATED.split("-")[1];
+
+		typeDescriptionList = new ArrayList<String>();
+		typeDescriptionList.add(TYPEDESC_CLAIMS);
+		typeDescriptionList.add(TYPEDESC_ADVANCES);
+		typeDescriptionList.add(TYPEDESC_LIQUIDATION);
+
+		statusDescriptionList = new ArrayList<String>();
+		statusDescriptionList.add(STATUSDESC_OPEN);
+		statusDescriptionList.add(STATUSDESC_SUBMITTED);
+		statusDescriptionList.add(STATUSDESC_APPROVEDBYAPPROVER);
+		statusDescriptionList.add(STATUSDESC_REJECTEDBYAPPROVER);
+		statusDescriptionList.add(STATUSDESC_CANCELLED);
+		statusDescriptionList.add(STATUSDESC_PAID);
+		statusDescriptionList.add(STATUSDESC_APPROVEDBYCOUNTRYMANAGER);
+		statusDescriptionList.add(STATUSDESC_REJECTEDBYCOUNTRYMANAGER);
+		statusDescriptionList.add(STATUSDESC_REJECTEDBYACCOUNTS);
+		statusDescriptionList.add(STATUSDESC_APPROVEDBYACCOUNTS);
+		statusDescriptionList.add(STATUSDESC_RETURN);
+		statusDescriptionList.add(STATUSDESC_PAIDUNDERCOMPANYCARD);
+		statusDescriptionList.add(STATUSDESC_REJECTEDFORSALARYDEDUCTION);
+        statusDescriptionList.add(STATUSDESC_LIQUIDATED);
+	}
+
+	public static String getTypeDescriptionForKey(int key){
+		if(key == TYPEKEY_ADVANCES) return TYPEDESC_ADVANCES;
+		else if(key == TYPEKEY_CLAIMS) return TYPEDESC_CLAIMS;
+		else return TYPEDESC_LIQUIDATION;
+	}
+
+	public static int getTypeKeyForDescription(String description){
+		if(description == TYPEDESC_ADVANCES) return TYPEKEY_ADVANCES;
+		else if(description == TYPEDESC_CLAIMS) return TYPEKEY_CLAIMS;
+		else return TYPEKEY_LIQUIDATION;
+	}
+
+	public static String getStatusDescriptionForKey(int key){
+		if(key == STATUSKEY_OPEN) return STATUSDESC_OPEN;
+		else if(key == STATUSKEY_SUBMITTED) return STATUSDESC_SUBMITTED;
+		else if(key == STATUSKEY_APPROVEDBYAPPROVER) return STATUSDESC_APPROVEDBYAPPROVER;
+		else if(key == STATUSKEY_REJECTEDBYAPPROVER) return STATUSDESC_REJECTEDBYAPPROVER;
+		else if(key == STATUSKEY_CANCELLED) return STATUSDESC_CANCELLED;
+		else if(key == STATUSKEY_PAID) return STATUSDESC_PAID;
+		else if(key == STATUSKEY_APPROVEDBYCOUNTRYMANAGER) return STATUSDESC_APPROVEDBYCOUNTRYMANAGER;
+		else if(key == STATUSKEY_REJECTEDBYCOUNTRYMANAGER) return STATUSDESC_REJECTEDBYCOUNTRYMANAGER;
+		else if(key == STATUSKEY_REJECTEDBYACCOUNTS) return STATUSDESC_REJECTEDBYACCOUNTS;
+		else if(key == STATUSKEY_APPROVEDBYACCOUNTS) return STATUSDESC_APPROVEDBYACCOUNTS;
+		else if(key == STATUSKEY_RETURN) return STATUSDESC_RETURN;
+		else if(key == STATUSKEY_PAIDUNDERCOMPANYCARD) return STATUSDESC_PAIDUNDERCOMPANYCARD;
+		else if(key == STATUSKEY_REJECTEDFORSALARYDEDUCTION) return STATUSDESC_REJECTEDFORSALARYDEDUCTION;
+        else return STATUSDESC_LIQUIDATED;
+	}
+
+	public static int getStatusKeyForDescription(String description){
+		if(description == STATUSDESC_OPEN) return STATUSKEY_OPEN;
+		else if(description == STATUSDESC_SUBMITTED) return STATUSKEY_SUBMITTED;
+		else if(description == STATUSDESC_APPROVEDBYAPPROVER) return STATUSKEY_APPROVEDBYAPPROVER;
+		else if(description == STATUSDESC_REJECTEDBYAPPROVER) return STATUSKEY_REJECTEDBYAPPROVER;
+		else if(description == STATUSDESC_CANCELLED) return STATUSKEY_CANCELLED;
+		else if(description == STATUSDESC_PAID) return STATUSKEY_PAID;
+		else if(description == STATUSDESC_APPROVEDBYCOUNTRYMANAGER) return STATUSKEY_APPROVEDBYCOUNTRYMANAGER;
+		else if(description == STATUSDESC_REJECTEDBYCOUNTRYMANAGER) return STATUSKEY_REJECTEDBYCOUNTRYMANAGER;
+		else if(description == STATUSDESC_REJECTEDBYACCOUNTS) return STATUSKEY_REJECTEDBYACCOUNTS;
+		else if(description == STATUSDESC_APPROVEDBYACCOUNTS) return STATUSKEY_APPROVEDBYACCOUNTS;
+		else if(description == STATUSDESC_RETURN) return STATUSKEY_RETURN;
+		else if(description == STATUSDESC_PAIDUNDERCOMPANYCARD) return STATUSKEY_PAIDUNDERCOMPANYCARD;
+		else if(description == STATUSDESC_REJECTEDFORSALARYDEDUCTION) return STATUSKEY_REJECTEDFORSALARYDEDUCTION;
+        else return STATUSKEY_LIQUIDATED;
 	}
 }

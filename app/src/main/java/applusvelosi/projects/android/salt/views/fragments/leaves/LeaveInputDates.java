@@ -57,7 +57,7 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
     private SimpleDateFormat monthDayFormat;
 
     private AlertDialog submitDialog;
-    private LinearLayout dialogView;
+    private RelativeLayout dialogView;
     private EditText etNotes;
 
     public static LeaveInputDates newInstance(int leaveTypeID){
@@ -121,16 +121,16 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
         linearNavFragmentActivity.startLoading();
         new Thread(new MyLeavesAndHolidaysUpdater()).start();
 
-        dialogView = (LinearLayout)inflater.inflate(R.layout.dialog_textinput, null);
-        etNotes = (EditText)dialogView.getChildAt(0);
+        dialogView = (RelativeLayout)inflater.inflate(R.layout.dialog_textinput, null);
+        etNotes = (EditText)dialogView.findViewById(R.id.etexts_dialogs_textinput);
+        ((TextView)dialogView.findViewById(R.id.tviews_dialogs_textinput)).setText("Notes");
         submitDialog = new AlertDialog.Builder(linearNavFragmentActivity).setTitle("").setView(dialogView)
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        String startDateStr = app.dateFormatDefault.format(leaveStartCalendar.getTime());
-                        String endDateStr = app.dateFormatDefault.format(leaveEndCalendar.getTime());
-                        Toast.makeText(linearNavFragmentActivity, startDateStr + " - " + endDateStr, Toast.LENGTH_SHORT).show();
+                        linearNavFragmentActivity.startLoading();
+                        new SubmitNewLeaveRequest().start();
                     }
                 })
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
@@ -554,5 +554,15 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
     private class Holder{
         public ImageView bgSun, bgMon, bgTue, bgWed, bgThu, bgFri, bgSat;
         public TextView daySun, dayMon, dayTue, dayWed, dayThu, dayFri, daySat;
+    }
+
+    private class SubmitNewLeaveRequest extends Thread{
+
+        @Override
+        public void run() {
+            String startDateStr = app.dateFormatDefault.format(leaveStartCalendar.getTime());
+            String endDateStr = app.dateFormatDefault.format(leaveEndCalendar.getTime());
+
+        }
     }
 }

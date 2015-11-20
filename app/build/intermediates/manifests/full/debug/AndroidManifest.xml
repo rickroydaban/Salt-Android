@@ -90,6 +90,15 @@
         <activity
             android:name="applusvelosi.projects.android.salt.views.ClaimDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="applusvelosi.projects.android.salt.views.NewClaimHeaderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="applusvelosi.projects.android.salt.views.LeaveApprovalDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="applusvelosi.projects.android.salt.views.RecruitmentApprovalDetailActivity"
+            android:screenOrientation="portrait" />
 
         <!-- Push Notification ! -->
         <service android:name="com.parse.PushService" />

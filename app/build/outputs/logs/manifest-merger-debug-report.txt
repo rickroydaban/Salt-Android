@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:2:1-92:12
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:2:1-95:12
 	xmlns:android
 		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:2:11-69
 	package
@@ -98,7 +98,7 @@ ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml
 	android:name
 		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:21:22-94
 application
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:24:5-90:16
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:24:5-93:16
 MERGED from [com.google.android.gms:play-services-measurement:8.1.0] /Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.1.0/AndroidManifest.xml:26:5-46:19
 MERGED from [com.google.android.gms:play-services-basement:8.1.0] /Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/AndroidManifest.xml:20:5-24:19
 MERGED from [com.android.support:support-v4:22.2.0] /Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/AndroidManifest.xml:22:5-20
@@ -227,50 +227,68 @@ ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml
 		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:69:61-97
 	android:name
 		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:69:19-60
+activity#applusvelosi.projects.android.salt.views.NewClaimHeaderActivity
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:70:9-103
+	android:screenOrientation
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:70:64-100
+	android:name
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:70:19-63
+activity#applusvelosi.projects.android.salt.views.LeaveApprovalDetailActivity
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:71:9-108
+	android:screenOrientation
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:71:69-105
+	android:name
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:71:19-68
+activity#applusvelosi.projects.android.salt.views.RecruitmentApprovalDetailActivity
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:72:9-114
+	android:screenOrientation
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:72:75-111
+	android:name
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:72:19-74
 service#com.parse.PushService
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:72:9-57
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:75:9-57
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:72:18-54
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:75:18-54
 receiver#applusvelosi.projects.android.salt.ParseReceiver
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:73:9-80:20
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:76:9-83:20
 	android:exported
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:74:19-43
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:77:19-43
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:73:19-48
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:76:19-48
 intent-filter#com.parse.push.intent.DELETE+com.parse.push.intent.OPEN+com.parse.push.intent.RECEIVE
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:75:13-79:29
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:78:13-82:29
 action#com.parse.push.intent.RECEIVE
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:76:17-72
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:79:17-72
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:76:25-69
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:79:25-69
 action#com.parse.push.intent.DELETE
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:77:17-71
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:80:17-71
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:77:25-68
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:80:25-68
 action#com.parse.push.intent.OPEN
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:78:17-69
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:81:17-69
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:78:25-66
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:81:25-66
 receiver#com.parse.GcmBroadcastReceiver
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:81:9-88:20
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:84:9-91:20
 	android:permission
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:82:19-79
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:85:19-79
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:81:19-64
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:84:19-64
 intent-filter#applusvelosi.projects.android.salt+com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:83:13-87:29
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:86:13-90:29
 action#com.google.android.c2dm.intent.RECEIVE
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:84:17-81
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:87:17-81
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:84:25-78
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:87:25-78
 action#com.google.android.c2dm.intent.REGISTRATION
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:85:17-86
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:88:17-86
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:85:25-83
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:88:25-83
 category#applusvelosi.projects.android.salt
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:86:17-79
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:89:17-79
 	android:name
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:86:27-76
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:89:27-76
 provider#com.google.android.gms.measurement.AppMeasurementContentProvider
 ADDED from [com.google.android.gms:play-services-measurement:8.1.0] /Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.1.0/AndroidManifest.xml:28:7-31:37
 	android:exported

@@ -67,6 +67,11 @@ public class Recruitment {
         mapBenefits = (ArrayList<HashMap<String, Object>>)OnlineGateway.toList(jsonRecruitment.getJSONArray("OtherBenefits"));
     }
 
+    public Recruitment(HashMap<String, Object> map){
+        mapRecruitment = new HashMap<String, Object>();
+        mapRecruitment.putAll(map);
+    }
+
     public float getAnnualRevenue(){ return Float.parseFloat(mapRecruitment.get("AnnualRevenue").toString()); }
 
     public String getApproverNotes(){ return mapRecruitment.get("ApproverNote").toString(); }

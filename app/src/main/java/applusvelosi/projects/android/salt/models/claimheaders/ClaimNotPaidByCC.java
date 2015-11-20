@@ -1,8 +1,10 @@
 package applusvelosi.projects.android.salt.models.claimheaders;
 
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import applusvelosi.projects.android.salt.SaltApplication;
@@ -36,5 +38,5 @@ public class ClaimNotPaidByCC extends ClaimHeader{
 	public String getParentClaimNumber(){
 		return map.get("ParentClaimNumber").toString();
 	}
-	
+
 }

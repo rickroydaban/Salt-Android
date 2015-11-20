@@ -14,9 +14,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.views.LeaveApprovalDetailActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.LeaveForApprovalFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
@@ -24,19 +27,21 @@ import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 	private static final String KEY = "myleavesapprovaldetailfragmentkey";
 	private final String CANCEL = "Cancel";
+
+	private LeaveApprovalDetailActivity activity;
 	//action bar buttons
 	private LinearLayout containerActionbarRightbuttons;
 	private RelativeLayout buttonActionbarBack;
 	private TextView buttonActionbarReject, buttonActionbarApprove, textviewActionbarTitle;
-	private Leave leave;
-	private SaltProgressDialog pd;
-	
-	private LinearLayout builderView;
+
+
+	private RelativeLayout builderView;
 	private EditText rejectionReason;
 	private AlertDialog dialogReject;
 	
 	@Override
 	protected RelativeLayout setupActionbar() {
+		activity = (LeaveApprovalDetailActivity)getActivity();
 		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_leaveforapprovaldetail, null);
 		containerActionbarRightbuttons = (LinearLayout)actionbarLayout.findViewById(R.id.containers_actionbar_leavedetails_approver);
 		buttonActionbarBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
@@ -51,123 +56,112 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 		textviewActionbarTitle.setOnClickListener(this);
 		return actionbarLayout;
 	}
-	
-	public static LeavesApprovalDetailFragment newInstance(String leave){
-		LeavesApprovalDetailFragment fragment = new LeavesApprovalDetailFragment();
-		Bundle b = new Bundle();
-		b.putString(KEY, leave);
-		fragment.setArguments(b);
-		return fragment;
-	}
-	
+
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		builderView = (LinearLayout)LayoutInflater.from(linearNavFragmentActivity).inflate(R.layout.dialog_textinput, null);
-		rejectionReason = (EditText)builderView.getChildAt(0);
+		builderView = (RelativeLayout)LayoutInflater.from(linearNavFragmentActivity).inflate(R.layout.dialog_textinput, null);
+		rejectionReason = (EditText)builderView.findViewById(R.id.etexts_dialogs_textinput);
 		dialogReject = new AlertDialog.Builder(linearNavFragmentActivity).setTitle("Reject").setView(builderView)
-														.setPositiveButton("Reject", new DialogInterface.OnClickListener() {
-															
-															@Override
-															public void onClick(DialogInterface dialog, int which) {
-																dialog.dismiss();
-																if(pd == null)
-																	pd = new SaltProgressDialog(linearNavFragmentActivity);
-																pd.show();
-																new Thread(new Runnable() {
-																	
-																	@Override
-																	public void run() {
-																		String tempResult;
-																		try{
-																			leave.reject(rejectionReason.getText().toString(), app.getStaff(), app.dateFormatDefault.format(new Date()));
-																			tempResult = app.onlineGateway.changeLeaveStatus(leave.getJSONStringForProcessingLeave(), Leave.LEAVESTATUSREJECTEDKEY);
-																		}catch(Exception e){
-																			tempResult = e.getMessage();
-																		}
-																		final String result = tempResult;
-																		
-																		new Handler(Looper.getMainLooper()).post(new Runnable() {
-																			
-																			@Override
-																			public void run() {
-																				pd.dismiss();
-																				if(result != null)
-																					app.showMessageDialog(linearNavFragmentActivity, result);
-																				else{
-//																					app.showMessageDialog(linearNavFragmentActivity, "Leave Rejected!");
-//																					linearNavFragmentActivity.changePage(LeaveForApprovalFragment.getInstance());
-//																					LeaveForApprovalFragment.getInstance().sync();
-																				}
-																				
+			.setPositiveButton("Reject", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+
+					activity.startLoading();
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							String tempResult;
+							try{
+								activity.leave.reject(rejectionReason.getText().toString(), app.getStaff(), app.dateFormatDefault.format(new Date()));
+								tempResult = app.onlineGateway.changeLeaveStatus(activity.leave.getJSONStringForProcessingLeave(), Leave.LEAVESTATUSREJECTEDKEY);
+							}catch(Exception e){
+								tempResult = e.getMessage();
+							}
+							final String result = tempResult;
+
+							new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+								@Override
+								public void run() {
+									if(result != null)
+										activity.finishLoading(result.toString());
+									else{
+										activity.finishLoading();
+										Toast.makeText(activity, "Rejected Successfully!", Toast.LENGTH_SHORT).show();
+										LeaveForApprovalFragment.getInstance().sync();
+										activity.finish();
+									}
+
 //																				if(result != null){
 //																					pd.dismiss();
 //																					app.showMessageDialog(activity, result);
 //																				}else
 //																					new Thread(new AppLeavesForApprovalUpdater("Leave Rejected!")).start();
-																			}
-																		});
-																		
-																	}
-																}).start();																	
-															}
-														}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-															
-															@Override
-															public void onClick(DialogInterface dialog, int which) {
-																dialog.dismiss();
-															}
-														}).create();
+							}
+						});
 
-		leave = app.gson.fromJson(getArguments().getString(KEY), app.types.leave);
+						}
+					}).start();
+				}
+			}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}).create();
+
 		try{
-			leave.fixFormatForLeavesForApprovalDetailPage(app.onlineGateway);
+			activity.leave.fixFormatForLeavesForApprovalDetailPage(app.onlineGateway);
 		}catch(Exception e){
 			e.printStackTrace();
-//			app.showMessageDialog(activity, "Exception while fixing leave from serializing "+e.getMessage());
 		}
 		
-		if((leave.getStatusID()==Leave.LEAVESTATUSPENDINGID || leave.getStatusID()==Leave.LEAVESTATUSAPPROVEDKEY) && leave.isApprover(app.getStaff().getStaffID())){
+		if((activity.leave.getStatusID()==Leave.LEAVESTATUSPENDINGID || activity.leave.getStatusID()==Leave.LEAVESTATUSAPPROVEDKEY) && activity.leave.isApprover(app.getStaff().getStaffID())){
 			containerActionbarRightbuttons.setVisibility(View.VISIBLE);
-			if(leave.getStatusID() == Leave.LEAVESTATUSAPPROVEDKEY){
+			if(activity.leave.getStatusID() == Leave.LEAVESTATUSAPPROVEDKEY){
 				buttonActionbarApprove.setVisibility(View.GONE);
 				buttonActionbarReject.setText(CANCEL);
 			}
 		}
 		
 		View view = inflater.inflate(R.layout.fragment_leaveforapproval_details, null);
-		((TextView)view.findViewById(R.id.tviews_myleavesoverview_type)).setText(leave.getTypeDescription());
-		((TextView)view.findViewById(R.id.tviews_myleavesoverview_status)).setText(leave.getStatusDescription());
-		((TextView)view.findViewById(R.id.tviews_myleavesoverview_staff)).setText(leave.getStaffName());
-		((TextView)view.findViewById(R.id.tviews_myleavesoverview_from)).setText(leave.getStartDate());
-		((TextView)view.findViewById(R.id.tviews_myleavesoverview_to)).setText(leave.getEndDate());
+		((TextView)view.findViewById(R.id.tviews_myleavesoverview_type)).setText(activity.leave.getTypeDescription());
+		((TextView)view.findViewById(R.id.tviews_myleavesoverview_status)).setText(activity.leave.getStatusDescription());
+		((TextView)view.findViewById(R.id.tviews_myleavesoverview_staff)).setText(activity.leave.getStaffName());
+		((TextView)view.findViewById(R.id.tviews_myleavesoverview_from)).setText(activity.leave.getStartDate());
+		((TextView)view.findViewById(R.id.tviews_myleavesoverview_to)).setText(activity.leave.getEndDate());
 		TextView approverLabel = (TextView)view.findViewById(R.id.labels_myleavesoverview_approver);
 		TextView approverField = (TextView)view.findViewById(R.id.tviews_myleavesoverview_approver);
-		if(leave.getStatusID() == Leave.LEAVESTATUSPENDINGID){
+		if(activity.leave.getStatusID() == Leave.LEAVESTATUSPENDINGID){
 			approverLabel.setText("Approver");
-			approverField.setText(leave.getLeaveApprover1Name());
-		}else if(leave.getStatusID() == Leave.LEAVESTATUSAPPROVEDKEY){
+			approverField.setText(activity.leave.getLeaveApprover1Name());
+		}else if(activity.leave.getStatusID() == Leave.LEAVESTATUSAPPROVEDKEY){
 			approverLabel.setText("Approved By");
-			approverField.setText(leave.getApproverName());
-		}else if(leave.getStatusID() == Leave.LEAVESTATUSREJECTEDKEY){
+			approverField.setText(activity.leave.getApproverName());
+		}else if(activity.leave.getStatusID() == Leave.LEAVESTATUSREJECTEDKEY){
 			approverLabel.setText("Rejected By");
-			approverField.setText(leave.getApproverName());
-		}else if(leave.getStatusID() == Leave.LEAVESTATUSCANCELLEDKEY){
+			approverField.setText(activity.leave.getApproverName());
+		}else if(activity.leave.getStatusID() == Leave.LEAVESTATUSCANCELLEDKEY){
 			approverLabel.setText("Cancelled By");
-			approverField.setText(leave.getApproverName());
+			approverField.setText(activity.leave.getApproverName());
 		}
 		
 		TextView tviewDays = (TextView)view.findViewById(R.id.tviews_myleavesoverview_days);
-		if(leave.getDays() >= 1)			
-			tviewDays.setText(String.valueOf(leave.getDays()));
-		else if(leave.getDays() == 0.2f)
+		if(activity.leave.getDays() >= 1)
+			tviewDays.setText(String.valueOf(activity.leave.getDays()));
+		else if(activity.leave.getDays() == 0.2f)
 			tviewDays.setText("0.5 PM");
-		else if(leave.getDays() == 0.1f)
+		else if(activity.leave.getDays() == 0.1f)
 			tviewDays.setText("0.5 AM");
 		else
 			tviewDays.setText("NA");
 		
-		((TextView)view.findViewById(R.id.tviews_myleavesoverview_workingDays)).setText(String.valueOf((leave.getWorkingDays()>0)?leave.getWorkingDays():0));
-		((TextView)view.findViewById(R.id.tviews_myleavesoverview_notes)).setText(leave.getNotes());
+		((TextView)view.findViewById(R.id.tviews_myleavesoverview_workingDays)).setText(String.valueOf((activity.leave.getWorkingDays()>0)?activity.leave.getWorkingDays():0));
+		((TextView)view.findViewById(R.id.tviews_myleavesoverview_notes)).setText(activity.leave.getNotes());
 		
 		return view;
 	}
@@ -177,17 +171,15 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 		if(v == buttonActionbarBack || v == textviewActionbarTitle){
 			linearNavFragmentActivity.onBackPressed();
 		}else if(v == buttonActionbarApprove){
-			if(pd == null)
-				pd = new SaltProgressDialog(linearNavFragmentActivity);
-			pd.show();
+			activity.startLoading();
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
 					String tempResult;
 					try{
-						leave.approve(app.getStaff(), app.dateFormatDefault.format(new Date()));
-						tempResult = app.onlineGateway.changeLeaveStatus(leave.getJSONStringForProcessingLeave(), Leave.LEAVESTATUSAPPROVEDKEY);
+						activity.leave.approve(app.getStaff(), app.dateFormatDefault.format(new Date()));
+						tempResult = app.onlineGateway.changeLeaveStatus(activity.leave.getJSONStringForProcessingLeave(), Leave.LEAVESTATUSAPPROVEDKEY);
 					}catch(Exception e){
 						e.printStackTrace();
 						tempResult = e.getMessage();
@@ -198,13 +190,13 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 						
 						@Override
 						public void run() {							
-							pd.dismiss();
 							if(result != null)
-								app.showMessageDialog(linearNavFragmentActivity, result);
+								activity.finishLoading(result.toString());
 							else{
-//								app.showMessageDialog(linearNavFragmentActivity, "Leave Approved!");
-//								linearNavFragmentActivity.changePage(LeaveForApprovalFragment.getInstance());
-//								LeaveForApprovalFragment.getInstance().sync();
+								activity.finishLoading();
+								Toast.makeText(linearNavFragmentActivity, "Leave Approved!", Toast.LENGTH_SHORT).show();
+								LeaveForApprovalFragment.getInstance().sync();
+								activity.finish();
 							}
 
 //							if(result != null){
@@ -219,17 +211,15 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 			}).start();		
 		}else if(v == buttonActionbarReject){
 			if(buttonActionbarReject.getText().equals(CANCEL)){
-				if(pd == null)
-					pd = new SaltProgressDialog(linearNavFragmentActivity);
-				pd.show();
+				activity.startLoading();
 				new Thread(new Runnable() {
 					
 					@Override
 					public void run() {
 						String tempResult;
 						try{
-							leave.cancel(app.getStaff(), app.dateFormatDefault.format(new Date()));
-							tempResult = app.onlineGateway.changeLeaveStatus(leave.getJSONStringForProcessingLeave(), Leave.LEAVESTATUSCANCELLEDKEY);
+							activity.leave.cancel(app.getStaff(), app.dateFormatDefault.format(new Date()));
+							tempResult = app.onlineGateway.changeLeaveStatus(activity.leave.getJSONStringForProcessingLeave(), Leave.LEAVESTATUSCANCELLEDKEY);
 						}catch(Exception e){
 							e.printStackTrace();
 							tempResult = e.getMessage();
@@ -240,13 +230,13 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 							
 							@Override
 							public void run() {
-								pd.dismiss();
 								if(result != null)
-									app.showMessageDialog(linearNavFragmentActivity, result);
+									activity.finishLoading(result);
 								else{
-									app.showMessageDialog(linearNavFragmentActivity, "Leave Cancelled!");
-//									linearNavFragmentActivity.changePage(LeaveForApprovalFragment.getInstance());
-									LeaveForApprovalFragment.getInstance().sync();									
+									activity.finishLoading();
+									Toast.makeText(linearNavFragmentActivity, "Leave Cancelled!", Toast.LENGTH_SHORT).show();
+									LeaveForApprovalFragment.getInstance().sync();
+									activity.finish();
 								}
 								
 //								if(result != null)

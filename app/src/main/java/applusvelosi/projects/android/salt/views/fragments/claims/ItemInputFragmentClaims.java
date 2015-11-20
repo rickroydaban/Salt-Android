@@ -291,43 +291,43 @@ public class ItemInputFragmentClaims extends ItemInputFragment {
 		}
 	}
 	
-	private class ClaimItemCategoryListGetter implements Runnable{
-
-		@Override
-		public void run() {
-			final Object result;
-			Object tempResult;
-			try{
-				tempResult = app.onlineGateway.getClaimItemCategoryByOffice();
-			}catch(Exception e){
-				tempResult = e.getMessage();
-			}
-			
-			result=tempResult;
-			new Handler(Looper.getMainLooper()).post(new Runnable() {
-				
-				@Override
-				public void run() {
-					pd.dismiss();
-					if(result instanceof String)
-						app.showMessageDialog(linearNavFragmentActivity, "Failed to load categories. "+result);
-					else{
-						categories = new ArrayList<Category>();
-						categories.addAll((ArrayList<Category>)result);
-						categoryNames = new ArrayList<String>();
-						categoryNames.add(HEADER_CATEGORY);
-						for(Category category :categories)
-							categoryNames.add(category.getName());
-						
-						spinnerCategoryNames.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, categoryNames, NodeSize.SIZE_SMALL));
-						if(getArguments().containsKey(KEY_CLAIMITEMPOS))
-							spinnerCategoryNames.setSelection(categoryNames.indexOf(newClaimItem.getCategoryName()));
-						spinnerCategoryNames.setOnItemSelectedListener(ItemInputFragmentClaims.this);
-						spinnerCategoryNames.setTag("-1");							
-					}
-				}
-			});
-		}		
-	}	
+//	private class ClaimItemCategoryListGetter implements Runnable{
+//
+//		@Override
+//		public void run() {
+//			final Object result;
+//			Object tempResult;
+//			try{
+//				tempResult = app.onlineGateway.getClaimItemCategoryByOffice();
+//			}catch(Exception e){
+//				tempResult = e.getMessage();
+//			}
+//
+//			result=tempResult;
+//			new Handler(Looper.getMainLooper()).post(new Runnable() {
+//
+//				@Override
+//				public void run() {
+//					pd.dismiss();
+//					if(result instanceof String)
+//						app.showMessageDialog(linearNavFragmentActivity, "Failed to load categories. "+result);
+//					else{
+//						categories = new ArrayList<Category>();
+//						categories.addAll((ArrayList<Category>)result);
+//						categoryNames = new ArrayList<String>();
+//						categoryNames.add(HEADER_CATEGORY);
+//						for(Category category :categories)
+//							categoryNames.add(category.getName());
+//
+//						spinnerCategoryNames.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, categoryNames, NodeSize.SIZE_SMALL));
+//						if(getArguments().containsKey(KEY_CLAIMITEMPOS))
+//							spinnerCategoryNames.setSelection(categoryNames.indexOf(newClaimItem.getCategoryName()));
+//						spinnerCategoryNames.setOnItemSelectedListener(ItemInputFragmentClaims.this);
+//						spinnerCategoryNames.setTag("-1");
+//					}
+//				}
+//			});
+//		}
+//	}
 	
 }

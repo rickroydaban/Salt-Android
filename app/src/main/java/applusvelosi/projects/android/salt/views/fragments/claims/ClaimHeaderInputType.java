@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -92,12 +93,23 @@ public class ClaimHeaderInputType extends LinearNavActionbarFragment implements 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        if(position == 0)
-//           activity.changeChildPage(new ClaimInputOverviewClaimFragment());
-//        else if(position == 1)
-//            activity.changeChildPage(new ClaimInputOverviewAdvancesFragment());
-//        else
-//            activity.changeChildPage(new ClaimInputOverviewLiquidationFragment());
+        if(position == 0)
+           linearNavFragmentActivity.changePage(new ClaimInputOverviewClaimFragment());
+        else if(position == 1) {
+            boolean canStillAddBA = true;
+            for(ClaimHeader claimHeader :app.getMyClaims()){
+                if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES && (claimHeader.getStatusID() != ClaimHeader.STATUSKEY_LIQUIDATED || claimHeader.getStatusID() != ClaimHeader.STATUSKEY_CANCELLED)){
+                    canStillAddBA = false;
+                    break;
+                }
+            }
+
+            if(canStillAddBA)
+                linearNavFragmentActivity.changePage(new ClaimInputOverviewAdvancesFragment());
+            else
+                app.showMessageDialog(getActivity(), "Cannot create another unliquidated Business Advance.");
+        }else
+            linearNavFragmentActivity.changePage(new ClaimInputOverviewLiquidationFragment());
     }
 
     private class Holder{

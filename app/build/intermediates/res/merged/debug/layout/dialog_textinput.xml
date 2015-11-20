@@ -1,19 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="40dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingBottom="30dp">
+    android:background="@color/white">
 
-    <EditText
-        android:hint="Notes"
-        android:layout_marginTop="7dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_input_blur"
-        android:textSize="@dimen/fsizes_listcell_header"
-        android:padding="7dp"/>
-    
-</LinearLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tviews_dialogs_textinput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/orange_velosi"
+            android:paddingTop="30dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="@dimen/fsizes_listcell_header"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/menu_list_separator" />
+
+        <EditText
+            android:id="@+id/etexts_dialogs_textinput"
+            android:hint="Optional"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:padding="13dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/menu_list_separator" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+    </LinearLayout>
+
+</RelativeLayout>

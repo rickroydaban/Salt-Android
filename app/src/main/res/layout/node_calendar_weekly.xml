@@ -4,7 +4,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white"
-    android:padding="7dp">
+    android:paddingLeft="15dp"
+    android:paddingRight="7dp"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp">
     
     <TextView 
 	    android:id="@+id/tviews_node_calendar_home_holiday"
@@ -12,7 +15,7 @@
 	    android:layout_height="0dp"
 	    android:layout_weight="1"
 	    android:textStyle="bold"
-	    android:paddingTop="3dp"
+        android:textColor="@color/black"
 	    android:textSize="@dimen/fsizes_listcell_header"/>
 
     <RelativeLayout 
@@ -33,6 +36,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="@dimen/fsizes_listcell_subheader"
+            android:textColor="@color/black"
             android:layout_alignParentRight="true"/>
 
         <TextView 
@@ -42,6 +46,7 @@
             android:textSize="@dimen/fsizes_listcell_subheader"
             android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
+            android:textColor="@color/black"
             android:layout_toRightOf="@id/images_node_calendar_home_flag" />
 
     </RelativeLayout>

@@ -236,67 +236,67 @@ public class OnlineGateway {
 		return myClaims;
 	}
 	
-	public Object getClaimsForApprovalAndPayment() throws Exception{
-		HashMap<String, ArrayList<ClaimHeader>> approvalMaps = new HashMap<String, ArrayList<ClaimHeader>>();
-		JSONObject claimsForApprovalResult;
-		try{
-			//choose leave retrieve type
-			if(app.getStaff().isAdmin() || app.getStaff().isCorporateApprover() || app.getStaff().isRegional())
-				claimsForApprovalResult = new JSONObject(getHttpGetResult(apiUrl+"GetAllClaims?requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetAllClaimsResult");
-			else if(!app.getStaff().isCorporateApprover() && (app.getStaff().isCM() || app.getStaff().isAM()))
-				claimsForApprovalResult = new JSONObject(getHttpGetResult(apiUrl+"GetClaimsByOffice?officeID="+app.getStaff().getOfficeID()+"&requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetLeaveByOfficeResult");
-			else { //return an empty list for approvals and payments
-				approvalMaps.put("ForApproval", new ArrayList<ClaimHeader>());
-				approvalMaps.put("ForPayment", new ArrayList<ClaimHeader>());
-				return approvalMaps;
-			}
-			
-			if(claimsForApprovalResult.getJSONArray("SystemErrors").length() > 0)
-				return claimsForApprovalResult.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
-			
-			ArrayList<ClaimHeader> claimsForApproval = new ArrayList<ClaimHeader>();
-			ArrayList<ClaimHeader> claimsForPayment = new ArrayList<ClaimHeader>();
-			JSONArray jsonClaims = claimsForApprovalResult.getJSONArray("Claims");
-			for(int i=0; i<jsonClaims.length(); i++){
-				JSONObject jsonClaim = jsonClaims.getJSONObject(i);
-				int type = jsonClaim.getInt(ClaimHeader.KEY_TYPEID);
-				int status = jsonClaim.getInt("ClaimStatus");
-				//for payment
-				if(app.getStaff().isAdmin() || (app.getStaff().getStaffID()==jsonClaim.getInt("AccountsID")&&status==ClaimHeader.STATUSKEY_APPROVEDBYACCOUNTS)){
-
-					if(type == ClaimHeader.TYPEKEY_CLAIMS)
-						claimsForApproval.add((jsonClaim.getBoolean(ClaimPaidByCC.KEY_ISPAIDBYCOMPANYCARD))?new ClaimPaidByCC(jsonClaim, app):new ClaimNotPaidByCC(jsonClaim, app));
-					else if(type == ClaimHeader.TYPEKEY_ADVANCES)
-						claimsForApproval.add(new BusinessAdvance(jsonClaim, app));
-					else if(type == ClaimHeader.TYPEKEY_LIQUIDATION)
-						claimsForApproval.add(new LiquidationOfBA(jsonClaim, app));
-					else
-						throw new Exception("Invalid Claim Type");					
-					
-				}else if( app.getStaff().isAdmin() || 
-						  jsonClaim.getInt("ApproverID")==app.getStaff().getStaffID() ||
-						  (app.getStaff().isCM()&&app.getStaff().getOfficeID()==jsonClaim.getInt("OfficeID")&&status==ClaimHeader.STATUSKEY_APPROVEDBYAPPROVER&&type==ClaimHeader.TYPEKEY_ADVANCES) ||
-						  (jsonClaim.getInt("AccountsID")==app.getStaff().getStaffID()&&(status==ClaimHeader.STATUSKEY_APPROVEDBYAPPROVER||status==ClaimHeader.STATUSKEY_APPROVEDBYCOUNTRYMANAGER))){
-
-					if(type == ClaimHeader.TYPEKEY_CLAIMS)
-						claimsForApproval.add((jsonClaim.getBoolean(ClaimPaidByCC.KEY_ISPAIDBYCOMPANYCARD))?new ClaimPaidByCC(jsonClaim, app):new ClaimNotPaidByCC(jsonClaim, app));
-					else if(type == ClaimHeader.TYPEKEY_ADVANCES)
-						claimsForApproval.add(new BusinessAdvance(jsonClaim, app));
-					else if(type == ClaimHeader.TYPEKEY_LIQUIDATION)
-						claimsForApproval.add(new LiquidationOfBA(jsonClaim, app));
-					else
-						throw new Exception("Invalid Claim Type");					
-					
-				}
-			}
-			
-			approvalMaps.put("ForApproval", claimsForApproval);
-			approvalMaps.put("ForPayment", claimsForPayment);
-			return approvalMaps;
-		}catch(Exception e){
-			return e.getMessage();
-		}	
-	}
+//	public Object getClaimsForApprovalAndPayment() throws Exception{
+//		HashMap<String, ArrayList<ClaimHeader>> approvalMaps = new HashMap<String, ArrayList<ClaimHeader>>();
+//		JSONObject claimsForApprovalResult;
+//		try{
+//			//choose leave retrieve type
+//			if(app.getStaff().isAdmin() || app.getStaff().isCorporateApprover() || app.getStaff().isRegional())
+//				claimsForApprovalResult = new JSONObject(getHttpGetResult(apiUrl+"GetAllClaims?requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetAllClaimsResult");
+//			else if(!app.getStaff().isCorporateApprover() && (app.getStaff().isCM() || app.getStaff().isAM()))
+//				claimsForApprovalResult = new JSONObject(getHttpGetResult(apiUrl+"GetClaimsByOffice?officeID="+app.getStaff().getOfficeID()+"&requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetLeaveByOfficeResult");
+//			else { //return an empty list for approvals and payments
+//				approvalMaps.put("ForApproval", new ArrayList<ClaimHeader>());
+//				approvalMaps.put("ForPayment", new ArrayList<ClaimHeader>());
+//				return approvalMaps;
+//			}
+//
+//			if(claimsForApprovalResult.getJSONArray("SystemErrors").length() > 0)
+//				return claimsForApprovalResult.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
+//
+//			ArrayList<ClaimHeader> claimsForApproval = new ArrayList<ClaimHeader>();
+//			ArrayList<ClaimHeader> claimsForPayment = new ArrayList<ClaimHeader>();
+//			JSONArray jsonClaims = claimsForApprovalResult.getJSONArray("Claims");
+//			for(int i=0; i<jsonClaims.length(); i++){
+//				JSONObject jsonClaim = jsonClaims.getJSONObject(i);
+//				int type = jsonClaim.getInt(ClaimHeader.KEY_TYPEID);
+//				int status = jsonClaim.getInt("ClaimStatus");
+//				//for payment
+//				if(app.getStaff().isAdmin() || (app.getStaff().getStaffID()==jsonClaim.getInt("AccountsID")&&status==ClaimHeader.STATUSKEY_APPROVEDBYACCOUNTS)){
+//
+//					if(type == ClaimHeader.TYPEKEY_CLAIMS)
+//						claimsForApproval.add((jsonClaim.getBoolean(ClaimPaidByCC.KEY_ISPAIDBYCOMPANYCARD))?new ClaimPaidByCC(jsonClaim, app):new ClaimNotPaidByCC(jsonClaim, app));
+//					else if(type == ClaimHeader.TYPEKEY_ADVANCES)
+//						claimsForApproval.add(new BusinessAdvance(jsonClaim, app));
+//					else if(type == ClaimHeader.TYPEKEY_LIQUIDATION)
+//						claimsForApproval.add(new LiquidationOfBA(jsonClaim, app));
+//					else
+//						throw new Exception("Invalid Claim Type");
+//
+//				}else if( app.getStaff().isAdmin() ||
+//						  jsonClaim.getInt("ApproverID")==app.getStaff().getStaffID() ||
+//						  (app.getStaff().isCM()&&app.getStaff().getOfficeID()==jsonClaim.getInt("OfficeID")&&status==ClaimHeader.STATUSKEY_APPROVEDBYAPPROVER&&type==ClaimHeader.TYPEKEY_ADVANCES) ||
+//						  (jsonClaim.getInt("AccountsID")==app.getStaff().getStaffID()&&(status==ClaimHeader.STATUSKEY_APPROVEDBYAPPROVER||status==ClaimHeader.STATUSKEY_APPROVEDBYCOUNTRYMANAGER))){
+//
+//					if(type == ClaimHeader.TYPEKEY_CLAIMS)
+//						claimsForApproval.add((jsonClaim.getBoolean(ClaimPaidByCC.KEY_ISPAIDBYCOMPANYCARD))?new ClaimPaidByCC(jsonClaim, app):new ClaimNotPaidByCC(jsonClaim, app));
+//					else if(type == ClaimHeader.TYPEKEY_ADVANCES)
+//						claimsForApproval.add(new BusinessAdvance(jsonClaim, app));
+//					else if(type == ClaimHeader.TYPEKEY_LIQUIDATION)
+//						claimsForApproval.add(new LiquidationOfBA(jsonClaim, app));
+//					else
+//						throw new Exception("Invalid Claim Type");
+//
+//				}
+//			}
+//
+//			approvalMaps.put("ForApproval", claimsForApproval);
+//			approvalMaps.put("ForPayment", claimsForPayment);
+//			return approvalMaps;
+//		}catch(Exception e){
+//			return e.getMessage();
+//		}
+//	}
 
 	public Object getCapexesForApproval() throws Exception{
 		try{
@@ -459,7 +459,7 @@ public class OnlineGateway {
 		return claimItems;
 	}
 	
-	public Object getClaimItemCategoryByOffice() throws Exception{
+	public Object getClaimItemCategoryByOffice(int claimTypeKey) throws Exception{
 		JSONObject result = new JSONObject(getHttpGetResult(apiUrl+"GetCategoryByOffice?officeID="+app.getStaff().getOfficeID()+"&requestingperson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetCategoryByOfficeResult");
 		if(result.getJSONArray("SystemErrors").length() > 0)
 			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
@@ -468,8 +468,11 @@ public class OnlineGateway {
 		JSONArray jsonCategories = result.getJSONArray("Categories");
 		for(int i=0; i<jsonCategories.length(); i++){ //exclude of type assets since they are only for capex
 			JSONObject jsonCategory = jsonCategories.getJSONObject(i);
-			if(jsonCategory.getInt(ClaimItem.KEY_CATEGORYTYPEID) != Category.TYPE_ASSET)
-				categories.add(new Category(jsonCategory));
+			if(jsonCategory.getInt(ClaimItem.KEY_CATEGORYTYPEID) != Category.TYPE_ASSET) {
+				if((claimTypeKey==ClaimHeader.TYPEKEY_ADVANCES && jsonCategory.getInt(ClaimItem.KEY_CATEGORYTYPEID)==Category.TYPE_BUSINESSADVANCE) ||
+						(claimTypeKey!=ClaimHeader.TYPEKEY_ADVANCES && jsonCategory.getInt(ClaimItem.KEY_CATEGORYTYPEID)!=Category.TYPE_BUSINESSADVANCE))
+					categories.add(new Category(jsonCategory));
+			}
 		}
 		
 		return categories;

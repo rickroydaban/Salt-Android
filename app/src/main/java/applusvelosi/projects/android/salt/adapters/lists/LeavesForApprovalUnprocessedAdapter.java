@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
@@ -32,7 +33,7 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 	private SaltApplication app;
 	private ArrayList<Leave> leavesForApproval;
 	private AlertDialog dialogReject;
-	private LinearLayout builderView;
+	private RelativeLayout builderView;
 	private EditText rejectionReason;
 	private SaltProgressDialog pd;
 	private Leave leaveSelected;
@@ -41,8 +42,8 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 		this.activity = activity;
 		app = (SaltApplication)activity.getApplication();
 		this.leavesForApproval = leavesForApproval;
-		builderView = (LinearLayout)LayoutInflater.from(activity).inflate(R.layout.dialog_textinput, null);
-		rejectionReason = (EditText)builderView.getChildAt(0);
+		builderView = (RelativeLayout)LayoutInflater.from(activity).inflate(R.layout.dialog_textinput, null);
+		rejectionReason = (EditText)builderView.findViewById(R.id.etexts_dialogs_textinput);
 		dialogReject = new AlertDialog.Builder(activity).setTitle("Reject").setView(builderView)
 														.setPositiveButton("Reject", new DialogInterface.OnClickListener() {
 															

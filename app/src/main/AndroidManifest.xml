@@ -67,6 +67,9 @@
         <activity android:name=".views.LeaveDetailActivity" android:screenOrientation="portrait" />
         <activity android:name=".views.NewClaimItemActivity" android:screenOrientation="portrait" />
         <activity android:name=".views.ClaimDetailActivity" android:screenOrientation="portrait" />
+        <activity android:name=".views.NewClaimHeaderActivity" android:screenOrientation="portrait" />
+        <activity android:name=".views.LeaveApprovalDetailActivity" android:screenOrientation="portrait" />
+        <activity android:name=".views.RecruitmentApprovalDetailActivity" android:screenOrientation="portrait" />
 
         <!-- Push Notification !-->
         <service android:name="com.parse.PushService" />

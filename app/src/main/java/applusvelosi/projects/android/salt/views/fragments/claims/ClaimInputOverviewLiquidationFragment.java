@@ -35,7 +35,6 @@ public class ClaimInputOverviewLiquidationFragment extends LinearNavActionbarFra
 
     private ArrayList<CostCenter> costCenters;
     private ArrayList<LinearLayout> costCenterNodes;
-    private SaltProgressDialog pd;
     private int selectedCostCenterPos = 0;
 
     @Override
@@ -68,8 +67,7 @@ public class ClaimInputOverviewLiquidationFragment extends LinearNavActionbarFra
         tvApprover.setText(app.getStaff().getExpenseApproverName());
 
         costCenters = new ArrayList<CostCenter>();
-        pd = new SaltProgressDialog(linearNavFragmentActivity);
-        pd.show();
+        linearNavFragmentActivity.startLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -84,11 +82,10 @@ public class ClaimInputOverviewLiquidationFragment extends LinearNavActionbarFra
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        pd.dismiss();
                         if(result instanceof String){
-                            app.showMessageDialog(linearNavFragmentActivity, result.toString());
-                            linearNavFragmentActivity.onBackPressed();
+                            linearNavFragmentActivity.finishLoading(result.toString());
                         }else{
+                            linearNavFragmentActivity.finishLoading();
                             costCenters.addAll((ArrayList<CostCenter>)result);
                             costCenterNodes = new ArrayList<LinearLayout>();
                             for (int i=0; i<costCenters.size(); i++) {
@@ -128,7 +125,7 @@ public class ClaimInputOverviewLiquidationFragment extends LinearNavActionbarFra
                         oldClaimHeaderJSON = BusinessAdvance.getEmptyJSON(app);
                         newClaimHeader = new LiquidationOfBA(app, selectedCostCenter.getCostCenterID(), selectedCostCenter.getCostCenterName(), 0, "");
 
-                        pd.show();
+                        linearNavFragmentActivity.startLoading();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -144,7 +141,6 @@ public class ClaimInputOverviewLiquidationFragment extends LinearNavActionbarFra
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        pd.dismiss();
                                         if(result == null){
                                             if(getArguments()!=null){
                                                 int claimPos = getArguments().getInt(KEY_CLAIMPOS);
@@ -154,11 +150,10 @@ public class ClaimInputOverviewLiquidationFragment extends LinearNavActionbarFra
                                                 Toast.makeText(linearNavFragmentActivity, "Liquidation Updated Successfully", Toast.LENGTH_SHORT).show();
                                             }else
                                                 Toast.makeText(linearNavFragmentActivity, "Liquidation Created Successfully", Toast.LENGTH_SHORT).show();
-                                            linearNavFragmentActivity.onBackPressed();
+                                            linearNavFragmentActivity.finish();
                                         }else{
-                                            app.showMessageDialog(linearNavFragmentActivity, result);
+                                            linearNavFragmentActivity.finishLoading(result.toString());
                                         }
-
                                     }
                                 });
                             }

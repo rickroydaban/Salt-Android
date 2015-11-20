@@ -107,7 +107,7 @@ public class ClaimItemDetailGenericFragment extends LinearNavActionbarFragment i
 		}else if(v == actionbarTitle){
 			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarEditButton){
-			claimHeader.prepareForUpdatingClaimItem(getArguments().getInt(KEY_CLAIMITEMID), app);
+//			claimHeader.prepareForUpdatingClaimItem(getArguments().getInt(KEY_CLAIMITEMID), app);
 //			if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES)
 //				linearNavFragmentActivity.changePage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
 //			else

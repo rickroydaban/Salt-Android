@@ -37,7 +37,6 @@ public class ClaimInputOverviewClaimFragment extends LinearNavActionbarFragment 
 
     private ArrayList<CostCenter> costCenters;
     private ArrayList<LinearLayout> costCenterNodes;
-    private SaltProgressDialog pd;
     private int selectedCostCenterPos = 0;
 
     @Override
@@ -71,8 +70,7 @@ public class ClaimInputOverviewClaimFragment extends LinearNavActionbarFragment 
         tvApprover.setText(app.getStaff().getExpenseApproverName());
 
         costCenters = new ArrayList<CostCenter>();
-        pd = new SaltProgressDialog(linearNavFragmentActivity);
-        pd.show();
+        linearNavFragmentActivity.startLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -87,12 +85,11 @@ public class ClaimInputOverviewClaimFragment extends LinearNavActionbarFragment 
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        pd.dismiss();
                         System.out.println("result "+result);
                         if(result instanceof String){
-                            app.showMessageDialog(linearNavFragmentActivity, result.toString());
-                            linearNavFragmentActivity.onBackPressed();
+                            linearNavFragmentActivity.finishLoading(result.toString());
                         }else{
+                            linearNavFragmentActivity.finishLoading();
                             costCenters.addAll((ArrayList<CostCenter>)result);
                             costCenterNodes = new ArrayList<LinearLayout>();
                             for (int i=0; i<costCenters.size(); i++) {
@@ -136,7 +133,7 @@ public class ClaimInputOverviewClaimFragment extends LinearNavActionbarFragment 
                             newClaimHeader = new ClaimNotPaidByCC(app, selectedCostCenter.getCostCenterID(), selectedCostCenter.getCostCenterName());
                         }
 
-                        pd.show();
+                        linearNavFragmentActivity.startLoading();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -152,8 +149,8 @@ public class ClaimInputOverviewClaimFragment extends LinearNavActionbarFragment 
                                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        pd.dismiss();
                                         if(result == null){
+                                            linearNavFragmentActivity.finishLoading();
                                             if(getArguments()!=null){
                                                 int claimPos = getArguments().getInt(KEY_CLAIMPOS);
                                                 app.getMyClaims().add(claimPos+1, (cboxPaidByCC.isChecked())?new ClaimPaidByCC(newClaimHeader.getMap()):new ClaimNotPaidByCC(newClaimHeader.getMap()));
@@ -162,10 +159,10 @@ public class ClaimInputOverviewClaimFragment extends LinearNavActionbarFragment 
                                                 Toast.makeText(linearNavFragmentActivity, "Claim Updated Successfully", Toast.LENGTH_SHORT).show();
                                             }else
                                                 Toast.makeText(linearNavFragmentActivity, "Claim Created Successfully", Toast.LENGTH_SHORT).show();
-                                            linearNavFragmentActivity.onBackPressed();
+                                            linearNavFragmentActivity.finish();
                                         }else{
                                             newClaimHeader.editClaimHeader(!cboxPaidByCC.isChecked());
-                                            app.showMessageDialog(linearNavFragmentActivity, result);
+                                            linearNavFragmentActivity.finishLoading(result);
                                         }
 
                                     }

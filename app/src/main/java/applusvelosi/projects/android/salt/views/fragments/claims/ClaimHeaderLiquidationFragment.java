@@ -2,12 +2,17 @@ package applusvelosi.projects.android.salt.views.fragments.claims;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
+import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
 import applusvelosi.projects.android.salt.models.claimheaders.LiquidationOfBA;
 
 public class ClaimHeaderLiquidationFragment extends ClaimHeaderFragment{	

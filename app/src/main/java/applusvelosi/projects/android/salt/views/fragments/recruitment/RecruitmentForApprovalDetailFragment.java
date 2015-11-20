@@ -13,12 +13,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.recruitments.Recruitment;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.views.RecruitmentApprovalDetailActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.RecruitmentsForApprovalFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
@@ -28,7 +30,6 @@ import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
  */
 public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFragment {
     //actionbar
-    private SaltProgressDialog pd;
     private RelativeLayout actionbarButtonBack;
     private TextView actionbarTitle;
     //controls
@@ -41,6 +42,7 @@ public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFrag
     private CheckBox    cboxBudgettedCost, cboxSpecificPerson, cboxPositionMayBePermanent;
     private RelativeLayout  containersAttachments, containersOtherBenefits;
 
+    private RecruitmentApprovalDetailActivity activity;
     private TextView tviewDialogRejectReason, tviewDialogReturnReason;
     private LinearLayout dialogViewReject, dialogViewReturn;
     private AlertDialog dialogReject, dialogReturn;
@@ -49,6 +51,7 @@ public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFrag
 
     @Override
     protected RelativeLayout setupActionbar() {
+        activity = (RecruitmentApprovalDetailActivity)getActivity();
         RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -62,9 +65,8 @@ public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFrag
 
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        recruitment = RecruitmentsForApprovalFragment.getInstance().getSelectedRecruitment(this);
+        recruitment = activity.recruitment;
 
-        pd = new SaltProgressDialog(linearNavFragmentActivity);
         View view = inflater.inflate(R.layout.fragment_rfa_detail, null);
         buttonApprove = (TextView)view.findViewById(R.id.buttons_rfadetail_approve);
         buttonReject = (TextView)view.findViewById(R.id.buttons_rfadetail_reject);
@@ -107,7 +109,7 @@ public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFrag
         containersAttachments.setOnClickListener(this);
         containersOtherBenefits.setOnClickListener(this);
 
-        pd.show();
+        activity.startLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -123,11 +125,10 @@ public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFrag
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        pd.dismiss();
-
                         if(result instanceof String)
-                            app.showMessageDialog(linearNavFragmentActivity, result.toString());
+                            activity.finishLoading(result.toString());
                         else{
+                            activity.finishLoading();
                             try {
                                 recruitment = new Recruitment((JSONObject) result, app.onlineGateway);
 
@@ -241,7 +242,7 @@ public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFrag
     }
 
     private void changeApprovalStatus(final int statusID, final String keyForUpdatableDate, final String approverNotes){
-        pd.show();
+        activity.startLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -256,15 +257,13 @@ public class RecruitmentForApprovalDetailFragment extends LinearNavActionbarFrag
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        pd.dismiss();
-                        new AlertDialog.Builder(linearNavFragmentActivity).setMessage((result.equals("OK"))?"Updated Successfully":result)
-                                                         .setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                                                             @Override
-                                                             public void onClick(DialogInterface dialog, int which) {
-                                                                 dialog.dismiss();
-                                                                 linearNavFragmentActivity.onBackPressed();
-                                                             }
-                                                         }).show();
+                        if(result.equals("OK")){
+                            activity.finishLoading();
+                            Toast.makeText(activity, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                            activity.finish();
+                        }else{
+                            activity.finishLoading(result);
+                        }
                     }
                 });
             }
