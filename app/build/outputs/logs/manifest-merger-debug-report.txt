@@ -226,13 +226,13 @@ ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml
 	android:launchMode
 		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:68:98-133
 activity#applusvelosi.projects.android.salt.views.NewClaimItemActivity
-ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:69:9-137
+ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:69:9-132
 	android:screenOrientation
 		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:69:62-98
 	android:name
 		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:69:19-61
 	android:launchMode
-		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:69:99-134
+		ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:69:99-129
 activity#applusvelosi.projects.android.salt.views.ClaimDetailActivity
 ADDED from /Users/Velosi/Documents/ANDROID/Salt/app/src/main/AndroidManifest.xml:70:9-136
 	android:screenOrientation

@@ -51,7 +51,7 @@
     <dimen name="dimens_home_controls_height">50dp</dimen>
     <dimen name="dimens_home_controls_width">70dp</dimen>
     <dimen name="dimens_login_fieldcontainermax_width">240dp</dimen>
-    <dimen name="dimens_login_logo_height">70dp</dimen>
+    <dimen name="dimens_login_logo_height">65dp</dimen>
     <dimen name="dimens_login_logo_width">140dp</dimen>
     <dimen name="dimens_mycalendarbuttons">45dp</dimen>
     <dimen name="dimens_pageindicator_node">15dp</dimen>
@@ -110,6 +110,7 @@
     <string name="create_calendar_message">Allow Ad to create a calendar event?</string>
     <string name="create_calendar_title">Create calendar event</string>
     <string name="decline">Decline</string>
+    <string name="empty_list">No Items</string>
     <string name="follow_up"><u>Follow Up</u></string>
     <string name="ga_trackingId">UA-68161281-1</string>
     <string name="gcm_defaultSenderId">6856922692</string>

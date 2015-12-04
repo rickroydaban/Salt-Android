@@ -493,15 +493,15 @@ public class LeaveInputFragment extends LinearNavActionbarFragment implements On
 															app.dateFormatDefault.format(new Date()));
 						}else{ //edit leave
 							oldLeaveJSON = toBeEditedLeave.getJSONStringForEditingLeave();
-							toBeEditedLeave.editLeave(	Leave.getLeaveTypeIDForDesc(propSpinnerTypes.getSelectedItem().toString()), 
-														app.getStaff().getMaxVL(), 
-														app.getStaff().getMaxSL(), 
-														propFieldDateStart.getText().toString(),  //start date
-														propFieldDateEnd.getText().toString(),  //end date 
-														propDictDays.get(propSpinnerDays.getSelectedItem()),  //days
-														Float.parseFloat(propSpinnerDays.getSelectedItem().toString().split(" ")[0]), //working days 
-														propFieldNotes.getText().toString(),  //notes
-														app.dateFormatDefault.format(new Date()));
+//							toBeEditedLeave.editLeave(	Leave.getLeaveTypeIDForDesc(propSpinnerTypes.getSelectedItem().toString()),
+//														app.getStaff().getMaxVL(),
+//														app.getStaff().getMaxSL(),
+//														propFieldDateStart.getText().toString(),  //start date
+//														propFieldDateEnd.getText().toString(),  //end date
+//														propDictDays.get(propSpinnerDays.getSelectedItem()),  //days
+//														Float.parseFloat(propSpinnerDays.getSelectedItem().toString().split(" ")[0]), //working days
+//														propFieldNotes.getText().toString(),  //notes
+//														app.dateFormatDefault.format(new Date()));
 						}
 						
 						actionbarSaveButton.setEnabled(false);

@@ -32,6 +32,7 @@ import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveListFragment;
 
 /**
  * Created by Velosi on 10/27/15.
@@ -39,13 +40,8 @@ import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFrag
 public class EditLeaveFragment extends LinearNavActionbarFragment implements ListAdapterInterface{
     private final String NO_SELECTION = "No Selection";
     private enum ITEMTYPE{DEFAULT, NONWORKINGDAY, LEAVEDAY};
-    private enum SELECTIONTYPE{FIRST, SECOND, THIRD, CANCEL};
 
-    private static final String KEY_TYPE = "keytpe";
-    private static final String KEY_DATESTART = "keydatestart";
-    private static final String KEY_DATEEND = "keydateend";
-    private static final String KEY_DAYS = "keydays";
-
+    private static final String KEY_APPLEAVEPOS = "appleavepos";
     //actionbar weeks
     private TextView actionbarTitle, actionbarButtonClear;
     private RelativeLayout actionbarButtonBack;
@@ -54,27 +50,23 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
     private TextView tvLeaveType, tvDurations, tvNumDays, tvRemDays, tvMonthYearHeader;
     private HashMap<Integer, HashMap<Integer, Item>> perWeekItems;
     ArrayList<String> nonworkingDays;
+    HashMap<String, Float> leaveDays;
     private ListView lv;
     private ListAdapter adapter;
-    private SELECTIONTYPE currDurationSelection = SELECTIONTYPE.THIRD;
-    private float leaveDuration = 0;
+    private float tempLeaveDuration = 0;
     private float remBalance, tempRemBalance;
-    private Calendar startCalendar, endCalendar, leaveStartCalendar, leaveEndCalendar;
+    private Calendar startCalendar, endCalendar, leaveStartCalendar, leaveEndCalendar, tempEndLeaveEndCalendar;
     private SimpleDateFormat monthYearFormat;
 
     private AlertDialog submitDialog;
     private RelativeLayout dialogView;
     private EditText etNotes;
 
-    private int leaveTypeID;
-    private String dateStart, dateEnd;
-    public static EditLeaveFragment newInstance(int leaveTypeID, String dateStart, String dateEnd, float leavedays){
+    private Leave leave;
+    public static EditLeaveFragment newInstance(int appLeavePos){
         EditLeaveFragment frag = new EditLeaveFragment();
         Bundle b = new Bundle();
-        b.putInt(KEY_TYPE, leaveTypeID);
-        b.putString(KEY_DATESTART, dateStart);
-        b.putString(KEY_DATEEND, dateEnd);
-        b.putFloat(KEY_DAYS, leavedays);
+        b.putInt(KEY_APPLEAVEPOS, appLeavePos);
         frag.setArguments(b);
 
         return frag;
@@ -82,6 +74,7 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
 
     @Override
     protected RelativeLayout setupActionbar() {
+        leave = app.getMyLeaves().get(getArguments().getInt(KEY_APPLEAVEPOS));
         RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backedit, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarButtonClear = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_edit);
@@ -101,6 +94,7 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
         View view = inflater.inflate(R.layout.fragment_leaveinput_dates, null);
         perWeekItems = new HashMap<Integer, HashMap<Integer, Item>>();
         nonworkingDays = new ArrayList<String>();
+        leaveDays = new HashMap<String, Float>();
 
         lv = (ListView)view.findViewById(R.id.lists_lv);
         adapter = new ListAdapter(this);
@@ -116,16 +110,12 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
         monthYearFormat = new SimpleDateFormat("MMMM yyyy");
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();
-        leaveTypeID = getArguments().getInt(KEY_TYPE);
-        dateStart = getArguments().getString(KEY_DATESTART);
-        dateEnd = getArguments().getString(KEY_DATEEND);
-        leaveDuration = getArguments().getFloat(KEY_DAYS);
-        tvLeaveType.setText(Leave.getLeaveTypeDescForKey(leaveTypeID));
+        tvLeaveType.setText(leave.getTypeDescription());
         tvDurations.setText(NO_SELECTION);
         tvRemDays.setText("");
         tvNumDays.setText("");
 
-        if(leaveTypeID == Leave.LEAVETYPEVACATIONKEY || leaveTypeID == Leave.LEAVETYPEUNPAIDKEY || leaveTypeID == Leave.LEAVETYPEBUSINESSTRIPKEY || leaveTypeID == Leave.LEAVETYPEBIRTHDAYKEY){
+        if(leave.getTypeID() == Leave.LEAVETYPEVACATIONKEY || leave.getTypeID() == Leave.LEAVETYPEUNPAIDKEY || leave.getTypeID() == Leave.LEAVETYPEBUSINESSTRIPKEY || leave.getTypeID() == Leave.LEAVETYPEBIRTHDAYKEY){
             endCalendar.set(Calendar.YEAR, startCalendar.get(Calendar.YEAR));
             endCalendar.set(Calendar.MONTH, startCalendar.get(Calendar.MONTH)+11);
             endCalendar.set(Calendar.DAY_OF_MONTH, 31);
@@ -165,134 +155,63 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
         if(v instanceof ImageView){
             manageSelection((ImageView)v);
         }else if(v == actionbarButtonClear){
-            leaveStartCalendar = null;
-            leaveEndCalendar = null;
-            currDurationSelection = SELECTIONTYPE.THIRD;
-            tvDurations.setText(NO_SELECTION);
-            tvRemDays.setText("");
-            tvNumDays.setText("");
-            leaveDuration = 0;
-            adapter.notifyDataSetChanged();
+            reset();
         }else if(v == tvHeader){
-            if(!tvDurations.getText().toString().equals(NO_SELECTION)){
-                if(((leaveTypeID==Leave.LEAVETYPEVACATIONKEY || leaveTypeID==Leave.LEAVETYPESICKKEY) && tempRemBalance>=0) || !(leaveTypeID==Leave.LEAVETYPEVACATIONKEY || leaveTypeID==Leave.LEAVETYPESICKKEY))
+            if(!tvDurations.getText().toString().equals(NO_SELECTION) && tempEndLeaveEndCalendar != null){
+                if(((leave.getTypeID()==Leave.LEAVETYPEVACATIONKEY || leave.getTypeID()==Leave.LEAVETYPESICKKEY) && tempRemBalance>=0) || !(leave.getTypeID()==Leave.LEAVETYPEVACATIONKEY || leave.getTypeID()==Leave.LEAVETYPESICKKEY))
                     submitDialog.show();
-            }
+            }else
+                Toast.makeText(getActivity(), "Please chose an updated date!", Toast.LENGTH_SHORT).show();
         }else if(v == actionbarButtonBack || v == actionbarTitle){
             linearNavFragmentActivity.onBackPressed();
         }
     }
 
-    private void manageSelection(ImageView iv){
+    private void manageSelection(ImageView iv){ //selection is only applicable for allowing half day leave to be a 1 day leave or adding the next working day
         Item item = (Item)iv.getTag();
-        if(leaveStartCalendar == null || (leaveDuration < 2 && leaveStartCalendar.getTime().equals(item.getDate()))){ //can change duration if 1 day
-            leaveStartCalendar = Calendar.getInstance();
-            leaveStartCalendar.setTime(item.getDate());
-            int drawableRes;
-
-            if(item.getType() == ITEMTYPE.LEAVEDAY){ //limited selection
-                //please note that this can only be called when leave duration is half day as it is set on managefunction
-                ItemLeaveDay itemLeaveDay = (ItemLeaveDay)item;
-                if(currDurationSelection == SELECTIONTYPE.FIRST){
-                    currDurationSelection = SELECTIONTYPE.CANCEL;
-                    drawableRes = (itemLeaveDay.getDuration() == Leave.Duration.AM)?R.drawable.calendarcell_leave_am_whole :R.drawable.calendarcell_leave_pm_whole;
-                    leaveStartCalendar = Calendar.getInstance();
-                    leaveStartCalendar.setTime(item.getDate());
-                    leaveEndCalendar = Calendar.getInstance();
-                    leaveEndCalendar.setTime(item.getDate());
-                    leaveDuration = (itemLeaveDay.getDuration() == Leave.Duration.AM)?0.1f:0.2f;
-                    String text = (itemLeaveDay.getDuration() == Leave.Duration.AM)?"AM":"PM";
-                    tvDurations.setText(((Item)iv.getTag()).getStringedDate());
-                    tempRemBalance = remBalance-.5f;
-                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
-                    tvNumDays.setText(text);
-                }else{
-                    currDurationSelection = SELECTIONTYPE.FIRST;
-                    drawableRes = (itemLeaveDay.getDuration() == Leave.Duration.AM)?R.drawable.calendarcell_sel_pm:R.drawable.calendarcell_sel_am;
-                    leaveDuration = 0.0f;
-                    leaveStartCalendar = null;
-                    leaveEndCalendar = null;
-                    tvDurations.setText(NO_SELECTION);
-                    tvRemDays.setText("");
-                    tvNumDays.setText("");
-                }
-            }else{
-                if(currDurationSelection == SELECTIONTYPE.FIRST){
-                    currDurationSelection = SELECTIONTYPE.SECOND;
-                    drawableRes = R.drawable.calendarcell_leave_am;
-                    leaveStartCalendar = Calendar.getInstance();
-                    leaveStartCalendar.setTime(item.getDate());
-                    leaveEndCalendar = Calendar.getInstance();
-                    leaveEndCalendar.setTime(item.getDate());
-                    leaveDuration = 0.1f;
-                    tvDurations.setText(app.dateFormatDefault.format(leaveStartCalendar.getTime()));
-                    tempRemBalance = remBalance-.5f;
-                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
-                    tvNumDays.setText("AM");
-                }else if(currDurationSelection == SELECTIONTYPE.SECOND){
-                    currDurationSelection = SELECTIONTYPE.THIRD;
-                    drawableRes = R.drawable.calendarcell_leave_pm;
-                    leaveStartCalendar = Calendar.getInstance();
-                    leaveStartCalendar.setTime(item.getDate());
-                    leaveEndCalendar = Calendar.getInstance();
-                    leaveEndCalendar.setTime(item.getDate());
-                    leaveDuration = 0.2f;
-                    tvDurations.setText(app.dateFormatDefault.format(leaveStartCalendar.getTime()));
-                    tempRemBalance = remBalance-.5f;
-                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
-                    tvNumDays.setText("PM");
-                }else if(currDurationSelection == SELECTIONTYPE.THIRD){
-                    currDurationSelection = SELECTIONTYPE.CANCEL;
-                    drawableRes = R.drawable.calendarcell_leave;
-                    leaveDuration = 1.0f;
-                    leaveEndCalendar = Calendar.getInstance();
-                    leaveEndCalendar.setTime(item.getDate());
-                    tvDurations.setText(app.dateFormatDefault.format(leaveStartCalendar.getTime()));
-                    tempRemBalance = remBalance - 1;
-                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
+        if(tempLeaveDuration < 1) { //half day to one day
+            if(tempRemBalance >=.5f){
+                if(item.getCalendar().get(Calendar.MONTH)==leaveStartCalendar.get(Calendar.MONTH) && item.getCalendar().get(Calendar.DAY_OF_MONTH)==leaveStartCalendar.get(Calendar.DAY_OF_MONTH) && item.getCalendar().get(Calendar.YEAR)==leaveStartCalendar.get(Calendar.YEAR)) {
+                    ItemLeaveDay itemLeaveDay = (ItemLeaveDay) item;
+                    iv.setImageResource((itemLeaveDay.getDuration() == Leave.Duration.AM) ? R.drawable.calendarcell_leave_am_whole : R.drawable.calendarcell_leave_pm_whole);
+                    tempEndLeaveEndCalendar = Calendar.getInstance();
+                    tempEndLeaveEndCalendar.setTime(item.getCalendar().getTime());
+                    tempLeaveDuration = 1;
+                    tempRemBalance-=0.5f;
                     tvNumDays.setText("1 Day");
-                }else{ //Cancel
-                    currDurationSelection = SELECTIONTYPE.FIRST;
-                    drawableRes = R.drawable.calendarcell;
-                    leaveDuration = 0.0f;
-                    leaveStartCalendar = null;
-                    leaveEndCalendar = null;
-                    tvDurations.setText(NO_SELECTION);
-                    tempRemBalance = remBalance;
-                    tvRemDays.setText("");
-                    tvNumDays.setText("");
+                    tvRemDays.setText(tempRemBalance+" Days Remaining");
                 }
             }
-
-            iv.setImageResource(drawableRes);
-        }else{
-            if(leaveDuration >= 1.0f){ //it should be at least a day not half day
-                //check how many nonworkingdays are in between the selected dates
-                int nonWorkingDaysCtr = 0;
-                Calendar checkStartCalendar = Calendar.getInstance();
-                checkStartCalendar.setTime(leaveEndCalendar.getTime());
-                checkStartCalendar.set(Calendar.DAY_OF_MONTH, checkStartCalendar.get(Calendar.DAY_OF_MONTH));
-                Calendar checkEndCalendar = Calendar.getInstance();
-                checkEndCalendar.setTime(((Item)iv.getTag()).getDate());
-                Calendar comparator = Calendar.getInstance();
-                comparator.setTime(checkStartCalendar.getTime());
-                for(; comparator.compareTo(checkEndCalendar) <= 0; comparator.set(Calendar.DAY_OF_MONTH, comparator.get(Calendar.DAY_OF_MONTH)+1)){
-                    if(nonworkingDays.contains(app.dateFormatDefault.format(comparator.getTime())))
-                        nonWorkingDaysCtr++;
+        }else{ //adding next working day
+            if(tempRemBalance >= 1){
+                int intervalDays = 0;
+                Calendar calendarComparator = Calendar.getInstance();
+                if(tempEndLeaveEndCalendar == null){
+                    tempEndLeaveEndCalendar = Calendar.getInstance();
+                    tempEndLeaveEndCalendar.setTime(leaveEndCalendar.getTime());
+                }
+                calendarComparator.setTime(tempEndLeaveEndCalendar.getTime());
+                calendarComparator.set(Calendar.DAY_OF_MONTH, calendarComparator.get(Calendar.DAY_OF_MONTH)+1);
+                for(; calendarComparator.compareTo(item.getCalendar())<=0; calendarComparator.set(Calendar.DAY_OF_MONTH, calendarComparator.get(Calendar.DAY_OF_MONTH)+1)){
+                    System.out.println("SALTX at "+app.dateFormatDefault.format(calendarComparator.getTime()));
+                    if(!nonworkingDays.contains(app.dateFormatDefault.format(calendarComparator.getTime())) && !leaveDays.containsKey(app.dateFormatDefault.format(calendarComparator.getTime()))) {
+                        System.out.println("Not Interval!");
+                        intervalDays++;
+                    }
                 }
 
-                if(checkEndCalendar.get(Calendar.DAY_OF_YEAR)-nonWorkingDaysCtr-checkStartCalendar.get(Calendar.DAY_OF_YEAR) == 1) {
+                System.out.println("SALTX interval days "+intervalDays);
+                if(intervalDays == 1){
                     iv.setImageResource(R.drawable.calendarcell_leave);
-                    leaveDuration++;
-                    leaveEndCalendar.setTime(item.getDate());
-                    tvDurations.setText(app.dateFormatDefault.format(leaveStartCalendar.getTime()) + " - " + monthYearFormat.format(leaveEndCalendar.getTime()));
-                    tempRemBalance = remBalance-leaveDuration;
-                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
-                    tvNumDays.setText((int) leaveDuration + " Days");
+                    tempLeaveDuration++;
+                    tempEndLeaveEndCalendar.setTime(item.getCalendar().getTime());
+                    tempRemBalance--;
+                    tvDurations.setText(app.dateFormatDefault.format(startCalendar.getTime())+" - "+app.dateFormatDefault.format(tempEndLeaveEndCalendar.getTime()));
+                    tvNumDays.setText(tempLeaveDuration+" Days");
+                    tvRemDays.setText(tempRemBalance+" Days Remaining");
                 }
             }
         }
-
     }
 
     @Override
@@ -367,14 +286,14 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
             }break;
         }
 
-        if(leaveStartCalendar != null && leaveEndCalendar != null) {
-            if (item.getType()== ITEMTYPE.DEFAULT && item.getDate().compareTo(leaveStartCalendar.getTime()) >= 0 && item.getDate().compareTo(leaveEndCalendar.getTime()) <= 0) {
-                dayTV.setTextColor(getResources().getColor(R.color.black));
-                if (leaveDuration < 1) {
-                    if (leaveDuration == 0.1f)
-                        dayIV.setImageResource(R.drawable.calendarcell_leave_am);
-                    else dayIV.setImageResource(R.drawable.calendarcell_leave_pm);
-                } else dayIV.setImageResource(R.drawable.calendarcell_leave);
+        //let the selected items be colored blue on reuse
+        if(leaveEndCalendar != null && tempEndLeaveEndCalendar!= null) {
+            if (item.getType()== ITEMTYPE.DEFAULT && item.getDate().compareTo(leaveEndCalendar.getTime()) >= 0 && item.getDate().compareTo(tempEndLeaveEndCalendar.getTime()) <= 0) {
+                dayIV.setImageResource(R.drawable.calendarcell_leave);
+            }else if(item.getType() == ITEMTYPE.LEAVEDAY && item.getDate().compareTo(tempEndLeaveEndCalendar.getTime())==0) {
+                if (Math.abs(leaveDays.get(item.getStringedDate()) - 0.1) < 0.00001)
+                    dayIV.setImageResource(R.drawable.calendarcell_leave_am_whole);
+                else dayIV.setImageResource(R.drawable.calendarcell_leave_pm_whole);
             }
         }
     }
@@ -388,8 +307,10 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
         private Date date;
         private String day;
         private String stringedDate;
+        private Calendar calendar;
 
         public Item(Calendar calendar){ //for default and nonworking days
+            this.calendar = calendar;
             date = calendar.getTime();
             stringedDate = app.dateFormatDefault.format(date);
             day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
@@ -398,6 +319,7 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
         public String getDay(){ return day; }
         public String getStringedDate(){ return stringedDate; }
         public Date getDate(){ return date; }
+        public Calendar getCalendar(){ return calendar; }
         public abstract ITEMTYPE getType();
     }
 
@@ -465,8 +387,8 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    HashMap<String, Float> leaveDays = new HashMap<String, Float>();
                     nonworkingDays.clear();
+                    leaveDays.clear();
                     if(leaveResult instanceof String || holidayResult instanceof String){
                         linearNavFragmentActivity.finishLoading(leaveResult.toString()+", "+holidayResult.toString());
                         new AlertDialog.Builder(linearNavFragmentActivity).setTitle("").setMessage((leaveResult instanceof String)?leaveResult.toString():holidayResult.toString())
@@ -507,10 +429,10 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
                             comparatorDate.set(Calendar.DAY_OF_MONTH, comparatorDate.get(Calendar.DAY_OF_MONTH)+1);
                         }
 
-                        if(leaveTypeID == Leave.LEAVETYPEVACATIONKEY) remBalance = app.getStaff().getMaxVL();
-                        else if(leaveTypeID == Leave.LEAVETYPESICKKEY) remBalance = app.getStaff().getMaxSL();
+                        if(leave.getTypeID() == Leave.LEAVETYPEVACATIONKEY) remBalance = app.getStaff().getMaxVL();
+                        else if(leave.getTypeID() == Leave.LEAVETYPESICKKEY) remBalance = app.getStaff().getMaxSL();
                         for(Leave leave :(ArrayList<Leave>)leaveResult){
-                            remBalance-=leave.getWorkingDays();
+                            remBalance = remBalance - ((leave.getDays() < 1)?0.5f:leave.getDays());
                             if(leave.getDays() <= 1){ //handle single day leaves
                                 if(leaveDays.containsKey(leave.getStartDate()))
                                    leaveDays.put(leave.getStartDate(), leaveDays.get(leave.getStartDate())+leave.getDays());
@@ -532,7 +454,6 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
                                 }
                             }
                         }
-                        System.out.println("rembalance end");
 
                         //after populating list data, populate view
                         HashMap<Integer, Item> currMapDays = new HashMap<Integer, Item>();
@@ -581,7 +502,7 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
                         }
 
                         perWeekItems.put(currWeekCtr, currMapDays);
-                        adapter.notifyDataSetChanged();
+                        reset();
 
                         tvHeader.setOnClickListener(EditLeaveFragment.this);
                     }
@@ -596,29 +517,24 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
     }
 
     private class SubmitNewLeaveRequest extends Thread{
-        String oldLeaveJSON;
         Leave newLeave;
-
         @Override
         public void run() {
             String tempResult;
             String startDateStr = app.dateFormatDefault.format(leaveStartCalendar.getTime());
-            String endDateStr = app.dateFormatDefault.format(leaveEndCalendar.getTime());
+            String oldEndDateStr = app.dateFormatDefault.format(leaveEndCalendar.getTime());
+            String newEndDateStr = app.dateFormatDefault.format(tempEndLeaveEndCalendar.getTime());
 
             try {
-                oldLeaveJSON = Leave.createEmptyJSON();
-                newLeave = new Leave( app.getStaff(),
-                                            (leaveTypeID==Leave.LEAVETYPEVACATIONKEY)?tempRemBalance:app.staffLeaveCounter.getRemainingVLDays(),
-                                            (leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance:app.staffLeaveCounter.getRemainingSLDays(),
-                                            leaveTypeID,
-                                            Leave.LEAVESTATUSPENDINGID,
-                                            startDateStr,
-                                            endDateStr,
-                                            leaveDuration,
-                                            (tvNumDays.getText().toString().equals("AM") || tvNumDays.getText().toString().equals("PM"))?0.5f:Float.parseFloat(tvNumDays.getText().toString().split(" ")[0]),
-                                            etNotes.getText().toString(),
-                                            app.dateFormatDefault.format(new Date()));
-
+                String oldLeaveJSON = leave.getJSONStringForEditingLeave();
+                newLeave = new Leave(leave.getMap());
+                newLeave.editLeave( (leave.getTypeID()==Leave.LEAVETYPEVACATIONKEY)?tempRemBalance:app.staffLeaveCounter.getRemainingVLDays(),
+                                    (leave.getTypeID()==Leave.LEAVETYPESICKKEY)?tempRemBalance:app.staffLeaveCounter.getRemainingSLDays(),
+                                    newEndDateStr,
+                                    tempLeaveDuration,
+                                    (tvNumDays.getText().toString().equals("AM") || tvNumDays.getText().toString().equals("PM"))?0.5f:Float.parseFloat(tvNumDays.getText().toString().split(" ")[0]),
+                                    etNotes.getText().toString(),
+                                    app.dateFormatDefault.format(new Date()));
                 tempResult = app.onlineGateway.saveLeave(newLeave.getJSONStringForEditingLeave(), oldLeaveJSON);
             }catch(Exception e){
                 e.printStackTrace();
@@ -659,7 +575,8 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
                         ParseQuery parseQuery = ParseInstallation.getQuery();
                         parseQuery.whereEqualTo("staffID", app.getStaff().getApprover1ID());
                         parsePush.sendMessageInBackground(ParseReceiver.createLeaveApprovalMessage(newLeave, app), parseQuery);
-                        Toast.makeText(getActivity(), "Leave Submitted Successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Leave Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        LeaveListFragment.getInstance().sync();
                         linearNavFragmentActivity.finishLoading();
                         linearNavFragmentActivity.finish();
                     }else{
@@ -668,6 +585,29 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
                     }
                 }
             });
+        }
+    }
+
+    public void reset(){
+        try{
+            leaveStartCalendar = Calendar.getInstance();
+            leaveStartCalendar.setTime(app.dateFormatDefault.parse(leave.getStartDate()));
+            leaveEndCalendar = Calendar.getInstance();
+            leaveEndCalendar.setTime(app.dateFormatDefault.parse(leave.getEndDate()));
+            tempEndLeaveEndCalendar = null;
+            if(Math.abs(leave.getDays() - 0.1) < 0.00001) tvNumDays.setText("AM");
+            else if(Math.abs(leave.getDays() - 0.2) < 0.00001) tvNumDays.setText("PM");
+            else tvNumDays.setText((int)leave.getDays()+((leave.getDays()>1)?" Days":" Day"));
+
+            tvDurations.setText(app.dateFormatDefault.format(leaveStartCalendar.getTime())+((leave.getDays()>1)?" - "+app.dateFormatDefault.format(leaveEndCalendar.getTime()):""));
+            tvRemDays.setText(remBalance+" Days Remaining");
+
+            tempLeaveDuration = leave.getDays();
+            tempRemBalance = remBalance;
+            adapter.notifyDataSetChanged();
+        }catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

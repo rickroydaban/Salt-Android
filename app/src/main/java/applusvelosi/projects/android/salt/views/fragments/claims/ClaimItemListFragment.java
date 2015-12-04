@@ -114,9 +114,16 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
 						}else{
 							linearNavFragmentActivity.finishLoading();
 							claimItems.clear();
-							claimItems.addAll((ArrayList<ClaimItem>)result);
-							adapter.notifyDataSetChanged();
-							claimHeader.updateLineItems(claimItems, app);
+
+							if(claimItems.size() > 0){
+								lv.setVisibility(View.VISIBLE);
+								claimItems.addAll((ArrayList<ClaimItem>)result);
+								adapter.notifyDataSetChanged();
+								claimHeader.updateLineItems(claimItems, app);
+							}else{
+								lv.setVisibility(View.GONE);
+							}
+
 						}
 					}
 				});

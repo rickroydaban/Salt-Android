@@ -14,5 +14,6 @@
     <string name="recruitments_for_approval"><u>Recruitments for Approval</u></string>
     <string name="link_change"><u>Change</u></string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="empty_list">No Items</string>
 
 </resources>

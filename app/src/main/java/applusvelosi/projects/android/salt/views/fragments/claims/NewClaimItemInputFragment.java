@@ -232,6 +232,7 @@ public class NewClaimItemInputFragment extends LinearNavActionbarFragment implem
     }
 
     private void updateAttachment(File file){
+        System.out.println("SALTX file updated with file "+file);
         attachedFile = file;
         if(file == null){
             tvAttachment.setText("No Selection");

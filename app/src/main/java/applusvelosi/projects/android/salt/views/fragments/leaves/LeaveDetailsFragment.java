@@ -13,12 +13,16 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.R.color;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.LeaveDetailActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveListFragment;
 
 public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 	private LeaveDetailActivity activity;
@@ -27,7 +31,6 @@ public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 	private RelativeLayout buttonActionbarBack;
 	private LinearLayout pendingButtonContainer;
 	
-	private SaltProgressDialog pd;
 	private TextView tviewTypeDesc, tviewStatusDesc, tviewStaffname, tviewDateFrom, tviewDateTo, tviewDays, tviewWorkingDays, tviewNotes;
 	private Leave leave;
 	
@@ -106,16 +109,14 @@ public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 		if(v == buttonActionbarBack || v == textViewActionbarTitle){
 			linearNavFragmentActivity.onBackPressed();
 		}else if(v == buttonActionbarEdit){
-			linearNavFragmentActivity.changePage(EditLeaveFragment.newInstance(leave.getTypeID(), leave.getStartDate(), leave.getEndDate(), leave.getDays()));
+			linearNavFragmentActivity.changePage(EditLeaveFragment.newInstance(((LeaveDetailActivity)getActivity()).leavePos));
 		}else if(v == buttonActionbarCancel){
 			new AlertDialog.Builder(linearNavFragmentActivity).setMessage("Are you sure you want to cancel this leave request?")
 											 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 												
 												@Override
 												public void onClick(DialogInterface dialog, int which) {
-													if(pd == null)
-														pd = new SaltProgressDialog(linearNavFragmentActivity);
-													pd.show();
+                                                    activity.startLoading();
 													new Thread(new Runnable() {
 														
 														@Override
@@ -132,16 +133,13 @@ public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 																
 																@Override
 																public void run() {
-																	pd.dismiss();
-																	
 																	if(result != null)
-																		app.showMessageDialog(linearNavFragmentActivity, result);
+                                                                        activity.finishLoading(result);
 																	else{
-																		pendingButtonContainer.setVisibility(View.GONE);
-																		buttonFollowUp.setTextColor(linearNavFragmentActivity.getResources().getColor(R.color.light_gray));
-																		buttonFollowUp.setText("Follow up");
-																		buttonFollowUp.setEnabled(false);
-																		tviewStatusDesc.setText(Leave.LEAVESTATUSCANCELLEDDESC);
+                                                                        activity.finishLoading();
+                                                                        Toast.makeText(activity, "Leave Cancelled Successfully!", Toast.LENGTH_SHORT).show();
+                                                                        LeaveListFragment.getInstance().sync();
+                                                                        activity.finish();
 																	}
 																}
 															});
@@ -158,9 +156,7 @@ public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 												}
 											}).create().show();
 		}else if(v == buttonFollowUp){
-			if(pd == null)
-				pd = new SaltProgressDialog(linearNavFragmentActivity);
-			pd.show();
+            activity.startLoading();
 			new Thread(new Runnable() {
 				
 				@Override
@@ -179,8 +175,11 @@ public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 						
 						@Override
 						public void run() {
-							pd.dismiss();							
-							app.showMessageDialog(linearNavFragmentActivity, (result != null)?result:"Follow up sent!");
+                            if(result==null){
+                                activity.finishLoading();
+                                Toast.makeText(activity, "Follow request was sent successfully! ",Toast.LENGTH_SHORT).show();
+                            }else
+                                activity.finishLoading(result);
 						}
 					});
 					

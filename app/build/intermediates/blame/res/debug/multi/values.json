@@ -23,14 +23,7 @@
                     "endOffset": 181
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
-                    "position": {
-                        "startLine": 9,
-                        "startColumn": 2,
-                        "startOffset": 345,
-                        "endColumn": 38,
-                        "endOffset": 381
-                    }
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
                 }
             },
             {
@@ -606,7 +599,14 @@
                     "endOffset": 3391
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 402,
+                        "endColumn": 55,
+                        "endOffset": 453
+                    }
                 }
             },
             {
@@ -1310,8 +1310,8 @@
                     "startLine": 112,
                     "startColumn": 4,
                     "startOffset": 9311,
-                    "endColumn": 54,
-                    "endOffset": 9361
+                    "endColumn": 47,
+                    "endOffset": 9354
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
@@ -1321,21 +1321,21 @@
                 "to": {
                     "startLine": 113,
                     "startColumn": 4,
-                    "startOffset": 9366,
-                    "endColumn": 55,
-                    "endOffset": 9417
+                    "startOffset": 9359,
+                    "endColumn": 54,
+                    "endOffset": 9409
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 114,
                     "startColumn": 4,
-                    "startOffset": 9422,
-                    "endColumn": 58,
-                    "endOffset": 9476
+                    "startOffset": 9414,
+                    "endColumn": 55,
+                    "endOffset": 9465
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml"
@@ -1345,9 +1345,9 @@
                 "to": {
                     "startLine": 115,
                     "startColumn": 4,
-                    "startOffset": 9481,
-                    "endColumn": 79,
-                    "endOffset": 9556
+                    "startOffset": 9470,
+                    "endColumn": 58,
+                    "endOffset": 9524
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml"
@@ -1357,21 +1357,21 @@
                 "to": {
                     "startLine": 116,
                     "startColumn": 4,
-                    "startOffset": 9561,
-                    "endColumn": 69,
-                    "endOffset": 9626
+                    "startOffset": 9529,
+                    "endColumn": 79,
+                    "endOffset": 9604
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 117,
                     "startColumn": 4,
-                    "startOffset": 9631,
-                    "endColumn": 52,
-                    "endOffset": 9679
+                    "startOffset": 9609,
+                    "endColumn": 69,
+                    "endOffset": 9674
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
@@ -1381,9 +1381,9 @@
                 "to": {
                     "startLine": 118,
                     "startColumn": 4,
-                    "startOffset": 9684,
-                    "endColumn": 74,
-                    "endOffset": 9754
+                    "startOffset": 9679,
+                    "endColumn": 52,
+                    "endOffset": 9727
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
@@ -1393,9 +1393,9 @@
                 "to": {
                     "startLine": 119,
                     "startColumn": 4,
-                    "startOffset": 9759,
-                    "endColumn": 53,
-                    "endOffset": 9808
+                    "startOffset": 9732,
+                    "endColumn": 74,
+                    "endOffset": 9802
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
@@ -1405,9 +1405,9 @@
                 "to": {
                     "startLine": 120,
                     "startColumn": 4,
-                    "startOffset": 9813,
-                    "endColumn": 86,
-                    "endOffset": 9895
+                    "startOffset": 9807,
+                    "endColumn": 53,
+                    "endOffset": 9856
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
@@ -1417,21 +1417,21 @@
                 "to": {
                     "startLine": 121,
                     "startColumn": 4,
-                    "startOffset": 9900,
-                    "endColumn": 95,
-                    "endOffset": 9991
+                    "startOffset": 9861,
+                    "endColumn": 86,
+                    "endOffset": 9943
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 122,
                     "startColumn": 4,
-                    "startOffset": 9996,
-                    "endColumn": 58,
-                    "endOffset": 10050
+                    "startOffset": 9948,
+                    "endColumn": 95,
+                    "endOffset": 10039
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
@@ -1441,21 +1441,21 @@
                 "to": {
                     "startLine": 123,
                     "startColumn": 4,
-                    "startOffset": 10055,
-                    "endColumn": 60,
-                    "endOffset": 10111
+                    "startOffset": 10044,
+                    "endColumn": 58,
+                    "endOffset": 10098
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 124,
                     "startColumn": 4,
-                    "startOffset": 10116,
-                    "endColumn": 66,
-                    "endOffset": 10178
+                    "startOffset": 10103,
+                    "endColumn": 60,
+                    "endOffset": 10159
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
@@ -1465,9 +1465,9 @@
                 "to": {
                     "startLine": 125,
                     "startColumn": 4,
-                    "startOffset": 10183,
-                    "endColumn": 64,
-                    "endOffset": 10243
+                    "startOffset": 10164,
+                    "endColumn": 66,
+                    "endOffset": 10226
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
@@ -1477,9 +1477,9 @@
                 "to": {
                     "startLine": 126,
                     "startColumn": 4,
-                    "startOffset": 10248,
-                    "endColumn": 68,
-                    "endOffset": 10312
+                    "startOffset": 10231,
+                    "endColumn": 64,
+                    "endOffset": 10291
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
@@ -1489,10 +1489,22 @@
                 "to": {
                     "startLine": 127,
                     "startColumn": 4,
-                    "startOffset": 10317,
-                    "endLine": 134,
+                    "startOffset": 10296,
+                    "endColumn": 68,
+                    "endOffset": 10360
+                },
+                "from": {
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 128,
+                    "startColumn": 4,
+                    "startOffset": 10365,
+                    "endLine": 135,
                     "endColumn": 10,
-                    "endOffset": 10736
+                    "endOffset": 10784
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_iap_style.xml"
@@ -1500,12 +1512,12 @@
             },
             {
                 "to": {
-                    "startLine": 135,
+                    "startLine": 136,
                     "startColumn": 4,
-                    "startOffset": 10741,
-                    "endLine": 139,
+                    "startOffset": 10789,
+                    "endLine": 140,
                     "endColumn": 12,
-                    "endOffset": 10988
+                    "endOffset": 11036
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles_calendar_events.xml"
@@ -1513,12 +1525,12 @@
             },
             {
                 "to": {
-                    "startLine": 140,
+                    "startLine": 141,
                     "startColumn": 4,
-                    "startOffset": 10993,
-                    "endLine": 144,
+                    "startOffset": 11041,
+                    "endLine": 145,
                     "endColumn": 10,
-                    "endOffset": 11237
+                    "endOffset": 11285
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1526,12 +1538,12 @@
             },
             {
                 "to": {
-                    "startLine": 145,
+                    "startLine": 146,
                     "startColumn": 4,
-                    "startOffset": 11242,
-                    "endLine": 149,
+                    "startOffset": 11290,
+                    "endLine": 150,
                     "endColumn": 10,
-                    "endOffset": 11470
+                    "endOffset": 11518
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1539,12 +1551,12 @@
             },
             {
                 "to": {
-                    "startLine": 150,
+                    "startLine": 151,
                     "startColumn": 4,
-                    "startOffset": 11475,
-                    "endLine": 156,
+                    "startOffset": 11523,
+                    "endLine": 157,
                     "endColumn": 10,
-                    "endOffset": 11813
+                    "endOffset": 11861
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1552,12 +1564,12 @@
             },
             {
                 "to": {
-                    "startLine": 157,
+                    "startLine": 158,
                     "startColumn": 4,
-                    "startOffset": 11818,
-                    "endLine": 163,
+                    "startOffset": 11866,
+                    "endLine": 164,
                     "endColumn": 10,
-                    "endOffset": 12166
+                    "endOffset": 12214
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1565,12 +1577,12 @@
             },
             {
                 "to": {
-                    "startLine": 164,
+                    "startLine": 165,
                     "startColumn": 4,
-                    "startOffset": 12171,
-                    "endLine": 172,
+                    "startOffset": 12219,
+                    "endLine": 173,
                     "endColumn": 10,
-                    "endOffset": 12615
+                    "endOffset": 12663
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1578,12 +1590,12 @@
             },
             {
                 "to": {
-                    "startLine": 173,
+                    "startLine": 174,
                     "startColumn": 4,
-                    "startOffset": 12620,
-                    "endLine": 179,
+                    "startOffset": 12668,
+                    "endLine": 180,
                     "endColumn": 10,
-                    "endOffset": 12949
+                    "endOffset": 12997
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1591,12 +1603,12 @@
             },
             {
                 "to": {
-                    "startLine": 180,
+                    "startLine": 181,
                     "startColumn": 4,
-                    "startOffset": 12954,
-                    "endLine": 186,
+                    "startOffset": 13002,
+                    "endLine": 187,
                     "endColumn": 10,
-                    "endOffset": 13277
+                    "endOffset": 13325
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1604,12 +1616,12 @@
             },
             {
                 "to": {
-                    "startLine": 187,
+                    "startLine": 188,
                     "startColumn": 4,
-                    "startOffset": 13282,
-                    "endLine": 192,
+                    "startOffset": 13330,
+                    "endLine": 193,
                     "endColumn": 10,
-                    "endOffset": 13558
+                    "endOffset": 13606
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1617,12 +1629,12 @@
             },
             {
                 "to": {
-                    "startLine": 193,
+                    "startLine": 194,
                     "startColumn": 4,
-                    "startOffset": 13563,
-                    "endLine": 199,
+                    "startOffset": 13611,
+                    "endLine": 200,
                     "endColumn": 10,
-                    "endOffset": 13890
+                    "endOffset": 13938
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1630,12 +1642,12 @@
             },
             {
                 "to": {
-                    "startLine": 200,
+                    "startLine": 201,
                     "startColumn": 4,
-                    "startOffset": 13895,
-                    "endLine": 208,
+                    "startOffset": 13943,
+                    "endLine": 209,
                     "endColumn": 10,
-                    "endOffset": 14319
+                    "endOffset": 14367
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1643,12 +1655,12 @@
             },
             {
                 "to": {
-                    "startLine": 209,
+                    "startLine": 210,
                     "startColumn": 4,
-                    "startOffset": 14324,
-                    "endLine": 217,
+                    "startOffset": 14372,
+                    "endLine": 218,
                     "endColumn": 10,
-                    "endOffset": 14748
+                    "endOffset": 14796
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1656,12 +1668,12 @@
             },
             {
                 "to": {
-                    "startLine": 218,
+                    "startLine": 219,
                     "startColumn": 4,
-                    "startOffset": 14753,
-                    "endLine": 226,
+                    "startOffset": 14801,
+                    "endLine": 227,
                     "endColumn": 10,
-                    "endOffset": 15173
+                    "endOffset": 15221
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1669,12 +1681,12 @@
             },
             {
                 "to": {
-                    "startLine": 227,
+                    "startLine": 228,
                     "startColumn": 4,
-                    "startOffset": 15178,
-                    "endLine": 234,
+                    "startOffset": 15226,
+                    "endLine": 235,
                     "endColumn": 10,
-                    "endOffset": 15541
+                    "endOffset": 15589
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1682,12 +1694,12 @@
             },
             {
                 "to": {
-                    "startLine": 235,
+                    "startLine": 236,
                     "startColumn": 4,
-                    "startOffset": 15546,
-                    "endLine": 242,
+                    "startOffset": 15594,
+                    "endLine": 243,
                     "endColumn": 10,
-                    "endOffset": 15903
+                    "endOffset": 15951
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1695,12 +1707,12 @@
             },
             {
                 "to": {
-                    "startLine": 243,
+                    "startLine": 244,
                     "startColumn": 4,
-                    "startOffset": 15908,
-                    "endLine": 245,
+                    "startOffset": 15956,
+                    "endLine": 246,
                     "endColumn": 10,
-                    "endOffset": 16038
+                    "endOffset": 16086
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1708,12 +1720,12 @@
             },
             {
                 "to": {
-                    "startLine": 246,
+                    "startLine": 247,
                     "startColumn": 4,
-                    "startOffset": 16043,
-                    "endLine": 250,
+                    "startOffset": 16091,
+                    "endLine": 251,
                     "endColumn": 10,
-                    "endOffset": 16291
+                    "endOffset": 16339
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1721,12 +1733,12 @@
             },
             {
                 "to": {
-                    "startLine": 251,
+                    "startLine": 252,
                     "startColumn": 4,
-                    "startOffset": 16296,
-                    "endLine": 254,
+                    "startOffset": 16344,
+                    "endLine": 255,
                     "endColumn": 10,
-                    "endOffset": 16460
+                    "endOffset": 16508
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1734,12 +1746,12 @@
             },
             {
                 "to": {
-                    "startLine": 255,
+                    "startLine": 256,
                     "startColumn": 4,
-                    "startOffset": 16465,
-                    "endLine": 257,
+                    "startOffset": 16513,
+                    "endLine": 258,
                     "endColumn": 10,
-                    "endOffset": 16559
+                    "endOffset": 16607
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
@@ -1747,12 +1759,12 @@
             },
             {
                 "to": {
-                    "startLine": 258,
+                    "startLine": 259,
                     "startColumn": 4,
-                    "startOffset": 16564,
-                    "endLine": 261,
+                    "startOffset": 16612,
+                    "endLine": 262,
                     "endColumn": 10,
-                    "endOffset": 16706
+                    "endOffset": 16754
                 },
                 "from": {
                     "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"

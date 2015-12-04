@@ -91,7 +91,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.NewClaimItemActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.ClaimDetailActivity"

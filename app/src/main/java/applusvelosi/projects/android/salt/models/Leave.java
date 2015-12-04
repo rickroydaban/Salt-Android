@@ -178,6 +178,8 @@ public class Leave implements Serializable{
 		mapLeave.putAll(map);
 	}
 
+	public HashMap<String, Object> getMap(){ return mapLeave; }
+
 	public String jsonize(SaltApplication app){
 		return app.gson.toJson(mapLeave);
 	}
@@ -212,14 +214,9 @@ public class Leave implements Serializable{
 	}
 	
 	//edit leave
-	public void editLeave(	int typeID, float remVL, float remSL, String dateFrom, String dateTo, float days, float workingDays, String notes, String dateSubmitted)  throws Exception{
-		mapLeave.put("LeaveTypeID", typeID);
-		mapLeave.put("Description", getLeaveTypeDescForKey(typeID));
+	public void editLeave(	float remVL, float remSL, String dateTo, float days, float workingDays, String notes, String dateSubmitted)  throws Exception{
 		mapLeave.put("SickAllowance", remSL);
 		mapLeave.put("VacationAllowance", remVL);
-		mapLeave.put("LeaveStatus", LEAVESTATUSPENDINGID); //only pending leaves can be edited
-		mapLeave.put("LeaveStatusDesc", LEAVESTATUSPENDINGDESC);
-		mapLeave.put("DateFrom", dateFrom);
 		mapLeave.put("DateTo", dateTo);
 		mapLeave.put("Days", days);
 		mapLeave.put("WorkingDays", workingDays);
@@ -508,11 +505,4 @@ public class Leave implements Serializable{
 		mapLeave.put("ApproversNotes", "Cancelled");
 	}
 	
-	public void setPosOnAppLeaves(int pos){
-		posOnAppLeaves = pos;
-	}
-	
-	public int getPosOnAppLeaves(){
-		return posOnAppLeaves;
-	}
 }

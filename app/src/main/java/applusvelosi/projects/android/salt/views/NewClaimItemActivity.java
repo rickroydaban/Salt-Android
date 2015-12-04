@@ -93,8 +93,7 @@ public class NewClaimItemActivity extends LinearNavFragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
+        System.out.println("SALTX result serverd!");
         switch(requestCode){
             case SaltApplication.RESULT_CAMERA:
                 if(resultCode == RESULT_OK){

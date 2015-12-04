@@ -1,6 +1,7 @@
 package applusvelosi.projects.android.salt.views.fragments.roots;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 	private Spinner statusSpinner, typeSpinner;
 	private ArrayList<String> types, statuses;
 	private ArrayList<Leave> filteredLeaves;
+	private HashMap<Integer, Integer> mapPositions;
 
 	public static LeaveListFragment getInstance(){
 		if(instance == null)
@@ -68,6 +70,7 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 	@Override
 	protected View createView(LayoutInflater li, ViewGroup vg, Bundle b) {
 		View view = li.inflate(R.layout.fragment_leavelist, null);
+		mapPositions = new HashMap<Integer, Integer>();
 		lv = (ListView)view.findViewById(R.id.lists_myleaves);
 
 //		yearSpinner = (Spinner)view.findViewById(R.id.choices_myleaves_search_year);
@@ -160,7 +163,7 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		Intent intent = new Intent(activity, LeaveDetailActivity.class);
-		intent.putExtra(LeaveDetailActivity.INTENTKEY_LEAVEPOS, app.getMyLeaves().indexOf(filteredLeaves.get(pos)));
+		intent.putExtra(LeaveDetailActivity.INTENTKEY_LEAVEPOS, mapPositions.get(pos));
 		startActivity(intent);
 	}
 
@@ -170,16 +173,18 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 	}
 
 	private void filterLeaves(){
+		mapPositions.clear();
 		filteredLeaves.clear();
 		ArrayList<Leave>  appLeaves = app.getMyLeaves();
 		for(int i=0; i<appLeaves.size(); i++){
 			Leave leave = appLeaves.get(i);
 //			if(leave.getYear()==Integer.parseInt(yearSpinner.getSelectedItem().toString())){ // filter by year
 			   if(statusSpinner.getSelectedItem().toString().equals(leave.getStatusDescription()) || statusSpinner.getSelectedItem().toString().equals("All")) {//filter by status
-				   if(typeSpinner.getSelectedItem().toString().equals(leave.getTypeDescription()) || typeSpinner.getSelectedItem().toString().equals("All"))
+				   if(typeSpinner.getSelectedItem().toString().equals(leave.getTypeDescription()) || typeSpinner.getSelectedItem().toString().equals("All")) {
+					   mapPositions.put(filteredLeaves.size(), i);
 					   filteredLeaves.add(leave);
+				   }
 			   }
-			   leave.setPosOnAppLeaves(i);
 //		   }
 		}
 
@@ -200,6 +205,10 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 		}else if(v == actionbarRefreshButton){
 			updateList();
 		}
+	}
+
+	public void sync(){
+		updateList();
 	}
 
 }

@@ -66,7 +66,7 @@
         <activity android:name=".views.HomeActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
         <activity android:name=".views.NewLeaveRequestActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
         <activity android:name=".views.LeaveDetailActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
-        <activity android:name=".views.NewClaimItemActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.NewClaimItemActivity" android:screenOrientation="portrait" android:launchMode="singleTop" />
         <activity android:name=".views.ClaimDetailActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
         <activity android:name=".views.NewClaimHeaderActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
         <activity android:name=".views.LeaveApprovalDetailActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
