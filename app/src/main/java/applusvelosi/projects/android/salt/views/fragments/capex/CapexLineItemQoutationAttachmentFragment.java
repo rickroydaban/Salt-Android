@@ -83,17 +83,17 @@ public class CapexLineItemQoutationAttachmentFragment extends LinearNavActionbar
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        HashMap<String, Object> selectedMap = attachments.get(position);
-        int  docID = (int)Float.parseFloat(selectedMap.get("DocID").toString());
-        int objectTypeID = (int)Float.parseFloat(selectedMap.get("ObjectType").toString());
-        int refID = (int)Float.parseFloat(selectedMap.get("RefID").toString());
-        String filename = selectedMap.get("DocName").toString();
-
-        try {
-            app.fileManager.downloadDocument(docID, refID, objectTypeID, filename, pd, this);
-        }catch(Exception e){
-            app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
-        }
+//        HashMap<String, Object> selectedMap = attachments.get(position);
+//        int  docID = (int)Float.parseFloat(selectedMap.get("DocID").toString());
+//        int objectTypeID = (int)Float.parseFloat(selectedMap.get("ObjectType").toString());
+//        int refID = (int)Float.parseFloat(selectedMap.get("RefID").toString());
+//        String filename = selectedMap.get("DocName").toString();
+//
+//        try {
+//            app.fileManager.downloadDocument(docID, refID, objectTypeID, filename, pd, this);
+//        }catch(Exception e){
+//            app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
+//        }
     }
 
     @Override

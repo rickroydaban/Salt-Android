@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iviews_listviewcalendar_nodes_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/calendarcell" />
+
+        <TextView
+            android:id="@+id/tviews_listviewcalendar_nodes_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sun"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iviews_listviewcalendar_nodes_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/calendarcell" />
+
+        <TextView
+            android:id="@+id/tviews_listviewcalendar_nodes_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mon"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iviews_listviewcalendar_nodes_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/calendarcell" />
+
+        <TextView
+            android:id="@+id/tviews_listviewcalendar_nodes_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tue"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iviews_listviewcalendar_nodes_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/calendarcell" />
+
+        <TextView
+            android:id="@+id/tviews_listviewcalendar_nodes_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wed"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iviews_listviewcalendar_nodes_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/calendarcell" />
+
+        <TextView
+            android:id="@+id/tviews_listviewcalendar_nodes_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thu"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iviews_listviewcalendar_nodes_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/calendarcell" />
+
+        <TextView
+            android:id="@+id/tviews_listviewcalendar_nodes_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fri"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iviews_listviewcalendar_nodes_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/calendarcell" />
+
+        <TextView
+            android:id="@+id/tviews_listviewcalendar_nodes_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sat"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

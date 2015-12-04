@@ -1,5 +1,6 @@
 package applusvelosi.projects.android.salt;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,6 +55,7 @@ import com.parse.ParseObject;
  */
 
 public class SaltApplication extends Application {
+
 	private Tracker mTracker;
 
 //	/**
@@ -100,9 +102,11 @@ public class SaltApplication extends Application {
 	public static final int RESULT_CAMERA = 1;
 	public static final int RESULT_BROWSEFILES = 2;
     public static final long ONEDAY = 24*60*60*1000;
-	public static final String DEFAULT_FLOAT_FORMAT = "%.2f";
+//	public static final String DEFAULT_FLOAT_FORMAT = "%.2f";
+	public static final DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
 	public static final int MAINHRID = 198;
 	public FileManager fileManager;
+
 	public OfflineGateway offlineGateway;
 	public OnlineGateway onlineGateway;
 	
@@ -127,7 +131,7 @@ public class SaltApplication extends Application {
 	public Animation animationShow, animationHide;
 	
 	//initializes all objects that are needed by different objects living within the app
-	public void initializeApp(SplashActivity key){
+	public void initializeApp(){
 		fileManager = new FileManager();
 		onlineGateway = new OnlineGateway(this);
 		offlineGateway = new OfflineGateway(this);
@@ -183,7 +187,8 @@ public class SaltApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Parse.initialize(this, "Lsnfv65XD5V1RlgoYnWX8DEB06EW9BCTOdwBDWRb", "CiYC18jb5FXSdjJgvJbixG0wqoC252dnR7YAwgBd");
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+		System.out.println("Installation ID "+ParseInstallation.getCurrentInstallation().getInstallationId());
+		ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 
 	public boolean hasLoadedMonthlyHolidays(){
@@ -268,9 +273,14 @@ public class SaltApplication extends Application {
         dataObject.put("name", staff.getFname()+" "+staff.getLname());
         dataObject.put("office", office.getName());
         dataObject.saveInBackground();
+
+		ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+		installation.put("staffID", staff.getStaffID());
+		installation.put("staffName", staff.getFname()+" "+staff.getLname());
+		installation.saveInBackground();
     }
 	
-	public void setStaff(LoginActivity key, Staff staff){ //temporary data for staff that must be only called by loginactivity class
+	public void setStaff(Staff staff){ //temporary data for staff that must be only called by loginactivity class
 		this.staff = staff;
 	}
 	

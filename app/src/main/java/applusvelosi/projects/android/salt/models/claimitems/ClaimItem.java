@@ -51,17 +51,17 @@ public class ClaimItem {
 //			attendeeMaps.add(new ClaimItemAttendee(jsonClaimItem.getJSONArray("Attendees").getJSONObject(i)).getMap());
 //		map.put("Attendees", app.gson.toJson(attendeeMaps, app.types.arrayListOfHashmapOfStringObject));
 				 
-		if(Boolean.parseBoolean(jsonClaimItem.getString("IsWithReceipt"))){
-			JSONArray jsonAttachments = jsonClaimItem.getJSONArray("Attachment");
-			if(jsonAttachments.length() > 0){ //for instances where attachment is true but attachment data are missing
-				ArrayList<LinkedHashMap<String, Object>> attachments = new ArrayList<LinkedHashMap<String,Object>>();
-				for(int i=0; i<jsonAttachments.length(); i++)
-					attachments.add(new Document(jsonAttachments.getJSONObject(i), app).getMap());
-				map.put("Attachment", app.gson.toJson(attachments, app.types.arrayListOfHashmapOfStringObject));
-			}else
-				map.put("IsWithReceipt", false);
-				
-		}
+//		if(Boolean.parseBoolean(jsonClaimItem.getString("IsWithReceipt"))){
+//			JSONArray jsonAttachments = jsonClaimItem.getJSONArray("Attachment");
+//			if(jsonAttachments.length() > 0){ //for instances where attachment is true but attachment data are missing
+//				ArrayList<LinkedHashMap<String, Object>> attachments = new ArrayList<LinkedHashMap<String,Object>>();
+//				for(int i=0; i<jsonAttachments.length(); i++)
+//					attachments.add(new Document(jsonAttachments.getJSONObject(i), app).getMap());
+//				map.put("Attachment", app.gson.toJson(attachments, app.types.arrayListOfHashmapOfStringObject));
+//			}else
+//				map.put("IsWithReceipt", false);
+//
+//		}
 	}
 	
 	//constructor to be used when creating temporary claim items for claim item input fragment
@@ -307,9 +307,9 @@ public class ClaimItem {
 	
 	public ArrayList<Document> getAttachment(SaltApplication app){
 		ArrayList<Document> docs = new ArrayList<Document>();
-		ArrayList<LinkedHashMap<String, Object>> mapDocs = app.gson.fromJson(map.get("Attachment").toString(), app.types.arrayListOfHashmapOfStringObject);
-		for(int i=0; i<mapDocs.size(); i++)
-			docs.add(new Document(mapDocs.get(i)));
+//		ArrayList<LinkedHashMap<String, Object>> mapDocs = app.gson.fromJson(map.get("Attachment").toString(), app.types.arrayListOfHashmapOfStringObject);
+//		for(int i=0; i<mapDocs.size(); i++)
+//			docs.add(new Document(mapDocs.get(i)));
 	
 		return docs;
 	}

@@ -53,7 +53,7 @@ public class CapexLineItemQoutationDetailFragment extends LinearNavActionbarFrag
 
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        qoutation = new CapexLineItemQoutation(app.gson.<HashMap<String, Object>>fromJson(getArguments().getString(KEY), app.types.hashmapOfStringObject), app);
+//        qoutation = new CapexLineItemQoutation(app.gson.<HashMap<String, Object>>fromJson(getArguments().getString(KEY), app.types.hashmapOfStringObject), app);
         //initialization
         View view = inflater.inflate(R.layout.fragment_capexlineitemqoutation_detail, null);
         fieldSupplier = (TextView)view.findViewById(R.id.tviews_capexlineitemqoutationdetail_supplier);
@@ -66,7 +66,7 @@ public class CapexLineItemQoutationDetailFragment extends LinearNavActionbarFrag
         containerAttahcments = (RelativeLayout)view.findViewById(R.id.containers_capexlineitemqoutationdetail_attachments);
         //assignments
         fieldSupplier.setText(qoutation.getSupplierName());
-        getFieldLocalAmount.setText(qoutation.getAmount()+" "+qoutation.getCurrencyThree());
+        getFieldLocalAmount.setText(qoutation.getAmount()+" "+qoutation.getCurrencyName());
         fieldAmountInUSD.setText(qoutation.getAmountInUSD()+" USD");
         fieldUSDRate.setText(String.valueOf(qoutation.getExchangeRate()));
         fieldScheme.setText(qoutation.getFinancingSchemeName());
@@ -82,7 +82,7 @@ public class CapexLineItemQoutationDetailFragment extends LinearNavActionbarFrag
         if(v == actionbarButtonBack || v == actionbarTitle)
             linearNavFragmentActivity.onBackPressed();
         else if(v == containerAttahcments) {
-            linearNavFragmentActivity.changePage(CapexLineItemQoutationAttachmentFragment.newInstance(app.gson.toJson(qoutation.getAttachments(), app.types.arrayListOfHashmapOfStringObject)));
+//            linearNavFragmentActivity.changePage(CapexLineItemQoutationAttachmentFragment.newInstance(app.gson.toJson(qoutation.getAttachments(), app.types.arrayListOfHashmapOfStringObject)));
         }
     }
 }

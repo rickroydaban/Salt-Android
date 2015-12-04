@@ -356,7 +356,7 @@ public abstract class ItemInputFragment extends LinearNavActionbarFragment imple
 						offices = new ArrayList<Office>();
 						officeNames = new ArrayList<String>();
 						officeNames.add(HEADER_BILLTO);
-						officeNames.add("SELECT TO CANCEL");
+						officeNames.add("SELECT TO WILLDISPLAY_NONE");
 						offices.addAll((ArrayList<Office>)result);
 						for(Office office :offices)
 							officeNames.add(office.getName());

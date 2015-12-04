@@ -10,42 +10,30 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.adapters.lists.AttachmentAdapter;
+import applusvelosi.projects.android.salt.models.Document;
 import applusvelosi.projects.android.salt.utils.FileManager;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
+import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
+import applusvelosi.projects.android.salt.views.RecruitmentApprovalDetailActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
-import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/12/15.
  */
-public class RFADetailAttachmentFragment extends LinearNavActionbarFragment implements AdapterView.OnItemClickListener, FileManager.AttachmentDownloadListener{
-    public static String KEY_RECRUITMENTJSON = "RFADetailAttachmentFragmentKeyRecruitmentJSON";
-
+public class RFADetailAttachmentFragment extends LinearNavActionbarFragment implements AdapterView.OnItemClickListener, FileManager.AttachmentDownloadListener, ListAdapterInterface{
     private RelativeLayout actionbarButtonBack;
     private TextView actionbarTitle;
 
+    private RecruitmentApprovalDetailActivity activity;
     private ListView lv;
-    private AttachmentAdapter adapter;
-    private ArrayList<HashMap<String, Object>> attachments;
-    private ArrayList<String> attachmentNames;
-
-    private SaltProgressDialog pd;
-
-    public static RFADetailAttachmentFragment newInstance(String arraylistOfHashMapOfAttachments){
-        RFADetailAttachmentFragment frag = new RFADetailAttachmentFragment();
-        Bundle b = new Bundle();
-        b.putString(KEY_RECRUITMENTJSON, arraylistOfHashMapOfAttachments);
-        frag.setArguments(b);
-        return frag;
-    }
+    private ListAdapter adapter;
 
     @Override
     protected RelativeLayout setupActionbar() {
+        activity = (RecruitmentApprovalDetailActivity)getActivity();
         RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -61,18 +49,33 @@ public class RFADetailAttachmentFragment extends LinearNavActionbarFragment impl
     protected View createView(LayoutInflater li, ViewGroup container, Bundle savedInstanceState) {
         View view = li.inflate(R.layout.fragment_listview, null);
         lv = (ListView)view.findViewById(R.id.lists_lv);
-
-        attachments = app.gson.fromJson(getArguments().getString(KEY_RECRUITMENTJSON), app.types.arrayListOfHashmapOfStringObject);
-
-        attachmentNames = new ArrayList<String>();
-        for(HashMap<String, Object> attachment :attachments)
-            attachmentNames.add(attachment.get("OrigDocName").toString());
-
-//        adapter = new AttachmentAdapter(linearNavFragmentActivity, attachmentNames);
-//        lv.setAdapter(adapter);
-//        lv.setOnItemClickListener(this);
+        adapter = new ListAdapter(this);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View v = convertView;
+        Holder holder;
+
+        if(v == null){
+            holder = new Holder();
+            v = linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.node_attachment, null);
+            holder.tvHeader = (TextView)v.findViewById(R.id.tviews_nodes_attachment_name);
+            v.setTag(holder);
+        }
+
+        holder = (Holder) v.getTag();
+        holder.tvHeader.setText(activity.recruitment.getDocuments().get(position).getDocName());
+        return  v;
+    }
+
+    @Override
+    public int getCount() {
+        return activity.recruitment.getDocuments().size();
     }
 
     @Override
@@ -83,29 +86,34 @@ public class RFADetailAttachmentFragment extends LinearNavActionbarFragment impl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        HashMap<String, Object> selectedMap = attachments.get(position);
-        int docID = (int)Float.parseFloat(selectedMap.get("DocID").toString());
-        int objectTypeID = (int)Float.parseFloat(selectedMap.get("ObjectType").toString());
-        int refID = (int)Float.parseFloat(selectedMap.get("RefID").toString());
-        String filename = selectedMap.get("DocName").toString();
+        Document doc = activity.recruitment.getDocuments().get(position);
+        int docID = doc.getDocID();
+        int objectTypeID = doc.getObjectTypeID();
+        int refID = doc.getRefID();
+        String filename = doc.getDocName();
 
+        activity.startLoading();
         try {
-            if(pd == null)
-                pd = new SaltProgressDialog(linearNavFragmentActivity);
-            app.fileManager.downloadDocument(docID, refID, objectTypeID, filename, pd, this);
+            app.fileManager.downloadDocument(docID, refID, objectTypeID, filename, this);
         }catch(Exception e){
+            e.printStackTrace();
             app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
+            activity.finishLoading(e.getMessage());
         }
     }
 
     @Override
     public void onAttachmentDownloadFinish(File downloadedFile) {
-//        app.fileManager.openDocument(activity, downloadedFile);
+        app.fileManager.openDocument(activity, downloadedFile);
+        activity.finishLoading();
     }
 
     @Override
     public void onAttachmentDownloadFailed(String errorMessage) {
-//        app.showMessageDialog(activity, errorMessage);
+        activity.finishLoading(errorMessage);
     }
 
+    private class Holder{
+        public TextView tvHeader;
+    }
 }

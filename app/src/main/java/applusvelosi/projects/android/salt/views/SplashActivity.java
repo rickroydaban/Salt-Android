@@ -23,6 +23,7 @@ import applusvelosi.projects.android.salt.SaltApplication;
 //import com.google.android.gms.analytics.Tracker;
 
 public class SplashActivity extends Activity {
+	public static final String KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN = "pendingrootfragtoopen"; //value for this map should be int
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,21 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void run() {
-				((SaltApplication)getApplication()).initializeApp(SplashActivity.this);
+				((SaltApplication)getApplication()).initializeApp();
 				
 				new Handler(Looper.getMainLooper()).post(new Runnable() {
 					
 					@Override
 					public void run() {
-						startActivity(new Intent(SplashActivity.this, (((SaltApplication)getApplication()).hasSavedData())?HomeActivity.class:LoginActivity.class));
+						Intent intent;
+						if(((SaltApplication)getApplication()).hasSavedData()){
+							intent = new Intent(SplashActivity.this, HomeActivity.class);
+							if(getIntent().hasExtra(KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN))
+								intent.putExtra(HomeActivity.KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN, getIntent().getExtras().getInt(KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN));
+						}else
+							intent = new Intent(SplashActivity.this, LoginActivity.class);
+
+						startActivity(intent);
 						finish();
 					}
 				});

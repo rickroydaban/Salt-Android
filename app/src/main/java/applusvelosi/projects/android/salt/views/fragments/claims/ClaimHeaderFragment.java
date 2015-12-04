@@ -80,9 +80,9 @@ public abstract class ClaimHeaderFragment extends LinearNavActionbarFragment {
 //			actionbarEditButton.setVisibility(View.VISIBLE);
 //			//will have to double check to ensure that only the assigned approver can approver the claim
 //			if(app.getStaff().isAdmin() || claim.getApproverID()==app.getStaff().getStaffID()){
-//				ArrayList<ClaimItem> claimItems = activity.claimHeader.getClaimItems(app);
+//				ArrayList<ClaimItem> capexLineItems = activity.claimHeader.getClaimItems(app);
 //				int toBeProcessedItemCnt = 0;
-//				for(ClaimItem claimItem :claimItems){
+//				for(ClaimItem claimItem :capexLineItems){
 //					if(claimItem.getStatusID() == activity.claimHeader.getStatusID())
 //						toBeProcessedItemCnt++;
 //				}

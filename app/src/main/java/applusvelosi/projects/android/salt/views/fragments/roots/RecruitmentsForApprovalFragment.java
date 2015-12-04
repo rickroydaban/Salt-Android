@@ -65,9 +65,14 @@ public class RecruitmentsForApprovalFragment extends RootFragment implements Ada
         adapter = new RecruitmentForApprovalAdapter(activity, recruitments);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(this);
-        syncToServer();
 
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        syncToServer();
     }
 
     private void syncToServer(){
@@ -133,7 +138,7 @@ public class RecruitmentsForApprovalFragment extends RootFragment implements Ada
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         try {
             Intent intent = new Intent(activity, RecruitmentApprovalDetailActivity.class);
-            intent.putExtra(RecruitmentApprovalDetailActivity.INTENTKEY_RECRUITMENT, recruitments.get(position).jsonize(app));
+            intent.putExtra(RecruitmentApprovalDetailActivity.INTENTKEY_RECRUITMENT, recruitments.get(position));
             startActivity(intent);
         }catch(Exception e){
             e.printStackTrace();

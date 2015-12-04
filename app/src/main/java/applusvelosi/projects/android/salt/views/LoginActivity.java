@@ -141,7 +141,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 								pd.dismiss();
 								final String [] results = result.split("-"); 
 								if(results.length > 2){ //successful, no errors to show
-									app.setStaff(LoginActivity.this, new Staff(LoginActivity.this, results[0], results[1], results[2]));
+									app.setStaff(new Staff(LoginActivity.this, results[0], results[1], results[2]));
 									startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 									finish();
 								}else

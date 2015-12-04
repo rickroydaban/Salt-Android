@@ -16,12 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import applusvelosi.projects.android.salt.ParseReceiver;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.models.Leave;
@@ -46,13 +51,14 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
     private RelativeLayout actionbarButtonBack;
 
     private RelativeLayout tvHeader;
-    private TextView tvLeaveType, tvDurations, tvNumDays;
+    private TextView tvLeaveType, tvDurations, tvNumDays, tvRemDays;
     private HashMap<Integer, HashMap<Integer, Item>> perWeekItems;
     ArrayList<String> nonworkingDays;
     private ListView lv;
     private ListAdapter adapter;
     private SELECTIONTYPE currDurationSelection = SELECTIONTYPE.THIRD;
     private float leaveDuration = 0;
+    private float remBalance, tempRemBalance;
     private Calendar startCalendar, endCalendar, leaveStartCalendar, leaveEndCalendar;
     private SimpleDateFormat monthDayFormat;
 
@@ -60,6 +66,7 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
     private RelativeLayout dialogView;
     private EditText etNotes;
 
+    private int leaveTypeID;
     public static LeaveInputDates newInstance(int leaveTypeID){
         LeaveInputDates frag = new LeaveInputDates();
         Bundle b = new Bundle();
@@ -98,14 +105,16 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
         tvHeader = (RelativeLayout)view.findViewById(R.id.fragment_leaveinput_dates_header);
         tvLeaveType = (TextView)view.findViewById(R.id.fragment_leaveinput_dates_headerleavetype);
         tvDurations = (TextView)view.findViewById(R.id.fragment_leaveinput_dates_headerdates);
+        tvRemDays = (TextView)view.findViewById(R.id.fragment_leaveinput_dates_remdays);
         tvNumDays = (TextView)view.findViewById(R.id.fragment_leaveinput_dates_numdays);
 
         monthDayFormat = new SimpleDateFormat("MMM dd");
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();
-        int leaveTypeID = getArguments().getInt(KEY);
+        leaveTypeID = getArguments().getInt(KEY);
         tvLeaveType.setText(Leave.getLeaveTypeDescForKey(leaveTypeID));
         tvDurations.setText(NO_SELECTION);
+        tvRemDays.setText("");
         tvNumDays.setText("");
 
         if(leaveTypeID == Leave.LEAVETYPEVACATIONKEY || leaveTypeID == Leave.LEAVETYPEUNPAIDKEY || leaveTypeID == Leave.LEAVETYPEBUSINESSTRIPKEY || leaveTypeID == Leave.LEAVETYPEBIRTHDAYKEY){
@@ -152,12 +161,14 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
             leaveEndCalendar = null;
             currDurationSelection = SELECTIONTYPE.THIRD;
             tvDurations.setText(NO_SELECTION);
+            tvRemDays.setText("");
             tvNumDays.setText("");
             leaveDuration = 0;
             adapter.notifyDataSetChanged();
         }else if(v == tvHeader){
             if(!tvDurations.getText().toString().equals(NO_SELECTION)){
-                submitDialog.show();
+                if(((leaveTypeID==Leave.LEAVETYPEVACATIONKEY || leaveTypeID==Leave.LEAVETYPESICKKEY) && tempRemBalance>=0) || !(leaveTypeID==Leave.LEAVETYPEVACATIONKEY || leaveTypeID==Leave.LEAVETYPESICKKEY))
+                    submitDialog.show();
             }
         }else if(v == actionbarButtonBack || v == actionbarTitle){
             linearNavFragmentActivity.onBackPressed();
@@ -184,6 +195,8 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                     leaveDuration = (itemLeaveDay.getDuration() == Leave.Duration.AM)?0.1f:0.2f;
                     String text = (itemLeaveDay.getDuration() == Leave.Duration.AM)?"AM":"PM";
                     tvDurations.setText(((Item)iv.getTag()).getStringedDate());
+                    tempRemBalance = remBalance-.5f;
+                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
                     tvNumDays.setText(text);
                 }else{
                     currDurationSelection = SELECTIONTYPE.FIRST;
@@ -192,6 +205,7 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                     leaveStartCalendar = null;
                     leaveEndCalendar = null;
                     tvDurations.setText(NO_SELECTION);
+                    tvRemDays.setText("");
                     tvNumDays.setText("");
                 }
             }else{
@@ -204,6 +218,8 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                     leaveEndCalendar.setTime(item.getDate());
                     leaveDuration = 0.1f;
                     tvDurations.setText(monthDayFormat.format(leaveStartCalendar.getTime()));
+                    tempRemBalance = remBalance-.5f;
+                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
                     tvNumDays.setText("AM");
                 }else if(currDurationSelection == SELECTIONTYPE.SECOND){
                     currDurationSelection = SELECTIONTYPE.THIRD;
@@ -214,6 +230,8 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                     leaveEndCalendar.setTime(item.getDate());
                     leaveDuration = 0.2f;
                     tvDurations.setText(monthDayFormat.format(leaveStartCalendar.getTime()));
+                    tempRemBalance = remBalance-.5f;
+                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
                     tvNumDays.setText("PM");
                 }else if(currDurationSelection == SELECTIONTYPE.THIRD){
                     currDurationSelection = SELECTIONTYPE.CANCEL;
@@ -222,6 +240,8 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                     leaveEndCalendar = Calendar.getInstance();
                     leaveEndCalendar.setTime(item.getDate());
                     tvDurations.setText(monthDayFormat.format(leaveStartCalendar.getTime()));
+                    tempRemBalance = remBalance - 1;
+                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
                     tvNumDays.setText("1 Day");
                 }else{ //Cancel
                     currDurationSelection = SELECTIONTYPE.FIRST;
@@ -230,6 +250,8 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                     leaveStartCalendar = null;
                     leaveEndCalendar = null;
                     tvDurations.setText(NO_SELECTION);
+                    tempRemBalance = remBalance;
+                    tvRemDays.setText("");
                     tvNumDays.setText("");
                 }
             }
@@ -256,6 +278,8 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                     leaveDuration++;
                     leaveEndCalendar.setTime(item.getDate());
                     tvDurations.setText(monthDayFormat.format(leaveStartCalendar.getTime()) + " - " + monthDayFormat.format(leaveEndCalendar.getTime()));
+                    tempRemBalance = remBalance-leaveDuration;
+                    tvRemDays.setText((leaveTypeID==Leave.LEAVETYPEVACATIONKEY||leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance+" Days Remaining":"");
                     tvNumDays.setText((int) leaveDuration + " Days");
                 }
             }
@@ -471,11 +495,15 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                             comparatorDate.set(Calendar.DAY_OF_MONTH, comparatorDate.get(Calendar.DAY_OF_MONTH)+1);
                         }
 
-
-                        for(Leave leave :(ArrayList<Leave>)leaveResult){ //handle single day leaves
-                            if(leave.getDays() <= 1){
-                                leaveDays.put(leave.getStartDate(), leave.getDays());
-
+                        if(leaveTypeID == Leave.LEAVETYPEVACATIONKEY) remBalance = app.getStaff().getMaxVL();
+                        else if(leaveTypeID == Leave.LEAVETYPESICKKEY) remBalance = app.getStaff().getMaxSL();
+                        for(Leave leave :(ArrayList<Leave>)leaveResult){
+                            remBalance-=leave.getWorkingDays();
+                            if(leave.getDays() <= 1){ //handle single day leaves
+                                if(leaveDays.containsKey(leave.getStartDate()))
+                                   leaveDays.put(leave.getStartDate(), leaveDays.get(leave.getStartDate())+leave.getDays());
+                                else
+                                    leaveDays.put(leave.getStartDate(), leave.getDays());
                             }else{ //handle consecutive leaves
                                 try{
                                     comparatorDate.setTime(app.dateFormatDefault.parse(leave.getStartDate()));
@@ -523,11 +551,9 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
                                 currMapDays.put(comparatorDate.get(Calendar.DAY_OF_WEEK), new ItemNonWorking(calendar, false));
                             }else if(leaveDays.containsKey(currDate)) {
                                 Leave.Duration duration;
-                                if(leaveDays.get(currDate)==1)
-                                    duration = Leave.Duration.ONEDAY;
-                                else{
-                                    duration = (leaveDays.get(currDate) == 0.1)? Leave.Duration.AM:Leave.Duration.PM;
-                                }
+                                if(Math.abs(leaveDays.get(currDate) - 0.1) < 0.00001) duration = Leave.Duration.AM;
+                                else if(Math.abs(leaveDays.get(currDate) - 0.2) < 0.00001) duration = Leave.Duration.PM;
+                                else duration = Leave.Duration.ONEDAY;
                                 currMapDays.put(comparatorDate.get(Calendar.DAY_OF_WEEK), new ItemLeaveDay(calendar, duration));
                             }else {
                                 currMapDays.put(comparatorDate.get(Calendar.DAY_OF_WEEK), new ItemDefault(calendar));
@@ -557,12 +583,78 @@ public class LeaveInputDates extends LinearNavActionbarFragment implements ListA
     }
 
     private class SubmitNewLeaveRequest extends Thread{
+        String oldLeaveJSON;
+        Leave newLeave;
 
         @Override
         public void run() {
+            String tempResult;
             String startDateStr = app.dateFormatDefault.format(leaveStartCalendar.getTime());
             String endDateStr = app.dateFormatDefault.format(leaveEndCalendar.getTime());
 
+            try {
+                oldLeaveJSON = Leave.createEmptyJSON();
+                newLeave = new Leave( app.getStaff(),
+                                            (leaveTypeID==Leave.LEAVETYPEVACATIONKEY)?tempRemBalance:app.staffLeaveCounter.getRemainingVLDays(),
+                                            (leaveTypeID==Leave.LEAVETYPESICKKEY)?tempRemBalance:app.staffLeaveCounter.getRemainingSLDays(),
+                                            leaveTypeID,
+                                            Leave.LEAVESTATUSPENDINGID,
+                                            startDateStr,
+                                            endDateStr,
+                                            leaveDuration,
+                                            (tvNumDays.getText().toString().equals("AM") || tvNumDays.getText().toString().equals("PM"))?0.5f:Float.parseFloat(tvNumDays.getText().toString().split(" ")[0]),
+                                            etNotes.getText().toString(),
+                                            app.dateFormatDefault.format(new Date()));
+
+                tempResult = app.onlineGateway.saveLeave(newLeave.getJSONStringForEditingLeave(), oldLeaveJSON);
+            }catch(Exception e){
+                e.printStackTrace();
+                tempResult = e.getMessage();
+            }
+
+            final String result = tempResult;
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    if(result == null){
+                        new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                String tempFollowUpLeaveResult;
+
+                                try{
+                                    tempFollowUpLeaveResult = app.onlineGateway.followUpLeave(newLeave.getJSONStringForEditingLeave());
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                    tempFollowUpLeaveResult = e.getMessage();
+                                }
+
+                                final String followUpLeaveResult = tempFollowUpLeaveResult;
+                                new Handler(Looper.getMainLooper()).post(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        if(followUpLeaveResult != null)
+                                            Toast.makeText(linearNavFragmentActivity, "Failed to send email to approver(s): "+followUpLeaveResult, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }).start();
+
+                        ParsePush parsePush = new ParsePush();
+                        ParseQuery parseQuery = ParseInstallation.getQuery();
+                        parseQuery.whereEqualTo("staffID", app.getStaff().getApprover1ID());
+                        parsePush.sendMessageInBackground(ParseReceiver.createLeaveApprovalMessage(newLeave, app), parseQuery);
+                        Toast.makeText(getActivity(), "Leave Submitted Successfully!", Toast.LENGTH_SHORT).show();
+                        linearNavFragmentActivity.finishLoading();
+                        linearNavFragmentActivity.finish();
+                    }else{
+                        app.showMessageDialog(getActivity(), result);
+                        linearNavFragmentActivity.finishLoading();
+                    }
+                }
+            });
         }
     }
 }

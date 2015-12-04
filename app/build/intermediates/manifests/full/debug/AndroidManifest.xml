@@ -65,6 +65,7 @@
         <activity
             android:name="applusvelosi.projects.android.salt.views.SplashActivity"
             android:label="@string/app_name"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,30 +75,43 @@
         </activity>
         <activity
             android:name="applusvelosi.projects.android.salt.views.LoginActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.HomeActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.NewLeaveRequestActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.LeaveDetailActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.NewClaimItemActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.ClaimDetailActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.NewClaimHeaderActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.LeaveApprovalDetailActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.RecruitmentApprovalDetailActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="applusvelosi.projects.android.salt.views.CapexApprovalDetailActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
 
         <!-- Push Notification ! -->

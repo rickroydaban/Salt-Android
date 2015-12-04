@@ -63,8 +63,8 @@ public class ClaimItemDetailMileageFragment extends LinearNavActionbarFragment i
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_id)).setText(claimItem.getItemNumber());
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_category)).setText(claimItem.getCategoryName());
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_expenseDate)).setText(claimItem.getExpenseDate());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_amount)).setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, claimItem.getForeignAmount())+" "+claimItem.getForeignCurrencyName());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_amountLocal)).setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, claimItem.getLocalAmount())+" "+claimItem.getLocalCurrencyName());
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_amount)).setText(SaltApplication.decimalFormat.format(claimItem.getForeignAmount())+" "+claimItem.getForeignCurrencyName());
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_amountLocal)).setText(SaltApplication.decimalFormat.format(claimItem.getLocalAmount())+" "+claimItem.getLocalCurrencyName());
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_exRate)).setText(String.valueOf(claimItem.getOnFileExchangeRate()));
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_desc)).setText(claimItem.getDescription());
 		((TextView)view.findViewById(R.id.tviews_claimitemdetail_project)).setText(claimItem.getProjectName());

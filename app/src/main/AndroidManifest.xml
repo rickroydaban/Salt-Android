@@ -55,21 +55,23 @@
         <activity
             android:name=".views.SplashActivity"
             android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.LoginActivity" android:screenOrientation="portrait" />
-        <activity android:name=".views.HomeActivity" android:screenOrientation="portrait" />
-        <activity android:name=".views.NewLeaveRequestActivity" android:screenOrientation="portrait" />
-        <activity android:name=".views.LeaveDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".views.NewClaimItemActivity" android:screenOrientation="portrait" />
-        <activity android:name=".views.ClaimDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".views.NewClaimHeaderActivity" android:screenOrientation="portrait" />
-        <activity android:name=".views.LeaveApprovalDetailActivity" android:screenOrientation="portrait" />
-        <activity android:name=".views.RecruitmentApprovalDetailActivity" android:screenOrientation="portrait" />
+        <activity android:name=".views.LoginActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.HomeActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.NewLeaveRequestActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.LeaveDetailActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.NewClaimItemActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.ClaimDetailActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.NewClaimHeaderActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.LeaveApprovalDetailActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.RecruitmentApprovalDetailActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
+        <activity android:name=".views.CapexApprovalDetailActivity" android:screenOrientation="portrait" android:launchMode="singleInstance" />
 
         <!-- Push Notification !-->
         <service android:name="com.parse.PushService" />

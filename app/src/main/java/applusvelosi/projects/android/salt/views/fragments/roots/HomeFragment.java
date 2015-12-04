@@ -1,5 +1,6 @@
 package applusvelosi.projects.android.salt.views.fragments.roots;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -34,6 +35,8 @@ public class HomeFragment extends RootFragment implements StaffLeaveSyncListener
 	private TextView tvCurrDateTime, tvStaffName;
 	private SimpleDateFormat homeDateTimeFormat;
 	private StaffLeaveTypeCounter leaveCounter;
+
+	private TextView tviewLeavesForApproval, tviewClaimsForApproval, tviewRecruitmentsForApproval, tviewCapexForApproval;
 
 	public static HomeFragment getInstance(){
 		if(instance == null)
@@ -79,21 +82,35 @@ public class HomeFragment extends RootFragment implements StaffLeaveSyncListener
 		leaveCounter = app.staffLeaveCounter;
 		tvCurrDateTime = (TextView)view.findViewById(R.id.tviews_home_currdatetime);
 		homeDateTimeFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss", Locale.getDefault());
-		
+
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 
-			@Override
-			public void run() {
-				new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
 
-					@Override
-					public void run() {
-						tvCurrDateTime.setText(homeDateTimeFormat.format(new Date()));
-					}
-				});
-			}
-		}, 0, 1000);
+                    @Override
+                    public void run() {
+                        tvCurrDateTime.setText(homeDateTimeFormat.format(new Date()));
+                    }
+                });
+            }
+        }, 0, 1000);
+
+        if(app.getStaff().isUser()){
+            view.findViewById(R.id.containers_home_approvals).setVisibility(View.GONE);
+        }else{
+            tviewLeavesForApproval = (TextView)view.findViewById(R.id.tviews_home_leavesforapproval);
+            tviewClaimsForApproval = (TextView)view.findViewById(R.id.tviews_home_claimsforapproval);
+            tviewRecruitmentsForApproval = (TextView)view.findViewById(R.id.tviews_home_recruitmentsforapproval);
+            tviewCapexForApproval = (TextView)view.findViewById(R.id.tviews_home_capexforapproval);
+
+            tviewLeavesForApproval.setOnClickListener(this);
+            tviewClaimsForApproval.setOnClickListener(this);
+            tviewRecruitmentsForApproval.setOnClickListener(this);
+            tviewCapexForApproval.setOnClickListener(this);
+        }
 
 
 //        new Thread(new Runnable() {
@@ -101,12 +118,11 @@ public class HomeFragment extends RootFragment implements StaffLeaveSyncListener
 //            @Override
 //            public void run() {
 //                try{
-//                    String filePath = app.fileManager.getDirForCapturedAttachments()+"saltcapturedattachment_2015_03_25_13_50_28423844781.jpg";
-//                    System.out.println("SALT Attempt to get "+filePath);
-//                    app.onlineGateway.uploadAttachment(new File(filePath));
-//                    System.out.println("SALT Success");
+//                    String filePath = app.fileManager.getDirForCapturedAttachments()+"test1.jpg";
+//                    System.out.println("SALTX Attempt to get "+filePath);
+//                    System.out.println("SALTX Success "+app.onlineGateway.uploadAttachment(new File(filePath)));
 //                }catch(Exception e){
-//                    System.out.println("SALT Exception "+e.getMessage());
+//                    System.out.println("SALTX Exception "+e.getMessage());
 //                }
 //            }
 //        }).start();
@@ -149,7 +165,15 @@ public class HomeFragment extends RootFragment implements StaffLeaveSyncListener
 			startActivity(new Intent(activity, NewClaimHeaderActivity.class));
 		}else if(v == actionbarCalendarButton){
 //			activity.changeChildPage(CalendarWeeklyFragment.getInstance());
-		}
+		}else if(v == tviewLeavesForApproval){
+            activity.linkToLeavesForApproval(this);
+        }else if(v == tviewClaimsForApproval){
+            activity.linkToClaimsForApproval(this);
+        }else if(v == tviewRecruitmentsForApproval){
+            activity.linkToRecruitmentsForApproval(this);
+        }else if(v == tviewCapexForApproval){
+            activity.linkToCapexForApproval(this);
+        }
 	}
 
 

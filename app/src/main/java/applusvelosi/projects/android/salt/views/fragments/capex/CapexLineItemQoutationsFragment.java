@@ -116,6 +116,6 @@ public class CapexLineItemQoutationsFragment extends LinearNavActionbarFragment 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        linearNavFragmentActivity.changePage(CapexLineItemQoutationDetailFragment.newInstance(app.gson.toJson(qoutations.get(position).getMap(), app.types.hashmapOfStringObject)));
+//        linearNavFragmentActivity.changePage(CapexLineItemQoutationDetailFragment.newInstance(app.gson.toJson(qoutations.get(position).getMap(), app.types.hashmapOfStringObject)));
     }
 }

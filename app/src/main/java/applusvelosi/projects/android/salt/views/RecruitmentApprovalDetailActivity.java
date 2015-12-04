@@ -13,12 +13,12 @@ import applusvelosi.projects.android.salt.views.fragments.recruitment.Recruitmen
  */
 public class RecruitmentApprovalDetailActivity extends LinearNavFragmentActivity {
     public static final String INTENTKEY_RECRUITMENT = "intentkeyrecruitment";
-    public Recruitment recruitment;
+    public Recruitment tempRecruitment, recruitment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recruitment = new Recruitment((HashMap<String, Object>) app.gson.fromJson(getIntent().getExtras().getString(INTENTKEY_RECRUITMENT), app.types.hashmapOfStringObject));
+        tempRecruitment = (Recruitment)getIntent().getExtras().getSerializable(INTENTKEY_RECRUITMENT);
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_view, new RecruitmentForApprovalDetailFragment()).commit();
     }
 }

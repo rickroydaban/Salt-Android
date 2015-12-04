@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray"
+            android:layout_marginTop="50dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:background="@android:color/white">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Type" />
+
+                <TextView
+                    android:id="@+id/tviews_claiminputoverview_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Staff" />
+
+                <TextView
+                    android:id="@+id/tviews_claiminputoverview_staff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Approver" />
+
+                <TextView
+                    android:id="@+id/tviews_claiminputoverview_approver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Cost Center"
+            android:textSize="@dimen/fsizes_listcell_subheader"
+            android:textColor="@color/common_signin_btn_dark_text_disabled"
+            android:textStyle="bold"
+            android:paddingTop="20dp"
+            android:paddingBottom="7dp"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray"/>
+
+        <LinearLayout
+            android:id="@+id/containers_claiminputoverview_costcenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+
+    </LinearLayout>
+</ScrollView>

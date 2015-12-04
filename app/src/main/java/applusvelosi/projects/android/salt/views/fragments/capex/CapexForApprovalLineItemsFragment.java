@@ -14,26 +14,24 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.adapters.lists.HeaderDetailAdapter;
 import applusvelosi.projects.android.salt.models.capex.CapexLineItem;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
+import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
+import applusvelosi.projects.android.salt.views.CapexApprovalDetailActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
-import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 /**
  * Created by Velosi on 10/13/15.
  */
-public class CapexForApprovalLineItemsFragment extends LinearNavActionbarFragment implements AdapterView.OnItemClickListener{
+public class CapexForApprovalLineItemsFragment extends LinearNavActionbarFragment implements AdapterView.OnItemClickListener, ListAdapterInterface{
     public static String KEY_CAPEXHEADERID = "CapexForApprovalLineItemsFragmentCapexHeaderID";
 
-    private SaltProgressDialog pd;
+    private CapexApprovalDetailActivity activity;
     private RelativeLayout actionbarButtonBack, actionbarButtonRefresh;
     private TextView actionbarTitle;
 
     private ListView lv;
-    private HeaderDetailAdapter adapter;
-    private ArrayList<String> headerDetails;
-    private ArrayList<CapexLineItem> lineItems;
+    private ListAdapter adapter;
 
     public static CapexForApprovalLineItemsFragment newInstance(int capexHeaderID){
         CapexForApprovalLineItemsFragment frag= new CapexForApprovalLineItemsFragment();
@@ -46,6 +44,7 @@ public class CapexForApprovalLineItemsFragment extends LinearNavActionbarFragmen
 
     @Override
     protected RelativeLayout setupActionbar() {
+        activity = (CapexApprovalDetailActivity)getActivity();
         RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backrefresh, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarButtonRefresh = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_refresh);
@@ -64,21 +63,59 @@ public class CapexForApprovalLineItemsFragment extends LinearNavActionbarFragmen
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_listview, null);
         lv = (ListView)view.findViewById(R.id.lists_lv);
-        lineItems = new ArrayList<CapexLineItem>();
-        headerDetails = new ArrayList<String>();
+        adapter = new ListAdapter(this);
 
-//        adapter = new HeaderDetailAdapter(linearNavFragmentActivity, headerDetails);
-//        lv.setAdapter(adapter);
-//        lv.setOnItemClickListener(this);
-
+        if(activity.capexLineItems == null)
+            syncToServer();
+        else{
+            lv.setAdapter(adapter);
+            lv.setOnItemClickListener(CapexForApprovalLineItemsFragment.this);
+        }
         return view;
     }
 
-    private void syncToServer(){
-        if(pd == null)
-            pd = new SaltProgressDialog(linearNavFragmentActivity);
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View v = convertView;
+        Holder holder;
 
-        pd.show();
+        if(v == null){
+            v = LayoutInflater.from(activity).inflate(R.layout.node_headerdetail, null);
+            holder = new Holder();
+            holder.tvHeader = (TextView)v.findViewById(R.id.tviews_nodes_headerdetail_header);
+            holder.tvSubHeader = (TextView)v.findViewById(R.id.tviews_nodes_headerdetail_detail);
+            v.setTag(holder);
+        }
+
+        holder = (Holder)v.getTag();
+        CapexLineItem item = activity.capexLineItems.get(position);
+        holder.tvHeader.setText(item.getCategoryName());
+        holder.tvSubHeader.setText(item.getCapexNumber());
+        return v;
+    }
+
+    @Override
+    public int getCount() {
+        return activity.capexLineItems.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == actionbarButtonBack || v == actionbarTitle)
+            linearNavFragmentActivity.onBackPressed();
+        else if(v == actionbarButtonRefresh)
+            syncToServer();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        System.out.println("on item clicked");
+//        linearNavFragmentActivity.changePage(CapexForApprovalLineItemDetailsFragment.newInstance(app.gson.toJson(lineItems.get(position).getMap(), app.types.hashmapOfStringObject)));
+    }
+
+
+    private void syncToServer(){
+        activity.startLoading();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -94,18 +131,14 @@ public class CapexForApprovalLineItemsFragment extends LinearNavActionbarFragmen
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        pd.dismiss();
-
                         if(result instanceof String)
-                            app.showMessageDialog(linearNavFragmentActivity, result.toString());
+                            activity.finishLoading(result.toString());
                         else{
-                            lineItems.clear();
-                            lineItems.addAll((ArrayList<CapexLineItem>) result);
-                            headerDetails.clear();
-                            for(CapexLineItem lineItem :lineItems)
-                                headerDetails.add(new StringBuilder().append(lineItem.getDesc()).append(HeaderDetailAdapter.DELIMETER).append(lineItem.getAmount()).append(" ").append(lineItem.getBaseCurrencyThree()).toString());
-
-                            adapter.notifyDataSetChanged();
+                            activity.finishLoading();
+                            activity.capexLineItems = new ArrayList<CapexLineItem>();
+                            activity.capexLineItems.addAll((ArrayList<CapexLineItem>) result);
+                            lv.setAdapter(adapter);
+                            lv.setOnItemClickListener(CapexForApprovalLineItemsFragment.this);
                         }
                     }
                 });
@@ -113,17 +146,9 @@ public class CapexForApprovalLineItemsFragment extends LinearNavActionbarFragmen
         }).start();
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v == actionbarButtonBack || v == actionbarTitle)
-            linearNavFragmentActivity.onBackPressed();
-        else if(v == actionbarButtonRefresh)
-            syncToServer();
+    private class Holder{
+        private TextView tvHeader, tvSubHeader;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        System.out.println("on item clicked");
-        linearNavFragmentActivity.changePage(CapexForApprovalLineItemDetailsFragment.newInstance(app.gson.toJson(lineItems.get(position).getMap(), app.types.hashmapOfStringObject)));
-    }
+
 }

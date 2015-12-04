@@ -137,11 +137,11 @@ public class ItemInputFragmentBA extends ItemInputFragment {
 			if(!e.toString().equals("-")){ //avoid parsing a negative character
 				if(e.toString().equals("") || e.toString().equals(".")){
 					if(e.hashCode() == etextAmountForeign.getEditableText().hashCode()){
-						etextAmountForeign.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, (float)-1));
-						etextAmountLocal.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, (float)-1));						
+						etextAmountForeign.setText(SaltApplication.decimalFormat.format((float)-1));
+						etextAmountLocal.setText(SaltApplication.decimalFormat.format((float)-1));
 						etextAmountForeign.setSelection(etextAmountForeign.length());
 					}else{
-						etextExchangeRate.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, (float)1));				
+						etextExchangeRate.setText(SaltApplication.decimalFormat.format((float)1));
 						etextExchangeRate.setSelection(etextExchangeRate.length());
 					}
 				}else{
@@ -150,7 +150,7 @@ public class ItemInputFragmentBA extends ItemInputFragment {
 						foreignAmt = -foreignAmt;
 					
 					float exRate = Float.parseFloat(etextExchangeRate.getText().toString());
-					etextAmountLocal.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, foreignAmt*exRate));								
+					etextAmountLocal.setText(SaltApplication.decimalFormat.format(foreignAmt*exRate));
 				}						
 			}
 		}			

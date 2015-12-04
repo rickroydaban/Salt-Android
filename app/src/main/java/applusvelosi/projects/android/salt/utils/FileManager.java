@@ -140,9 +140,8 @@ public class FileManager {
 	}
 
 	//usable when clicking on the image link in the claimitemdetailsfragment
-	public void downloadDocument(final int documentID, final int refID, final int obTypeID, final String outputFilename, final SaltProgressDialog pd,  final AttachmentDownloadListener adl) throws Exception{ //will download file if file does not exist yet otherwise just open the file from the system
+	public void downloadDocument(final int documentID, final int refID, final int obTypeID, final String outputFilename, final AttachmentDownloadListener adl) throws Exception{ //will download file if file does not exist yet otherwise just open the file from the system
 		final File file = new File(getDirForDownloadedAttachments()+outputFilename);
-		pd.show();
 		new Thread(new Runnable() {
 			private String exception;
 
@@ -173,7 +172,6 @@ public class FileManager {
 
 					@Override
 					public void run() {
-					pd.dismiss();
 					if(exception == null)
 						adl.onAttachmentDownloadFinish(file);
 					else

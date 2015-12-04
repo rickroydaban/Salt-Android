@@ -45,6 +45,7 @@ import applusvelosi.projects.android.salt.views.fragments.MainFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.RecruitmentsForApprovalFragment;
 
 public class HomeActivity extends FragmentActivity implements AnimationListener, OnItemClickListener{
+	public static final String KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN = "pendingrootfragtoopen"; //value for this map should be int
 	//constants used for sidebar item labels
 	private final String SIDEBARITEM_HOME = "Home";
 	private final String SIDEBARITEM_LOGOUT = "Logout";
@@ -58,6 +59,11 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 	private final String SIDEBARITEM_CLAIMSFORAPPROVAL = "Claims";
 	private final String SIDEBARITEM_CAPEXESFORAPPROVAL = "Capex";
 	private final String SIDEBARITEM_RECRUITMENTSFORAPPROVAL = "Recruitments";
+
+	public static final int AUTONAV_POS_LEAVESAPPROVAL = 7;
+	public static final int AUTONAV_POS_CLAIMSAPPROVAL = 8;
+	public static final int AUTONAV_POS_CAPEXAPPROVAL = 9;
+	public static final int AUTONAV_POS_RCMNTAPPROVAL = 10;
 
 	//sidebar manageability constants
 	private float maxSidebarShownWidth = 0;
@@ -134,26 +140,34 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_MYCALENDAR, getResources().getDrawable(R.drawable.icon_mycalendar), getResources().getDrawable(R.drawable.icon_mycalendar_sel)));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_LOGOUT, getResources().getDrawable(R.drawable.icon_logout),getResources().getDrawable(R.drawable.icon_logout_sel)));
 
+		//avoid npe
 		Staff staff = ((SaltApplication)getApplication()).getStaff();
-		if(staff.isAdmin() || staff.isCM() || staff.isAM()){
-			sidebarItems.add(new GroupedListHeader("FOR APPROVAL"));
-			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_LEAVESFORAPPROVAL, getResources().getDrawable(R.drawable.icon_leavesforapproval),getResources().getDrawable(R.drawable.icon_leavesforapproval_sel)));
-			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_CLAIMSFORAPPROVAL, getResources().getDrawable(R.drawable.icon_claimforapproval),getResources().getDrawable(R.drawable.icon_claimforapproval_sel)));
-			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_CAPEXESFORAPPROVAL, getResources().getDrawable(R.drawable.icon_capexforapproval), getResources().getDrawable(R.drawable.icon_capexforapproval_sel)));
-			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_RECRUITMENTSFORAPPROVAL, getResources().getDrawable(R.drawable.icon_recruitmentforapproval),getResources().getDrawable(R.drawable.icon_recruitmentforapproval_sel)));
+		try{
+			staff.isAdmin();
+		}catch (Exception e){
+			e.printStackTrace();
+			app.setStaff(app.offlineGateway.deserializeStaff());
 		}
 
-		sidebarItems.add(new GroupedListHeader("HOLIDAYS"));
+		if(staff.isAdmin() || staff.isCM() || staff.isAM()) {
+			sidebarItems.add(new GroupedListHeader("For Approval"));
+			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_LEAVESFORAPPROVAL, getResources().getDrawable(R.drawable.icon_leavesforapproval), getResources().getDrawable(R.drawable.icon_leavesforapproval_sel)));
+			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_CLAIMSFORAPPROVAL, getResources().getDrawable(R.drawable.icon_claimforapproval), getResources().getDrawable(R.drawable.icon_claimforapproval_sel)));
+			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_CAPEXESFORAPPROVAL, getResources().getDrawable(R.drawable.icon_capexforapproval), getResources().getDrawable(R.drawable.icon_capexforapproval_sel)));
+			sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_RECRUITMENTSFORAPPROVAL, getResources().getDrawable(R.drawable.icon_recruitmentforapproval), getResources().getDrawable(R.drawable.icon_recruitmentforapproval_sel)));
+		}
+
+		sidebarItems.add(new GroupedListHeader("Holidays"));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSMONTHLY, getResources().getDrawable(R.drawable.icon_monthlycalendar), getResources().getDrawable(R.drawable.icon_monthlycalendar_sel)));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSLOCAL, getResources().getDrawable(R.drawable.icon_localholidays), getResources().getDrawable(R.drawable.icon_localholidays_sel)));
 
 		menuList.setAdapter(new GroupedListAdapter(this, sidebarItems));
         menuList.post(new Runnable() {
-            @Override
-            public void run() {
-                selectMenu(1);
-            }
-        });
+			@Override
+			public void run() {
+				selectMenu((getIntent().hasExtra(KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN))?getIntent().getExtras().getInt(KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN):1);
+			}
+		});
 	}
 
 	//needs to call this so that we can have proper position of our forefragment's shadow when sidebar list is shown
@@ -260,11 +274,28 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 	}
 
 	public void linkToLeavesForApproval(HomeFragment key){
-		selectMenu(3);
+		selectMenu(AUTONAV_POS_LEAVESAPPROVAL);
 		changeChildPage(LeaveForApprovalFragment.getInstance());
 	}
 
-    private void initAnimations(){
+	public void linkToClaimsForApproval(HomeFragment key){
+		selectMenu(AUTONAV_POS_CLAIMSAPPROVAL);
+		changeChildPage(ClaimforApprovalListFragment.getInstance());
+	}
+
+	public void linkToCapexForApproval(HomeFragment key){
+		selectMenu(AUTONAV_POS_CAPEXAPPROVAL);
+		changeChildPage(RecruitmentsForApprovalFragment.getInstance());
+	}
+
+	public void linkToRecruitmentsForApproval(HomeFragment key){
+		selectMenu(AUTONAV_POS_RCMNTAPPROVAL);
+		changeChildPage(RecruitmentsForApprovalFragment.getInstance());
+	}
+
+
+
+	private void initAnimations(){
 		animationShowSidebar = new TranslateAnimation(0, maxSidebarShownWidth, 0, 0);
 		animationShowSidebar.setDuration(TOGGLE_SPEED);
 		animationShowSidebar.setFillEnabled(true);

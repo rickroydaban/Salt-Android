@@ -2,23 +2,24 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFF">
+            android:background="@color/white">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:stretchColumns="1"
-        android:shrinkColumns="1">
+        android:shrinkColumns="1"
+        android:background="#FFF">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_span="2">
+                android:layout_span="2"
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/buttons_capexforapprovaldetail_return"
@@ -186,58 +187,12 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingLeft="12dp">
+            android:paddingTop="10dp">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-
-            <RelativeLayout
-                android:id="@+id/containers_capexforapprovaldetail_lineitems"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_span="2">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/styles_labels_detail"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Asset Detail Line Items" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/icon_next"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
+                android:background="@drawable/divider_insetted"
                 android:layout_span="2" />
 
         </TableRow>
@@ -378,13 +333,12 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingLeft="12dp">
+            android:paddingTop="10dp">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
+                android:background="@drawable/divider_insetted"
                 android:layout_span="2" />
 
         </TableRow>
@@ -468,7 +422,69 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp">
+            android:paddingTop="10dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/sidebar_menu_separator"
+                android:layout_span="2" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="2">
+
+                <TextView
+                    android:id="@+id/tviews_capexforapprovaldetail_lineitemheader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:textColor="@color/orange_velosi"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:textStyle="bold"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="17dp"
+                    android:paddingLeft="12dp"/>
+
+                <ImageView
+                    android:id="@+id/iviews_loader"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/anim_loadingdialog"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs">
+
+            <LinearLayout
+                android:id="@+id/containers_capexforapprovaldetail_lineitems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_span="2" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <View
                 android:layout_width="match_parent"

@@ -264,13 +264,12 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp">
+            android:layout_height="wrap_content">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
+                android:background="@drawable/divider_insetted"
                 android:layout_span="2" />
 
         </TableRow>
@@ -353,13 +352,12 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp">
+            android:layout_height="wrap_content">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
+                android:background="@drawable/divider_insetted"
                 android:layout_span="2" />
 
         </TableRow>
@@ -400,13 +398,12 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp">
+            android:layout_height="wrap_content">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
+                android:background="@drawable/divider_insetted"
                 android:layout_span="2" />
 
         </TableRow>
@@ -652,58 +649,12 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp">
+            android:layout_height="wrap_content">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-
-            <RelativeLayout
-                android:id="@+id/containers_rfadetail_otherbenefits"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_span="2">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/styles_labels_detail"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Other Benefits" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/icon_next"
-                    android:layout_centerVertical="true"/>
-
-            </RelativeLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="12dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
+                android:background="@drawable/divider_insetted"
                 android:layout_span="2" />
 
         </TableRow>
@@ -817,6 +768,52 @@
             </LinearLayout>
 
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Benefits"
+                android:textColor="@color/orange_velosi"
+                android:textSize="@dimen/fsizes_listcell_header"
+                android:textStyle="bold"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:paddingLeft="12dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs">
+
+            <LinearLayout
+                android:id="@+id/containers_rfadetail_benefits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_span="2"/>
+
+        </TableRow>
+
 
         <TableRow
             android:layout_width="match_parent"

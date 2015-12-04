@@ -9,11 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.views.HomeActivity;
+import applusvelosi.projects.android.salt.views.fragments.roots.CapexesForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.ClaimforApprovalListFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.HomeFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.LeaveForApprovalFragment;
+import applusvelosi.projects.android.salt.views.fragments.roots.RecruitmentsForApprovalFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 public class MainFragment extends Fragment{
@@ -37,7 +42,18 @@ public class MainFragment extends Fragment{
         ((AnimationDrawable)ivLoader.getDrawable()).start();
 
         actionbar = (RelativeLayout)view.findViewById(R.id.actionbar_top);
-		changePage(HomeFragment.getInstance());
+		RootFragment toBeDisplayedFragment = HomeFragment.getInstance();
+		if(activity.getIntent().hasExtra(HomeActivity.KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN)){
+			switch (activity.getIntent().getExtras().getInt(HomeActivity.KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN)){
+				case HomeActivity.AUTONAV_POS_LEAVESAPPROVAL: toBeDisplayedFragment = LeaveForApprovalFragment.getInstance(); break;
+				case HomeActivity.AUTONAV_POS_CLAIMSAPPROVAL: toBeDisplayedFragment = ClaimforApprovalListFragment.getInstance(); break;
+				case HomeActivity.AUTONAV_POS_CAPEXAPPROVAL: toBeDisplayedFragment = CapexesForApprovalFragment.getInstance(); break;
+				case HomeActivity.AUTONAV_POS_RCMNTAPPROVAL: toBeDisplayedFragment = RecruitmentsForApprovalFragment.getInstance(); break;
+				default: toBeDisplayedFragment = HomeFragment.getInstance();
+			}
+		}
+
+		changePage(toBeDisplayedFragment);
 		return view;
 	}
 
@@ -46,7 +62,8 @@ public class MainFragment extends Fragment{
 			actionbar.removeAllViews();
 			actionbar.addView(actionbarContentViews);
 		}else{
-			((SaltApplication)activity.getApplication()).showMessageDialog(activity, "Actionbar is null");
+//			Toast.makeText(getActivity(), "Actionbar is null", Toast.LENGTH_SHORT).show();
+			System.out.println("WHAT THE!");
 		}
 	}
 

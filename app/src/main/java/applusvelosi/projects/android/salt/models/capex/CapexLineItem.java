@@ -1,7 +1,9 @@
 package applusvelosi.projects.android.salt.models.capex;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
@@ -11,74 +13,119 @@ import applusvelosi.projects.android.salt.utils.OnlineGateway;
  */
 public class CapexLineItem {
 
-    private HashMap<String, Object> mapCapexLineItem;
+    private boolean isActive;
+    private float amount, amountInUSD;
+    private int baseCurrencyID;
+    private String baseCurrencyName, baseCurrencySymbol;
+    private float baseExchangeRate;
+    private int capexID, capexLineItemID;
+    private String capexLineItemNumber;
+    private ArrayList<CapexLineItemQoutation> qoutations;
+    private String capexNumber;
+    private int categoryID;
+    private String categoryName;
+    private int currencyID;
+    private String currencyName, currencySymbol, dateCreated, desc;
+    private int numberOfQoutes, requesterID;
+    private float quantity;
+    private String requesterName;
+    private float unitCost;
+    private String uom;
+    private float usdExchangeRate, usefulLife;
 
-    public CapexLineItem(JSONObject jsonCapexLineItem, OnlineGateway onlineGateway) throws Exception {
-        mapCapexLineItem = new HashMap<String, Object>();
-        mapCapexLineItem.putAll(OnlineGateway.toMap(jsonCapexLineItem));
-        mapCapexLineItem.put("BaseCurrencyID", Integer.parseInt(mapCapexLineItem.get("BaseCurrencyID").toString()));
-        mapCapexLineItem.put("CapexID", Integer.parseInt(mapCapexLineItem.get("CapexID").toString()));
-        mapCapexLineItem.put("CapexLineItemID", Integer.parseInt(mapCapexLineItem.get("CapexLineItemID").toString()));
-        mapCapexLineItem.put("CategoryID", Integer.parseInt(mapCapexLineItem.get("CategoryID").toString()));
-        mapCapexLineItem.put("CurrencyID", Integer.parseInt(mapCapexLineItem.get("CurrencyID").toString()));
-        mapCapexLineItem.put("RequesterID", Integer.parseInt(mapCapexLineItem.get("RequesterID").toString()));
-        //dates
-        mapCapexLineItem.put("DateCreated", onlineGateway.dJsonizeDate(mapCapexLineItem.get("DateCreated").toString()));
+    public CapexLineItem(JSONObject jsonCapexLineItem) throws Exception {
+        isActive = jsonCapexLineItem.getBoolean("Active");
+        amount = (float)jsonCapexLineItem.getDouble("Amount");
+        amountInUSD = (float)jsonCapexLineItem.getDouble("AmountInUSD");
+        baseCurrencyID = jsonCapexLineItem.getInt("BaseCurrencyID");
+        baseCurrencyName = jsonCapexLineItem.getString("BaseCurrencyName");
+        baseCurrencySymbol = jsonCapexLineItem.getString("BaseCurrencySymbol");
+        baseExchangeRate = (float)jsonCapexLineItem.getDouble("BaseExchangeRate");
+        capexID = jsonCapexLineItem.getInt("CapexID");
+        capexLineItemID = jsonCapexLineItem.getInt("CapexLineItemID");
+        capexLineItemNumber = jsonCapexLineItem.getString("CapexLineItemNumber");
+        capexNumber = jsonCapexLineItem.getString("CapexNumber");
+        categoryID = jsonCapexLineItem.getInt("CategoryID");
+        categoryName = jsonCapexLineItem.getString("CategoryName");
+        currencyID = jsonCapexLineItem.getInt("CurrencyID");
+        currencyName = jsonCapexLineItem.getString("CurrencyName");
+        currencySymbol = jsonCapexLineItem.getString("CurrencySymbol");
+        dateCreated = jsonCapexLineItem.getString("DateCreated");
+        desc = jsonCapexLineItem.getString("Description");
+        numberOfQoutes = jsonCapexLineItem.getInt("NumberOfQuotes");
+        quantity = (float)jsonCapexLineItem.getDouble("Quantity");
+        requesterID = jsonCapexLineItem.getInt("RequesterID");
+        requesterName = jsonCapexLineItem.getString("RequesterName");
+        unitCost = (float)jsonCapexLineItem.getDouble("UnitCost");
+        uom = jsonCapexLineItem.getString("UOM");
+        usdExchangeRate = (float)jsonCapexLineItem.getDouble("USDExchangeRate");
+        usefulLife = (float)jsonCapexLineItem.getDouble("UsefulLife");
+
+        JSONArray jsonQoutations = jsonCapexLineItem.getJSONArray("CapexLineItemQuotation");
+        qoutations = new ArrayList<CapexLineItemQoutation>();
+        for(int i=0; i<jsonQoutations.length(); i++)
+            qoutations.add(new CapexLineItemQoutation(jsonQoutations.getJSONObject(i)));
+
     }
 
-    public CapexLineItem(HashMap<String, Object> mapCapexLineItem){
-        this.mapCapexLineItem = new HashMap<String, Object>();
-        this.mapCapexLineItem.putAll(mapCapexLineItem);
+    public JSONObject getJSONObject() throws Exception{
+        JSONObject jo = new JSONObject();
+        jo.put("Active", isActive);
+        jo.put("Amount", amount);
+        jo.put("AmountInUSD", amountInUSD);
+        jo.put("BaseCurrencyID", baseCurrencyID);
+        jo.put("BaseCurrencyName", baseCurrencyName);
+        jo.put("BaseCurrencySymbol", baseCurrencySymbol);
+        jo.put("BaseExchangeRate", baseExchangeRate);
+        jo.put("CapexID", capexID);
+        jo.put("CapexLineItemID", capexLineItemID);
+        jo.put("CapexLineItemNumber", capexLineItemNumber);
+        jo.put("CapexNumber", capexNumber);
+        jo.put("CategoryID", categoryID);
+        jo.put("CategoryName", categoryName);
+        jo.put("CurrencyID", currencyID);
+        jo.put("CurrencyName", currencyName);
+        jo.put("CurrencySymbol", currencySymbol);
+        jo.put("DateCreated", dateCreated);
+        jo.put("Description", desc);
+        jo.put("NumberOfQuotes", numberOfQoutes);
+        jo.put("Quantity", quantity);
+        jo.put("RequesterID", requesterID);
+        jo.put("RequesterName", requesterName);
+        jo.put("UnitCost", unitCost);
+        jo.put("UOM", uom);
+        jo.put("USDExchangeRate", usdExchangeRate);
+        jo.put("UsefulLife", usefulLife);
+        JSONArray jsonQoutations = new JSONArray();
+        for(CapexLineItemQoutation qoutation :qoutations)
+            jsonQoutations.put(qoutation.getJSONObject());
+        jo.put("CapexLineItemQuotation", jsonQoutations);
+
+        return jo;
     }
 
-    public HashMap<String, Object> getMap(){
-        return mapCapexLineItem;
-    }
-
-    public float getAmount() { return Float.parseFloat(mapCapexLineItem.get("Amount").toString()); }
-
-    public float propAmountInUSD(){ return Float.parseFloat(mapCapexLineItem.get("AmountInUSD").toString()); }
-
-    public int getBaseCurrencyID(){ return Integer.parseInt(mapCapexLineItem.get("BaseCurrencyID").toString()); }
-
-    public String getBaseCurrencyName(){ return  mapCapexLineItem.get("BaseCurrencyName").toString(); }
-
-    public String getBaseCurrencyThree(){ return mapCapexLineItem.get("BaseCurrencySymbol").toString(); }
-
-    public float getBaseExchangeRate(){ return Float.parseFloat(mapCapexLineItem.get("BaseExchangeRate").toString()); }
-
-    public int getCapexID(){ return Integer.parseInt(mapCapexLineItem.get("CapexID").toString()); }
-
-    public int getCapexLineItemID(){ return (int)Float.parseFloat(mapCapexLineItem.get("CapexLineItemID").toString()); }
-
-    public String getCapexLineItemNumber(){ return mapCapexLineItem.get("CapexLineItemNumber").toString(); }
-
-    public String getCapexNumber(){ return mapCapexLineItem.get("CapexNumber").toString(); }
-
-    public int getCategoryID(){ return Integer.parseInt(mapCapexLineItem.get("CategoryID").toString()); }
-
-    public String getCategoryName(){ return mapCapexLineItem.get("CategoryName").toString(); }
-
-    public int getCurrencyID(){ return Integer.parseInt(mapCapexLineItem.get("CurrencyID").toString()); }
-
-    public String getCurrencyName(){ return mapCapexLineItem.get("CurrencyName").toString(); }
-
-    public String getCurrencyThree(){ return mapCapexLineItem.get("CurrencySymbol").toString(); }
-
-    public String getDateCreated(){ return mapCapexLineItem.get("DateCreated").toString(); }
-
-    public String getDesc(){ return mapCapexLineItem.get("Description").toString(); }
-
-    public float getQuantity(){ return Float.parseFloat(mapCapexLineItem.get("Quantity").toString()); }
-
-    public int getRequesterID(){ return Integer.parseInt(mapCapexLineItem.get("RequesterID").toString()); }
-
-    public String getRequesterName(){ return mapCapexLineItem.get("RequesterName").toString(); }
-
-    public float getUnitCost(){ return Float.parseFloat(mapCapexLineItem.get("UnitCost").toString()); }
-
-    public float getUSDExchangeRate(){ return Float.parseFloat(mapCapexLineItem.get("USDExchangeRate").toString()); }
-
-    public float getUsefulLife(){ return Float.parseFloat(mapCapexLineItem.get("UsefulLife").toString()); }
+    public float getAmount(){ return amount; }
+    public float getAmountInUSD(){ return amountInUSD; }
+    public int getBaseCurrencyID(){ return baseCurrencyID; }
+    public String getBaseCurrencyName(){ return baseCurrencyName; }
+    public String getBaseCurrencySymbol(){ return baseCurrencySymbol; }
+    public float getBaseExchangeRate(){ return baseExchangeRate; }
+    public int getCapexID(){ return capexID; }
+    public int getCapexLineItemID(){ return capexLineItemID; }
+    public String getCapexNumber(){ return capexNumber; }
+    public int getCategoryID(){ return categoryID; }
+    public String getCategoryName(){ return categoryName; }
+    public int getCurrencyID(){ return currencyID; }
+    public String getCurrencyName(){ return currencyName; }
+    public String getCurrencySymbol(){ return currencySymbol ; }
+    public String getDateCreated(){ return dateCreated; }
+    public String getDesc(){ return desc; }
+    public int getNumberOfQoutes(){ return numberOfQoutes; }
+    public float getQuantity(){ return quantity; }
+    public int getRequesterID(){ return requesterID; }
+    public String getRequesterName(){ return requesterName; }
+    public float getUnitCost(){ return unitCost; }
+    public float getUsdExchangeRate(){ return usdExchangeRate; }
+    public float getUsefulLife(){ return usefulLife; }
 
 }

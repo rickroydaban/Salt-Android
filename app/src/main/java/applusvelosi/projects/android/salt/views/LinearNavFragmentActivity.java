@@ -66,11 +66,14 @@ public class LinearNavFragmentActivity extends FragmentActivity{
     }
 
     public void finishLoading(String error){
-        ivLoader.setVisibility(View.GONE);
-        if(error.contains("No address associated with hostname"))
-            error = "Server Connection Failed";
-        tviewsLoader.setText(error);
-        tviewsLoader.setTextColor(getResources().getColor(R.color.red));
+        if(error != null){
+            ivLoader.setVisibility(View.GONE);
+            if(error.contains("No address associated with hostname"))
+                error = "Server Connection Failed";
+            tviewsLoader.setText(error);
+            tviewsLoader.setTextColor(getResources().getColor(R.color.red));
+        }else
+            containersLoader.setVisibility(View.GONE);
     }
 
     @Override

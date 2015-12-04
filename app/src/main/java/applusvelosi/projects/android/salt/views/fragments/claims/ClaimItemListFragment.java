@@ -153,7 +153,7 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
         holder = (ClaimItemCellHolder)view.getTag();
         ClaimItem claimItem = claimItems.get(position);
         holder.categoryTV.setText(claimItem.getCategoryName());
-        holder.amountFCTV.setText(String.format(SaltApplication.DEFAULT_FLOAT_FORMAT, claimItem.getForeignAmount())+" "+claimItem.getForeignCurrencyName());
+        holder.amountFCTV.setText(SaltApplication.decimalFormat.format(claimItem.getForeignAmount())+" "+claimItem.getForeignCurrencyName());
         holder.dateExpensedTV.setText(claimItem.getExpenseDate());
         holder.receiptIV.setVisibility((claimItem.hasReceipt()) ? View.VISIBLE : View.GONE);
         holder.statusTV.setText(claimItem.getStatusName());

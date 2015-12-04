@@ -1,5 +1,6 @@
 package applusvelosi.projects.android.salt.views.fragments.roots;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,6 +18,7 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.CapexForApprovalAdapter;
 import applusvelosi.projects.android.salt.models.capex.CapexHeader;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.views.CapexApprovalDetailActivity;
 import applusvelosi.projects.android.salt.views.fragments.capex.CapexForApprovalDetailFragment;
 
 /**
@@ -60,8 +62,14 @@ public class CapexesForApprovalFragment extends RootFragment implements AdapterV
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(this);
 
-        syncToServer();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        syncToServer();
+
     }
 
     private void syncToServer(){
@@ -116,6 +124,8 @@ public class CapexesForApprovalFragment extends RootFragment implements AdapterV
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        activity.changeChildPage(CapexForApprovalDetailFragment.newInstance(capexes.get(position).getCapexID()));
+        Intent intent = new Intent(activity, CapexApprovalDetailActivity.class);
+        intent.putExtra(CapexApprovalDetailActivity.INTENTKEY_CAPEXHEADER, capexes.get(position));
+        startActivity(intent);
     }
 }

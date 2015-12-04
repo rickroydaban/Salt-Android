@@ -11,8 +11,10 @@ import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.models.LocalHoliday;
 import applusvelosi.projects.android.salt.models.Office;
 import applusvelosi.projects.android.salt.models.Staff;
+import applusvelosi.projects.android.salt.models.capex.CapexHeader;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
+import applusvelosi.projects.android.salt.models.recruitments.Recruitment;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -22,6 +24,8 @@ public class TypeHolder {
 	public Type office = new TypeToken<Office>(){}.getType();
 	public Type leave = new TypeToken<Leave>(){}.getType();
 	public Type claim = new TypeToken<ClaimHeader>(){}.getType();
+	public Type capex = new TypeToken<CapexHeader>(){}.getType();
+	public Type recruitment = new TypeToken<Recruitment>(){}.getType();
 	public Type claimItem = new TypeToken<ClaimItem>(){}.getType();
 	public Type arrayListOfString = new TypeToken<ArrayList<String>>(){}.getType();
 	public Type arrayListOfHolidays = new TypeToken<ArrayList<Holiday>>(){}.getType();

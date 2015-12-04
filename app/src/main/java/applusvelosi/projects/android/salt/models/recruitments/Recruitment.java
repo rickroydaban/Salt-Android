@@ -1,18 +1,20 @@
 package applusvelosi.projects.android.salt.models.recruitments;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.SaltApplication;
-import applusvelosi.projects.android.salt.utils.OnlineGateway;
+import applusvelosi.projects.android.salt.models.Document;
 
 /**
  * Created by Velosi on 10/9/15.
  */
-public class Recruitment {
+public class Recruitment implements Serializable{
     public static int RECRUITMENT_STATUSID_OPEN = 26;
     public static int RECRUITMENT_STATUSID_SUBMITTED = 27;
     public static int RECRUITMENT_STATUSID_APPROVEDBYCM = 28;
@@ -25,168 +27,229 @@ public class Recruitment {
     public static int RECRUITMENT_STATUSID_APPROVEDBYCEO = 58;
     public static int RECRUITMENT_STATUSID_REJECTEDBYCEO = 59;
 
-    private HashMap<String, Object> mapRecruitment;
-    //property maps
-    private ArrayList<HashMap<String, Object>> mapBenefits, mapAttachments;
+    private boolean isActive;
+    private float annualRev;
+    private String approverNote;
+    private int cmID;
+    private String cmEmail, cmName;
+    private String dateProcessedByCM, dateProcessedByRM, dateRejected, dateRequested;
+    private int departmentToBeAssignedID;
+    private String departmentToBeAssignedName;
+    private String email;
+    private int empCatID;
+    private String empCatName;
+    private int empTypeID;
+    private String empTypeName;
+    private float grossBaseBonus, hrsPerWeek;
+    private boolean isBudgetedCost, isPositionMaybePermanent, isSpecificPeron, isWithAttachment;
+    private String jobTitle;
+    private int officeDeploymentID;
+    private String officeDeploymentName;
+    private int posTypeID;
+    private String posTypeName;
+    private String reason, recNum;
+    private int recReqID, rmID;
+    private String rmEmail, rmName, replacementFor, requesterDepartmentName;
+    private int requesterID;
+    private String requesterName;
+    private int requesterOfficeID;
+    private String requesterOfficeName, requesterPhoneNumber;
+    private float salaryRangeFrom, salaryRangeTo;
+    private int statusID;
+    private String statusName;
+    private String targetStartDate;
+    private int timebaseTypeID;
+    private String timebaseTypeName;
 
-    public Recruitment(JSONObject jsonRecruitment, OnlineGateway onlineGateway) throws Exception{
-        mapRecruitment = new HashMap<String, Object>();
-        mapRecruitment.putAll(OnlineGateway.toMap(jsonRecruitment));
-        mapRecruitment.put("CountryManager", Integer.parseInt(mapRecruitment.get("CountryManager").toString()));
-        mapRecruitment.put("DepartmentToBeAssigned", Integer.parseInt(mapRecruitment.get("DepartmentToBeAssigned").toString()));
-        mapRecruitment.put("EmployeeCategoryID", Integer.parseInt(mapRecruitment.get("EmployeeCategoryID").toString()));
-        mapRecruitment.put("EmploymentTypeID", Integer.parseInt((mapRecruitment.get("EmploymentTypeID").toString())));
-        mapRecruitment.put("OfficeOfDeployment", Integer.parseInt(mapRecruitment.get("OfficeOfDeployment").toString()));
-        mapRecruitment.put("PositionTypeID", Integer.parseInt(mapRecruitment.get("PositionTypeID").toString()));
-        mapRecruitment.put("RecruitmentRequestID", Integer.parseInt(mapRecruitment.get("RecruitmentRequestID").toString()));
-        mapRecruitment.put("RegionalManager", Integer.parseInt(mapRecruitment.get("RegionalManager").toString()));
-        mapRecruitment.put("RequesterID", Integer.parseInt(mapRecruitment.get("RequesterID").toString()));
-        mapRecruitment.put("RequesterOfficeID", Integer.parseInt(mapRecruitment.get("RequesterOfficeID").toString()));
-        mapRecruitment.put("TimeBaseTypeID", Integer.parseInt(mapRecruitment.get("TimeBaseTypeID").toString()));
-        mapRecruitment.put("StatusID", Integer.parseInt(mapRecruitment.get("StatusID").toString()));
-        //floats
-        mapRecruitment.put("GrossBaseBonus", Float.parseFloat(mapRecruitment.get("GrossBaseBonus").toString()));
-        mapRecruitment.put("SalaryRangeTo", Float.parseFloat(mapRecruitment.get("SalaryRangeTo").toString()));
-        mapRecruitment.put("HoursPerWeek", Float.parseFloat(mapRecruitment.get("HoursPerWeek").toString()));
-        mapRecruitment.put("AnnualRevenue", Float.parseFloat(mapRecruitment.get("AnnualRevenue").toString()));
-        mapRecruitment.put("SalaryRangeFrom", Float.parseFloat(mapRecruitment.get("SalaryRangeFrom").toString()));
-        //booleans
-        mapRecruitment.put("Active", Boolean.parseBoolean(mapRecruitment.get("Active").toString()));
-        mapRecruitment.put("IsWithAttachment", Boolean.parseBoolean(mapRecruitment.get("IsWithAttachment").toString()));
-        mapRecruitment.put("IsBudgetedCost", Boolean.parseBoolean(mapRecruitment.get("IsBudgetedCost").toString()));
-        mapRecruitment.put("IsPositionMayBePermanent", Boolean.parseBoolean(mapRecruitment.get("IsPositionMayBePermanent").toString()));
-        mapRecruitment.put("IsSpecificPerson", Boolean.parseBoolean(mapRecruitment.get("IsSpecificPerson").toString()));
-        //dates
-        mapRecruitment.put("DateProcessedByCountryManager", onlineGateway.dJsonizeDate(mapRecruitment.get("DateProcessedByCountryManager").toString()));
-        mapRecruitment.put("DateProcessedByRegionalManager", onlineGateway.dJsonizeDate(mapRecruitment.get("DateProcessedByRegionalManager").toString()));
-        mapRecruitment.put("DateRejected", onlineGateway.dJsonizeDate(mapRecruitment.get("DateRejected").toString()));
-        mapRecruitment.put("DateRequested", onlineGateway.dJsonizeDate(mapRecruitment.get("DateRequested").toString()));
-        mapRecruitment.put("TargettedStartDate", onlineGateway.dJsonizeDate(mapRecruitment.get("TargettedStartDate").toString()));
+    private ArrayList<Document> documents;
+    private ArrayList<Benefit> benefits;
 
-        mapAttachments = (ArrayList<HashMap<String, Object>>)OnlineGateway.toList(jsonRecruitment.getJSONArray("Documents"));
-        mapBenefits = (ArrayList<HashMap<String, Object>>)OnlineGateway.toList(jsonRecruitment.getJSONArray("OtherBenefits"));
+    public Recruitment(JSONObject jsonRecruitment) throws Exception{
+        isActive = jsonRecruitment.getBoolean("Active");
+        annualRev = (float)jsonRecruitment.getDouble("AnnualRevenue");
+        approverNote = jsonRecruitment.getString("ApproverNote");
+        cmID = jsonRecruitment.getInt("CountryManager");
+        cmEmail = jsonRecruitment.getString("CountryManagerEmail");
+        cmName = jsonRecruitment.getString("CountryManagerName");
+        dateProcessedByCM = jsonRecruitment.getString("DateProcessedByCountryManager");
+        dateProcessedByRM = jsonRecruitment.getString("DateProcessedByRegionalManager");
+        dateRejected = jsonRecruitment.getString("DateRejected");
+        dateRequested = jsonRecruitment.getString("DateRequested");
+        departmentToBeAssignedID = jsonRecruitment.getInt("DepartmentToBeAssigned");
+        departmentToBeAssignedName = jsonRecruitment.getString("DepartmentToBeAssignedName");
+        email = jsonRecruitment.getString("Email");
+        empCatID = jsonRecruitment.getInt("EmployeeCategoryID");
+        empCatName = jsonRecruitment.getString("EmployeeCategoryName");
+        empTypeID = jsonRecruitment.getInt("EmploymentTypeID");
+        empTypeName = jsonRecruitment.getString("EmploymentTypeName");
+        grossBaseBonus = (float)jsonRecruitment.getDouble("GrossBaseBonus");
+        hrsPerWeek = (float)jsonRecruitment.getDouble("HoursPerWeek");
+        isBudgetedCost = jsonRecruitment.getBoolean("IsBudgetedCost");
+        isPositionMaybePermanent = jsonRecruitment.getBoolean("IsPositionMayBePermanent");
+        isSpecificPeron = jsonRecruitment.getBoolean("IsSpecificPerson");
+        isWithAttachment = jsonRecruitment.getBoolean("IsWithAttachment");
+        jobTitle = jsonRecruitment.getString("JobTitle");
+        officeDeploymentID = jsonRecruitment.getInt("OfficeOfDeployment");
+        officeDeploymentName = jsonRecruitment.getString("OfficeOfDeploymentName");
+        posTypeID = jsonRecruitment.getInt("PositionTypeID");
+        posTypeName = jsonRecruitment.getString("PositionTypeName");
+        reason = jsonRecruitment.getString("Reason");
+        recNum = jsonRecruitment.getString("RecruitmentNumber");
+        recReqID = jsonRecruitment.getInt("RecruitmentRequestID");
+        rmID = jsonRecruitment.getInt("RegionalManager");
+        rmEmail = jsonRecruitment.getString("RegionalManagerEmail");
+        rmName = jsonRecruitment.getString("RegionalManagerName");
+        replacementFor = jsonRecruitment.getString("ReplacementFor");
+        requesterDepartmentName = jsonRecruitment.getString("RequesterDepartment");
+        requesterID = jsonRecruitment.getInt("RequesterID");
+        requesterName = jsonRecruitment.getString("RequesterName");
+        requesterOfficeID = jsonRecruitment.getInt("RequesterOfficeID");
+        requesterOfficeName = jsonRecruitment.getString("RequesterOfficeName");
+        requesterPhoneNumber = jsonRecruitment.getString("RequesterPhoneNumber");
+        salaryRangeFrom = (float)jsonRecruitment.getDouble("SalaryRangeFrom");
+        salaryRangeTo = (float)jsonRecruitment.getDouble("SalaryRangeTo");
+        statusID = jsonRecruitment.getInt("StatusID");
+        statusName = jsonRecruitment.getString("StatusName");
+        targetStartDate = jsonRecruitment.getString("TargettedStartDate");
+        timebaseTypeID = jsonRecruitment.getInt("TimeBaseTypeID");
+        timebaseTypeName = jsonRecruitment.getString("TimeBaseTypeName");
+
+        JSONArray jsonDocs = jsonRecruitment.getJSONArray("Documents");
+        documents = new ArrayList<Document>();
+        for(int i=0; i<jsonDocs.length(); i++)
+            documents.add(new Document(jsonDocs.getJSONObject(i)));
+
+        JSONArray jsonBenefits = jsonRecruitment.getJSONArray("OtherBenefits");
+        benefits = new ArrayList<Benefit>();
+        for(int i=0; i<jsonBenefits.length(); i++)
+            benefits.add(new Benefit(jsonBenefits.getJSONObject(i)));
     }
 
-    public Recruitment(HashMap<String, Object> map){
-        mapRecruitment = new HashMap<String, Object>();
-        mapRecruitment.putAll(map);
+    public float getAnnualRevenue(){ return annualRev; }
+    public int getCMID(){ return cmID; }
+    public String getCMEmail(){ return cmEmail; }
+    public String getCMName(){ return cmName; }
+    public String getDateProcessedByCM(SaltApplication app){
+        String tempDateProcessedByCM = app.onlineGateway.dJsonizeDate(dateProcessedByCM);
+        return (tempDateProcessedByCM.contains("-Jan-1900"))?"-":tempDateProcessedByCM;
+    }
+    public String getDateProcessedBYRM(SaltApplication app){
+        String tempDateProcessedByRM = app.onlineGateway.dJsonizeDate(dateProcessedByRM);
+        return (tempDateProcessedByRM.contains("-Jan-1900"))?"-":tempDateProcessedByRM;
     }
 
-    public float getAnnualRevenue(){ return Float.parseFloat(mapRecruitment.get("AnnualRevenue").toString()); }
+    public String getDateRejected(SaltApplication app){
+        String tempDateRejcted = app.onlineGateway.dJsonizeDate(dateRejected);
+        return (tempDateRejcted.contains("-Jan-1900"))?"-":tempDateRejcted;
+    }
 
-    public String getApproverNotes(){ return mapRecruitment.get("ApproverNote").toString(); }
+    public String getDateRequested(SaltApplication app){
+        String tempDateRequested = app.onlineGateway.dJsonizeDate(dateRequested);
+        return (tempDateRequested.contains("-Jan-1900"))?"-":tempDateRequested;
+    }
+    public int getDepartmentToBeAssignedID(){ return departmentToBeAssignedID; }
+    public String getDepartmentToBeAssignedName(){ return departmentToBeAssignedName; }
+    public String getEmail(){ return email; }
+    public int getEmloyeeCategoryID(){ return empCatID; }
+    public String getEmployeeCategoryName(){ return empCatName; }
+    public int getEmploymentTypeID(){ return empTypeID; }
+    public String getEmploymentTymeName(){ return empTypeName; }
+    public float getGrossBaseBonus(){ return grossBaseBonus; }
+    public float getHorsePerWeek(){ return hrsPerWeek; }
+    public boolean isBudgetedCost(){ return isBudgetedCost; }
+    public boolean isPositionMayBePermanent(){ return isPositionMaybePermanent; }
+    public boolean isSpecificPerson(){ return isSpecificPeron; }
+    public boolean isWithAttachment(){ return isWithAttachment; }
+    public String getJobTitle(){ return jobTitle; }
+    public int getOfficeOfDeploymentID(){ return officeDeploymentID; }
+    public String getOfficeOfDeploymentName(){ return officeDeploymentName; }
+    public int getPositionTypeID(){ return posTypeID; }
+    public String getPositionTypeName(){ return posTypeName; }
+    public String getReason(){ return reason; }
+    public String getRecruitmentNumber(){ return recNum; }
+    public int getRecruitmentRequestID(){ return recReqID; }
+    public int getRMID(){ return rmID; }
+    public String getRMEmail(){ return rmEmail; }
+    public String getRMName(){ return rmName; }
+    public String getReplacementFor(){ return replacementFor; }
+    public String getRequesterDepartmentName(){ return requesterDepartmentName; }
+    public int getRequesterID(){ return requesterID; }
+    public String getRequesterName(){ return requesterName; }
+    public int getRequesterOfficeID(){ return requesterOfficeID; }
+    public  String getRequesterOfficeName(){ return requesterOfficeName; }
+    public String getRequesterPhoneNumber(){ return requesterPhoneNumber; }
+    public float getSalaryRangeFrom(){ return salaryRangeFrom; }
+    public float getSalaryRangeTo(){ return salaryRangeTo; }
+    public int getStatusID(){ return statusID; }
+    public String getStatusName(){ return statusName; }
+    public String getTargettedStartDate(SaltApplication app){ return app.onlineGateway.dJsonizeDate(targetStartDate); }
+    public int getTimeBaseTypeID(){ return timebaseTypeID; }
+    public String getTimeBaseTypeName(){ return timebaseTypeName; }
 
-    public int getCMID(){ return Integer.parseInt(mapRecruitment.get("CountryManager").toString()); }
-
-    public String getCMEmail(){ return mapRecruitment.get("CountryManagerEmail").toString(); }
-
-    public String getCMName(){ return mapRecruitment.get("CountryManagerName").toString(); }
-
-    public String getDateProcessedByCM(){ return mapRecruitment.get("DateProcessedByCountryManager").toString(); }
-
-    public String getDateProcessedByRM(){ return mapRecruitment.get("DateProcessedByRegionalManager").toString(); }
-
-    public String getDateRejected(){ return mapRecruitment.get("DateRejected").toString(); }
-
-    public String getDateRequested(){ return mapRecruitment.get("DateRequested").toString(); }
-
-    public int getDepartmentToBeAssignedID(){ return Integer.parseInt(mapRecruitment.get("DepartmentToBeAssigned").toString()); }
-
-    public String getDepartmentToBeAssignedName(){ return mapRecruitment.get("DepartmentToBeAssignedName").toString(); }
-
-    public String getEmail(){ return mapRecruitment.get("Email").toString(); };
-
-    public int getEmloyeeCategoryID(){ return Integer.parseInt(mapRecruitment.get("EmployeeCategoryID").toString()); }
-
-    public String getEmployeeCategoryName(){ return mapRecruitment.get("EmployeeCategoryName").toString(); }
-
-    public int getEmploymentTypeID(){ return Integer.parseInt(mapRecruitment.get("EmploymentTypeID").toString()); }
-
-    public String getEmploymentTymeName(){ return mapRecruitment.get("EmploymentTypeName").toString(); }
-
-    public float getGrossBaseBonus(){ return Float.parseFloat(mapRecruitment.get("GrossBaseBonus").toString()); }
-
-    public float getHorsePerWeek(){ return Float.parseFloat(mapRecruitment.get("HoursPerWeek").toString()); }
-
-    public boolean isBudgetedCost(){ return Boolean.parseBoolean(mapRecruitment.get("IsBudgetedCost").toString()); }
-
-    public boolean isPositionMayBePermanent(){ return Boolean.parseBoolean(mapRecruitment.get("IsPositionMayBePermanent").toString()); }
-
-    public boolean isSpecificPerson(){ return Boolean.parseBoolean(mapRecruitment.get("IsSpecificPerson").toString()); }
-
-    public boolean isWithAttachment(){ return Boolean.parseBoolean(mapRecruitment.get("IsWithAttachment").toString()); }
-
-    public String getJobTitle(){ return mapRecruitment.get("JobTitle").toString(); }
-
-    public int getOfficeOfDeploymentID(){ return Integer.parseInt(mapRecruitment.get("OfficeOfDeployment").toString()); }
-
-    public String getOfficeOfDeploymentName(){ return mapRecruitment.get("OfficeOfDeploymentName").toString(); }
-
-    public HashMap<String, Object> getBenefits() { return (HashMap<String, Object>) mapRecruitment.get("OtherBenefits"); }
-
-    public HashMap<String, Object> getDocuents(){ return (HashMap<String, Object>) mapRecruitment.get("Documents"); }
-
-    public int getPositionTypeID(){ return Integer.parseInt(mapRecruitment.get("PositionTypeID").toString()); }
-
-    public String getPositionTypeName(){ return mapRecruitment.get("PositionTypeName").toString(); }
-
-    public String getReason(){ return mapRecruitment.get("Reason").toString(); }
-
-    public String getRecruitmentNumber(){ return mapRecruitment.get("RecruitmentNumber").toString(); }
-
-    public int getRecruitmentRequestID(){ return Integer.parseInt(mapRecruitment.get("RecruitmentRequestID").toString()); }
-
-    public int getRMID(){ return Integer.parseInt(mapRecruitment.get("RegionalManager").toString()); }
-
-    public String getRMEmail(){ return mapRecruitment.get("RegionalManagerEmail").toString(); }
-
-    public String getRMName(){ return mapRecruitment.get("RegionalManagerName").toString(); }
-
-    public String getReplacementFor(){ return mapRecruitment.get("ReplacementFor").toString(); }
-
-    public String getRequesterDepartmentName(){ return mapRecruitment.get("RequesterDepartment").toString(); }
-
-    public int getRequesterID(){ return Integer.parseInt(mapRecruitment.get("RequesterID").toString()); }
-
-    public String getRequesterName(){ return mapRecruitment.get("RequesterName").toString(); }
-
-    public int getRequesterOfficeID(){ return Integer.parseInt(mapRecruitment.get("RequesterOfficeID").toString()); }
-
-    public  String getRequesterOfficeName(){ return mapRecruitment.get("RequesterOfficeName").toString(); }
-
-    public String getRequesterPhoneNumber(){ return mapRecruitment.get("RequesterPhoneNumber").toString(); }
-
-    public float getSalaryRangeFrom(){ return Float.parseFloat(mapRecruitment.get("SalaryRangeFrom").toString()); }
-
-    public float getSalaryRangeTo(){ return Float.parseFloat(mapRecruitment.get("SalaryRangeTo").toString()); }
-
-    public int getStatusID(){ return Integer.parseInt(mapRecruitment.get("StatusID").toString()); }
-
-    public String getStatusName(){ return mapRecruitment.get("StatusName").toString(); }
-
-    public String getTargettedStartDate(){ return mapRecruitment.get("TargettedStartDate").toString(); }
-
-    public int getTimeBaseTypeID(){ return Integer.parseInt(mapRecruitment.get("TimeBaseTypeID").toString()); }
-
-    public String getTimeBaseTypeName(){ return mapRecruitment.get("TimeBaseTypeName").toString(); }
-
-    public ArrayList<HashMap<String, Object>> getAttachments(){ return mapAttachments; }
-
-    public ArrayList<HashMap<String, Object>> getOtherBenefits(){ return mapBenefits; }
+    public ArrayList<Document> getDocuments(){ return documents; }
+    public ArrayList<Benefit> getBenefits(){ return benefits; }
 
     public String getJSONFromUpdatingRecruitment(int statusID, String keyForUpdatableDate, String approverNote, SaltApplication app) throws Exception{
         HashMap<String, Object> tempMap = new HashMap<String, Object>();
-        tempMap.putAll(mapRecruitment);
 
-        tempMap.put("StatusID", statusID);
-        tempMap.put("DateProcessedByCountryManager", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateProcessedByCountryManager").toString())));
-        tempMap.put("DateProcessedByRegionalManager", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateProcessedByRegionalManager").toString())));
-        tempMap.put("DateRejected", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateRejected").toString())));
-        tempMap.put("DateRequested", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateRequested").toString())));
-        tempMap.put("TargettedStartDate", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("TargettedStartDate").toString())));
-        tempMap.put("Documents", app.gson.fromJson(tempMap.get("Documents").toString(), app.types.arrayListOfHashmapOfStringObject));
-        tempMap.put("OtherBenefits", app.gson.fromJson(tempMap.get("OtherBenefits").toString(), app.types.arrayListOfHashmapOfStringObject));
+        tempMap.put("Active", isActive);
+        tempMap.put("AnnualRevenue", annualRev);
         tempMap.put("ApproverNote", approverNote);
+        tempMap.put("CountryManager", cmID);
+        tempMap.put("CountryManagerEmail", cmEmail);
+        tempMap.put("CountryManagerName", cmName);
+        tempMap.put("DateProcessedByCountryManager", dateProcessedByCM);
+        tempMap.put("DateProcessedByRegionalManager", dateProcessedByRM);
+        tempMap.put("DateRejected", dateRejected);
+        tempMap.put("DateRequested", dateRequested);
+        tempMap.put("DepartmentToBeAssigned", departmentToBeAssignedID);
+        tempMap.put("DepartmentToBeAssignedName", departmentToBeAssignedName);
+        tempMap.put("DocName","");
+        JSONArray jsonDocs = new JSONArray();
+        for(Document doc :documents)
+            jsonDocs.put(doc.getJSONObject());
+        tempMap.put("Documents",jsonDocs);
+        tempMap.put("Email",email);
+        tempMap.put("EmployeeCategoryID", empCatID);
+        tempMap.put("EmployeeCategoryName", empCatName);
+        tempMap.put("EmploymentTypeID", empTypeID);
+        tempMap.put("EmploymentTypeName", empTypeName);
+        tempMap.put("GrossBaseBonus", grossBaseBonus);
+        tempMap.put("HoursPerWeek", hrsPerWeek);
+        tempMap.put("IsBudgetedCost", isBudgetedCost);
+        tempMap.put("IsPositionMayBePermanent", isPositionMaybePermanent);
+        tempMap.put("IsSpecificPerson", isSpecificPeron);
+        tempMap.put("IsWithAttachment", isWithAttachment);
+        tempMap.put("JobTitle", jobTitle);
+        tempMap.put("OfficeOfDeployment", officeDeploymentID);
+        tempMap.put("OfficeOfDeploymentName", officeDeploymentName);
+        tempMap.put("OrigDoc", "");
+        JSONArray jsonBenefits = new JSONArray();
+        for(Benefit benefit :benefits)
+            jsonBenefits.put(benefit.getJsonObject());
+        tempMap.put("OtherBenefits", jsonBenefits);
+        tempMap.put("PositionTypeID", posTypeID);
+        tempMap.put("PositionTypeName", posTypeName);
+        tempMap.put("Reason", reason);
+        tempMap.put("RecruitmentNumber", recNum);
+        tempMap.put("RecruitmentRequestID", recReqID);
+        tempMap.put("RegionalManager", rmID);
+        tempMap.put("RegionalManagerEmail", rmEmail);
+        tempMap.put("RegionalManagerName", rmName);
+        tempMap.put("ReplacementFor", replacementFor);
+        tempMap.put("RequesterDepartment", requesterDepartmentName);
+        tempMap.put("RequesterID", requesterID);
+        tempMap.put("RequesterName", requesterName);
+        tempMap.put("RequesterOfficeID", requesterOfficeID);
+        tempMap.put("RequesterOfficeName", requesterOfficeName);
+        tempMap.put("RequesterPhoneNumber", requesterPhoneNumber);
+        tempMap.put("SalaryRangeFrom", salaryRangeFrom);
+        tempMap.put("SalaryRangeTo", salaryRangeTo);
+        tempMap.put("StatusID", statusID);
+        tempMap.put("StatusName", statusName);
+        tempMap.put("TargettedStartDate", targetStartDate);
+        tempMap.put("TimeBaseTypeID", timebaseTypeID);
+        tempMap.put("TimeBaseTypeName", timebaseTypeName);
 
         if(!keyForUpdatableDate.equals("NA"))
             tempMap.put(keyForUpdatableDate, app.onlineGateway.jsonizeDate(new Date()));
@@ -196,16 +259,92 @@ public class Recruitment {
 
     public String jsonize(SaltApplication app) throws Exception{
         HashMap<String, Object> tempMap = new HashMap<String, Object>();
-        tempMap.putAll(mapRecruitment);
 
-        tempMap.put("DateProcessedByCountryManager", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateProcessedByCountryManager").toString())));
-        tempMap.put("DateProcessedByRegionalManager", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateProcessedByRegionalManager").toString())));
-        tempMap.put("DateRejected", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateRejected").toString())));
-        tempMap.put("DateRequested", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateRequested").toString())));
-        tempMap.put("TargettedStartDate", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("TargettedStartDate").toString())));
-        tempMap.put("Documents", app.gson.fromJson(tempMap.get("Documents").toString(), app.types.arrayListOfHashmapOfStringObject));
-        tempMap.put("OtherBenefits", app.gson.fromJson(tempMap.get("OtherBenefits").toString(), app.types.arrayListOfHashmapOfStringObject));
+        tempMap.put("Active", isActive);
+        tempMap.put("AnnualRevenue", annualRev);
+        tempMap.put("ApproverNote", approverNote);
+        tempMap.put("CountryManager", cmID);
+        tempMap.put("CountryManagerEmail", cmEmail);
+        tempMap.put("CountryManagerName", cmName);
+        tempMap.put("DateProcessedByCountryManager", dateProcessedByCM);
+        tempMap.put("DateProcessedByRegionalManager", dateProcessedByRM);
+        tempMap.put("DateRejected", dateRejected);
+        tempMap.put("DateRequested", dateRequested);
+        tempMap.put("DepartmentToBeAssigned", departmentToBeAssignedID);
+        tempMap.put("DepartmentToBeAssignedName", departmentToBeAssignedName);
+        tempMap.put("DocName","");
+        JSONArray jsonDocs = new JSONArray();
+        for(Document doc :documents)
+            jsonDocs.put(doc.getJSONObject());
+        tempMap.put("Documents",jsonDocs);
+        tempMap.put("Email",email);
+        tempMap.put("EmployeeCategoryID", empCatID);
+        tempMap.put("EmployeeCategoryName", empCatName);
+        tempMap.put("EmploymentTypeID", empTypeID);
+        tempMap.put("EmploymentTypeName", empTypeName);
+        tempMap.put("GrossBaseBonus", grossBaseBonus);
+        tempMap.put("HoursPerWeek", hrsPerWeek);
+        tempMap.put("IsBudgetedCost", isBudgetedCost);
+        tempMap.put("IsPositionMayBePermanent", isPositionMaybePermanent);
+        tempMap.put("IsSpecificPerson", isSpecificPeron);
+        tempMap.put("IsWithAttachment", isWithAttachment);
+        tempMap.put("JobTitle", jobTitle);
+        tempMap.put("OfficeOfDeployment", officeDeploymentID);
+        tempMap.put("OfficeOfDeploymentName", officeDeploymentName);
+        tempMap.put("OrigDoc", "");
+        JSONArray jsonBenefits = new JSONArray();
+        for(Benefit benefit :benefits)
+            jsonBenefits.put(benefit.getJsonObject());
+        tempMap.put("OtherBenefits", jsonBenefits);
+        tempMap.put("PositionTypeID", posTypeID);
+        tempMap.put("PositionTypeName", posTypeName);
+        tempMap.put("Reason", reason);
+        tempMap.put("RecruitmentNumber", recNum);
+        tempMap.put("RecruitmentRequestID", recReqID);
+        tempMap.put("RegionalManager", rmID);
+        tempMap.put("RegionalManagerEmail", rmEmail);
+        tempMap.put("RegionalManagerName", rmName);
+        tempMap.put("ReplacementFor", replacementFor);
+        tempMap.put("RequesterDepartment", requesterDepartmentName);
+        tempMap.put("RequesterID", requesterID);
+        tempMap.put("RequesterName", requesterName);
+        tempMap.put("RequesterOfficeID", requesterOfficeID);
+        tempMap.put("RequesterOfficeName", requesterOfficeName);
+        tempMap.put("RequesterPhoneNumber", requesterPhoneNumber);
+        tempMap.put("SalaryRangeFrom", salaryRangeFrom);
+        tempMap.put("SalaryRangeTo", salaryRangeTo);
+        tempMap.put("StatusID", statusID);
+        tempMap.put("StatusName", statusName);
+        tempMap.put("TargettedStartDate", targetStartDate);
+        tempMap.put("TimeBaseTypeID", timebaseTypeID);
+        tempMap.put("TimeBaseTypeName", timebaseTypeName);
 
         return app.gson.toJson(tempMap, app.types.hashmapOfStringObject);
+    }
+
+    public class Benefit implements Serializable{
+        private float actualCost;
+        private int benefitID, benefitRecReqID;
+        private String benefitName;
+
+        public Benefit(JSONObject jsonBenefit) throws Exception{
+            actualCost = (float)jsonBenefit.getDouble("ActualCost");
+            benefitID = jsonBenefit.getInt("BenefitID");
+            benefitName = jsonBenefit.getString("BenefitName");
+            benefitRecReqID = jsonBenefit.getInt("RecruitmentRequestID");
+        }
+
+        public float getActualCost(){ return actualCost; }
+        public String getBenefitName(){ return benefitName; }
+
+        public JSONObject getJsonObject() throws Exception{
+            JSONObject obj = new JSONObject();
+            obj.put("ActualCost", actualCost);
+            obj.put("BenefitID", benefitID);
+            obj.put("BenefitName", benefitName);
+            obj.put("RecruitmentRequestID", benefitRecReqID);
+
+            return obj;
+        }
     }
 }

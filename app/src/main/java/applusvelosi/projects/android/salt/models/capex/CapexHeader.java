@@ -3,17 +3,19 @@ package applusvelosi.projects.android.salt.models.capex;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.SaltApplication;
+import applusvelosi.projects.android.salt.models.Document;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 
 /**
  * Created by Velosi on 10/9/15.
  */
-public class CapexHeader {
+public class CapexHeader implements Serializable{
     public static final String NOATTACHMENT = "No Attachment";
 
     private static String CAPEXHEADERTYPE_OPEN = "40-Open";
@@ -81,162 +83,162 @@ public class CapexHeader {
         statusDescriptionList.add(CAPEXHEADERDESC_REJECTEDBYCEO);
     }
 
-    private HashMap<String, Object> mapCapexHeader;
-    private ArrayList<HashMap<String, Object>> mapDocuments;
+    private boolean isActive;
+    private String attachedCER;
+    private int capexID;
+    private ArrayList<CapexLineItem> capexLineItems;
+    private String capexNumber;
+    private int costCenterID;
+    private String costCenterName;
+    private int cmID;
+    private String cmEmail, cmName;
+    private int createdBy;
+    private String dateCreated, dateProcessedByCM, dateProcessedByRM, dateSubmitted;
+    private int departmentID;
+    private String departmentName;
+    private String docName;
+    private ArrayList<Document> documents;
+    private int investmentTypeID;
+    private String investmentTypeName;
+    private int lastModifiedBy;
+    private String note;
+    private int officeID;
+    private String officeName;
+    private int rmID;
+    private String rmEmail, rmName, requesterEmail;
+    private int requesterID;
+    private String requesterName;
+    private int statusID;
+    private String statusName;
+    private float total, totalAmountInUSD;
 
-    public CapexHeader(JSONObject jsonCapexHeader, OnlineGateway onlineGateway) throws Exception{
-        mapCapexHeader = new HashMap<String, Object>();
-        mapCapexHeader.putAll(OnlineGateway.toMap(jsonCapexHeader));
-        mapCapexHeader.put("CapexID",Integer.parseInt(mapCapexHeader.get("CapexID").toString()));
-        mapCapexHeader.put("CostCenterID", Integer.parseInt(mapCapexHeader.get("CostCenterID").toString()));
-        mapCapexHeader.put("CountryManager", Integer.parseInt(mapCapexHeader.get("CountryManager").toString()));
-        mapCapexHeader.put("CreatedBy", Integer.parseInt(mapCapexHeader.get("CreatedBy").toString()));
-        mapCapexHeader.put("DepartmentID", Integer.parseInt(mapCapexHeader.get("DepartmentID").toString()));
-        mapCapexHeader.put("InvestmentTypeID", Integer.parseInt(mapCapexHeader.get("InvestmentTypeID").toString()));
-        mapCapexHeader.put("LastModifiedBy", Integer.parseInt(mapCapexHeader.get("LastModifiedBy").toString()));
-        mapCapexHeader.put("OfficeID", Integer.parseInt(mapCapexHeader.get("OfficeID").toString()));
-        mapCapexHeader.put("RegionalManager", Integer.parseInt(mapCapexHeader.get("RegionalManager").toString()));
-        mapCapexHeader.put("RequesterID", Integer.parseInt(mapCapexHeader.get("RequesterID").toString()));
-        mapCapexHeader.put("StatusID", Integer.parseInt(mapCapexHeader.get("StatusID").toString()));
-        //dates
-        mapCapexHeader.put("DateCreated", onlineGateway.dJsonizeDate(mapCapexHeader.get("DateCreated").toString()));
-        mapCapexHeader.put("DateProcessedByCountryManager", onlineGateway.dJsonizeDate(mapCapexHeader.get("DateProcessedByCountryManager").toString()));
-        mapCapexHeader.put("DateProcessedByRegionalManager", onlineGateway.dJsonizeDate(mapCapexHeader.get("DateProcessedByRegionalManager").toString()));
-        mapCapexHeader.put("DateSubmitted", onlineGateway.dJsonizeDate(mapCapexHeader.get("DateSubmitted").toString()));
+    public CapexHeader(JSONObject jsonCapexHeader) throws Exception{
+        isActive = jsonCapexHeader.getBoolean("Active");
+        attachedCER = jsonCapexHeader.getString("AttachedCER");
+        capexID = jsonCapexHeader.getInt("CapexID");
+        capexNumber = jsonCapexHeader.getString("CapexNumber");
+        costCenterID = jsonCapexHeader.getInt("CostCenterID");
+        costCenterName = jsonCapexHeader.getString("CostCenterName");
+        cmID = jsonCapexHeader.getInt("CountryManager");
+        cmEmail = jsonCapexHeader.getString("CountryManagerEmail");
+        cmName = jsonCapexHeader.getString("CountryManagerName");
+        createdBy = jsonCapexHeader.getInt("CreatedBy");
+        dateCreated = jsonCapexHeader.getString("DateCreated");
+        dateProcessedByCM = jsonCapexHeader.getString("DateProcessedByCountryManager");
+        dateProcessedByRM = jsonCapexHeader.getString("DateProcessedByRegionalManager");
+        dateSubmitted = jsonCapexHeader.getString("DateSubmitted");
+        departmentID = jsonCapexHeader.getInt("DepartmentID");
+        departmentName = jsonCapexHeader.getString("DepartmentName");
+        docName = jsonCapexHeader.getString("DocName");
+        investmentTypeID = jsonCapexHeader.getInt("InvestmentTypeID");
+        investmentTypeName = jsonCapexHeader.getString("InvestmentTypeName");
+        lastModifiedBy = jsonCapexHeader.getInt("LastModifiedBy");
+        note = jsonCapexHeader.getString("Note");
+        officeID = jsonCapexHeader.getInt("OfficeID");
+        officeName = jsonCapexHeader.getString("OfficeName");
+        rmID = jsonCapexHeader.getInt("RegionalManager");
+        rmEmail = jsonCapexHeader.getString("RegionalManagerEmail");
+        rmName = jsonCapexHeader.getString("RegionalManagerName");
+        requesterEmail = jsonCapexHeader.getString("RequesterEmail");
+        requesterID = jsonCapexHeader.getInt("RequesterID");
+        requesterName = jsonCapexHeader.getString("RequesterName");
+        statusID = jsonCapexHeader.getInt("StatusID");
+        statusName = jsonCapexHeader.getString("StatusName");
+        total = (float)jsonCapexHeader.getDouble("Total");
+        totalAmountInUSD = (float)jsonCapexHeader.getDouble("TotalAmountInUSD");
 
-        mapDocuments = (ArrayList<HashMap<String, Object>>)OnlineGateway.toList(jsonCapexHeader.getJSONArray("Documents"));
+        JSONArray jsonLineItems = jsonCapexHeader.getJSONArray("CapexLineItems");
+        capexLineItems = new ArrayList<CapexLineItem>();
+        for(int i=0; i<jsonLineItems.length(); i++)
+            capexLineItems.add(new CapexLineItem(jsonLineItems.getJSONObject(i)));
+
+        JSONArray jsonDocs = jsonCapexHeader.getJSONArray("Documents");
+        documents = new ArrayList<Document>();
+        for(int i=0; i<jsonDocs.length(); i++)
+            documents.add(new Document(jsonDocs.getJSONObject(i)));
     }
 
-    public String getAttachedCer(){
-        String cer = mapCapexHeader.get("AttachedCER").toString();
-        return (cer == null || cer.length()<1 || cer.equals(""))?NOATTACHMENT:cer;
+    public String getAttachedCer(){ return (attachedCER == null || attachedCER.length()<1 || attachedCER.equals(""))?NOATTACHMENT:attachedCER; }
+    public int getCapexID(){ return capexID; }
+    public String getCapexNumber(){ return capexNumber; }
+    public int getCostCenterID(){ return costCenterID; }
+    public String getCostCenterName(){ return costCenterName; }
+    public int getCMID(){ return cmID; }
+    public String getCMEmail(){ return cmEmail; }
+    public String getCMName(){ return cmName; }
+    public String getDateProcessedByCM(SaltApplication app){
+        String tempDateProcessedByCM = app.onlineGateway.dJsonizeDate(dateProcessedByCM);
+        return (tempDateProcessedByCM.contains("-Jan-1900"))?"-":tempDateProcessedByCM;
     }
-
-    public int getCapexID(){
-        return Integer.parseInt(mapCapexHeader.get("CapexID").toString());
+    public String getDateProcessedBYRM(SaltApplication app){
+        String tempDateProcessedByRM = app.onlineGateway.dJsonizeDate(dateProcessedByRM);
+        return (tempDateProcessedByRM.contains("-Jan-1900"))?"-":tempDateProcessedByRM;
     }
-
-    public String getCapexNumber(){
-        return mapCapexHeader.get("CapexNumber").toString();
+    public String getDateSubmitted(SaltApplication app){
+        String tempDateSubmitted = app.onlineGateway.dJsonizeDate(dateSubmitted);
+        return (tempDateSubmitted.contains("-Jan-1900"))?"-":tempDateSubmitted;
     }
-
-    public int getCostCenterID(){
-        return Integer.parseInt(mapCapexHeader.get("CostCenterID").toString());
-    }
-
-    public String getCostCenterName(){
-        return mapCapexHeader.get("CostCenterName").toString();
-    }
-
-    public int getCMID(){
-        return Integer.parseInt(mapCapexHeader.get("CountryManager").toString());
-    }
-
-    public String getCMEmail(){
-        return mapCapexHeader.get("CountryManagerEmail").toString();
-    }
-
-    public String getCMName(){
-        return mapCapexHeader.get("CountryManagerName").toString();
-    }
-
-    public String getDateCreated(){
-        return mapCapexHeader.get("DateCreated").toString();
-    }
-
-    public String getDateProcessedByCM(){
-        return mapCapexHeader.get("DateProcessedByCountryManager").toString();
-    }
-
-    public String getDateProcessedBYRM(){
-        return mapCapexHeader.get("DateProcessedByRegionalManager").toString();
-    }
-
-    public String getDateSubmitted(){
-        return mapCapexHeader.get("DateSubmitted").toString();
-    }
-
-    public int getDepartmentID(){
-        return Integer.parseInt(mapCapexHeader.get("DepartmentID").toString());
-    }
-
-    public String getDepartmentName(){
-        return mapCapexHeader.get("DepartmentName").toString();
-    }
-
-    public int getInvestmentTypeID(){
-        return Integer.parseInt(mapCapexHeader.get("InvestmentTypeID").toString());
-    }
-
-    public String getInvestmentTypeName(){
-        return mapCapexHeader.get("InvestmentTypeName").toString();
-    }
-
-    public String getNotes(){
-        return mapCapexHeader.get("Note").toString();
-    }
-
-    public int getOfficeID(){
-        return  Integer.parseInt(mapCapexHeader.get("OfficeID").toString());
-    }
-
-    public String getOfficeName(){
-        return mapCapexHeader.get("OfficeName").toString();
-    }
-
-    public int getRMID(){
-        return Integer.parseInt(mapCapexHeader.get("RegionalManager").toString());
-    }
-
-    public String getRMEmail(){
-        return mapCapexHeader.get("RegionalManagerEmail").toString();
-    }
-
+    public int getDepartmentID(){ return departmentID; }
+    public String getDepartmentName(){ return (departmentName.equals("null"))?"-":departmentName; }
+    public int getInvestmentTypeID(){ return investmentTypeID; }
+    public String getInvestmentTypeName(){ return (departmentName.equals("null"))?"-":investmentTypeName; }
+    public String getNotes(){ return note; }
+    public int getOfficeID(){ return officeID; }
+    public String getOfficeName(){ return officeName; }
+    public int getRMID(){ return rmID; }
+    public String getRMEmail(){ return rmEmail; }
     public String getRMname(){
-        return mapCapexHeader.get("RegionalManagerName").toString();
+        return rmName;
     }
-
-    public String getRequesterEmail(){
-        return mapCapexHeader.get("RequesterEmail").toString();
-    }
-
-    public int getRequesterID(){
-        return Integer.parseInt(mapCapexHeader.get("RequesterID").toString());
-    }
-
-    public String getRequesterName(){
-        return mapCapexHeader.get("RequesterName").toString();
-    }
-
+    public String getRequesterEmail(){ return requesterEmail; }
+    public int getRequesterID(){ return requesterID; }
+    public String getRequesterName(){ return requesterName; }
     public int getStatusID(){
-        return Integer.parseInt(mapCapexHeader.get("StatusID").toString());
+        return statusID;
     }
-
     public String getStatusName(){
-        return mapCapexHeader.get("StatusName").toString();
+        return statusName;
     }
-
-    public float getTotal(){
-        return Float.parseFloat(mapCapexHeader.get("Total").toString());
-    }
-
-    public float getTotalAmountInUSD(){
-        return Float.parseFloat(mapCapexHeader.get("TotalAmountInUSD").toString());
-    }
-
-    public ArrayList<HashMap<String, Object>> getDocuments(){ return mapDocuments; }
+    public float getTotal(){ return total; }
+    public float getTotalAmountInUSD(){ return totalAmountInUSD;}
+    public ArrayList<Document> getDocuments(){ return documents; }
 
     public String getJSONFromUpdatingCapex(int statusID, String keyForUpdatableDate, SaltApplication app) throws Exception{
         HashMap<String, Object> tempMap = new HashMap<String, Object>();
-        tempMap.putAll(mapCapexHeader);
-
+        tempMap.put("Active", isActive);
+        tempMap.put("AttachedCER", attachedCER);
+        tempMap.put("CapexID", capexID);
+        tempMap.put("CapexNumber", capexNumber);
+        tempMap.put("CostCenterID", costCenterID);
+        tempMap.put("CostCenterName", costCenterName);
+        tempMap.put("CountryManager", cmID);
+        tempMap.put("CountryManagerEmail", cmEmail);
+        tempMap.put("CountryManagerName", cmName);
+        tempMap.put("CreatedBy", createdBy);
+        tempMap.put("DateCreated", dateCreated);
+        tempMap.put("DateProcessedByCountryManager", dateProcessedByCM);
+        tempMap.put("DateProcessedByRegionalManager", dateProcessedByCM);
+        tempMap.put("DateSubmitted", dateSubmitted);
+        tempMap.put("DepartmentID", departmentID);
+        tempMap.put("DepartmentName", departmentName);
+        tempMap.put("DocName", docName);
+        tempMap.put("InvestmentTypeID", investmentTypeID);
+        tempMap.put("InvestmentTypeName", investmentTypeName);
+        tempMap.put("LastModifiedBy", lastModifiedBy);
+        tempMap.put("Note", note);
+        tempMap.put("OfficeID", officeID);
+        tempMap.put("OfficeName", officeName);
+        tempMap.put("RegionalManager", rmID);
+        tempMap.put("RegionalManagerEmail", rmEmail);
+        tempMap.put("RegionalManagerName", rmName);
+        tempMap.put("RequesterEmail", requesterEmail) ;
+        tempMap.put("RequesterID", requesterID);
+        tempMap.put("RequesterName", requesterName);
         tempMap.put("StatusID", statusID);
-        tempMap.put("DateCreated", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateCreated").toString())));
-        tempMap.put("DateProcessedByRegionalManager", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateProcessedByRegionalManager").toString())));
-        tempMap.put("DateSubmitted", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateSubmitted").toString())));
-        tempMap.put("DateProcessedByCountryManager", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateProcessedByCountryManager").toString())));
-        tempMap.put("CapexLineItems", app.gson.fromJson(tempMap.get("CapexLineItems").toString(), app.types.arrayListOfHashmapOfStringObject));
-        tempMap.put("Documents", app.gson.fromJson(tempMap.get("Documents").toString(), app.types.arrayListOfHashmapOfStringObject));
+        tempMap.put("StatusName", statusName);
+        tempMap.put("Total", total);
+        tempMap.put("TotalAmountInUSD", totalAmountInUSD);
+        tempMap.put("CapexLineItems", new JSONArray());
 
         if(!keyForUpdatableDate.equals("NA"))
             tempMap.put(keyForUpdatableDate, app.onlineGateway.jsonizeDate(new Date()));
@@ -246,14 +248,40 @@ public class CapexHeader {
 
     public String jsonize(SaltApplication app) throws Exception{
         HashMap<String, Object> tempMap = new HashMap<String, Object>();
-        tempMap.putAll(mapCapexHeader);
-
-        tempMap.put("DateCreated", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateCreated").toString())));
-        tempMap.put("DateProcessedByRegionalManager", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateProcessedByRegionalManager").toString())));
-        tempMap.put("DateSubmitted", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateSubmitted").toString())));
-        tempMap.put("DateProcessedByCountryManager", app.onlineGateway.jsonizeDate(app.dateFormatDefault.parse(tempMap.get("DateProcessedByCountryManager").toString())));
-        tempMap.put("CapexLineItems", app.gson.fromJson(tempMap.get("CapexLineItems").toString(), app.types.arrayListOfHashmapOfStringObject));
-        tempMap.put("Documents", app.gson.fromJson(tempMap.get("Documents").toString(), app.types.arrayListOfHashmapOfStringObject));
+        tempMap.put("Active", isActive);
+        tempMap.put("AttachedCER", attachedCER);
+        tempMap.put("CapexID", capexID);
+        tempMap.put("CapexNumber", capexNumber);
+        tempMap.put("CostCenterID", costCenterID);
+        tempMap.put("CostCenterName", costCenterName);
+        tempMap.put("CountryManager", cmID);
+        tempMap.put("CountryManagerEmail", cmEmail);
+        tempMap.put("CountryManagerName", cmName);
+        tempMap.put("CreatedBy", createdBy);
+        tempMap.put("DateCreated", dateCreated);
+        tempMap.put("DateProcessedByCountryManager", dateProcessedByCM);
+        tempMap.put("DateProcessedByRegionalManager", dateProcessedByCM);
+        tempMap.put("DateSubmitted", dateSubmitted);
+        tempMap.put("DepartmentID", departmentID);
+        tempMap.put("DepartmentName", departmentName);
+        tempMap.put("DocName", docName);
+        tempMap.put("InvestmentTypeID", investmentTypeID);
+        tempMap.put("InvestmentTypeName", investmentTypeName);
+        tempMap.put("LastModifiedBy", lastModifiedBy);
+        tempMap.put("Note", note);
+        tempMap.put("OfficeID", officeID);
+        tempMap.put("OfficeName", officeName);
+        tempMap.put("RegionalManager", rmID);
+        tempMap.put("RegionalManagerEmail", rmEmail);
+        tempMap.put("RegionalManagerName", rmName);
+        tempMap.put("RequesterEmail", requesterEmail) ;
+        tempMap.put("RequesterID", requesterID);
+        tempMap.put("RequesterName", requesterName);
+        tempMap.put("StatusID", statusID);
+        tempMap.put("StatusName", statusName);
+        tempMap.put("Total", total);
+        tempMap.put("TotalAmountInUSD", totalAmountInUSD);
+        tempMap.put("CapexLineItems", new JSONArray());
 
         return app.gson.toJson(tempMap, app.types.hashmapOfStringObject);
     }

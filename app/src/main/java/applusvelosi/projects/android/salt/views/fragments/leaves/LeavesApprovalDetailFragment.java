@@ -16,6 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
+
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
@@ -61,7 +65,8 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		builderView = (RelativeLayout)LayoutInflater.from(linearNavFragmentActivity).inflate(R.layout.dialog_textinput, null);
 		rejectionReason = (EditText)builderView.findViewById(R.id.etexts_dialogs_textinput);
-		dialogReject = new AlertDialog.Builder(linearNavFragmentActivity).setTitle("Reject").setView(builderView)
+        ((TextView)builderView.findViewById(R.id.tviews_dialogs_textinput)).setText("Reason for Rejection");
+		dialogReject = new AlertDialog.Builder(linearNavFragmentActivity).setTitle(null).setView(builderView)
 			.setPositiveButton("Reject", new DialogInterface.OnClickListener() {
 
 				@Override
@@ -90,8 +95,13 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 										activity.finishLoading(result.toString());
 									else{
 										activity.finishLoading();
+										sendPush("Leave Rejected");
 										Toast.makeText(activity, "Rejected Successfully!", Toast.LENGTH_SHORT).show();
-										LeaveForApprovalFragment.getInstance().sync();
+										try {
+                                            LeaveForApprovalFragment.getInstance().sync();
+                                        }catch(Exception e){
+                                            e.printStackTrace();
+                                        }
 										activity.finish();
 									}
 
@@ -115,12 +125,14 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 			}).create();
 
 		try{
+
 			activity.leave.fixFormatForLeavesForApprovalDetailPage(app.onlineGateway);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		if((activity.leave.getStatusID()==Leave.LEAVESTATUSPENDINGID || activity.leave.getStatusID()==Leave.LEAVESTATUSAPPROVEDKEY) && activity.leave.isApprover(app.getStaff().getStaffID())){
+//		if((activity.leave.getStatusID()==Leave.LEAVESTATUSPENDINGID || activity.leave.getStatusID()==Leave.LEAVESTATUSAPPROVEDKEY) && activity.leave.isApprover(app.getStaff().getStaffID())){
+        if((activity.leave.getStatusID()==Leave.LEAVESTATUSPENDINGID || activity.leave.getStatusID()==Leave.LEAVESTATUSAPPROVEDKEY)){
 			containerActionbarRightbuttons.setVisibility(View.VISIBLE);
 			if(activity.leave.getStatusID() == Leave.LEAVESTATUSAPPROVEDKEY){
 				buttonActionbarApprove.setVisibility(View.GONE);
@@ -194,6 +206,7 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 								activity.finishLoading(result.toString());
 							else{
 								activity.finishLoading();
+								sendPush("Leave Approved");
 								Toast.makeText(linearNavFragmentActivity, "Leave Approved!", Toast.LENGTH_SHORT).show();
 								LeaveForApprovalFragment.getInstance().sync();
 								activity.finish();
@@ -234,6 +247,7 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 									activity.finishLoading(result);
 								else{
 									activity.finishLoading();
+									sendPush("Leave Cancelled");
 									Toast.makeText(linearNavFragmentActivity, "Leave Cancelled!", Toast.LENGTH_SHORT).show();
 									LeaveForApprovalFragment.getInstance().sync();
 									activity.finish();
@@ -293,4 +307,11 @@ public class LeavesApprovalDetailFragment extends LinearNavActionbarFragment {
 //			});
 //		}
 //	}
+
+	private void sendPush(String message){
+		ParsePush parsePush = new ParsePush();
+		ParseQuery parseQuery = ParseInstallation.getQuery();
+		parseQuery.whereEqualTo("staffID", activity.leave.getStaffID());
+		parsePush.sendMessageInBackground("{\"Type\":\"Leave\", \"LeaveID\":1, \"Message\":\""+message+"\"}", parseQuery);
+	}
 }

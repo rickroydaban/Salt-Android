@@ -31,7 +31,7 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 	private static LeaveListFragment instance;
 	//action bar buttons
 	private RelativeLayout actionbarMenuButton, actionbarNewButton, actionbarRefreshButton;
-	
+
 	private ListView lv;
 	private MyLeavesAdapter adapter;
 	private Spinner statusSpinner, typeSpinner;
@@ -41,15 +41,15 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 	public static LeaveListFragment getInstance(){
 		if(instance == null)
 			instance = new LeaveListFragment();
-		
+
 		return instance;
 	}
-	
+
 	public static void removeInstance(){
 		if(instance != null)
 			instance = null;
-	}	
-	
+	}
+
 	@Override
 	protected RelativeLayout setupActionbar() {
 		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_myleaves, null);
@@ -57,23 +57,23 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 		actionbarNewButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_newleaverequest);
 		actionbarRefreshButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_refresh);
 		((TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title)).setText("My Leaves");
-		
+
 		actionbarMenuButton.setOnClickListener(this);
 		actionbarNewButton.setOnClickListener(this);
 		actionbarRefreshButton.setOnClickListener(this);
-		
+
 		return actionbarLayout;
 	}
-	
+
 	@Override
 	protected View createView(LayoutInflater li, ViewGroup vg, Bundle b) {
 		View view = li.inflate(R.layout.fragment_leavelist, null);
 		lv = (ListView)view.findViewById(R.id.lists_myleaves);
-		
+
 //		yearSpinner = (Spinner)view.findViewById(R.id.choices_myleaves_search_year);
 		statusSpinner = (Spinner)view.findViewById(R.id.choices_myleaves_search_status);
 		typeSpinner = (Spinner)view.findViewById(R.id.choices_myleaves_searh_type);
-		
+
 		filteredLeaves = new ArrayList<Leave>();
 		types = new ArrayList<String>();
 		statuses = new ArrayList<String>();
@@ -93,14 +93,14 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 //		yearSpinner.setOnItemSelectedListener(this);
 		statusSpinner.setOnItemSelectedListener(this);
 		typeSpinner.setOnItemSelectedListener(this);
-//		yearSpinner.setSelection(4);			
-		
+//		yearSpinner.setSelection(4);
+
 		adapter = new MyLeavesAdapter(activity, filteredLeaves);
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
-		
+
 		updateList();
-		
+
 		return view;
 	}
 
@@ -123,24 +123,24 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 		super.onResume();
 		filterLeaves();
 	}
-		
+
 	private void updateList(){
 		activity.startLoading();
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				Object tempMyLeaveResult;
-				
+
 				try{
 					tempMyLeaveResult = app.onlineGateway.getMyLeaves();
 				}catch(Exception e){
 					tempMyLeaveResult = e.getMessage();
 				}
-				
+
 				final Object myLeaveResult = tempMyLeaveResult;
 				new Handler(Looper.getMainLooper()).post(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						if(myLeaveResult instanceof String)
@@ -160,7 +160,7 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		Intent intent = new Intent(activity, LeaveDetailActivity.class);
-		intent.putExtra(LeaveDetailActivity.INTENTKEY_LEAVEPOS, pos);
+		intent.putExtra(LeaveDetailActivity.INTENTKEY_LEAVEPOS, app.getMyLeaves().indexOf(filteredLeaves.get(pos)));
 		startActivity(intent);
 	}
 
@@ -182,7 +182,7 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 			   leave.setPosOnAppLeaves(i);
 //		   }
 		}
-		
+
 		adapter.notifyDataSetChanged();
 	}
 

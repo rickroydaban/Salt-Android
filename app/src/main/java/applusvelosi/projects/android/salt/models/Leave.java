@@ -325,7 +325,7 @@ public class Leave implements Serializable{
 	
 	//to be used by the leaves for approval fragment to fix the inconsistensies from converting the leave object into gson string
 	public void fixFormatForLeavesForApprovalDetailPage(OnlineGateway onlineGateway) throws Exception{
-		mapLeave.put("Documents", new JSONObject(mapLeave.get("Documents").toString()).getJSONArray("values"));
+		mapLeave.put("Documents", (mapLeave.get("Documents") != null) ? new JSONObject(mapLeave.get("Documents").toString()).getJSONArray("values") : new JSONArray());
 	}
 	
 	public int getLeaveID(){
@@ -333,7 +333,14 @@ public class Leave implements Serializable{
 	}
 	
 	public int getStaffID(){
-		return Integer.parseInt(mapLeave.get("StaffID").toString());
+		int staffID;
+		try{
+			staffID = Integer.parseInt(mapLeave.get("StaffID").toString());
+		}catch (NumberFormatException e){
+			staffID = (int)Float.parseFloat(mapLeave.get("StaffID").toString());
+		}
+
+		return staffID;
 	}
 	
 	public String getStaffName(){
@@ -459,10 +466,10 @@ public class Leave implements Serializable{
 	public String getLeaveApprover3Name(){
 		return mapLeave.get("LeaveApprover3Name").toString();
 	}
-	public boolean isApprover(int staffID){
-		return (getLeaveApprover1ID()==staffID || getLeaveApprover2ID()==staffID || getLeaveApprover3ID()==staffID)?true:false;
-	}
-	
+//	public boolean isApprover(int staffID){
+//		return (getLeaveApprover1ID()==staffID || getLeaveApprover2ID()==staffID || getLeaveApprover3ID()==staffID)?true:false;
+//	}
+
 	public int getOfficeID(){
 		return Integer.parseInt(mapLeave.get("OfficeID").toString());
 	}

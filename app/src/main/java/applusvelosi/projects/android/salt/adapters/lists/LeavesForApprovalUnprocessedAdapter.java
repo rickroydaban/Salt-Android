@@ -16,6 +16,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
+
+import applusvelosi.projects.android.salt.ParseReceiver;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.Leave;
@@ -44,7 +50,8 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 		this.leavesForApproval = leavesForApproval;
 		builderView = (RelativeLayout)LayoutInflater.from(activity).inflate(R.layout.dialog_textinput, null);
 		rejectionReason = (EditText)builderView.findViewById(R.id.etexts_dialogs_textinput);
-		dialogReject = new AlertDialog.Builder(activity).setTitle("Reject").setView(builderView)
+		((TextView)builderView.findViewById(R.id.tviews_dialogs_textinput)).setText("Reason for rejection");
+		dialogReject = new AlertDialog.Builder(activity).setTitle(null).setView(builderView)
 														.setPositiveButton("Reject", new DialogInterface.OnClickListener() {
 															
 															@Override
@@ -61,10 +68,8 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 																		try{
 																			leaveSelected.reject(rejectionReason.getText().toString(), app.getStaff(), app.dateFormatDefault.format(new Date()));
 																			tempResult = app.onlineGateway.changeLeaveStatus(leaveSelected.getJSONStringForProcessingLeave(), Leave.LEAVESTATUSREJECTEDKEY);
-																			System.out.println("rejecting leave succeeed");
 																		}catch(Exception e){
 																			e.printStackTrace();
-																			System.out.println("rejecting leave failed "+e.getMessage());
 																			tempResult = e.getMessage();
 																		}
 																		final String result = tempResult;
@@ -77,6 +82,7 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 																				if(result != null)
 																					app.showMessageDialog(activity, result.toString());
 																				else{
+																					sendPush("Leave Rejected");
 																					app.showMessageDialog(activity, "Leave Rejected!");
 																					LeaveForApprovalFragment.getInstance().sync();
 																				}
@@ -123,7 +129,7 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 		
 		holder = (LeaveNodeHolder)view.getTag();
 		Leave leave = leavesForApproval.get(pos);
-		if(leave.isApprover(((SaltApplication)activity.getApplication()).getStaff().getStaffID())){
+//		if(leave.isApprover(((SaltApplication)activity.getApplication()).getStaff().getStaffID())){
 			if(leave.getStatusID() == Leave.LEAVESTATUSPENDINGID){
 				if(holder.buttonApprove.getVisibility() == View.GONE){
 					holder.buttonApprove.setVisibility(View.VISIBLE);
@@ -136,10 +142,10 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 				holder.buttonApprove.setVisibility(View.GONE);
 				holder.buttonReject.setVisibility(View.GONE);				
 			}
-		}else{
-			holder.buttonApprove.setVisibility(View.GONE);
-			holder.buttonReject.setVisibility(View.GONE);
-		}
+//		}else{
+//			holder.buttonApprove.setVisibility(View.GONE);
+//			holder.buttonReject.setVisibility(View.GONE);
+//		}
 		
 		holder.typeTV.setText(leave.getTypeDescription());
 		holder.nameTV.setText(leave.getStaffName());
@@ -203,6 +209,7 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 							if(result != null)
 								app.showMessageDialog(activity, result.toString());
 							else{
+								sendPush("Leave Approved");
 								app.showMessageDialog(activity, "Leave Approved!");
 								LeaveForApprovalFragment.getInstance().sync();
 							}
@@ -254,5 +261,13 @@ public class LeavesForApprovalUnprocessedAdapter extends BaseAdapter implements 
 //				}
 //			});
 //		}
-//	}
+//	}	private void sendPush(String message){
+
+	private void sendPush(String message){
+		ParsePush parsePush = new ParsePush();
+		ParseQuery parseQuery = ParseInstallation.getQuery();
+		parseQuery.whereEqualTo("staffID", leaveSelected.getStaffID());
+		parsePush.sendMessageInBackground(ParseReceiver.createProcessedItemMessage(message), parseQuery);
+	}
+
 }

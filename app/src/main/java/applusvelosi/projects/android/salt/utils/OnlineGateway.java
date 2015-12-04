@@ -28,10 +28,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -102,6 +105,58 @@ public class OnlineGateway {
 //	    System.out.println(ret);
 	    return ret;			
 	}
+
+    public String testUpload(File file) throws Exception{
+//        StringBuilder sb = new StringBuilder("{");
+//        sb.append("\"base64File\":"+encodeToBase64(file));
+//        sb.append("}");
+//        return getHttpPostResult(apiUrl+"UploadFileSample", sb.toString());
+
+        StringBuilder sb = new StringBuilder("{");
+//		sb.append("\"document\":"+documentJSON);
+//		sb.append("\"document\": \"test.jpg\"");
+        sb.append("\"document\": 1");
+        sb.append(",\"base64File\": [");
+
+//        String base64Encoded = encodeToBase64(file);
+//        int cSharpMaxStringLength = 30000;
+//        for(int ctr=0; ctr<base64Encoded.length(); ctr+=cSharpMaxStringLength) {
+//            sb.append("\"" + base64Encoded.substring(ctr, Math.min(ctr + cSharpMaxStringLength, base64Encoded.length())) + "\"");
+//            if(ctr+cSharpMaxStringLength < base64Encoded.length())
+//                sb.append(","+System.lineSeparator());
+//        }
+        sb.append("]");
+
+        sb.append(",\"requestingPerson\":"+String.valueOf(app.getStaff().getStaffID()));
+        sb.append(",\"datetime\":\""+app.dateTimeFormat.format(app.calendar.getTime())+"\"");
+        sb.append("}");
+
+        return getHttpPostResult(apiUrl+"UploadFileSample", sb.toString());
+
+    }
+
+	public String httpPostForUploadingFiles(File file) throws Exception{
+        System.out.println("SALTX "+apiUrl+"UploadFileSample");
+        HttpPost httpPostRequest = new HttpPost(apiUrl+"UploadFileSample");
+        JSONStringer json = new JSONStringer()
+                            .object()
+//                            .key("document").value("test.jpg")
+                            .key("base64File").value(encodeToBase64(file))
+//                            .key("requestingPerson").value(app.getStaff().getStaffID())
+//                            .key("datetime").value(app.dateTimeFormat.format(app.calendar.getTime()))
+                            .endObject();
+        app.fileManager.saveToTextFile(json.toString());
+        StringEntity entity = new StringEntity(json.toString(), "UTF-8");
+        entity.setContentType("application/json;charset=UTF-8");//text/plain;charset=UTF-8
+        entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+        httpPostRequest.setHeader("Content-Type", "application/json");
+        httpPostRequest.setHeader("Accept", "application/json");
+        httpPostRequest.setEntity(entity);
+        // Send request to WCF service
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+
+        return EntityUtils.toString(httpClient.execute(httpPostRequest).getEntity());
+    }
 
 	public String getURLEncodedString(String string) throws Exception{
 		return URLEncoder.encode(string, "UTF-8");
@@ -325,7 +380,7 @@ public class OnlineGateway {
 			ArrayList<CapexHeader> capexesForApproval = new ArrayList<CapexHeader>();
 			JSONArray jsonCapexesForApproval = capexForApprovalResult.getJSONArray("Capexes");
 			for(int i=0; i<jsonCapexesForApproval.length(); i++)
-				capexesForApproval.add(new CapexHeader(jsonCapexesForApproval.getJSONObject(i), this));
+				capexesForApproval.add(new CapexHeader(jsonCapexesForApproval.getJSONObject(i)));
 
 			return capexesForApproval;
 		}catch(Exception e){
@@ -363,7 +418,7 @@ public class OnlineGateway {
 			ArrayList<Recruitment> recruitmentsForApproval = new ArrayList<Recruitment>();
 			JSONArray jsonRecruitmentsForApproval = recruitmentForApprovalResult.getJSONArray("RecruitmentRequests");
 			for(int i=0; i<jsonRecruitmentsForApproval.length(); i++) {
-				recruitmentsForApproval.add(new Recruitment(jsonRecruitmentsForApproval.getJSONObject(i), this));
+				recruitmentsForApproval.add(new Recruitment(jsonRecruitmentsForApproval.getJSONObject(i)));
 			}
 
 			return recruitmentsForApproval;
@@ -383,7 +438,7 @@ public class OnlineGateway {
 			ArrayList<CapexLineItem> capexLineItems = new ArrayList<CapexLineItem>();
 			JSONArray jsonCapexLineItems = result.getJSONArray("CapexLineItems");
 			for(int i=0; i<jsonCapexLineItems.length(); i++)
-				capexLineItems.add(new CapexLineItem(jsonCapexLineItems.getJSONObject(i), this));
+				capexLineItems.add(new CapexLineItem(jsonCapexLineItems.getJSONObject(i)));
 
 			return capexLineItems;
 		}catch(Exception e){
@@ -400,7 +455,7 @@ public class OnlineGateway {
 			ArrayList<CapexLineItemQoutation> capexLineItemQoutations = new ArrayList<CapexLineItemQoutation>();
 			JSONArray jsonCapexLineItemQoutations = result.getJSONArray("CapexLineItemQuotations");
 			for(int i=0; i<jsonCapexLineItemQoutations.length(); i++)
-				capexLineItemQoutations.add(new CapexLineItemQoutation(jsonCapexLineItemQoutations.getJSONObject(i), this));
+				capexLineItemQoutations.add(new CapexLineItemQoutation(jsonCapexLineItemQoutations.getJSONObject(i)));
 
 			return capexLineItemQoutations;
 		} catch (Exception e) {
@@ -630,32 +685,32 @@ public class OnlineGateway {
 		StringBuilder sb = new StringBuilder("{");
 //		sb.append("\"document\":"+documentJSON);
 //		sb.append("\"document\": \"test.jpg\"");
-		sb.append("\"document\": 1");
-		sb.append(",\"base64File\": [");
-
+		sb.append("\"document\": \"test.jpg\"");
+		sb.append(",\"base64File\": \"");
 		String base64Encoded = encodeToBase64(file);
 		int cSharpMaxStringLength = 30000;
 		for(int ctr=0; ctr<base64Encoded.length(); ctr+=cSharpMaxStringLength) {
-			sb.append("\"" + base64Encoded.substring(ctr, Math.min(ctr + cSharpMaxStringLength, base64Encoded.length())) + "\"");
+			sb.append(base64Encoded.substring(ctr, Math.min(ctr + cSharpMaxStringLength, base64Encoded.length())));
 			if(ctr+cSharpMaxStringLength < base64Encoded.length())
-				sb.append(","+System.lineSeparator());
+				sb.append(",");
 		}
-		sb.append("]");
 
-		sb.append(",\"requestingPerson\":"+String.valueOf(app.getStaff().getStaffID()));
-		sb.append(",\"datetime\":\""+app.dateTimeFormat.format(app.calendar.getTime())+"\"");
-		sb.append("}");
 
-//		StringBuilder cSharbSB = new StringBuilder("string[] test = new string{");
+//		sb.append(",\"base64File\": [");
+//
 //		String base64Encoded = encodeToBase64(file);
 //		int cSharpMaxStringLength = 30000;
 //		for(int ctr=0; ctr<base64Encoded.length(); ctr+=cSharpMaxStringLength) {
-//			cSharbSB.append("\"" + base64Encoded.substring(ctr, Math.min(ctr + cSharpMaxStringLength, base64Encoded.length())) + "\"");
+//			sb.append("\"" + base64Encoded.substring(ctr, Math.min(ctr + cSharpMaxStringLength, base64Encoded.length())) + "\"");
 //			if(ctr+cSharpMaxStringLength < base64Encoded.length())
-//				cSharbSB.append(","+System.lineSeparator());
+//				sb.append(",");
 //		}
-//
-//		cSharbSB.append("};");
+//		sb.append("]");
+
+		sb.append("\",\"requestingPerson\":" + String.valueOf(app.getStaff().getStaffID()));
+		sb.append(",\"datetime\":\"" + app.dateTimeFormat.format(app.calendar.getTime()) + "\"");
+		sb.append("}");
+
 		app.fileManager.saveToTextFile(sb.toString());
 		System.out.println("Saved to text file!");
 //		JSONObject result = new JSONObject(getHttpPostResult(apiUrl+"UploadFile", sb.toString())).getJSONObject("UploadFile");
@@ -664,7 +719,9 @@ public class OnlineGateway {
 		System.out.println("");
 //		System.out.println("SALT jsonobjectresult "+result);
 		System.out.println("");
-		System.out.println("result "+getHttpPostResult(apiUrl+"UploadFile", sb.toString()));
+
+//		System.out.println("SALTX result "+getHttpPostResult("http://10.63.201.199:90/SaltService.svc/UploadFileSample", sb.toString()));
+		System.out.println("SALTX result "+getHttpPostResult(apiUrl+"UploadFile", sb.toString()));
 		System.out.println("");
 //		System.out.println("test2");
 //		JSONObject result = new JSONObject(httpPost(apiUrl+"UploadFile", sb.toString()));

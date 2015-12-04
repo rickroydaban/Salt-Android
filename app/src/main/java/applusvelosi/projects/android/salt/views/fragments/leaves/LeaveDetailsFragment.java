@@ -19,7 +19,6 @@ import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.LeaveDetailActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
-import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 	private LeaveDetailActivity activity;
@@ -42,7 +41,7 @@ public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 		pendingButtonContainer = (LinearLayout)actionbarLayout.findViewById(R.id.containers_actionbar_leavedetails_right);
 		textViewActionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
 		textViewActionbarTitle.setText("Leave Details");
-		
+
 		buttonActionbarBack.setOnClickListener(this);
 		textViewActionbarTitle.setOnClickListener(this);
 		buttonActionbarEdit.setOnClickListener(this);
@@ -107,7 +106,7 @@ public class LeaveDetailsFragment extends LinearNavActionbarFragment {
 		if(v == buttonActionbarBack || v == textViewActionbarTitle){
 			linearNavFragmentActivity.onBackPressed();
 		}else if(v == buttonActionbarEdit){
-			linearNavFragmentActivity.changePage(new LeaveInputFragment());
+			linearNavFragmentActivity.changePage(EditLeaveFragment.newInstance(leave.getTypeID(), leave.getStartDate(), leave.getEndDate(), leave.getDays()));
 		}else if(v == buttonActionbarCancel){
 			new AlertDialog.Builder(linearNavFragmentActivity).setMessage("Are you sure you want to cancel this leave request?")
 											 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

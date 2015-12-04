@@ -1,5 +1,6 @@
 package applusvelosi.projects.android.salt.models;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
 import org.json.JSONObject;
@@ -9,41 +10,48 @@ import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 import applusvelosi.projects.android.salt.utils.enums.ObjectTypes;
 
-public class Document {
+public class Document implements Serializable {
 
-	private LinkedHashMap<String, Object> map;
-	
-	public Document(LinkedHashMap<String, Object> map){
-		this.map = new LinkedHashMap<String, Object>();
-		this.map.putAll(map);
+	private boolean isActive;
+	private String contentType, dateCreated;
+	private int docID, objectType, refID, staffID;
+	private float fileSize;
+	private String docName, ext, origDocName;
+
+	public Document(JSONObject jsonDoc) throws Exception{
+		isActive = jsonDoc.getBoolean("Active");
+		contentType = jsonDoc.getString("ContentType");
+		dateCreated = jsonDoc.getString("DateCreated");
+		docID = jsonDoc.getInt("DocID");
+		docName = jsonDoc.getString("DocName");
+		ext = jsonDoc.getString("Ext");
+		fileSize = (float)jsonDoc.getDouble("FileSize");
+		objectType = jsonDoc.getInt("ObjectType");
+		origDocName = jsonDoc.getString("OrigDocName");
+		refID = jsonDoc.getInt("RefID");
+		staffID = jsonDoc.getInt("StaffID");
 	}
-	
-	public Document(JSONObject jsonDoc, SaltApplication app) throws Exception{
-		map = new LinkedHashMap<String, Object>();
-		map.putAll(OnlineGateway.toMap(jsonDoc));
-		map.put("DateCreated", app.onlineGateway.dJsonizeDate(map.get("DateCreated").toString()));
-	}
-	
-	public Document(String docName, long fileSize, int staffID, int refLineItemID, ObjectTypes docType){ 
-		map = new LinkedHashMap<String, Object>();
-		map.put("Active", true);
-		map.put("DocID", 0);
-		map.put("DocName", "doctest.jpg");
-		map.put("FileSize", fileSize);
-		map.put("ObjectType", 2);
-		map.put("RefID", refLineItemID);
-		map.put("StaffID", staffID);
-		map.put("OrigDocName", docName);
-		String ext = MimeTypeMap.getFileExtensionFromUrl(docName);
-		map.put("Ext", "."+ext);
-		map.put("ContentType", MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext));
-	}
-	
-	public String jsonize(SaltApplication app) {
-		return app.gson.toJson(map, app.types.hashmapOfStringObject);
-	}
-	
-	public LinkedHashMap<String, Object> getMap(){
-		return map;
+
+	public int getDocID(){ return docID; }
+	public int getRefID(){ return refID; }
+	public int getObjectTypeID(){ return objectType; }
+	public String getDocName(){ return docName; }
+	public String getOrigDocName() { return origDocName; }
+
+	public JSONObject getJSONObject() throws Exception{
+		JSONObject obj = new JSONObject();
+		obj.put("Active", isActive);
+		obj.put("ContentType", contentType);
+		obj.put("DateCreated", dateCreated);
+		obj.put("DocID", docID);
+		obj.put("DocName", docName);
+		obj.put("Ext", ext);
+		obj.put("FileSize", fileSize);
+		obj.put("ObjectType", objectType);
+		obj.put("OrigDocName", origDocName);
+		obj.put("RefID", refID);
+		obj.put("StaffID", staffID);
+
+		return obj;
 	}
 }

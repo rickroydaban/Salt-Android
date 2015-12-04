@@ -10,6 +10,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
+
+import applusvelosi.projects.android.salt.ParseReceiver;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.Leave;
@@ -53,7 +59,7 @@ public class LeavesForApprovalProcessedAdapter extends BaseAdapter implements On
 		
 		holder = (LeaveNodeHolder)view.getTag();
 		Leave leave = leavesForApproval.get(pos);
-		if(leave.isApprover(((SaltApplication)activity.getApplication()).getStaff().getStaffID())){			
+//		if(leave.isApprover(((SaltApplication)activity.getApplication()).getStaff().getStaffID())){
 			if(leave.getStatusID() == Leave.LEAVESTATUSAPPROVEDKEY){
 				if(holder.buttonCancel.getVisibility() == View.GONE)
 					holder.buttonCancel.setVisibility(View.VISIBLE);
@@ -62,9 +68,9 @@ public class LeavesForApprovalProcessedAdapter extends BaseAdapter implements On
 			}else if(leave.getStatusID() == Leave.LEAVESTATUSREJECTEDKEY){
 				holder.buttonCancel.setVisibility(View.GONE);
 			}
-		}else{
-			holder.buttonCancel.setVisibility(View.GONE);
-		}
+//		}else{
+//			holder.buttonCancel.setVisibility(View.GONE);
+//		}
 		
 		holder.typeTV.setText(leave.getTypeDescription());
 		holder.nameTV.setText(leave.getStaffName());
@@ -100,7 +106,7 @@ public class LeavesForApprovalProcessedAdapter extends BaseAdapter implements On
 	public void onClick(View v) {
 		String [] tagParts = v.getTag().toString().split("-");
 		String type = tagParts[0];
-		int pos = Integer.parseInt(tagParts[1]);
+		final int pos = Integer.parseInt(tagParts[1]);
 		leaveSelected = leavesForApproval.get(pos);
 		if(type.equals(TAGKEY_BUTTONTYPE_CANCEL)){
 			if(pd == null)
@@ -128,6 +134,7 @@ public class LeavesForApprovalProcessedAdapter extends BaseAdapter implements On
 							if(result != null)
 								app.showMessageDialog(activity, result.toString());
 							else{
+								sendPush(pos, "Leave Cancelled");
 								app.showMessageDialog(activity, "Leave Cancelled!");
 								LeaveForApprovalFragment.getInstance().sync();
 							}
@@ -175,5 +182,12 @@ public class LeavesForApprovalProcessedAdapter extends BaseAdapter implements On
 //			});
 //		}
 //	}
-	
+
+	private void sendPush(int pos, String message){
+		ParsePush parsePush = new ParsePush();
+		ParseQuery parseQuery = ParseInstallation.getQuery();
+		parseQuery.whereEqualTo("staffID", leavesForApproval.get(pos).getStaffID());
+		parsePush.sendMessageInBackground(ParseReceiver.createProcessedItemMessage(message), parseQuery);
+	}
+
 }
