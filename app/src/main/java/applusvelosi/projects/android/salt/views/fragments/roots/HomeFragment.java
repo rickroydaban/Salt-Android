@@ -17,20 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import applusvelosi.projects.android.salt.R;
+import applusvelosi.projects.android.salt.models.Document;
 import applusvelosi.projects.android.salt.models.StaffLeaveTypeCounter;
 import applusvelosi.projects.android.salt.models.StaffLeaveTypeCounter.StaffLeaveSyncListener;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.NewClaimHeaderActivity;
 import applusvelosi.projects.android.salt.views.NewLeaveRequestActivity;
-import applusvelosi.projects.android.salt.views.fragments.CalendarWeeklyFragment;
-import applusvelosi.projects.android.salt.views.fragments.claims.ClaimHeaderInputType;
-import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveInputType;
 
 public class HomeFragment extends RootFragment implements StaffLeaveSyncListener{
 	private static HomeFragment instance;
 	//action bar buttons
-	private RelativeLayout actionbarMenuButton, actionbarRefresh, actionbarCalendarButton, actionbarNewLeaveButton, actionbarNewClaimButton;
+	private RelativeLayout actionbarMenuButton, actionbarRefresh, actionbarNewLeaveButton, actionbarNewClaimButton;
 	
 	private TextView tvCurrDateTime, tvStaffName;
 	private SimpleDateFormat homeDateTimeFormat;
@@ -55,14 +53,12 @@ public class HomeFragment extends RootFragment implements StaffLeaveSyncListener
 		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_home, null);
 		actionbarMenuButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_menu);
 		actionbarRefresh = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_refresh);
-		actionbarCalendarButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_calendar);
 		actionbarNewLeaveButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_newleaverequest);
 		actionbarNewClaimButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_newclaim);
 		((TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title)).setText("Home");
 
 		actionbarMenuButton.setOnClickListener(this);
 		actionbarRefresh.setOnClickListener(this);
-		actionbarCalendarButton.setOnClickListener(this);
 		actionbarNewLeaveButton.setOnClickListener(this);
 		actionbarNewClaimButton.setOnClickListener(this);
 
@@ -113,21 +109,28 @@ public class HomeFragment extends RootFragment implements StaffLeaveSyncListener
         }
 
 
-//        new Thread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                try{
-//                    String filePath = app.fileManager.getDirForCapturedAttachments()+"test1.jpg";
-//                    System.out.println("SALTX Attempt to get "+filePath);
-//                    System.out.println("SALTX Success "+app.onlineGateway.uploadAttachment(new File(filePath)));
-//                }catch(Exception e){
-//                    System.out.println("SALTX Exception "+e.getMessage());
-//                }
-//            }
-//        }).start();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Object tempResult;
+				try{
+					String path = app.fileManager.getDirForCapturedAttachments()+"8mbfile.pdf";
+					System.out.println("SALTX "+path);
+					tempResult = app.onlineGateway.uploadAttachment(new File(path), new Document());
+				}catch(Exception e){
+					e.printStackTrace();
+					tempResult = e.getMessage();
+				}
 
-
+				final Object result = tempResult;
+				new Handler(Looper.getMainLooper()).post(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("SALTX result "+result);
+					}
+				});
+			}
+		}).start();
 		return view;
 	}
 
@@ -163,8 +166,6 @@ public class HomeFragment extends RootFragment implements StaffLeaveSyncListener
 			startActivity(new Intent(activity, NewLeaveRequestActivity.class));
 		}else if(v == actionbarNewClaimButton){
 			startActivity(new Intent(activity, NewClaimHeaderActivity.class));
-		}else if(v == actionbarCalendarButton){
-//			activity.changeChildPage(CalendarWeeklyFragment.getInstance());
 		}else if(v == tviewLeavesForApproval){
             activity.linkToLeavesForApproval(this);
         }else if(v == tviewClaimsForApproval){

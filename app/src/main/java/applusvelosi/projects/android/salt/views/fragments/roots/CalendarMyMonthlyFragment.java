@@ -1,7 +1,9 @@
 package applusvelosi.projects.android.salt.views.fragments.roots;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
+import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.adapters.grids.MyCalendarAdapter;
 import applusvelosi.projects.android.salt.adapters.lists.SimpleAdapter;
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter;
@@ -27,9 +30,8 @@ import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter
 import applusvelosi.projects.android.salt.models.CalendarEvent;
 import applusvelosi.projects.android.salt.models.CalendarEvent.CalendarEventDuration;
 import applusvelosi.projects.android.salt.models.CalendarItem;
-import applusvelosi.projects.android.salt.models.Holiday;
+import applusvelosi.projects.android.salt.models.CountryHoliday;
 import applusvelosi.projects.android.salt.models.Leave;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.enums.CalendarItemTypes;
 import applusvelosi.projects.android.salt.utils.interfaces.CalendarMonthlyInterface;
 
@@ -207,21 +209,40 @@ public class CalendarMyMonthlyFragment extends RootFragment implements OnItemSel
 					
 					@Override
 					public void run() {
-						if(holidayResult instanceof String)
+						if(holidayResult instanceof String && !holidayResult.toString().contains(SaltApplication.CONNECTION_ERROR))
 							activity.finishLoading(holidayResult.toString());
-						else if(leaveResult instanceof String)
+						else if(leaveResult instanceof String && !holidayResult.toString().contains(SaltApplication.CONNECTION_ERROR))
 							activity.finishLoading(leaveResult.toString());
 						else{
+							ArrayList<CountryHoliday> holidays = new ArrayList<CountryHoliday>();
+							ArrayList<Leave> leaves = new ArrayList<Leave>();
+							System.out.println("SALTX leaveresult "+leaveResult);
+							if(leaveResult==null || leaveResult.toString().contains(SaltApplication.CONNECTION_ERROR) || holidayResult.toString().contains(SaltApplication.CONNECTION_ERROR)){
+								activity.finishLoadingAndShowOutdatedData();
+								if(holidayResult.toString().contains(SaltApplication.CONNECTION_ERROR))
+									holidays.addAll(app.offlineGateway.deserializeMyCalendarHolidays());
+								if(leaveResult==null || leaveResult.toString().contains(SaltApplication.CONNECTION_ERROR)) {
+                                    ArrayList<Leave> savedLeaves = app.offlineGateway.deserializeMyLeaves();
+                                    System.out.println("SALTX added leaves :"+savedLeaves.size());
+                                    leaves.addAll(savedLeaves);
+                                }
+							}else{
+								ArrayList<Leave> tempLeaves = (ArrayList<Leave>)leaveResult;
+								ArrayList<CountryHoliday> tempHolidays = (ArrayList<CountryHoliday>)holidayResult;
+								holidays.addAll(tempHolidays);
+								leaves.addAll(tempLeaves);
+								app.offlineGateway.serializeMyLeaves(tempLeaves);
+								app.offlineGateway.serializeMyCalendarHolidays(tempHolidays);
+							}
+
 							activity.finishLoading();
 							propMapDayEvents.clear();
-							ArrayList<Holiday> holidays = (ArrayList<Holiday>)holidayResult;
-							for(Holiday holiday :holidays){
+							for(CountryHoliday holiday :holidays){
 								ArrayList<CalendarEvent> currEvents = (propMapDayEvents.containsKey(holiday.getStringedDate()))?propMapDayEvents.get(holiday.getStringedDate()):new ArrayList<CalendarEvent>();
 								currEvents.add(new CalendarEvent(holiday.getName(), activity.getResources().getColor(R.color.holiday), CalendarEventDuration.AllDay, true));
 								propMapDayEvents.put(holiday.getStringedDate(), currEvents);
 							}								
 
-							ArrayList<Leave> leaves = (ArrayList<Leave>)leaveResult;
 							try{
 								for(Leave leave :leaves){
 									if(leave.getStatusID()==Leave.LEAVESTATUSPENDINGID || leave.getStatusID()==Leave.LEAVESTATUSAPPROVEDKEY) {

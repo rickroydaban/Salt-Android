@@ -12,24 +12,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.claimitems.Project;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
+import applusvelosi.projects.android.salt.utils.interfaces.LoaderInterface;
+import applusvelosi.projects.android.salt.utils.threads.ProjectsLoader;
+import applusvelosi.projects.android.salt.views.ManageClaimItemActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 
 /**
  * Created by Velosi on 11/16/15.
  */
-public class ClaimItemInputProject extends LinearNavActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
-    private NewClaimItemActivity activity;
+public class ClaimItemInputProject extends LinearNavActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener, LoaderInterface{
+    private ManageClaimItemActivity activity;
     private TextView actionbarTitle;
     private RelativeLayout actionbarBack;
 
@@ -38,7 +35,7 @@ public class ClaimItemInputProject extends LinearNavActionbarFragment implements
 
     @Override
     protected RelativeLayout setupActionbar() {
-        activity = (NewClaimItemActivity)getActivity();
+        activity = (ManageClaimItemActivity)getActivity();
         RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -60,33 +57,7 @@ public class ClaimItemInputProject extends LinearNavActionbarFragment implements
         if(activity.getProjects() == null){
 
             activity.startLoading();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Object tempResult;
-                    try{
-                        tempResult = app.onlineGateway.getClaimItemProjectsByCostCenter(activity.claimHeader.getCostCenterID());
-                    }catch(Exception e){
-                        e.printStackTrace();
-                        tempResult = e.getMessage();
-                    }
-
-                    final Object result = tempResult;
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(result instanceof String)
-                                activity.finishLoading(result.toString());
-                            else{
-                                activity.finishLoading();
-                                activity.updateProjectList(ClaimItemInputProject.this, (ArrayList<Project>) result);
-                                lv.setAdapter(adapter);
-                                lv.setOnItemClickListener(ClaimItemInputProject.this);
-                            }
-                        }
-                    });
-                }
-            }).start();
+            new ProjectsLoader(activity, this).start();
         }else{
             lv.setAdapter(adapter);
             lv.setOnItemClickListener(this);
@@ -126,8 +97,21 @@ public class ClaimItemInputProject extends LinearNavActionbarFragment implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activity.updateProject(this, position);
+        activity.claimItem.setProject(activity.getProjects().get(position));
         linearNavFragmentActivity.changePage(new ClaimItemInputCurrency());
+    }
+
+    @Override
+    public void onLoadSuccess(Object result) {
+        activity.finishLoading();
+        activity.updateProjectList(activity, (ArrayList<Project>)result);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onLoadFailed(String failureMessage) {
+
     }
 
     private class Holder{

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
     
     <LinearLayout 
 	      android:id="@+id/containers_leaveforapproval_header"
@@ -49,7 +48,7 @@
 		    <View 
 		        android:layout_width="match_parent"
 		        android:layout_height="1dp"
-		        android:background="@android:drawable/divider_horizontal_dark"/>
+		        android:background="@color/menu_list_separator"/>
 		    
     </LinearLayout>
     
@@ -66,7 +65,7 @@
 		    android:layout_weight="1"
 		    android:layout_width="0dp"
 		    android:layout_height="@dimen/dimens_footerbar_height"
-		    android:background="@drawable/bg_input_blur" >
+		    android:background="@drawable/bg_tab_node" >
             
             <TextView 
                 android:id="@+id/labels_leaveforapproval_pending"
@@ -92,7 +91,7 @@
 		    android:layout_weight="1"
 		    android:layout_width="0dp"
 		    android:layout_height="@dimen/dimens_footerbar_height"
-		    android:background="@drawable/bg_input_blur" >
+		    android:background="@drawable/bg_tab_node" >
             
             <TextView 
                 android:id="@+id/labels_leaveforapproval_approved"
@@ -118,7 +117,7 @@
 		    android:layout_weight="1"
 		    android:layout_width="0dp"
 		    android:layout_height="@dimen/dimens_footerbar_height"
-		    android:background="@drawable/bg_input_blur" >
+		    android:background="@drawable/bg_tab_node" >
                         
             <TextView 
                 android:id="@+id/labels_leaveforapproval_cancelled"
@@ -141,19 +140,15 @@
         </RelativeLayout>          
 				
     </LinearLayout>
-    
-    <ListView 
+
+    <ListView
         android:id="@+id/lists_leaveforapproval"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/containers_leaveforapproval_header"
         android:layout_above="@id/containers_leaveforapproval_footer"
         android:dividerHeight="1dp"
-	    android:divider="@drawable/divider_insetted" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/menu_list_separator" />
+	    android:divider="@drawable/divider_insetted"
+        android:background="#FFF"/>
 
 </RelativeLayout>

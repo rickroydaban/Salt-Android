@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tviews_dialogs_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/fsizes_listcell_header"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/containers_dialogs_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tviews_dialogs_list_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/orange_velosi"
+            android:paddingTop="20dp"
+            android:paddingBottom="15dp"
+            android:gravity="center"
+            android:background="@color/white"
+            android:textSize="@dimen/fsizes_listcell_header"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/menu_list_separator" />
+
+        <ListView
+            android:id="@+id/lists_dialogs_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1px"
+            android:divider="@drawable/divider_insetted"
+            android:background="#FFF"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

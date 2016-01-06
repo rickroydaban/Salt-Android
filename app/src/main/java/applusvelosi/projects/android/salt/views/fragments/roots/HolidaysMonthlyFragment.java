@@ -1,9 +1,13 @@
 package applusvelosi.projects.android.salt.views.fragments.roots;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,19 +16,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import applusvelosi.projects.android.salt.R;
+import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.adapters.lists.CalendarListAdapter;
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter;
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter.NodeSize;
-import applusvelosi.projects.android.salt.models.Holiday;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.models.CountryHoliday;
+import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
 
-public class HolidaysMonthlyFragment extends RootFragment implements OnItemSelectedListener{
+public class HolidaysMonthlyFragment extends RootFragment implements OnItemSelectedListener, ListAdapterInterface{
 	
 	private static HolidaysMonthlyFragment instance;
 	//action bar buttons
@@ -35,7 +41,7 @@ public class HolidaysMonthlyFragment extends RootFragment implements OnItemSelec
 	
 	private CalendarListAdapter propAdapterHolidays;
 	private SimpleDateFormat dateTitleFormat;
-	private ArrayList<Holiday> holidaysOfTheMonth;
+	private ArrayList<CountryHoliday> holidaysOfTheMonth;
 	private int currMonth, currYear;
 	
 	public static HolidaysMonthlyFragment getInstance(){
@@ -85,7 +91,7 @@ public class HolidaysMonthlyFragment extends RootFragment implements OnItemSelec
 		propSpinnerMonth.setSelection(monthSelection);
 		propSpinnerYear.setSelection(yearSelection);
 
-		holidaysOfTheMonth = new ArrayList<Holiday>();
+		holidaysOfTheMonth = new ArrayList<CountryHoliday>();
 		
 		propAdapterHolidays = new CalendarListAdapter(activity, holidaysOfTheMonth);
 		lv.setAdapter(propAdapterHolidays);
@@ -101,7 +107,56 @@ public class HolidaysMonthlyFragment extends RootFragment implements OnItemSelec
 				
 		return v;
 	}
-		
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View view = convertView;
+		NHCNodeHolder holder;
+
+		if(view == null){
+			holder = new NHCNodeHolder();
+			view = activity.getLayoutInflater().inflate(R.layout.node_calendar_weekly, null);
+			holder.flagIV = (ImageView)view.findViewById(R.id.images_node_calendar_home_flag);
+			holder.countryTV = (TextView)view.findViewById(R.id.tviews_node_calendar_home_country);
+			holder.dateTV = (TextView)view.findViewById(R.id.tviews_node_calendar_home_date);
+			holder.holidayTV = (TextView)view.findViewById(R.id.tviews_node_calendar_home_holiday);
+			holder.officesLL = (LinearLayout)view.findViewById(R.id.containers_node_calendar_home_offices);
+
+			holder.dateTV.setTypeface(SaltApplication.myFont(activity));
+
+			view.setTag(holder);
+		}
+
+		holder = (NHCNodeHolder)view.getTag();
+		CountryHoliday holiday = holidaysOfTheMonth.get(position);
+		holder.countryTV.setText(holiday.getCountry());
+		holder.dateTV.setText(holiday.getStringedDate());
+		holder.holidayTV.setText(holiday.getName());
+
+		try {
+			InputStream ims = activity.getAssets().open("flags/"+holiday.getCountry()+".png");
+			Drawable d = Drawable.createFromStream(ims, null);
+			holder.flagIV.setImageDrawable(d);
+		}
+		catch(IOException ex) {
+			holder.flagIV.setImageDrawable(null);
+		}
+
+		holder.officesLL.removeAllViews();
+		for(String office: holiday.getOfficeNames()){
+			TextView tv = (TextView)activity.getLayoutInflater().inflate(R.layout.tv_calendar_office, null);
+			tv.setText("\u2022 "+office);
+			tv.setTypeface(SaltApplication.myFont(activity));
+			holder.officesLL.addView(tv);
+		}
+
+		return view;	}
+
+	@Override
+	public int getCount() {
+		return holidaysOfTheMonth.size();
+	}
+
 	private void reloadAppHolidays(){
 		activity.startLoading();
 		new Thread(new Runnable() {
@@ -123,7 +178,7 @@ public class HolidaysMonthlyFragment extends RootFragment implements OnItemSelec
 					public void run() {
 						if(!(result instanceof String)){
 							activity.finishLoading();
-							app.updateNationalHolidays((ArrayList<Holiday>)result);
+							app.updateNationalHolidays((ArrayList<CountryHoliday>)result);
 							app.setMonthlyHolidaysLoaded(HolidaysMonthlyFragment.this);
 							reloadLocalHolidays();
 						}else
@@ -137,7 +192,7 @@ public class HolidaysMonthlyFragment extends RootFragment implements OnItemSelec
 		
 	private void reloadLocalHolidays(){
 		holidaysOfTheMonth.clear();
-		for(Holiday holiday:app.getNationalHolidays()){
+		for(CountryHoliday holiday:app.getNationalHolidays()){
 			String [] holidayDate = holiday.getStringedDate().split("-");
 			String holidayDateYear = holidayDate[2];
 			String holidayDateMonth = String.valueOf(getMonthOrdinalByAbbr(holidayDate[1]));
@@ -243,4 +298,12 @@ public class HolidaysMonthlyFragment extends RootFragment implements OnItemSelec
 			System.out.println("Null pointer exception at CalendarMyCalendarFragment enableUserInteractionOnSidebarHidden()");
 		}
 	}
+
+	private class NHCNodeHolder{ //NHC means National CountryHoliday Calendar
+		public ImageView flagIV;
+		public TextView countryTV, dateTV, holidayTV;
+		public LinearLayout officesLL;
+	}
+
+
 }

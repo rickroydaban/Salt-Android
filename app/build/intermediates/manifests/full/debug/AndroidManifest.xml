@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="applusvelosi.projects.android.salt"
     android:versionCode="33"
-    android:versionName="2.4.3" >
+    android:versionName="2.3.3" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -90,11 +90,15 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
-            android:name="applusvelosi.projects.android.salt.views.NewClaimItemActivity"
+            android:name="applusvelosi.projects.android.salt.views.ManageClaimItemActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name="applusvelosi.projects.android.salt.views.ClaimDetailActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="applusvelosi.projects.android.salt.views.ClaimItemDetailActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity

@@ -40,12 +40,12 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_rfa_detail.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimdetails_businessadvance.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimdetails_businessadvance.xml"
-    },
-    {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/iv_receipt.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/iv_receipt.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimdetails_businessadvance.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimdetails_businessadvance.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_calendar_mycalendar.xml",
@@ -70,6 +70,10 @@
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimitemlist.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimitemlist.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimitemmileage_input.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimitemmileage_input.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/activity_home.xml",
@@ -110,10 +114,6 @@
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_main.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_main.xml"
-    },
-    {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/tv_claimitemattendee.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/tv_claimitemattendee.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/dialog_textinput.xml",
@@ -168,6 +168,10 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_capexlineitemqoutation_detail.xml"
     },
     {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/node_leavesforapproval.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/node_leavesforapproval.xml"
+    },
+    {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/actionbar_claimlist.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/actionbar_claimlist.xml"
     },
@@ -178,6 +182,10 @@
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/node_tvwithsepartorabove.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/node_tvwithsepartorabove.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/node_claimitemdetail_attendee.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/node_claimitemdetail_attendee.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimdetails_liquidation.xml",
@@ -192,12 +200,20 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/node_spinner_bg.xml"
     },
     {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_capexforapproval_detail.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_capexforapproval_detail.xml"
+    },
+    {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/pageindicator_blur.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/pageindicator_blur.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_capexforapproval_detail.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_capexforapproval_detail.xml"
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/tv_sidebar_header_maginedtop.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/tv_sidebar_header_maginedtop.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimitem_newmileage.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimitem_newmileage.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/actionbar_myleaves.xml",
@@ -208,12 +224,12 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/cells_holiday_local.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/actionbar_menurefresh.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/actionbar_menurefresh.xml"
-    },
-    {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimlist.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimlist.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/actionbar_menurefresh.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/actionbar_menurefresh.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimitem_catgeneric_details.xml",
@@ -226,6 +242,10 @@
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_holidays_weekly.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_holidays_weekly.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimitem_newclaim.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimitem_newclaim.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_leaveinput_dates.xml",
@@ -246,6 +266,10 @@
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/actionbar_claimdetails.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/actionbar_claimdetails.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/dialog_list.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/dialog_list.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/node_calendar_home.xml",
@@ -272,16 +296,20 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/node_capexlineitemqoutation.xml"
     },
     {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/actionbar_leavesforapproval.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/actionbar_leavesforapproval.xml"
+    },
+    {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_searchclaim.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_searchclaim.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_capexforapprovallineitem_detail.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_capexforapprovallineitem_detail.xml"
-    },
-    {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_listview.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_listview.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_capexforapprovallineitem_detail.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_capexforapprovallineitem_detail.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/tv_calendar_office.xml",
@@ -328,8 +356,8 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/tv_sidebar_header.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimitem_input.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimitem_input.xml"
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimitem_editmileage.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimitem_editmileage.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/cell_claim_trail.xml",
@@ -346,6 +374,10 @@
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/node_claimitemattendee.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/node_claimitemattendee.xml"
+    },
+    {
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimitem_editclaim.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimitem_editclaim.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_overviewadvances.xml",
@@ -388,15 +420,15 @@
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/activity_splash.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimdetails_claimpaidbycc.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimdetails_claimpaidbycc.xml"
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/calendarcell_monthly_item.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/calendarcell_monthly_item.xml"
     },
     {
         "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/node_listviewcalendar.xml",
         "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/node_listviewcalendar.xml"
     },
     {
-        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/calendarcell_monthly_item.xml",
-        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/calendarcell_monthly_item.xml"
+        "merged": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/res/merged/debug/layout/fragment_claimdetails_claimpaidbycc.xml",
+        "source": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/layout/fragment_claimdetails_claimpaidbycc.xml"
     }
 ]

@@ -16,14 +16,16 @@ import applusvelosi.projects.android.salt.views.fragments.recruitment.Recruitmen
  * Created by Velosi on 11/19/15.
  */
 public class CapexApprovalDetailActivity extends LinearNavFragmentActivity {
-    public static final String INTENTKEY_CAPEXHEADER = "intentkeycapexheader";
-    public CapexHeader tempCapexHeader, capexHeader;
+    public static final String INTENTKEY_CAPEXHEADERID = "intentkeycapexheaderid";
+    public int capexHeaderID;
+    public CapexHeader capexHeader;
     public ArrayList<CapexLineItem> capexLineItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tempCapexHeader = (CapexHeader)getIntent().getExtras().getSerializable(INTENTKEY_CAPEXHEADER);
+        capexHeaderID = getIntent().getExtras().getInt(INTENTKEY_CAPEXHEADERID);
+        capexLineItems = new ArrayList<CapexLineItem>();
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_view, new CapexForApprovalDetailFragment()).commit();
     }
 

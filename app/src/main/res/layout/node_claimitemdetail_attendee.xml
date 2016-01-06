@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_insetted" />
+
+    <TextView
+        android:id="@+id/tviews_nodes_claimitemdetail_attendee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/fsizes_listcell_header"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:paddingLeft="17dp"
+        android:layout_marginTop="7dp"/>
+
+    <TextView
+        android:id="@+id/tviews_nodes_claimitemdetail_jobtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black2"
+        android:textSize="@dimen/fsizes_listcell_subheader"
+        android:paddingLeft="17dp"/>
+
+    <TextView
+        android:id="@+id/tviews_nodes_claimitemdetail_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/fsizes_listcell_subheader"
+        android:textColor="@color/black2"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="17dp"
+        android:layout_marginBottom="5dp"/>
+
+</LinearLayout>

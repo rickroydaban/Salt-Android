@@ -5,13 +5,14 @@ import java.util.HashMap;
 
 import android.content.SharedPreferences;
 import applusvelosi.projects.android.salt.SaltApplication;
+import applusvelosi.projects.android.salt.models.CountryHoliday;
 import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.models.Leave;
-import applusvelosi.projects.android.salt.models.LocalHoliday;
 import applusvelosi.projects.android.salt.models.Office;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
+import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 
 public class OfflineGateway {
 
@@ -23,6 +24,7 @@ public class OfflineGateway {
 	private final String KEYJSONMYCLAIMS = "ogJSONMyClaimList";
 	private final String KEYJSONNATIONALHOLIDAYS = "ogJSONNationalHolidays";
 	private final String KEYJSONLOCALHOLIDAYS = "ogJSONLocalHolidays";
+	private final String KEYMYCALENDARHOLIDAYS = "ogJSONMyCalendarHolidays";
 	private final String KEYJSONCURRENCIES = "ogJSONCurrencies";
 	
 	private SaltApplication app;
@@ -52,18 +54,22 @@ public class OfflineGateway {
 	}
 	
 	public void serializeStaffData(Staff staff, Office office){
-		editor.putString(KEYJSONSTAFF, app.gson.toJson(staff.getMap(), app.types.hashmapOfStringObject));
+		editor.putString(KEYJSONSTAFF, app.gson.toJson(staff, app.types.staff));
 		editor.putString(KEYJSONOFFICE, app.gson.toJson(office.getMap(), app.types.hashmapOfStringString)).commit();
 	}
 
-	public void serializeNationHolidays(SaltApplication key, ArrayList<Holiday> holidays){
+	public void serializeNationHolidays(SaltApplication key, ArrayList<CountryHoliday> holidays){
 		editor.putString(KEYJSONNATIONALHOLIDAYS, app.gson.toJson(holidays, app.types.arrayListOfHolidays)).commit();
 	}
 	
-	public void serializeLocalHolidays(SaltApplication key, ArrayList<LocalHoliday> holidays){
-		editor.putString(KEYJSONLOCALHOLIDAYS, app.gson.toJson(holidays, app.types.arrayListOfLocalHolidays)).commit();		
+	public void serializeLocalHolidays(SaltApplication key, ArrayList<Holiday> holidays){
+		editor.putString(KEYJSONLOCALHOLIDAYS, app.gson.toJson(holidays, app.types.arrayListOfLocalHolidays)).commit();
 	}
-	
+
+    public void serializeMyCalendarHolidays(ArrayList<CountryHoliday> holidays){
+        editor.putString(KEYMYCALENDARHOLIDAYS, app.gson.toJson(holidays, app.types.arrayListOfHolidays)).commit();
+    }
+
 	public void serializeMyLeaves(ArrayList<Leave> myLeaves){
 		editor.putString(KEYJSONMYLEAVES, app.gson.toJson(myLeaves, app.types.arrayListOfLeaves)).commit();
 	}
@@ -76,9 +82,23 @@ public class OfflineGateway {
         editor.putString(KEYJSONMYCLAIMS, app.gson.toJson(myClaimMaps, app.types.arrayListOfHashmapOfStringObject)).commit();
     }
 
-	public Staff deserializeStaff(){
-		HashMap<String, Object>staffMap = app.gson.fromJson(prefs.getString(KEYJSONSTAFF, "{}"), app.types.hashmapOfStringObject);
-		return new Staff(staffMap);
+	public void serializeMyClaimItem(int claimID, ClaimItem claimItem){
+		ArrayList<ClaimItem> claimItems = deserializeMyClaimItems(claimID);
+		claimItems.add(claimItem);
+		editor.putString("CLAIM"+claimID, app.gson.toJson(claimItems, app.types.arrayListOfClaimItems)).commit();
+	}
+
+    public void serializeMyClaimItem(int claimID, ArrayList<ClaimItem> claimItems){
+        ArrayList<ClaimItem> offlineClaimItems = deserializeMyClaimItems(claimID);
+        offlineClaimItems.clear();
+        offlineClaimItems.addAll(claimItems);
+        editor.putString("CLAIM"+claimID, app.gson.toJson(claimItems, app.types.arrayListOfClaimItems)).commit();
+    }
+
+    public Staff deserializeStaff(){
+//		HashMap<String, Object>staffMap = app.gson.fromJson(prefs.getString(KEYJSONSTAFF, "{}"), app.types.hashmapOfStringObject);
+//		return new Staff(staffMap);
+		return app.gson.fromJson(prefs.getString(KEYJSONSTAFF, "{}"), app.types.staff);
 	}
 	
 	public Office deserializeStaffOffice(){
@@ -86,14 +106,18 @@ public class OfflineGateway {
 		return new Office(staffOfficeMap);
 	}
 		
-	public ArrayList<Holiday> deserializeNationalHolidays(){
+	public ArrayList<CountryHoliday> deserializeNationalHolidays(){
 		return app.gson.fromJson(prefs.getString(KEYJSONNATIONALHOLIDAYS, "[]"), app.types.arrayListOfHolidays);
 	}
 
-	public ArrayList<LocalHoliday> deserializeLocalHolidays(){
+	public ArrayList<Holiday> deserializeLocalHolidays(){
 		return app.gson.fromJson(prefs.getString(KEYJSONLOCALHOLIDAYS, "[]"), app.types.arrayListOfLocalHolidays);
 	}
-	
+
+	public ArrayList<CountryHoliday> deserializeMyCalendarHolidays(){
+		return app.gson.fromJson(prefs.getString(KEYMYCALENDARHOLIDAYS, "[]"), app.types.arrayListOfHolidays);
+	}
+
 	public ArrayList<Leave> deserializeMyLeaves(){
 		return app.gson.fromJson(prefs.getString(KEYJSONMYLEAVES, "[]"), app.types.arrayListOfLeaves);
 	}
@@ -109,6 +133,10 @@ public class OfflineGateway {
 			currencies.add(new Currency(currencyMapList.get(i)));
 		
 		return currencies;
+	}
+
+	public ArrayList<ClaimItem> deserializeMyClaimItems(int claimHeaderID){
+		return app.gson.fromJson(prefs.getString("CLAIM"+claimHeaderID, "[]"), app.types.arrayListOfClaimItems);
 	}
 	
 }

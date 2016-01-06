@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@color/white">
+
+	<TableLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        android:shrinkColumns="1"
+        android:background="#FFF">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_span="2"/>
+
+        </TableRow>
+
+        <TableRow
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="@color/sidebar_menu_separator"
+				android:layout_span="2"/>
+
+		</TableRow>
+
+		<TableRow
+	        style="@style/styles_trs"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent">
+
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Date "
+	            style="@style/styles_labels_detail"/>
+
+	        <TextView
+	            android:id="@+id/tviews_claimiteminput_expenseDate"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            style="@style/styles_editable_inputs" />
+
+	    </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_span="2">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            style="@style/styles_trs"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                style="@style/styles_labels_detail"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tviews_claimiteminput_fc_curr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/etexts_claimiteminput_fc_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="0.00"
+                    android:inputType="numberDecimal"
+                    style="@style/styles_editable_inputs"
+                    android:layout_toLeftOf="@id/tviews_claimiteminput_fc_curr"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2"/>
+
+        </TableRow>
+
+        <TableRow
+            style="@style/styles_trs"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Local Amt."
+                style="@style/styles_labels_detail"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tviews_claimiteminput_lc_curr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/etexts_claimiteminput_lc_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.00"
+                    android:inputType="numberDecimal"
+                    style="@style/styles_editable_inputs"
+                    android:textColor="@android:color/black"
+                    android:enabled="false"
+                    android:layout_toLeftOf="@id/tviews_claimiteminput_lc_curr"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2"/>
+
+        </TableRow>
+
+        <TableRow
+            style="@style/styles_trs"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forex"
+                style="@style/styles_labels_detail"/>
+
+            <EditText
+                android:id="@+id/etexts_claimiteminput_forex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="0.00"
+                android:inputType="numberDecimal"
+                style="@style/styles_editable_inputs" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2"/>
+
+        </TableRow>
+
+        <TableRow
+            style="@style/styles_trs"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tax"
+                style="@style/styles_labels_detail"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/cboxs_claimiteminput_tax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
+
+                <EditText
+                    android:id="@+id/etexts_claimiteminput_tax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_editable_inputs"
+                    android:layout_toLeftOf="@id/cboxs_claimiteminput_tax"
+                    android:inputType="numberDecimal"
+                    android:text="(Tax Not Applicable)"
+                    android:enabled="false"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_span="2">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black2"
+                            android:text="Max Size:"
+                            android:layout_marginRight="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:textSize="12sp"
+                            android:textColor="@color/black2"
+                            android:text="10mb"
+                            android:layout_marginRight="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black2"
+                            android:text="Accepted Files:"
+                            android:layout_marginRight="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:textSize="12sp"
+                            android:textColor="@color/black2"
+                            android:text="png, jpg, jpeg, gif, pdf"
+                            android:layout_marginRight="5dp"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/styles_labels_detail"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="Attach." />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/buttons_claimiteminput_files"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_image"
+                    android:background="@drawable/bg_button"
+                    android:layout_marginRight="10dp"/>
+
+                <ImageView
+                    android:id="@+id/buttons_claimiteminput_camera"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:layout_toLeftOf="@id/buttons_claimiteminput_files"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/bg_button"
+                    android:src="@drawable/icon_camera"
+                    android:layout_marginRight="10dp"/>
+
+                <TextView
+                    android:id="@+id/tviews_claimiteminput_attachment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/fsizes_listcell_subheader"
+                    android:textColor="#909090"
+                    android:text="No Selection"
+                    android:paddingLeft="7dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/buttons_claimiteminput_camera"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_span="2">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            style="@style/styles_trs"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Project"
+                style="@style/styles_labels_detail"/>
+
+            <TextView
+                android:id="@+id/tviews_claimiteminput_project"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                style="@style/styles_editable_inputs" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_insetted"
+                android:layout_span="2"/>
+
+        </TableRow>
+
+        <TableRow
+            style="@style/styles_trs"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bill To"
+                style="@style/styles_labels_detail"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/cboxs_claimiteminput_billable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
+
+                <TextView
+                    android:id="@+id/tviews_claimiteminput_billTo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Company Code"
+                    style="@style/styles_editable_inputs"
+                    android:textColor="@color/black2"
+                    android:layout_toLeftOf="@id/cboxs_claimiteminput_billable"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trs_claimiteminput_clienttobill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/etexts_claimiteminput_clienttobill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Notes / Clients to Bill"
+                style="@style/styles_editable_inputs"
+                android:layout_span="2" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_span="2">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/styles_labels_detail"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:text="Attendees" />
+
+            <RelativeLayout
+                android:id="@+id/containers_claimiteminput_attendees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iviews_nodes_next"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/icon_next"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/tviews_claimiteminput_attendees"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_editable_inputs"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/iviews_nodes_next"
+                    android:textColor="@color/menu_list_separator"/>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_span="2">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/white"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2"/>
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/styles_trs">
+
+            <EditText
+                android:id="@+id/etexts_claimiteminput_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                style="@style/styles_editable_inputs"
+                android:layout_span="2" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/sidebar_menu_separator"
+                android:layout_span="2"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_span="2"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</ScrollView>

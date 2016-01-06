@@ -125,7 +125,7 @@ public class CapexesForApprovalFragment extends RootFragment implements AdapterV
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(activity, CapexApprovalDetailActivity.class);
-        intent.putExtra(CapexApprovalDetailActivity.INTENTKEY_CAPEXHEADER, capexes.get(position));
+        intent.putExtra(CapexApprovalDetailActivity.INTENTKEY_CAPEXHEADERID, capexes.get(position).getCapexID());
         startActivity(intent);
     }
 }

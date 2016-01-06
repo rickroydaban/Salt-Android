@@ -5,19 +5,18 @@ import java.util.ArrayList;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
-import applusvelosi.projects.android.salt.models.Holiday;
+import applusvelosi.projects.android.salt.models.CountryHoliday;
 import applusvelosi.projects.android.salt.views.HomeActivity;
 
 public class CalendarListAdapter extends BaseAdapter{
 	HomeActivity activity;
-	ArrayList<Holiday> holidays;
+	ArrayList<CountryHoliday> holidays;
 	
-	public CalendarListAdapter(HomeActivity activity, ArrayList<Holiday> holidays){
+	public CalendarListAdapter(HomeActivity activity, ArrayList<CountryHoliday> holidays){
 		this.activity = activity;
 		this.holidays = holidays;
 	}
@@ -42,7 +41,7 @@ public class CalendarListAdapter extends BaseAdapter{
 		}
 		
 		holder = (NHCNodeHolder)view.getTag();
-		Holiday holiday = holidays.get(pos);
+		CountryHoliday holiday = holidays.get(pos);
 //		holder.flagIV.setImageBitmap(holiday.getBitmap());
 		holder.countryTV.setText(holiday.getCountry());
 		holder.dateTV.setText(holiday.getStringedDate());
@@ -74,7 +73,7 @@ public class CalendarListAdapter extends BaseAdapter{
 		return 0;
 	}
 	
-	private class NHCNodeHolder{ //NHC means National Holiday Calendar
+	private class NHCNodeHolder{ //NHC means National CountryHoliday Calendar
 //		public ImageView flagIV;
 		public TextView countryTV, dateTV, holidayTV;
 		public LinearLayout officesLL;

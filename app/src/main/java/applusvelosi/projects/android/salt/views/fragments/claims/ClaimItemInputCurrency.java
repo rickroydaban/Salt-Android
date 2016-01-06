@@ -10,18 +10,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.models.Category;
 import applusvelosi.projects.android.salt.models.Currency;
+import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
+import applusvelosi.projects.android.salt.views.ManageClaimItemActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 
 /**
  * Created by Velosi on 10/26/15.
  */
 public class ClaimItemInputCurrency extends LinearNavActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
-    NewClaimItemActivity activity;
+    ManageClaimItemActivity activity;
     //actionbar buttons
     private TextView actionbarTitle;
     private RelativeLayout actionbarButtonBack;
@@ -32,7 +32,7 @@ public class ClaimItemInputCurrency extends LinearNavActionbarFragment implement
 
     @Override
     protected RelativeLayout setupActionbar() {
-        activity = (NewClaimItemActivity)getActivity();
+        activity = (ManageClaimItemActivity)getActivity();
         RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -95,8 +95,8 @@ public class ClaimItemInputCurrency extends LinearNavActionbarFragment implement
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activity.updateCurrency(this, app.getCurrencies().get(position));
-        activity.changePage(new NewClaimItemInputFragment());
+        activity.claimItem.setCurrency(app.getCurrencies().get(position));
+        activity.changePage(new ClaimItemInputCategory());
     }
 
     private class Holder{

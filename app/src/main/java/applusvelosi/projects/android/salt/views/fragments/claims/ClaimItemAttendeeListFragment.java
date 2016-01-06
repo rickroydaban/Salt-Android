@@ -1,7 +1,5 @@
 	package applusvelosi.projects.android.salt.views.fragments.claims;
 
-import java.util.ArrayList;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -20,7 +17,7 @@ import applusvelosi.projects.android.salt.models.ClaimItemAttendee;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
+import applusvelosi.projects.android.salt.views.ManageClaimItemActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 
 public class ClaimItemAttendeeListFragment extends LinearNavActionbarFragment implements OnItemClickListener, ListAdapterInterface{
@@ -34,16 +31,16 @@ public class ClaimItemAttendeeListFragment extends LinearNavActionbarFragment im
 	private ListAdapter adapter;
 	private TextView tvDialogName, tvDialogJob, tvDialogNotes;
 	private AlertDialog dialogAddAttendee;
-	private NewClaimItemActivity activity;
+	private ManageClaimItemActivity activity;
 
 	@Override
 	protected RelativeLayout setupActionbar() {
-        activity = (NewClaimItemActivity)getActivity();
+        activity = (ManageClaimItemActivity)getActivity();
 		RelativeLayout actionbarLayout = (RelativeLayout)activity.getLayoutInflater().inflate(R.layout.actionbar_backnew, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarTitleTextview = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
 		actionbarNewButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_add);		
-					
+
 		actionbarBackButton.setOnClickListener(this);
 		actionbarTitleTextview.setOnClickListener(this);
 		actionbarNewButton.setOnClickListener(this);
@@ -59,7 +56,7 @@ public class ClaimItemAttendeeListFragment extends LinearNavActionbarFragment im
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
 
-		actionbarTitleTextview.setText("Claim Attendees ("+activity.getAttendees().size()+")");
+		actionbarTitleTextview.setText("Claim Attendees ("+activity.claimItem.getAttendees().size()+")");
 
 		ScrollView builderView = (ScrollView)LayoutInflater.from(activity).inflate(R.layout.dialog_addclaimattendee, null);
 		tvDialogName = (TextView)builderView.findViewById(R.id.etexts_dialogs_addclaimattendee_name);
@@ -72,9 +69,9 @@ public class ClaimItemAttendeeListFragment extends LinearNavActionbarFragment im
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
 									ClaimItemAttendee newAttendee = new ClaimItemAttendee(tvDialogName.getText().toString(), tvDialogJob.getText().toString(), tvDialogNotes.getText().toString());
-                                    activity.getAttendees().add(newAttendee);
+                                    activity.claimItem.getAttendees().add(newAttendee);
 									adapter.notifyDataSetChanged();
-									actionbarTitleTextview.setText("Claim Attendees ("+activity.getAttendees().size()+")");
+									actionbarTitleTextview.setText("Claim Attendees ("+activity.claimItem.getAttendees().size()+")");
 								}
 							}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 								
@@ -98,14 +95,14 @@ public class ClaimItemAttendeeListFragment extends LinearNavActionbarFragment im
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, final int pos, long id) {
-		new AlertDialog.Builder(activity).setMessage("This will delete "+activity.getAttendees().get(pos).getName()+" in the list")
+		new AlertDialog.Builder(activity).setMessage("This will delete "+activity.claimItem.getAttendees().get(pos).getName()+" in the list")
 										 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
-												activity.getAttendees().remove(pos);
+												activity.claimItem.getAttendees().remove(pos);
 												adapter.notifyDataSetChanged();
-												actionbarTitleTextview.setText("Claim Attendees ("+activity.getAttendees().size()+")");
+												actionbarTitleTextview.setText("Claim Attendees ("+activity.claimItem.getAttendees().size()+")");
 											}
 										})
 										.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -133,7 +130,7 @@ public class ClaimItemAttendeeListFragment extends LinearNavActionbarFragment im
 		}
 
 		holder = (Holder)v.getTag();
-		ClaimItemAttendee attendee = activity.getAttendees().get(position);
+		ClaimItemAttendee attendee = activity.claimItem.getAttendees().get(position);
 		holder.tvName.setText(attendee.getName());
 		holder.tvJobTitle.setText(attendee.getJobTitle());
 		holder.tvDesc.setText(attendee.getNote());
@@ -143,7 +140,7 @@ public class ClaimItemAttendeeListFragment extends LinearNavActionbarFragment im
 
 	@Override
 	public int getCount() {
-		return activity.getAttendees().size();
+		return activity.claimItem.getAttendees().size();
 	}
 
 	private class Holder{

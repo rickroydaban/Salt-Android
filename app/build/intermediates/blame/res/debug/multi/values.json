@@ -11,7 +11,14 @@
                     "endOffset": 140
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 2,
+                        "startOffset": 307,
+                        "endColumn": 37,
+                        "endOffset": 342
+                    }
                 }
             },
             {
@@ -23,7 +30,14 @@
                     "endOffset": 181
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 2,
+                        "startOffset": 345,
+                        "endColumn": 38,
+                        "endOffset": 381
+                    }
                 }
             },
             {
@@ -35,7 +49,14 @@
                     "endOffset": 220
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 2,
+                        "startOffset": 270,
+                        "endColumn": 36,
+                        "endOffset": 304
+                    }
                 }
             },
             {
@@ -47,7 +68,14 @@
                     "endOffset": 281
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 789,
+                        "endColumn": 60,
+                        "endOffset": 845
+                    }
                 }
             },
             {
@@ -59,7 +87,14 @@
                     "endOffset": 364
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 90,
+                        "endColumn": 82,
+                        "endOffset": 168
+                    }
                 }
             },
             {
@@ -71,7 +106,14 @@
                     "endOffset": 437
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 256,
+                        "endColumn": 72,
+                        "endOffset": 324
+                    }
                 }
             },
             {
@@ -83,7 +125,14 @@
                     "endOffset": 520
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 329,
+                        "endColumn": 82,
+                        "endOffset": 407
+                    }
                 }
             },
             {
@@ -95,7 +144,14 @@
                     "endOffset": 603
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 173,
+                        "endColumn": 82,
+                        "endOffset": 251
+                    }
                 }
             },
             {
@@ -107,7 +163,14 @@
                     "endOffset": 676
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 716,
+                        "endColumn": 72,
+                        "endOffset": 784
+                    }
                 }
             },
             {
@@ -119,7 +182,14 @@
                     "endOffset": 749
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 412,
+                        "endColumn": 72,
+                        "endOffset": 480
+                    }
                 }
             },
             {
@@ -131,7 +201,14 @@
                     "endOffset": 823
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 569,
+                        "endColumn": 73,
+                        "endOffset": 638
+                    }
                 }
             },
             {
@@ -143,7 +220,14 @@
                     "endOffset": 896
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 643,
+                        "endColumn": 72,
+                        "endOffset": 711
+                    }
                 }
             },
             {
@@ -155,7 +239,14 @@
                     "endOffset": 980
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_colors.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 485,
+                        "endColumn": 83,
+                        "endOffset": 564
+                    }
                 }
             },
             {
@@ -167,7 +258,14 @@
                     "endOffset": 1024
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 2,
+                        "startOffset": 228,
+                        "endColumn": 41,
+                        "endOffset": 267
+                    }
                 }
             },
             {
@@ -179,7 +277,14 @@
                     "endOffset": 1070
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 2,
+                        "startOffset": 99,
+                        "endColumn": 43,
+                        "endOffset": 140
+                    }
                 }
             },
             {
@@ -191,7 +296,14 @@
                     "endOffset": 1118
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 2,
+                        "startOffset": 53,
+                        "endColumn": 45,
+                        "endOffset": 96
+                    }
                 }
             },
             {
@@ -203,7 +315,14 @@
                     "endOffset": 1158
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 2,
+                        "startOffset": 1195,
+                        "endColumn": 37,
+                        "endOffset": 1230
+                    }
                 }
             },
             {
@@ -215,7 +334,14 @@
                     "endOffset": 1204
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 2,
+                        "startOffset": 1233,
+                        "endColumn": 43,
+                        "endOffset": 1274
+                    }
                 }
             },
             {
@@ -227,7 +353,14 @@
                     "endOffset": 1246
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 2,
+                        "startOffset": 1119,
+                        "endColumn": 39,
+                        "endOffset": 1156
+                    }
                 }
             },
             {
@@ -239,7 +372,14 @@
                     "endOffset": 1302
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 2,
+                        "startOffset": 854,
+                        "endColumn": 53,
+                        "endOffset": 905
+                    }
                 }
             },
             {
@@ -251,7 +391,14 @@
                     "endOffset": 1355
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 2,
+                        "startOffset": 656,
+                        "endColumn": 50,
+                        "endOffset": 704
+                    }
                 }
             },
             {
@@ -263,7 +410,14 @@
                     "endOffset": 1412
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 2,
+                        "startOffset": 1064,
+                        "endColumn": 54,
+                        "endOffset": 1116
+                    }
                 }
             },
             {
@@ -275,7 +429,14 @@
                     "endOffset": 1463
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 2,
+                        "startOffset": 957,
+                        "endColumn": 48,
+                        "endOffset": 1003
+                    }
                 }
             },
             {
@@ -287,7 +448,14 @@
                     "endOffset": 1523
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 2,
+                        "startOffset": 1006,
+                        "endColumn": 57,
+                        "endOffset": 1061
+                    }
                 }
             },
             {
@@ -299,7 +467,14 @@
                     "endOffset": 1574
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 2,
+                        "startOffset": 908,
+                        "endColumn": 48,
+                        "endOffset": 954
+                    }
                 }
             },
             {
@@ -311,7 +486,14 @@
                     "endOffset": 1623
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 2,
+                        "startOffset": 758,
+                        "endColumn": 46,
+                        "endOffset": 802
+                    }
                 }
             },
             {
@@ -323,7 +505,14 @@
                     "endOffset": 1674
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 2,
+                        "startOffset": 805,
+                        "endColumn": 48,
+                        "endOffset": 851
+                    }
                 }
             },
             {
@@ -335,7 +524,14 @@
                     "endOffset": 1727
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 2,
+                        "startOffset": 707,
+                        "endColumn": 50,
+                        "endOffset": 755
+                    }
                 }
             },
             {
@@ -347,7 +543,14 @@
                     "endOffset": 1772
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 2,
+                        "startOffset": 491,
+                        "endColumn": 42,
+                        "endOffset": 531
+                    }
                 }
             },
             {
@@ -359,7 +562,14 @@
                     "endOffset": 1814
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 2,
+                        "startOffset": 616,
+                        "endColumn": 39,
+                        "endOffset": 653
+                    }
                 }
             },
             {
@@ -371,7 +581,14 @@
                     "endOffset": 1859
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 2,
+                        "startOffset": 573,
+                        "endColumn": 42,
+                        "endOffset": 613
+                    }
                 }
             },
             {
@@ -383,7 +600,14 @@
                     "endOffset": 1913
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 2,
+                        "startOffset": 384,
+                        "endColumn": 51,
+                        "endOffset": 433
+                    }
                 }
             },
             {
@@ -395,7 +619,14 @@
                     "endOffset": 1954
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 2,
+                        "startOffset": 189,
+                        "endColumn": 38,
+                        "endOffset": 225
+                    }
                 }
             },
             {
@@ -407,7 +638,14 @@
                     "endOffset": 2002
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 2,
+                        "startOffset": 143,
+                        "endColumn": 45,
+                        "endOffset": 186
+                    }
                 }
             },
             {
@@ -419,7 +657,14 @@
                     "endOffset": 2040
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 2,
+                        "startOffset": 1159,
+                        "endColumn": 35,
+                        "endOffset": 1192
+                    }
                 }
             },
             {
@@ -431,7 +676,14 @@
                     "endOffset": 2097
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 2,
+                        "startOffset": 436,
+                        "endColumn": 54,
+                        "endOffset": 488
+                    }
                 }
             },
             {
@@ -443,7 +695,14 @@
                     "endOffset": 2137
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/colors.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 2,
+                        "startOffset": 535,
+                        "endColumn": 37,
+                        "endOffset": 570
+                    }
                 }
             },
             {
@@ -455,7 +714,14 @@
                     "endOffset": 2686
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 981,
+                        "endColumn": 57,
+                        "endOffset": 1034
+                    }
                 }
             },
             {
@@ -467,7 +733,14 @@
                     "endOffset": 2742
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1039,
+                        "endColumn": 55,
+                        "endOffset": 1090
+                    }
                 }
             },
             {
@@ -479,7 +752,14 @@
                     "endOffset": 2797
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 117,
+                        "endColumn": 54,
+                        "endOffset": 167
+                    }
                 }
             },
             {
@@ -491,7 +771,14 @@
                     "endOffset": 2850
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 172,
+                        "endColumn": 52,
+                        "endOffset": 220
+                    }
                 }
             },
             {
@@ -503,7 +790,14 @@
                     "endOffset": 2905
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 225,
+                        "endColumn": 54,
+                        "endOffset": 275
+                    }
                 }
             },
             {
@@ -515,7 +809,14 @@
                     "endOffset": 2958
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 280,
+                        "endColumn": 52,
+                        "endOffset": 328
+                    }
                 }
             },
             {
@@ -527,7 +828,14 @@
                     "endOffset": 3022
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 758,
+                        "endColumn": 63,
+                        "endOffset": 817
+                    }
                 }
             },
             {
@@ -539,7 +847,14 @@
                     "endOffset": 3086
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 631,
+                        "endColumn": 63,
+                        "endOffset": 690
+                    }
                 }
             },
             {
@@ -551,7 +866,14 @@
                     "endOffset": 3149
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 695,
+                        "endColumn": 62,
+                        "endOffset": 753
+                    }
                 }
             },
             {
@@ -563,7 +885,14 @@
                     "endOffset": 3208
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 514,
+                        "endColumn": 58,
+                        "endOffset": 568
+                    }
                 }
             },
             {
@@ -575,7 +904,14 @@
                     "endOffset": 3266
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 573,
+                        "endColumn": 57,
+                        "endOffset": 626
+                    }
                 }
             },
             {
@@ -587,7 +923,14 @@
                     "endOffset": 3335
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 333,
+                        "endColumn": 68,
+                        "endOffset": 397
+                    }
                 }
             },
             {
@@ -618,7 +961,14 @@
                     "endOffset": 3447
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 458,
+                        "endColumn": 55,
+                        "endOffset": 509
+                    }
                 }
             },
             {
@@ -630,7 +980,14 @@
                     "endOffset": 3503
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 868,
+                        "endColumn": 55,
+                        "endOffset": 919
+                    }
                 }
             },
             {
@@ -642,7 +999,14 @@
                     "endOffset": 3560
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 924,
+                        "endColumn": 56,
+                        "endOffset": 976
+                    }
                 }
             },
             {
@@ -654,7 +1018,14 @@
                     "endOffset": 3625
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 1,
+                        "startOffset": 52,
+                        "endColumn": 61,
+                        "endOffset": 112
+                    }
                 }
             },
             {
@@ -666,7 +1037,14 @@
                     "endOffset": 3671
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/dimens.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 822,
+                        "endColumn": 45,
+                        "endOffset": 863
+                    }
                 }
             },
             {
@@ -678,7 +1056,14 @@
                     "endOffset": 3727
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 2,
+                        "startOffset": 53,
+                        "endColumn": 53,
+                        "endOffset": 104
+                    }
                 }
             },
             {
@@ -690,7 +1075,14 @@
                     "endOffset": 3793
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 2,
+                        "startOffset": 214,
+                        "endColumn": 63,
+                        "endOffset": 275
+                    }
                 }
             },
             {
@@ -702,7 +1094,14 @@
                     "endOffset": 3847
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 2,
+                        "startOffset": 107,
+                        "endColumn": 51,
+                        "endOffset": 156
+                    }
                 }
             },
             {
@@ -714,7 +1113,14 @@
                     "endOffset": 3904
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 2,
+                        "startOffset": 159,
+                        "endColumn": 54,
+                        "endOffset": 211
+                    }
                 }
             },
             {
@@ -726,7 +1132,14 @@
                     "endOffset": 3957
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 2,
+                        "startOffset": 278,
+                        "endColumn": 50,
+                        "endOffset": 326
+                    }
                 }
             },
             {
@@ -738,7 +1151,14 @@
                     "endOffset": 4026
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/fontsizes.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 2,
+                        "startOffset": 329,
+                        "endColumn": 66,
+                        "endOffset": 393
+                    }
                 }
             },
             {
@@ -750,7 +1170,14 @@
                     "endOffset": 4080
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/margins.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/margins.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 1,
+                        "startOffset": 161,
+                        "endColumn": 50,
+                        "endOffset": 210
+                    }
                 }
             },
             {
@@ -762,7 +1189,14 @@
                     "endOffset": 4138
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/margins.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/margins.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 1,
+                        "startOffset": 106,
+                        "endColumn": 54,
+                        "endOffset": 159
+                    }
                 }
             },
             {
@@ -774,7 +1208,14 @@
                     "endOffset": 4195
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/margins.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/margins.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 1,
+                        "startOffset": 52,
+                        "endColumn": 53,
+                        "endOffset": 104
+                    }
                 }
             },
             {
@@ -786,7 +1227,14 @@
                     "endOffset": 4253
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/paddings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/paddings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 117,
+                        "endColumn": 57,
+                        "endOffset": 170
+                    }
                 }
             },
             {
@@ -798,7 +1246,14 @@
                     "endOffset": 4314
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/paddings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/paddings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 60,
+                        "endOffset": 112
+                    }
                 }
             },
             {
@@ -810,7 +1265,14 @@
                     "endOffset": 4381
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/version.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/version.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 66,
+                        "endOffset": 117
+                    }
                 }
             },
             {
@@ -822,7 +1284,14 @@
                     "endOffset": 4423
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 210,
+                        "endColumn": 41,
+                        "endOffset": 247
+                    }
                 }
             },
             {
@@ -834,7 +1303,14 @@
                     "endOffset": 4476
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 151,
+                        "endColumn": 52,
+                        "endOffset": 199
+                    }
                 }
             },
             {
@@ -846,7 +1322,14 @@
                     "endOffset": 4518
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 41,
+                        "endOffset": 93
+                    }
                 }
             },
             {
@@ -858,7 +1341,14 @@
                     "endOffset": 4610
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/auth_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/auth_strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 253,
+                        "endColumn": 91,
+                        "endOffset": 340
+                    }
                 }
             },
             {
@@ -870,7 +1360,14 @@
                     "endOffset": 4698
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/auth_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/auth_strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 109,
+                        "endColumn": 87,
+                        "endOffset": 192
+                    }
                 }
             },
             {
@@ -882,7 +1379,14 @@
                     "endOffset": 4771
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 601,
+                        "endColumn": 72,
+                        "endOffset": 669
+                    }
                 }
             },
             {
@@ -894,7 +1398,14 @@
                     "endOffset": 4928
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 733,
+                        "endColumn": 160,
+                        "endOffset": 889
+                    }
                 }
             },
             {
@@ -906,7 +1417,14 @@
                     "endOffset": 5073
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 60,
+                        "startColumn": 4,
+                        "startOffset": 4602,
+                        "endColumn": 148,
+                        "endOffset": 4746
+                    }
                 }
             },
             {
@@ -918,7 +1436,14 @@
                     "endOffset": 5182
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 52,
+                        "startColumn": 4,
+                        "startOffset": 4026,
+                        "endColumn": 108,
+                        "endOffset": 4130
+                    }
                 }
             },
             {
@@ -930,7 +1455,14 @@
                     "endOffset": 5414
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 99,
+                        "startColumn": 4,
+                        "startOffset": 7585,
+                        "endColumn": 235,
+                        "endOffset": 7816
+                    }
                 }
             },
             {
@@ -942,7 +1474,14 @@
                     "endOffset": 5540
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 44,
+                        "startColumn": 4,
+                        "startOffset": 3483,
+                        "endColumn": 125,
+                        "endOffset": 3604
+                    }
                 }
             },
             {
@@ -954,7 +1493,14 @@
                     "endOffset": 5721
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 39,
+                        "startColumn": 4,
+                        "startOffset": 3087,
+                        "endColumn": 184,
+                        "endOffset": 3267
+                    }
                 }
             },
             {
@@ -966,7 +1512,14 @@
                     "endOffset": 5846
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 4,
+                        "startOffset": 2811,
+                        "endColumn": 124,
+                        "endOffset": 2931
+                    }
                 }
             },
             {
@@ -978,7 +1531,14 @@
                     "endOffset": 5985
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1266,
+                        "endColumn": 142,
+                        "endOffset": 1404
+                    }
                 }
             },
             {
@@ -990,7 +1550,14 @@
                     "endOffset": 6109
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 4,
+                        "startOffset": 2540,
+                        "endColumn": 123,
+                        "endOffset": 2659
+                    }
                 }
             },
             {
@@ -1002,7 +1569,14 @@
                     "endOffset": 6322
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 1843,
+                        "endColumn": 216,
+                        "endOffset": 2055
+                    }
                 }
             },
             {
@@ -1014,7 +1588,14 @@
                     "endOffset": 6537
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 2225,
+                        "endColumn": 218,
+                        "endOffset": 2439
+                    }
                 }
             },
             {
@@ -1026,7 +1607,14 @@
                     "endOffset": 6660
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1556,
+                        "endColumn": 122,
+                        "endOffset": 1674
+                    }
                 }
             },
             {
@@ -1038,7 +1626,14 @@
                     "endOffset": 6825
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 80,
+                        "startColumn": 4,
+                        "startOffset": 6084,
+                        "endColumn": 164,
+                        "endOffset": 6244
+                    }
                 }
             },
             {
@@ -1050,7 +1645,14 @@
                     "endOffset": 6919
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 77,
+                        "startColumn": 4,
+                        "startOffset": 5869,
+                        "endColumn": 93,
+                        "endOffset": 5958
+                    }
                 }
             },
             {
@@ -1062,7 +1664,14 @@
                     "endOffset": 7056
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1033,
+                        "endColumn": 136,
+                        "endOffset": 1165
+                    }
                 }
             },
             {
@@ -1074,7 +1683,14 @@
                     "endOffset": 7197
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 74,
+                        "startColumn": 4,
+                        "startOffset": 5611,
+                        "endColumn": 140,
+                        "endOffset": 5747
+                    }
                 }
             },
             {
@@ -1086,7 +1702,14 @@
                     "endOffset": 7287
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 71,
+                        "startColumn": 4,
+                        "startOffset": 5408,
+                        "endColumn": 89,
+                        "endOffset": 5493
+                    }
                 }
             },
             {
@@ -1098,7 +1721,14 @@
                     "endOffset": 7435
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 449,
+                        "endColumn": 147,
+                        "endOffset": 592
+                    }
                 }
             },
             {
@@ -1110,7 +1740,14 @@
                     "endOffset": 7538
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 206,
+                        "endColumn": 102,
+                        "endOffset": 304
+                    }
                 }
             },
             {
@@ -1122,7 +1759,14 @@
                     "endOffset": 7689
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 105,
+                        "startColumn": 4,
+                        "startOffset": 8155,
+                        "endColumn": 150,
+                        "endOffset": 8301
+                    }
                 }
             },
             {
@@ -1134,7 +1778,14 @@
                     "endOffset": 7781
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 102,
+                        "startColumn": 4,
+                        "startOffset": 7940,
+                        "endColumn": 91,
+                        "endOffset": 8027
+                    }
                 }
             },
             {
@@ -1146,7 +1797,14 @@
                     "endOffset": 7892
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 84,
+                        "startColumn": 4,
+                        "startOffset": 6385,
+                        "endColumn": 110,
+                        "endOffset": 6491
+                    }
                 }
             },
             {
@@ -1158,7 +1816,14 @@
                     "endOffset": 8111
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 90,
+                        "startColumn": 4,
+                        "startOffset": 6861,
+                        "endColumn": 222,
+                        "endOffset": 7079
+                    }
                 }
             },
             {
@@ -1170,7 +1835,14 @@
                     "endOffset": 8206
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 87,
+                        "startColumn": 4,
+                        "startOffset": 6629,
+                        "endColumn": 94,
+                        "endOffset": 6719
+                    }
                 }
             },
             {
@@ -1182,7 +1854,14 @@
                     "endOffset": 8311
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 93,
+                        "startColumn": 4,
+                        "startOffset": 7178,
+                        "endColumn": 104,
+                        "endOffset": 7278
+                    }
                 }
             },
             {
@@ -1194,7 +1873,14 @@
                     "endOffset": 8492
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 56,
+                        "startColumn": 4,
+                        "startOffset": 4285,
+                        "endColumn": 184,
+                        "endOffset": 4465
+                    }
                 }
             },
             {
@@ -1206,7 +1892,14 @@
                     "endOffset": 8617
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 48,
+                        "startColumn": 4,
+                        "startOffset": 3755,
+                        "endColumn": 124,
+                        "endOffset": 3875
+                    }
                 }
             },
             {
@@ -1218,7 +1911,14 @@
                     "endOffset": 8792
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 68,
+                        "startColumn": 4,
+                        "startOffset": 5120,
+                        "endColumn": 178,
+                        "endOffset": 5294
+                    }
                 }
             },
             {
@@ -1230,7 +1930,14 @@
                     "endOffset": 8897
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 64,
+                        "startColumn": 4,
+                        "startOffset": 4881,
+                        "endColumn": 104,
+                        "endOffset": 4981
+                    }
                 }
             },
             {
@@ -1242,7 +1949,14 @@
                     "endOffset": 8960
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/res/values/common_strings.xml",
+                    "position": {
+                        "startLine": 96,
+                        "startColumn": 4,
+                        "startOffset": 7378,
+                        "endColumn": 62,
+                        "endOffset": 7436
+                    }
                 }
             },
             {
@@ -1254,7 +1968,14 @@
                     "endOffset": 9022
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/values/base_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/values/base_strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 157,
+                        "endColumn": 61,
+                        "endOffset": 214
+                    }
                 }
             },
             {
@@ -1266,7 +1987,14 @@
                     "endOffset": 9101
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/values/base_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/res/values/base_strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 279,
+                        "endColumn": 78,
+                        "endOffset": 353
+                    }
                 }
             },
             {
@@ -1278,7 +2006,14 @@
                     "endOffset": 9190
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 368,
+                        "endColumn": 88,
+                        "endOffset": 452
+                    }
                 }
             },
             {
@@ -1290,7 +2025,14 @@
                     "endOffset": 9262
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 296,
+                        "endColumn": 71,
+                        "endOffset": 363
+                    }
                 }
             },
             {
@@ -1302,7 +2044,14 @@
                     "endOffset": 9306
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 252,
+                        "endColumn": 43,
+                        "endOffset": 291
+                    }
                 }
             },
             {
@@ -1314,7 +2063,14 @@
                     "endOffset": 9354
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 880,
+                        "endColumn": 47,
+                        "endOffset": 923
+                    }
                 }
             },
             {
@@ -1326,7 +2082,14 @@
                     "endOffset": 9409
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 471,
+                        "endColumn": 54,
+                        "endOffset": 521
+                    }
                 }
             },
             {
@@ -1338,7 +2101,14 @@
                     "endOffset": 9465
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 55,
+                        "endOffset": 106
+                    }
                 }
             },
             {
@@ -1350,7 +2120,14 @@
                     "endOffset": 9524
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 111,
+                        "endColumn": 58,
+                        "endOffset": 165
+                    }
                 }
             },
             {
@@ -1362,7 +2139,14 @@
                     "endOffset": 9604
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/generated/res/google-services/debug/values/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 170,
+                        "endColumn": 79,
+                        "endOffset": 245
+                    }
                 }
             },
             {
@@ -1374,7 +2158,14 @@
                     "endOffset": 9674
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 265,
+                        "endColumn": 69,
+                        "endOffset": 330
+                    }
                 }
             },
             {
@@ -1386,7 +2177,14 @@
                     "endOffset": 9727
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 98,
+                        "endColumn": 52,
+                        "endOffset": 146
+                    }
                 }
             },
             {
@@ -1398,7 +2196,14 @@
                     "endOffset": 9802
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 526,
+                        "endColumn": 74,
+                        "endOffset": 596
+                    }
                 }
             },
             {
@@ -1410,7 +2215,14 @@
                     "endOffset": 9856
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 761,
+                        "endColumn": 53,
+                        "endOffset": 810
+                    }
                 }
             },
             {
@@ -1422,7 +2234,14 @@
                     "endOffset": 9943
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 674,
+                        "endColumn": 86,
+                        "endOffset": 756
+                    }
                 }
             },
             {
@@ -1434,7 +2253,14 @@
                     "endOffset": 10039
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 114,
+                        "endColumn": 95,
+                        "endOffset": 205
+                    }
                 }
             },
             {
@@ -1446,7 +2272,14 @@
                     "endOffset": 10098
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_strings.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 58,
+                        "endOffset": 109
+                    }
                 }
             },
             {
@@ -1458,7 +2291,14 @@
                     "endOffset": 10159
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 204,
+                        "endColumn": 60,
+                        "endOffset": 260
+                    }
                 }
             },
             {
@@ -1470,7 +2310,14 @@
                     "endOffset": 10226
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 335,
+                        "endColumn": 66,
+                        "endOffset": 397
+                    }
                 }
             },
             {
@@ -1482,7 +2329,14 @@
                     "endOffset": 10291
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 815,
+                        "endColumn": 64,
+                        "endOffset": 875
+                    }
                 }
             },
             {
@@ -1494,7 +2348,14 @@
                     "endOffset": 10360
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/strings.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 402,
+                        "endColumn": 68,
+                        "endOffset": 466
+                    }
                 }
             },
             {
@@ -1507,7 +2368,15 @@
                     "endOffset": 10784
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_iap_style.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/res/values/admob_iap_style.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 2,
+                        "startOffset": 53,
+                        "endLine": 9,
+                        "endColumn": 10,
+                        "endOffset": 472
+                    }
                 }
             },
             {
@@ -1520,7 +2389,15 @@
                     "endOffset": 11036
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles_calendar_events.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles_calendar_events.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endLine": 7,
+                        "endColumn": 12,
+                        "endOffset": 303
+                    }
                 }
             },
             {
@@ -1533,7 +2410,15 @@
                     "endOffset": 11285
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 2,
+                        "startOffset": 888,
+                        "endLine": 29,
+                        "endColumn": 10,
+                        "endOffset": 1132
+                    }
                 }
             },
             {
@@ -1546,7 +2431,15 @@
                     "endOffset": 11518
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 31,
+                        "startColumn": 2,
+                        "startOffset": 1138,
+                        "endLine": 35,
+                        "endColumn": 10,
+                        "endOffset": 1366
+                    }
                 }
             },
             {
@@ -1559,7 +2452,15 @@
                     "endOffset": 11861
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 131,
+                        "startColumn": 2,
+                        "startOffset": 5285,
+                        "endLine": 137,
+                        "endColumn": 10,
+                        "endOffset": 5623
+                    }
                 }
             },
             {
@@ -1572,7 +2473,15 @@
                     "endOffset": 12214
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 97,
+                        "startColumn": 2,
+                        "startOffset": 3841,
+                        "endLine": 103,
+                        "endColumn": 10,
+                        "endOffset": 4189
+                    }
                 }
             },
             {
@@ -1585,7 +2494,15 @@
                     "endOffset": 12663
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 139,
+                        "startColumn": 2,
+                        "startOffset": 5627,
+                        "endLine": 147,
+                        "endColumn": 10,
+                        "endOffset": 6071
+                    }
                 }
             },
             {
@@ -1598,7 +2515,15 @@
                     "endOffset": 12997
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 45,
+                        "startColumn": 2,
+                        "startOffset": 1703,
+                        "endLine": 51,
+                        "endColumn": 10,
+                        "endOffset": 2032
+                    }
                 }
             },
             {
@@ -1611,7 +2536,15 @@
                     "endOffset": 13325
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 37,
+                        "startColumn": 2,
+                        "startOffset": 1374,
+                        "endLine": 43,
+                        "endColumn": 10,
+                        "endOffset": 1697
+                    }
                 }
             },
             {
@@ -1624,7 +2557,15 @@
                     "endOffset": 13606
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 105,
+                        "startColumn": 2,
+                        "startOffset": 4195,
+                        "endLine": 110,
+                        "endColumn": 10,
+                        "endOffset": 4471
+                    }
                 }
             },
             {
@@ -1637,7 +2578,15 @@
                     "endOffset": 13938
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 112,
+                        "startColumn": 2,
+                        "startOffset": 4475,
+                        "endLine": 118,
+                        "endColumn": 10,
+                        "endOffset": 4802
+                    }
                 }
             },
             {
@@ -1650,7 +2599,15 @@
                     "endOffset": 14367
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 63,
+                        "startColumn": 2,
+                        "startOffset": 2468,
+                        "endLine": 71,
+                        "endColumn": 10,
+                        "endOffset": 2892
+                    }
                 }
             },
             {
@@ -1663,7 +2620,15 @@
                     "endOffset": 14796
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 53,
+                        "startColumn": 2,
+                        "startOffset": 2038,
+                        "endLine": 61,
+                        "endColumn": 10,
+                        "endOffset": 2462
+                    }
                 }
             },
             {
@@ -1676,7 +2641,15 @@
                     "endOffset": 15221
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 82,
+                        "startColumn": 2,
+                        "startOffset": 3267,
+                        "endLine": 90,
+                        "endColumn": 10,
+                        "endOffset": 3687
+                    }
                 }
             },
             {
@@ -1689,7 +2662,15 @@
                     "endOffset": 15589
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 73,
+                        "startColumn": 2,
+                        "startOffset": 2898,
+                        "endLine": 80,
+                        "endColumn": 10,
+                        "endOffset": 3261
+                    }
                 }
             },
             {
@@ -1702,7 +2683,15 @@
                     "endOffset": 15951
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 2,
+                        "startOffset": 525,
+                        "endLine": 23,
+                        "endColumn": 10,
+                        "endOffset": 882
+                    }
                 }
             },
             {
@@ -1715,7 +2704,15 @@
                     "endOffset": 16086
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 158,
+                        "startColumn": 2,
+                        "startOffset": 6347,
+                        "endLine": 160,
+                        "endColumn": 10,
+                        "endOffset": 6477
+                    }
                 }
             },
             {
@@ -1728,7 +2725,15 @@
                     "endOffset": 16339
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 162,
+                        "startColumn": 2,
+                        "startOffset": 6483,
+                        "endLine": 166,
+                        "endColumn": 10,
+                        "endOffset": 6731
+                    }
                 }
             },
             {
@@ -1741,7 +2746,15 @@
                     "endOffset": 16508
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 153,
+                        "startColumn": 2,
+                        "startOffset": 6177,
+                        "endLine": 156,
+                        "endColumn": 10,
+                        "endOffset": 6341
+                    }
                 }
             },
             {
@@ -1754,7 +2767,15 @@
                     "endOffset": 16607
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 149,
+                        "startColumn": 2,
+                        "startOffset": 6077,
+                        "endLine": 151,
+                        "endColumn": 10,
+                        "endOffset": 6171
+                    }
                 }
             },
             {
@@ -1767,7 +2788,15 @@
                     "endOffset": 16754
                 },
                 "from": {
-                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml"
+                    "file": "/Users/Velosi/Documents/ANDROID/Salt/app/src/main/res/values/styles.xml",
+                    "position": {
+                        "startLine": 92,
+                        "startColumn": 2,
+                        "startOffset": 3693,
+                        "endLine": 95,
+                        "endColumn": 10,
+                        "endOffset": 3835
+                    }
                 }
             }
         ]

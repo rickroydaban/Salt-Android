@@ -16,6 +16,7 @@ public class Category implements Serializable{
 		map = new HashMap<String, Object>();
 		map.put("Attendee", jsonCategory.getString("Attendee"));
 		map.put("CategoryTypeID", jsonCategory.getString("CategoryTypeID"));
+		map.put("CategoryID", jsonCategory.getString("CategoryID"));
 		map.put("SpendLimit", jsonCategory.getString("SpendLimit"));
 		map.put("Description", jsonCategory.getString("Description"));
 		map.put("Currency", jsonCategory.getString("Currency"));
@@ -30,11 +31,13 @@ public class Category implements Serializable{
 	public int getAttendeeTypeID(){
 		return Integer.parseInt(map.get("Attendee").toString());
 	}
-	
+
 	public int getCategoryTypeID(){
 		return Integer.parseInt(map.get("CategoryTypeID").toString());
 	}
-	
+
+	public int getCategoryID(){ return Integer.parseInt(map.get("CategoryID").toString()); }
+
 	public float getSpendLimit(){
 		return Float.parseFloat(map.get("SpendLimit").toString());
 	}

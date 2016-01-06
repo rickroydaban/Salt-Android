@@ -18,8 +18,7 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.adapters.lists.GroupedListAdapter;
 import applusvelosi.projects.android.salt.models.GroupedListHeader;
 import applusvelosi.projects.android.salt.models.GroupedListLocalHolidayItem;
-import applusvelosi.projects.android.salt.models.LocalHoliday;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.utils.interfaces.GroupedListItemInterface;
 
 public class HolidaysLocalFragment extends RootFragment {
@@ -27,7 +26,7 @@ public class HolidaysLocalFragment extends RootFragment {
 	//action bar buttons
 	private RelativeLayout actionbarLayout, actionbarMenuButton, actionbarRefreshButton;
 
-//	private ArrayList<LocalHoliday> localHolidays; //for saving local holidays in shared preferences
+//	private ArrayList<Holiday> localHolidays; //for saving local holidays in shared preferences
 	private ArrayList<GroupedListItemInterface> items;
 	private ListView lv;
 	private GroupedListAdapter adapter;
@@ -101,7 +100,7 @@ public class HolidaysLocalFragment extends RootFragment {
 							activity.finishLoading(result.toString());
 						else{
 							activity.finishLoading();
-							app.updateLocalHolidays((ArrayList<LocalHoliday>)result);
+							app.updateLocalHolidays((ArrayList<Holiday>)result);
 							app.setLocalHolidaysLoaded(HolidaysLocalFragment.this);
 						}
 						
@@ -118,7 +117,7 @@ public class HolidaysLocalFragment extends RootFragment {
 		int scrollablePos = 0;
 		int addedItemCount = 0;
 		
-		for(LocalHoliday localHoliday :app.getLocalHolidays()){
+		for(Holiday localHoliday :app.getLocalHolidays()){
 			if(!localHoliday.getMonth().equals(header)){
 				header = localHoliday.getMonth();
 

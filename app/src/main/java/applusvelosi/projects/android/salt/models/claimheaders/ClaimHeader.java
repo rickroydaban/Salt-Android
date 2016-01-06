@@ -183,13 +183,13 @@ public class ClaimHeader{
 			map.put("IsPaidByCompanyCC", isPaidByCC);
 	}	
 	
-	public void updateLineItems(ArrayList<ClaimItem> items, SaltApplication app){
-		ArrayList<HashMap<String, Object>> claimItemMaps = new ArrayList<HashMap<String,Object>>();
-		for(ClaimItem item :items)
-			claimItemMaps.add(item.getMap());
-		
-		map.put("ClaimLineItems", app.gson.toJson(claimItemMaps, app.types.arrayListOfHashmapOfStringObject));
-	}
+//	public void updateLineItems(ArrayList<ClaimItem> items, SaltApplication app){
+//		ArrayList<HashMap<String, Object>> claimItemMaps = new ArrayList<HashMap<String,Object>>();
+//		for(ClaimItem item :items)
+//			claimItemMaps.add(item.getMap());
+//
+//		map.put("ClaimLineItems", app.gson.toJson(claimItemMaps, app.types.arrayListOfHashmapOfStringObject));
+//	}
 	
 	public int getClaimID(){
 		return Integer.parseInt(map.get("ClaimID").toString());
@@ -259,7 +259,7 @@ public class ClaimHeader{
 	}
 
 	public float getTotalClaim(){
-		return Float.parseFloat(map.get("TotalComputedInLC").toString());
+		return Float.parseFloat(map.get("TotalAmount").toString());
 	}
 	
 	public float getApprovedAmount(){
@@ -302,19 +302,19 @@ public class ClaimHeader{
 		return getStringedDate(map.get("DatePaid").toString());
 	}
 	
-	public ArrayList<ClaimItem> getClaimItems(SaltApplication app){
-		ArrayList<ClaimItem> claimItems = new ArrayList<ClaimItem>();
-		ArrayList<HashMap<String,Object>> mapItems = app.gson.fromJson(map.get("ClaimLineItems").toString(), app.types.arrayListOfHashmapOfStringObject);
-		for(int i=0; i<mapItems.size(); i++){
-			HashMap<String, Object> itemMap = mapItems.get(i);
-			if(Integer.parseInt(map.get(KEY_TYPEID).toString()) == Category.TYPE_MILEAGE)
-				claimItems.add(new MilageClaimItem(itemMap, app));
-			else
-				claimItems.add(new ClaimItem(itemMap, app));				
-		}
-		
-		return claimItems;
-	}
+//	public ArrayList<ClaimItem> getClaimItems(SaltApplication app){
+//		ArrayList<ClaimItem> claimItems = new ArrayList<ClaimItem>();
+//		ArrayList<HashMap<String,Object>> mapItems = app.gson.fromJson(map.get("ClaimLineItems").toString(), app.types.arrayListOfClaimItems);
+//		for(int i=0; i<mapItems.size(); i++){
+//			HashMap<String, Object> itemMap = mapItems.get(i);
+//			if(Integer.parseInt(map.get(KEY_TYPEID).toString()) == Category.TYPE_MILEAGE)
+//				claimItems.add(new MilageClaimItem(itemMap, app));
+//			else
+//				claimItems.add(new ClaimItem(itemMap, app));
+//		}
+//
+//		return claimItems;
+//	}
 
 	public HashMap<String, Object> getMap(){
 		return map;

@@ -2,737 +2,569 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF">
-    
-	<TableLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:stretchColumns="1">
-	    
-	    <TableRow 
-	       android:layout_width="match_parent"
-	       android:layout_height="wrap_content">
-	        
-	        <View
-	            android:layout_width="match_parent"
-	            android:layout_height="40dp"
-	            android:background="@color/light_gray"
-	            android:layout_span="2" />
-	        
-	    </TableRow>
-	    
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Item ID" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
+    android:background="@color/white">
 
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>    
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Category" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>      
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
 
-        <TableRow 
-            android:layout_gravity="center_vertical"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Project" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_project"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
+            android:stretchColumns="1"
+            android:background="#FFF">
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>           
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Date" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_expenseDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/sidebar_menu_separator"
+                    android:layout_span="2" />
+
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>      
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Amount" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:text=""
+                    android:textColor="@color/orange_velosi"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:textStyle="bold"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="12dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>           	    
-	    
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Amount (LC)" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_amountLocal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Item ID" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>     
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Ex Rate" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_exRate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Category" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>   
-                
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Tax Rate" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_taxRate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Project" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_project"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>             
-        
-        <TableRow 
-            android:id="@+id/trs_claimitemdetail_attendees"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-				android:paddingTop="12dp"
-				android:paddingBottom="12dp"
-                android:text="Attendees" />
-            
-			<RelativeLayout 
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:id="@+id/containers_claimitemdetail_attendees"
-			    android:paddingRight="5dp">
-			    
-			    <ImageView 
-			        android:id="@+id/iviews_claimitemdetail_attendees"
-			        android:layout_width="20dp"
-			        android:layout_height="20dp"
-			        android:src="@drawable/icon_next"
-			        android:layout_alignParentRight="true"
-			        android:layout_centerVertical="true"/>
-			    
-			    <TextView 
-			        android:id="@+id/tviews_claimitemdetail_attendeecount"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-	                style="@style/styles_detailoverview_compressedinputs"
-	                android:layout_toLeftOf="@id/iviews_claimitemdetail_attendees"/>		        
-	                
-			</RelativeLayout>
-            
-        </TableRow>
-                
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Date" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_expenseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>             
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Attachment" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_attachment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_insetted"
+                    android:layout_span="2" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:text="Mileage"
+                    android:textColor="@color/orange_velosi"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:textStyle="bold"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="12dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="From" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_mileagefrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="To" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_mileageto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:paddingRight="5dp">
+
+                    <CheckBox
+                        android:id="@+id/cboxs_claimitemdetail_ismileagereturn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Return"
+                        android:textSize="@dimen/fsizes_listcell_header"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:enabled="false"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Mileage" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tviews_claimitemdetail_mileagemileage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/styles_detailoverview_compressedinputs"/>
+
+                    <TextView
+                        android:id="@+id/tviews_claimitemdetail_mileagetype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/styles_detailoverview_compressedinputs"/>
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Rate" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_mileagerate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_insetted"
+                    android:layout_span="2" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:text="Amount"
+                    android:textColor="@color/orange_velosi"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:textStyle="bold"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="12dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Amount" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Amount (LC)" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_amountLocal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Forex" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_exRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Tax" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_taxRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_insetted"
+                    android:layout_span="2" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:text="Other Details"
+                    android:textColor="@color/orange_velosi"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:textStyle="bold"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="12dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Bill To" />
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_billto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Velosi Philippines"
+                    style="@style/styles_detailoverview_compressedinputs"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Notes/Clients to Bill"
+                    android:layout_span="2"/>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trs_claimitemdetail_notestoclient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_notesorbillstoclient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="17dp"
+                    android:paddingRight="17dp"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:textColor="@color/black2"
+                    android:layout_span="2" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/styles_trs">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/styles_labels_detail"
+                    android:text="Description"
+                    android:layout_span="2"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tviews_claimitemdetail_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="17dp"
+                    android:paddingRight="17dp"
+                    android:paddingBottom="20dp"
+                    android:textSize="@dimen/fsizes_listcell_header"
+                    android:layout_span="2"
+                    android:text=""
+                    android:textColor="@color/black2"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-				android:paddingTop="12dp"
-				android:paddingBottom="12dp"
-                android:text="Attachment" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_attachment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
+            android:text="Attendees"
+            android:textColor="@color/orange_velosi"
+            android:textSize="@dimen/fsizes_listcell_header"
+            android:textStyle="bold"
+            android:paddingTop="7dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="12dp"
+            android:background="#FFF"/>
+
+        <LinearLayout
+            android:id="@+id/containers_claimitemdetail_attendees"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>             
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:background="#FFF"/>
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Billable" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemdetail_billto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-        
-        <TableRow 
-		    android:id="@+id/separators_claimitemdetail_notestoclientheader1"
+            android:layout_height="1dp"
+            android:background="@color/sidebar_menu_separator" />
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow> 
-                
-        <TableRow 
-		    android:id="@+id/trs_claimitemdetail_notestoclientheader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-		    <TextView 
-		        android:layout_width="match_parent"
-		        android:layout_height="40dp"
-		        android:paddingTop="10dp"
-		        android:paddingBottom="10dp"
-		        android:paddingLeft="5dp"
-		        android:text="Notes / Clients to Bill"
-		        android:textStyle="bold"
-		        android:textSize="18sp"
-		        android:textColor="@color/black"
-		        android:background="@color/light_gray"
-		        android:layout_span="2" />           
-                
-        </TableRow>
-        
-        <TableRow 
-		    android:id="@+id/separators_claimitemdetail_notestoclientheader2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>        
-        
-        <TableRow 
-		    android:id="@+id/trs_claimitemdetail_notestoclient"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        
-		    <TextView 
-		        android:id="@+id/tviews_claimitemdetail_notesorbillstoclient"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="17dp"
-		        android:textSize="17sp"
-		        android:layout_span="2" />           
-                
-        </TableRow>
-		    	        
-        <TableRow 
-		    android:id="@+id/separators_claimitemdetail_notestoclient"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>  
-                
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-		    <TextView 
-		        android:layout_width="match_parent"
-		        android:layout_height="40dp"
-		        android:paddingTop="10dp"
-		        android:paddingBottom="10dp"
-		        android:paddingLeft="5dp"
-		        android:text="Mileage"
-		        android:textStyle="bold"
-		        android:textSize="18sp"
-		        android:textColor="@color/black"
-		        android:background="@color/light_gray"
-		        android:layout_span="2" />           
-                
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow> 
-                
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="From" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemmilagedetail_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-                        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow> 
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="To" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemmilagedetail_to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-                        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow> 
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Return" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemmilagedetail_return"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-                        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>  
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Mileage" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemmilagedetail_mileage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-                        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="17dp">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>   
-        
-        <TableRow 
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/styles_trs">
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_labels_detail"
-                android:text="Rate" />
-            
-            <TextView 
-                android:id="@+id/tviews_claimitemmilagedetail_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/styles_detailoverview_compressedinputs"/>
-            
-        </TableRow>
-                        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>         
-                
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-		    <TextView 
-		        android:layout_width="match_parent"
-		        android:layout_height="40dp"
-		        android:paddingTop="10dp"
-		        android:paddingBottom="10dp"
-		        android:paddingLeft="5dp"
-		        android:text="Description"
-		        android:textStyle="bold"
-		        android:textSize="18sp"
-		        android:textColor="@color/black"
-		        android:background="@color/light_gray"
-		        android:layout_span="2" />           
-                
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>
-        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        
-		    <TextView 
-		        android:id="@+id/tviews_claimitemdetail_desc"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="17dp"
-		        android:textSize="17sp"
-		        android:layout_span="2" />           
-                
-        </TableRow>
-		    
-		    	        
-        <TableRow 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                        
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/sidebar_menu_separator"
-                android:layout_span="2" />           
-                
-        </TableRow>
-                        
-	</TableLayout>
-    
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
 </ScrollView>
 

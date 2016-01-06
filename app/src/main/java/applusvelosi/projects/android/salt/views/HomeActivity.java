@@ -28,9 +28,11 @@ import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.adapters.lists.GroupedListAdapter;
 import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.GroupedListHeader;
+import applusvelosi.projects.android.salt.models.GroupedListHeaderMarginedTop;
 import applusvelosi.projects.android.salt.models.GroupedListSidebarItem;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.utils.interfaces.GroupedListItemInterface;
+import applusvelosi.projects.android.salt.views.fragments.HolidayWeeklyFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.HolidaysLocalFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.HolidaysMonthlyFragment;
@@ -51,7 +53,8 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 	private final String SIDEBARITEM_LOGOUT = "Logout";
 	private final String SIDEBARITEM_MYLEAVES = "My Leaves";
 	private final String SIDEBARITEM_MYCLAIMS = "My Claims";
-	private final String SIDEBARITEM_HOLIDAYSMONTHLY = "Holiday this Month";
+	private final String SIDEBARITEM_HOLIDAYSMONTHLY = "CountryHoliday this Month";
+	private final String SIDEBARITEM_HOLIDAYSWEEKLY = "Holidays this Week";
 	private final String SIDEBARITEM_HOLIDAYSLOCAL = "Local Holidays";
 	private final String SIDEBARITEM_MYCALENDAR = "My Calendar";
 
@@ -101,39 +104,13 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 		setupSidebar();
 		getSupportFragmentManager().beginTransaction().replace(foreFragment.getId(), mainFragment).commit();
 		initAnimations();
-
-        if(app.getCurrencies() == null) { //get currencies from background if it is null
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Object tempResult;
-                    try {
-                        tempResult = app.onlineGateway.getCurrencies();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        tempResult = e.getMessage();
-                    }
-
-                    final Object result = tempResult;
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(result instanceof String)
-                                Toast.makeText(HomeActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
-                            else
-                                app.offlineGateway.serializeCurrencies((ArrayList<Currency>)result);
-                        }
-                    });
-                }
-            }).start();
-        }
 	}
 	
 	//sidebar
 	private void setupSidebar(){
 		menuList = (ListView)findViewById(R.id.lists_sidebar);
 		sidebarItems = new ArrayList<GroupedListItemInterface>();
-		sidebarItems.add(new GroupedListHeader("My Account"));
+		sidebarItems.add(new GroupedListHeaderMarginedTop("My Account"));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOME, getResources().getDrawable(R.drawable.icon_home), getResources().getDrawable(R.drawable.icon_home_sel)));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_MYLEAVES, getResources().getDrawable(R.drawable.icon_leaves), getResources().getDrawable(R.drawable.icon_leaves_sel)));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_MYCLAIMS, getResources().getDrawable(R.drawable.icon_myclaims), getResources().getDrawable(R.drawable.icon_myclaims_sel)));
@@ -158,14 +135,16 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 		}
 
 		sidebarItems.add(new GroupedListHeader("Holidays"));
+		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSWEEKLY, getResources().getDrawable(R.drawable.icon_weeklycalendar), getResources().getDrawable(R.drawable.icon_weeklycalendar_sel)));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSMONTHLY, getResources().getDrawable(R.drawable.icon_monthlycalendar), getResources().getDrawable(R.drawable.icon_monthlycalendar_sel)));
 		sidebarItems.add(new GroupedListSidebarItem(SIDEBARITEM_HOLIDAYSLOCAL, getResources().getDrawable(R.drawable.icon_localholidays), getResources().getDrawable(R.drawable.icon_localholidays_sel)));
+		sidebarItems.add(new GroupedListHeaderMarginedTop(""));
 
 		menuList.setAdapter(new GroupedListAdapter(this, sidebarItems));
         menuList.post(new Runnable() {
 			@Override
 			public void run() {
-				selectMenu((getIntent().hasExtra(KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN))?getIntent().getExtras().getInt(KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN):1);
+				selectMenu((getIntent().hasExtra(KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN)) ? getIntent().getExtras().getInt(KEY_AUTONAV_PENDINGROOTFRAGINDEXTOOPEN) : 1);
 			}
 		});
 	}
@@ -249,6 +228,7 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_LOGOUT)) logout();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_MYLEAVES)) toBeShownFragment = LeaveListFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_MYCLAIMS)) toBeShownFragment = ClaimListFragment.getInstance();
+			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_HOLIDAYSWEEKLY)) toBeShownFragment = HolidayWeeklyFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_HOLIDAYSMONTHLY)) toBeShownFragment = HolidaysMonthlyFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_HOLIDAYSLOCAL)) toBeShownFragment = HolidaysLocalFragment.getInstance();
 			else if(((GroupedListSidebarItem) sidebarItem).getLabel().toString().equals(SIDEBARITEM_MYCALENDAR)) toBeShownFragment = CalendarMyMonthlyFragment.getInstance();
@@ -309,6 +289,7 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 
     public void startLoading(){
         if(loaderCnt == 0 ){
+			mainFragment.tviewOutdatedData.setVisibility(View.GONE);
             mainFragment.containersLoader.setVisibility(View.VISIBLE);
             mainFragment.containersLoader.startAnimation(app.animationShow);
             mainFragment.ivLoader.setVisibility(View.VISIBLE);
@@ -318,6 +299,16 @@ public class HomeActivity extends FragmentActivity implements AnimationListener,
 
         loaderCnt++;
     }
+
+	//not all data server retrieval data are saved in the offline gateway so there is a separate function for finish loading that only displays the server connection only
+	public void finishLoadingAndShowOutdatedData(){
+		loaderCnt--;
+		if(loaderCnt == 0){
+			mainFragment.containersLoader.setVisibility(View.GONE);
+			mainFragment.containersLoader.startAnimation(app.animationHide);
+		}
+		mainFragment.tviewOutdatedData.setVisibility(View.VISIBLE);
+	}
 
     public void finishLoading(){
         loaderCnt--;

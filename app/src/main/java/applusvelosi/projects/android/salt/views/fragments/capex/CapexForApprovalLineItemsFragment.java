@@ -64,13 +64,11 @@ public class CapexForApprovalLineItemsFragment extends LinearNavActionbarFragmen
         View view = inflater.inflate(R.layout.fragment_listview, null);
         lv = (ListView)view.findViewById(R.id.lists_lv);
         adapter = new ListAdapter(this);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(CapexForApprovalLineItemsFragment.this);
 
-        if(activity.capexLineItems == null)
-            syncToServer();
-        else{
-            lv.setAdapter(adapter);
-            lv.setOnItemClickListener(CapexForApprovalLineItemsFragment.this);
-        }
+        syncToServer();
+
         return view;
     }
 
@@ -134,11 +132,11 @@ public class CapexForApprovalLineItemsFragment extends LinearNavActionbarFragmen
                         if(result instanceof String)
                             activity.finishLoading(result.toString());
                         else{
+                            System.out.println("SALTX "+result);
                             activity.finishLoading();
-                            activity.capexLineItems = new ArrayList<CapexLineItem>();
+                            activity.capexLineItems.clear();
                             activity.capexLineItems.addAll((ArrayList<CapexLineItem>) result);
-                            lv.setAdapter(adapter);
-                            lv.setOnItemClickListener(CapexForApprovalLineItemsFragment.this);
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 });

@@ -145,7 +145,7 @@ public class ParseReceiver extends ParsePushBroadcastReceiver{
         }else{
             builder.setContentText("Capex Request from "+capex.getRequesterName());
             intent = new Intent(context, CapexApprovalDetailActivity.class);
-            intent.putExtra(CapexApprovalDetailActivity.INTENTKEY_CAPEXHEADER, capex);
+            intent.putExtra(CapexApprovalDetailActivity.INTENTKEY_CAPEXHEADERID, capex.getCapexID());
         }
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);

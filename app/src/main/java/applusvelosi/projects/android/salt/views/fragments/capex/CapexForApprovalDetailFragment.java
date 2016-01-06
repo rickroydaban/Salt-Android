@@ -94,6 +94,13 @@ public class CapexForApprovalDetailFragment extends LinearNavActionbarFragment i
         ivLineItemLoader = (ImageView)view.findViewById(R.id.iviews_loader);
         tvLineItemHeader = (TextView)view.findViewById(R.id.tviews_capexforapprovaldetail_lineitemheader);
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         if(activity.capexHeader == null){
             activity.startLoading();
             new Thread(new Runnable() {
@@ -101,7 +108,7 @@ public class CapexForApprovalDetailFragment extends LinearNavActionbarFragment i
                 public void run() {
                     Object tempResult;
                     try{
-                        tempResult = app.onlineGateway.getCapexHeaderDetail(activity.tempCapexHeader.getCapexID());
+                        tempResult = app.onlineGateway.getCapexHeaderDetail(activity.capexHeaderID);
                     }catch(Exception e){
                         tempResult = e.getMessage();
                     }
@@ -115,12 +122,16 @@ public class CapexForApprovalDetailFragment extends LinearNavActionbarFragment i
                             else{
                                 try{
                                     activity.capexHeader = new CapexHeader((JSONObject) result);
+                                    System.out.println("SALTX capexheader "+activity.capexHeader);
                                     updateViews();
                                     activity.finishLoading();
                                     ((AnimationDrawable)ivLineItemLoader.getDrawable()).start();
                                     syncLineItems();
                                 }catch(Exception e){
                                     e.printStackTrace();
+                                    System.out.println("SALTX "+e.getMessage());
+                                    ivLineItemLoader.setVisibility(View.GONE);
+                                    tvLineItemHeader.setText("Asset Detail Line Items");
                                     activity.finishLoading(e.getMessage());
                                 }
 
@@ -151,8 +162,6 @@ public class CapexForApprovalDetailFragment extends LinearNavActionbarFragment i
             }
 
         }
-
-        return view;
     }
 
     @Override
@@ -174,6 +183,7 @@ public class CapexForApprovalDetailFragment extends LinearNavActionbarFragment i
         }else if(v == fieldAttachment){
             if(!activity.capexHeader.getAttachedCer().equals(CapexHeader.NOATTACHMENT)) {
                 try {
+                    System.out.println("SALTX will click attachment");
                     Document doc = activity.capexHeader.getDocuments().get(0);
                     int docID = doc.getDocID();
                     int objectTypeID = doc.getObjectTypeID();
@@ -183,7 +193,8 @@ public class CapexForApprovalDetailFragment extends LinearNavActionbarFragment i
                     app.fileManager.downloadDocument(docID, refID, objectTypeID, filename, this);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    activity.finishLoading(e.getMessage());
+                    activity.finishLoading();
+                    app.showMessageDialog(activity, e.getMessage());
                 }
             }
         }
@@ -225,7 +236,7 @@ public class CapexForApprovalDetailFragment extends LinearNavActionbarFragment i
 
     @Override
     public void onAttachmentDownloadFailed(String errorMessage) {
-        activity.finishLoading(errorMessage);
+        activity.finishLoading();
         app.showMessageDialog(linearNavFragmentActivity, errorMessage);
     }
 

@@ -18,7 +18,7 @@
 	    android:id="@+id/tviews_nodes_headerdetailstatus_status"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:textSize="@dimen/fsizes_listcell_subheader"
+	    android:textSize="12sp"
 	    android:layout_toLeftOf="@id/iviews_nodes_next"
 	    android:layout_centerVertical="true"
         android:textColor="@color/menu_list_separator"/>

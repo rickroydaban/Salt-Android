@@ -12,21 +12,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.models.Category;
+import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
-import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
+import applusvelosi.projects.android.salt.views.ManageClaimItemActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 
 /**
  * Created by Velosi on 10/26/15.
  */
 public class ClaimItemInputCategory extends LinearNavActionbarFragment implements ListAdapterInterface, AdapterView.OnItemClickListener{
-    private NewClaimItemActivity activity;
+    private ManageClaimItemActivity activity;
     //actionbar buttons
     private TextView actionbarTitle;
     private RelativeLayout actionbarButtonBack;
@@ -36,7 +35,7 @@ public class ClaimItemInputCategory extends LinearNavActionbarFragment implement
 
     @Override
     protected RelativeLayout setupActionbar() {
-        activity = (NewClaimItemActivity)getActivity();
+        activity = (ManageClaimItemActivity)getActivity();
         RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backonly, null);
         actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
         actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
@@ -76,7 +75,7 @@ public class ClaimItemInputCategory extends LinearNavActionbarFragment implement
                                 activity.finishLoading(result.toString());
                             }else{
                                 activity.finishLoading();
-                                activity.updateCategoryList(ClaimItemInputCategory.this, (ArrayList<Category>) result);
+                                activity.updateCategoryList(activity, (ArrayList<Category>) result);
                                 lv.setAdapter(adapter);
                                 lv.setOnItemClickListener(ClaimItemInputCategory.this);
                             }
@@ -123,8 +122,9 @@ public class ClaimItemInputCategory extends LinearNavActionbarFragment implement
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        activity.updateCategory(this, position);
-        linearNavFragmentActivity.changePage(new ClaimItemInputProject());
+        Category category = activity.getCategories().get(position);
+        activity.claimItem.setCategory(category);
+        activity.changePage((category.getCategoryTypeID()== Category.TYPE_MILEAGE)?new NewMileageItemInputFragment():new NewClaimItemInputFragment());
     }
 
     private class Holder{

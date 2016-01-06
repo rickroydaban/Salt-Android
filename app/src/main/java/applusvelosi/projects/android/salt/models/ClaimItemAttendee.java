@@ -1,11 +1,14 @@
 package applusvelosi.projects.android.salt.models;
 
+import com.google.gson.JsonObject;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.json.JSONObject;
 
-public class ClaimItemAttendee {
+public class ClaimItemAttendee implements Serializable{
 	private String name, jobTitle, notes;
 
 	public ClaimItemAttendee(JSONObject jsonAttendee) throws Exception{ //getting from online gateway
@@ -26,4 +29,12 @@ public class ClaimItemAttendee {
 	
 	public String getNote(){ return notes; }
 
+	public JsonObject getJSONObject(){
+        JsonObject obj = new JsonObject();
+		obj.addProperty("FullName", name);
+		obj.addProperty("JobTitle", jobTitle);
+		obj.addProperty("Notes", notes);
+
+		return obj;
+	}
 }

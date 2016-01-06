@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.ParseReceiver;
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.models.Holiday;
+import applusvelosi.projects.android.salt.models.CountryHoliday;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
@@ -604,7 +604,7 @@ public class EditLeaveFragment_backup extends LinearNavActionbarFragment impleme
                                 }).setCancelable(false).create().show();
                     }else{ //successfully fetched data
                         linearNavFragmentActivity.finishLoading();
-                        for(Holiday holiday :(ArrayList<Holiday>)holidayResult) {
+                        for(CountryHoliday holiday :(ArrayList<CountryHoliday>)holidayResult) {
                             if(!nonworkingDays.contains(holiday.getStringedDate()))
                                 nonworkingDays.add(holiday.getStringedDate());
                         }
@@ -624,8 +624,8 @@ public class EditLeaveFragment_backup extends LinearNavActionbarFragment impleme
                             comparatorDate.set(Calendar.DAY_OF_MONTH, comparatorDate.get(Calendar.DAY_OF_MONTH)+1);
                         }
 
-                        if(leaveTypeID == Leave.LEAVETYPEVACATIONKEY) remBalance = app.getStaff().getMaxVL();
-                        else if(leaveTypeID == Leave.LEAVETYPESICKKEY) remBalance = app.getStaff().getMaxSL();
+                        if(leaveTypeID == Leave.LEAVETYPEVACATIONKEY) remBalance = app.getStaff().getVacationLeaveAllowance();
+                        else if(leaveTypeID == Leave.LEAVETYPESICKKEY) remBalance = app.getStaff().getSickLeaveAllowance();
                         for(Leave leave :(ArrayList<Leave>)leaveResult){
                             remBalance-=leave.getWorkingDays();
                             if(leave.getDays() <= 1){ //handle single day leaves
@@ -773,7 +773,7 @@ public class EditLeaveFragment_backup extends LinearNavActionbarFragment impleme
 
                         ParsePush parsePush = new ParsePush();
                         ParseQuery parseQuery = ParseInstallation.getQuery();
-                        parseQuery.whereEqualTo("staffID", app.getStaff().getApprover1ID());
+                        parseQuery.whereEqualTo("staffID", app.getStaff().getLeaveApprover1ID());
                         parsePush.sendMessageInBackground(ParseReceiver.createLeaveApprovalMessage(newLeave, app), parseQuery);
                         Toast.makeText(getActivity(), "Leave Submitted Successfully!", Toast.LENGTH_SHORT).show();
                         linearNavFragmentActivity.finishLoading();

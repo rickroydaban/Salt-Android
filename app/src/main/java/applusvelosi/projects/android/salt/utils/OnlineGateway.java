@@ -3,38 +3,30 @@ package applusvelosi.projects.android.salt.utils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -45,11 +37,11 @@ import com.parse.ParseObject;
 import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.models.Category;
 import applusvelosi.projects.android.salt.models.CostCenter;
+import applusvelosi.projects.android.salt.models.CountryHoliday;
 import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.Document;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.models.Leave;
-import applusvelosi.projects.android.salt.models.LocalHoliday;
 import applusvelosi.projects.android.salt.models.Office;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.models.capex.CapexHeader;
@@ -61,17 +53,17 @@ import applusvelosi.projects.android.salt.models.claimheaders.ClaimNotPaidByCC;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimPaidByCC;
 import applusvelosi.projects.android.salt.models.claimheaders.LiquidationOfBA;
 import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
-import applusvelosi.projects.android.salt.models.claimitems.MilageClaimItem;
 import applusvelosi.projects.android.salt.models.claimitems.Project;
 import applusvelosi.projects.android.salt.models.recruitments.Recruitment;
 import applusvelosi.projects.android.salt.utils.enums.ObjectTypes;
-import applusvelosi.projects.android.salt.views.LoginActivity;
 
 public class OnlineGateway {
 	private final String AUTHKEY = "ak0ayMa+apAn6";
 	public final String apiUrl;
+	public static final String rootURL = "https://salttest.velosi.com/";
+//	public static final String rootURL = "https://salt.velosi.com/";
 	public SaltApplication app;
-	
+
 	public OnlineGateway(SaltApplication app){
 		this.apiUrl = "https://salttestapi.velosi.com/SALTService.svc/";
 //		this.apiUrl = "https://saltapi.velosi.com/SALTService.svc/";
@@ -98,65 +90,12 @@ public class OnlineGateway {
 		httpPostRequest.setHeader("Accept", "application/json");
 		httpPostRequest.setHeader("AuthKey", AUTHKEY);
 		httpPostRequest.setEntity(new StringEntity(postBodyJSON));
-		
-	    HttpResponse response = httpClient.execute(httpPostRequest);
+		HttpResponse response = httpClient.execute(httpPostRequest);
 	    String ret = EntityUtils.toString(response.getEntity());
-//	    System.out.println("Return POST");
-//	    System.out.println(ret);
+	    System.out.println("Return POST");
+	    System.out.println(ret);
 	    return ret;			
 	}
-
-    public String testUpload(File file) throws Exception{
-//        StringBuilder sb = new StringBuilder("{");
-//        sb.append("\"base64File\":"+encodeToBase64(file));
-//        sb.append("}");
-//        return getHttpPostResult(apiUrl+"UploadFileSample", sb.toString());
-
-        StringBuilder sb = new StringBuilder("{");
-//		sb.append("\"document\":"+documentJSON);
-//		sb.append("\"document\": \"test.jpg\"");
-        sb.append("\"document\": 1");
-        sb.append(",\"base64File\": [");
-
-//        String base64Encoded = encodeToBase64(file);
-//        int cSharpMaxStringLength = 30000;
-//        for(int ctr=0; ctr<base64Encoded.length(); ctr+=cSharpMaxStringLength) {
-//            sb.append("\"" + base64Encoded.substring(ctr, Math.min(ctr + cSharpMaxStringLength, base64Encoded.length())) + "\"");
-//            if(ctr+cSharpMaxStringLength < base64Encoded.length())
-//                sb.append(","+System.lineSeparator());
-//        }
-        sb.append("]");
-
-        sb.append(",\"requestingPerson\":"+String.valueOf(app.getStaff().getStaffID()));
-        sb.append(",\"datetime\":\""+app.dateTimeFormat.format(app.calendar.getTime())+"\"");
-        sb.append("}");
-
-        return getHttpPostResult(apiUrl+"UploadFileSample", sb.toString());
-
-    }
-
-	public String httpPostForUploadingFiles(File file) throws Exception{
-        System.out.println("SALTX "+apiUrl+"UploadFileSample");
-        HttpPost httpPostRequest = new HttpPost(apiUrl+"UploadFileSample");
-        JSONStringer json = new JSONStringer()
-                            .object()
-//                            .key("document").value("test.jpg")
-                            .key("base64File").value(encodeToBase64(file))
-//                            .key("requestingPerson").value(app.getStaff().getStaffID())
-//                            .key("datetime").value(app.dateTimeFormat.format(app.calendar.getTime()))
-                            .endObject();
-        app.fileManager.saveToTextFile(json.toString());
-        StringEntity entity = new StringEntity(json.toString(), "UTF-8");
-        entity.setContentType("application/json;charset=UTF-8");//text/plain;charset=UTF-8
-        entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-        httpPostRequest.setHeader("Content-Type", "application/json");
-        httpPostRequest.setHeader("Accept", "application/json");
-        httpPostRequest.setEntity(entity);
-        // Send request to WCF service
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-
-        return EntityUtils.toString(httpClient.execute(httpPostRequest).getEntity());
-    }
 
 	public String getURLEncodedString(String string) throws Exception{
 		return URLEncoder.encode(string, "UTF-8");
@@ -172,12 +111,12 @@ public class OnlineGateway {
 	
 	//converts epoch date format returned by web services to the readable default date format
 	public String dJsonizeDate(String d){
-		int idx1 = d.indexOf("(");
-	    int idx2 = d.indexOf(")") - 5;
-	    String s = d.substring(idx1+1, idx2);
+        long epoch = Long.valueOf(d.substring(d.indexOf("(")+1, d.indexOf("+")));
+        String addabledaysStr = d.substring(d.indexOf("+")+1, d.indexOf(")"));
+        Long addableDays = (Long.valueOf(addabledaysStr)/100)*SaltApplication.ONEDAY;
 
-//	    return app.dateFormatDefault.format(new Date(Long.valueOf(s) + SaltApplication.ONEDAY));
-		return app.dateFormatDefault.format(new Date(Long.valueOf(s)));
+	    return app.dateFormatDefault.format(new Date(epoch + addableDays));
+//		return app.dateFormatDefault.format(new Date(Long.valueOf(s)));
 	}
 
 	public String jsonizeDate(Date date) {
@@ -290,7 +229,7 @@ public class OnlineGateway {
 		
 		return myClaims;
 	}
-	
+
 //	public Object getClaimsForApprovalAndPayment() throws Exception{
 //		HashMap<String, ArrayList<ClaimHeader>> approvalMaps = new HashMap<String, ArrayList<ClaimHeader>>();
 //		JSONObject claimsForApprovalResult;
@@ -495,20 +434,18 @@ public class OnlineGateway {
 
 		ArrayList<ClaimItem> claimItems = new ArrayList<ClaimItem>();
 		JSONArray jsonClaimItems = claimItemResult.getJSONArray("ClaimLineItems");
+		HashMap<Integer, JSONObject> catMap = new HashMap<Integer, JSONObject>();
 		for(int i=0; i<jsonClaimItems.length(); i++){
 			JSONObject jsonClaimItem = jsonClaimItems.getJSONObject(i);
-			JSONObject resultCategory = new JSONObject(getHttpGetResult(apiUrl+"GetByCategoryID?categoryID="+jsonClaimItem.getString(ClaimItem.KEY_CATEGORYID)+"&requestingperson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetByCategoryIDResult");
-			if(resultCategory.getJSONArray("SystemErrors").length() > 0)
-				return resultCategory.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
-			
-			JSONObject jsonCategory = resultCategory.getJSONObject("Category");
-			int categoryType = Integer.parseInt(jsonCategory.getString(ClaimItem.KEY_CATEGORYTYPEID));
-			if(categoryType != Category.TYPE_ASSET){ //exclude claim items of type asset
-				if(categoryType == Category.TYPE_MILEAGE) //of category type mileage
-					claimItems.add(new MilageClaimItem(jsonClaimItem, jsonCategory,  app));
-				else
-					claimItems.add(new ClaimItem(jsonClaimItem, jsonCategory, app));
+			if(!catMap.containsKey(jsonClaimItem.getInt(ClaimItem.KEY_CATEGORYID))) {
+				JSONObject resultCategory = new JSONObject(getHttpGetResult(apiUrl + "GetByCategoryID?categoryID=" + jsonClaimItem.getString(ClaimItem.KEY_CATEGORYID) + "&requestingperson=" + app.getStaff().getStaffID() + "&datetime=" + now())).getJSONObject("GetByCategoryIDResult");
+				if (resultCategory.getJSONArray("SystemErrors").length() > 0)
+					return resultCategory.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
+
+				catMap.put(jsonClaimItem.getInt(ClaimItem.KEY_CATEGORYID), resultCategory.getJSONObject("Category"));
 			}
+
+			claimItems.add(new ClaimItem(jsonClaimItem, catMap.get(jsonClaimItem.getInt(ClaimItem.KEY_CATEGORYID))));
 		}
 		
 		return claimItems;
@@ -577,7 +514,8 @@ public class OnlineGateway {
 	}
 
 	public Object getCurrencies() throws Exception{
-		JSONObject result = new JSONObject(getHttpGetResult(apiUrl+"GetAllCurrencies?requestingPerson="+app.getStaff().getStaffID()+"&datetime="+now())).getJSONObject("GetAllCurrenciesResult");
+		int staffID = (app.getStaff() == null)?0:app.getStaff().getStaffID();
+		JSONObject result = new JSONObject(getHttpGetResult(apiUrl+"GetAllCurrencies?requestingPerson="+staffID+"&datetime="+now())).getJSONObject("GetAllCurrenciesResult");
 		if(result.getJSONArray("SystemErrors").length() > 0)
 			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
 
@@ -680,12 +618,9 @@ public class OnlineGateway {
 		return "OK";
 	}
 
-	public Object uploadAttachment(File file) throws Exception{
-//		String documentJSON = new Document(file.getName(), file.length(), app.getStaff().getStaffID(), 0, ObjectTypes.LEAVE).jsonize(app);
+	public String uploadAttachment(File file, Document document) throws Exception{
 		StringBuilder sb = new StringBuilder("{");
-//		sb.append("\"document\":"+documentJSON);
-//		sb.append("\"document\": \"test.jpg\"");
-		sb.append("\"document\": \"test.jpg\"");
+		sb.append("\"document\":"+document.getJSONObject());
 		sb.append(",\"base64File\": \"");
 		String base64Encoded = encodeToBase64(file);
 		int cSharpMaxStringLength = 30000;
@@ -695,58 +630,77 @@ public class OnlineGateway {
 				sb.append(",");
 		}
 
-
-//		sb.append(",\"base64File\": [");
-//
-//		String base64Encoded = encodeToBase64(file);
-//		int cSharpMaxStringLength = 30000;
-//		for(int ctr=0; ctr<base64Encoded.length(); ctr+=cSharpMaxStringLength) {
-//			sb.append("\"" + base64Encoded.substring(ctr, Math.min(ctr + cSharpMaxStringLength, base64Encoded.length())) + "\"");
-//			if(ctr+cSharpMaxStringLength < base64Encoded.length())
-//				sb.append(",");
-//		}
-//		sb.append("]");
-
 		sb.append("\",\"requestingPerson\":" + String.valueOf(app.getStaff().getStaffID()));
 		sb.append(",\"datetime\":\"" + app.dateTimeFormat.format(app.calendar.getTime()) + "\"");
 		sb.append("}");
 
 		app.fileManager.saveToTextFile(sb.toString());
-		System.out.println("Saved to text file!");
-//		JSONObject result = new JSONObject(getHttpPostResult(apiUrl+"UploadFile", sb.toString())).getJSONObject("UploadFile");
-		System.out.println("SALT testing");
-		System.out.println("");
-		System.out.println("");
-//		System.out.println("SALT jsonobjectresult "+result);
-		System.out.println("");
-
-//		System.out.println("SALTX result "+getHttpPostResult("http://10.63.201.199:90/SaltService.svc/UploadFileSample", sb.toString()));
-		System.out.println("SALTX result "+getHttpPostResult(apiUrl+"UploadFile", sb.toString()));
-		System.out.println("");
-//		System.out.println("test2");
-//		JSONObject result = new JSONObject(httpPost(apiUrl+"UploadFile", sb.toString()));
-//		System.out.println(result);
-//		if(result.getJSONArray("SystemErrors").length() > 0)
-//			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
-//		return result;
-		return "hey";
+		System.out.println("SALTX SENDING");
+		String result = getHttpPostResult("http://10.63.201.199:90/SaltService.svc/UploadFile", sb.toString());
+		System.out.println("SALTX XXX");
+		System.out.println("SALTX Result " + result);
+		return result;
+//        return getHttpPostResult(apiUrl+"UploadFile", sb.toString());
 	}
-	
-	public Object saveClaimLineItem(String newClaimLineItemJSON, String oldClaimLineItemJSON) throws Exception{
+
+    public String saveClaimLineItem(String newClaimItemJSON, String oldClaimItemJSON, File file) throws Exception{
 		StringBuilder sb = new StringBuilder("{");
-		sb.append("\"newClaimLineItem\":"+newClaimLineItemJSON);
-		sb.append(",\"oldClaimLineItem\":"+oldClaimLineItemJSON);
-		sb.append(",\"requestingPerson\":"+String.valueOf(app.getStaff().getStaffID()));
-		sb.append(",\"datetime\":\""+app.dateTimeFormat.format(app.calendar.getTime())+"\"");
-		sb.append("}");
-		JSONObject result = new JSONObject(getHttpPostResult(apiUrl+"SaveClaimLineItem", sb.toString())).getJSONObject("SaveClaimLineItemResult");
-		System.out.println("result "+result);
-		if(result.getJSONArray("SystemErrors").length() > 0)
-			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
-		
-		return result;		
-	}	
-	
+        sb.append("\"newClaimLineItem\":"+newClaimItemJSON);
+        sb.append(",\"oldClaimLineItem\":"+oldClaimItemJSON);
+		sb.append(",\"base64File\": \"");
+		if(file != null){
+			String base64Encoded = encodeToBase64(file);
+			int cSharpMaxStringLength = 30000;
+			for(int ctr=0; ctr<base64Encoded.length(); ctr+=cSharpMaxStringLength) {
+				sb.append(base64Encoded.substring(ctr, Math.min(ctr + cSharpMaxStringLength, base64Encoded.length())));
+				if(ctr+cSharpMaxStringLength < base64Encoded.length())
+					sb.append(",");
+			}
+		}
+		sb.append("\",\"requestingPerson\":"+String.valueOf(app.getStaff().getStaffID()));
+        sb.append(",\"datetime\":\"" + app.dateTimeFormat.format(app.calendar.getTime()) + "\"");
+        sb.append("}");
+
+		app.fileManager.saveToTextFile(sb.toString());
+
+//		JSONObject result = new JSONObject(getHttpPostResult(apiUrl+"SaveClaimLineItem", sb.toString())).getJSONObject("SaveClaimLineItemResult");
+		JSONObject result = new JSONObject(getHttpPostResult("http://10.63.201.199:90/SaltService.svc/SaveClaimLineItem", sb.toString())).getJSONObject("SaveClaimLineItemResult");
+        System.out.println("result " + result);
+        if(result.getJSONArray("SystemErrors").length() > 0)
+            return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
+
+        if(result.getInt("ProcessedClaimLineItemID") <= 0)
+            return "No changes were made";
+		else
+			return "Okayzx "+result.getInt("ProcessedClaimLineItemID");
+
+    }
+
+
+    public String test(File file) throws Exception{
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPostRequest = new HttpPost("http://10.63.201.199:90/SaltService.svc/Test");
+        httpPostRequest.setHeader("Content-Type", "application/json");
+        httpPostRequest.setHeader("Accept", "application/json");
+        httpPostRequest.setHeader("AuthKey", AUTHKEY);
+        byte [] bytes = encodeToByteArray(file);
+        System.out.println("byte array "+bytes);
+        httpPostRequest.setEntity(new ByteArrayEntity(bytes));
+        HttpResponse response = httpClient.execute(httpPostRequest);
+        String ret = EntityUtils.toString(response.getEntity());
+        System.out.println("Return POST");
+        System.out.println(ret);
+        return ret;
+
+    }
+
+    public String saveClaimLineItemDocument(JSONArray newDocs, JSONArray oldDocs, int refID) throws Exception{
+        String link = apiUrl+"SaveClaimLineItemDocument?documents="+getURLEncodedString(newDocs.toString())+"&oldDocuments="+getURLEncodedString(oldDocs.toString())+"&refID="+refID+"&objectType="+ObjectTypes.ClAIMLINEITEM+"&requestingperson="+app.getStaff().getStaffID()+"&datetime="+now();
+        System.out.println(link);
+        JSONObject updateDocResult = new JSONObject(link);
+        return updateDocResult.toString();
+    }
+
 //TODO HOLIDAY METHODS
 	public Object getAllHolidayArrayListOrErrorMessage(boolean shouldLoadFlag) throws Exception{
 //		HashMap<String, Bitmap> flagBitmaps = new HashMap<String, Bitmap>();
@@ -755,14 +709,14 @@ public class OnlineGateway {
 		if(holidayResult.getJSONArray("SystemErrors").length() > 0)
 			return holidayResult.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
 		
-		ArrayList<Holiday> nationalHolidays = new ArrayList<Holiday>();
+		ArrayList<CountryHoliday> nationalHolidays = new ArrayList<CountryHoliday>();
 		JSONArray holidayArray = holidayResult.getJSONArray("NationalHoliday");
 		for(int i=0; i<holidayArray.length(); i++){			
 			JSONObject jsonHoliday = holidayArray.getJSONObject(i);
 
 			if(jsonHoliday.getBoolean("Active") == true){
 				String dateStr = dJsonizeDate(jsonHoliday.getString("Date"));
-				Holiday holiday = new Holiday(jsonHoliday.getString("Name"), jsonHoliday.getString("Country"), dateStr, app.dateFormatDefault.parse(dateStr));
+				CountryHoliday holiday = new CountryHoliday(jsonHoliday.getString("Name"), jsonHoliday.getString("Country"), dateStr);
 //				String flagUrl = jsonHoliday.getString("ImageURL");
 //				if(shouldLoadFlag){ //reuse bitmaps to greatly lessen loading time
 //					if(!flagBitmaps.containsKey(flagUrl)){
@@ -794,7 +748,7 @@ public class OnlineGateway {
 		if(holidayResult.getJSONArray("SystemErrors").length() > 0)
 			return holidayResult.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
 		
-		ArrayList<Holiday> officeHolidays = new ArrayList<Holiday>();
+		ArrayList<CountryHoliday> officeHolidays = new ArrayList<CountryHoliday>();
 		JSONArray holidayArray = holidayResult.getJSONArray("NationalHolidays");
 		for(int i=0; i<holidayArray.length(); i++){
 			JSONObject jsonHoliday = holidayArray.getJSONObject(i);
@@ -803,7 +757,8 @@ public class OnlineGateway {
 				for(int officeCTR=0; officeCTR<offices.length(); officeCTR++){
 					if(offices.getJSONObject(officeCTR).getInt("OfficeID")==app.getStaff().getOfficeID()){
 						String dateStr = dJsonizeDate(jsonHoliday.getString("Date"));
-						officeHolidays.add(new Holiday(jsonHoliday.getString("Name"), jsonHoliday.getString("Country"), dateStr, app.dateFormatDefault.parse(dateStr)));
+						System.out.println(jsonHoliday.getString("Name")+" - "+dateStr);
+						officeHolidays.add(new CountryHoliday(jsonHoliday.getString("Name"), jsonHoliday.getString("Country"), dateStr));
 						break;
 					}
 				}
@@ -820,7 +775,7 @@ public class OnlineGateway {
 		if(holidayResult.getJSONArray("SystemErrors").length() > 0)
 			return holidayResult.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
 		
-		ArrayList<LocalHoliday> localHolidays = new ArrayList<LocalHoliday>();
+		ArrayList<Holiday> localHolidays = new ArrayList<Holiday>();
 		JSONArray holidayArray = holidayResult.getJSONArray("NationalHolidays");
 		for(int i=0; i<holidayArray.length(); i++){			
 			JSONObject jsonHoliday = holidayArray.getJSONObject(i);
@@ -831,7 +786,7 @@ public class OnlineGateway {
 						String dateStr = dJsonizeDate(jsonHoliday.getString("Date"));
 						if(Integer.parseInt(dateStr.split("-")[2]) == app.thisYear){
 							Date date = app.dateFormatDefault.parse(dateStr);
-							localHolidays.add(new LocalHoliday(jsonHoliday.getString("Name"), dateStr, formatDayName.format(date), formatMonthName.format(date)));
+							localHolidays.add(new Holiday(jsonHoliday.getString("Name"), dateStr, formatDayName.format(date), formatMonthName.format(date)));
 						} 				
 						break;
 					}
@@ -889,11 +844,11 @@ public class OnlineGateway {
 			return result.getJSONArray("SystemErrors").getJSONObject(0).getString("Message");
 		
 		JSONArray jsonHolidays = result.getJSONArray("NationalHoliday");
-		ArrayList<Holiday> holidays = new ArrayList<Holiday>();
+		ArrayList<CountryHoliday> holidays = new ArrayList<CountryHoliday>();
 		for(int i=0; i<jsonHolidays.length(); i++){
 			JSONObject jsonHoliday = jsonHolidays.getJSONObject(i);
 			String dateStr = dJsonizeDate(jsonHoliday.getString("Date"));
-			Holiday holiday = new Holiday(jsonHoliday.getString("Name"), jsonHoliday.getString("Country"), dateStr, app.dateFormatDefault.parse(dateStr));
+			CountryHoliday holiday = new CountryHoliday(jsonHoliday.getString("Name"), jsonHoliday.getString("Country"), dateStr);
 
 			JSONArray jsonOffices = jsonHoliday.getJSONArray("OfficesApplied");
 			for(int j=0; j<jsonOffices.length(); j++)
@@ -939,9 +894,22 @@ public class OnlineGateway {
 	        list.add(value);
 	    }
 	    return list;
-	}	
-	
-	private static String encodeToBase64(File fileToEncode) throws Exception{
+	}
+
+    private static byte[] encodeToByteArray(File fileToEncode) throws Exception{
+        int fileSize = (int) fileToEncode.length();
+        //convert file to byte array
+        BufferedInputStream reader = new BufferedInputStream(new FileInputStream(fileToEncode));
+        byte[] bytes = new byte[fileSize];
+        reader.read(bytes, 0, fileSize);
+        reader.close();
+        //convert byte array to base64 string
+        return bytes;
+
+    }
+
+
+    private static String encodeToBase64(File fileToEncode) throws Exception{
 		int fileSize = (int) fileToEncode.length();
 		//convert file to byte array
 		BufferedInputStream reader = new BufferedInputStream(new FileInputStream(fileToEncode));

@@ -3,12 +3,11 @@ package applusvelosi.projects.android.salt.utils;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import applusvelosi.projects.android.salt.models.ClaimTrail;
+import applusvelosi.projects.android.salt.models.CountryHoliday;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.models.Leave;
-import applusvelosi.projects.android.salt.models.LocalHoliday;
 import applusvelosi.projects.android.salt.models.Office;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.models.capex.CapexHeader;
@@ -28,8 +27,8 @@ public class TypeHolder {
 	public Type recruitment = new TypeToken<Recruitment>(){}.getType();
 	public Type claimItem = new TypeToken<ClaimItem>(){}.getType();
 	public Type arrayListOfString = new TypeToken<ArrayList<String>>(){}.getType();
-	public Type arrayListOfHolidays = new TypeToken<ArrayList<Holiday>>(){}.getType();
-	public Type arrayListOfLocalHolidays = new TypeToken<ArrayList<LocalHoliday>>(){}.getType();
+	public Type arrayListOfHolidays = new TypeToken<ArrayList<CountryHoliday>>(){}.getType();
+	public Type arrayListOfLocalHolidays = new TypeToken<ArrayList<Holiday>>(){}.getType();
 	public Type arrayListOfLeaves = new TypeToken<ArrayList<Leave>>(){}.getType();
 	public Type arrayListOfClaims = new TypeToken<ArrayList<ClaimHeader>>(){}.getType();
 	public Type arrayListOfClaimItems = new TypeToken<ArrayList<ClaimItem>>(){}.getType();

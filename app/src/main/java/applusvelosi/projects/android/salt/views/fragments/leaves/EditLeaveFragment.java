@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 import applusvelosi.projects.android.salt.ParseReceiver;
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.models.Holiday;
+import applusvelosi.projects.android.salt.models.CountryHoliday;
 import applusvelosi.projects.android.salt.models.Leave;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
@@ -409,7 +409,7 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
                                 }).setCancelable(false).create().show();
                     }else{ //successfully fetched data
                         linearNavFragmentActivity.finishLoading();
-                        for(Holiday holiday :(ArrayList<Holiday>)holidayResult) {
+                        for(CountryHoliday holiday :(ArrayList<CountryHoliday>)holidayResult) {
                             if(!nonworkingDays.contains(holiday.getStringedDate()))
                                 nonworkingDays.add(holiday.getStringedDate());
                         }
@@ -429,28 +429,30 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
                             comparatorDate.set(Calendar.DAY_OF_MONTH, comparatorDate.get(Calendar.DAY_OF_MONTH)+1);
                         }
 
-                        if(leave.getTypeID() == Leave.LEAVETYPEVACATIONKEY) remBalance = app.getStaff().getMaxVL();
-                        else if(leave.getTypeID() == Leave.LEAVETYPESICKKEY) remBalance = app.getStaff().getMaxSL();
+                        if(leave.getTypeID() == Leave.LEAVETYPEVACATIONKEY) remBalance = app.getStaff().getVacationLeaveAllowance();
+                        else if(leave.getTypeID() == Leave.LEAVETYPESICKKEY) remBalance = app.getStaff().getSickLeaveAllowance();
                         for(Leave leave :(ArrayList<Leave>)leaveResult){
-                            remBalance = remBalance - ((leave.getDays() < 1)?0.5f:leave.getDays());
-                            if(leave.getDays() <= 1){ //handle single day leaves
-                                if(leaveDays.containsKey(leave.getStartDate()))
-                                   leaveDays.put(leave.getStartDate(), leaveDays.get(leave.getStartDate())+leave.getDays());
-                                else
-                                    leaveDays.put(leave.getStartDate(), leave.getDays());
-                            }else{ //handle consecutive leaves
-                                try{
-                                    comparatorDate.setTime(app.dateFormatDefault.parse(leave.getStartDate()));
-                                    for(float days = leave.getDays(); days > 0;){
-                                        if(!(nonworkingDays.contains(app.dateFormatDefault.format(comparatorDate.getTime())))){
-                                            leaveDays.put(app.dateFormatDefault.format(comparatorDate.getTime()), 1.0f);
-                                            days--;
-                                        }
+                            if(leave.getTypeID() == leave.getTypeID()) {
+                                remBalance = remBalance - ((leave.getDays() < 1) ? 0.5f : leave.getDays());
+                                if (leave.getDays() <= 1) { //handle single day leaves
+                                    if (leaveDays.containsKey(leave.getStartDate()))
+                                        leaveDays.put(leave.getStartDate(), leaveDays.get(leave.getStartDate()) + leave.getDays());
+                                    else
+                                        leaveDays.put(leave.getStartDate(), leave.getDays());
+                                } else { //handle consecutive leaves
+                                    try {
+                                        comparatorDate.setTime(app.dateFormatDefault.parse(leave.getStartDate()));
+                                        for (float days = leave.getDays(); days > 0; ) {
+                                            if (!(nonworkingDays.contains(app.dateFormatDefault.format(comparatorDate.getTime())))) {
+                                                leaveDays.put(app.dateFormatDefault.format(comparatorDate.getTime()), 1.0f);
+                                                days--;
+                                            }
 
-                                        comparatorDate.set(Calendar.DAY_OF_MONTH, comparatorDate.get(Calendar.DAY_OF_MONTH)+1);
+                                            comparatorDate.set(Calendar.DAY_OF_MONTH, comparatorDate.get(Calendar.DAY_OF_MONTH) + 1);
+                                        }
+                                    } catch (Exception e) {
+                                        app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
                                     }
-                                }catch(Exception e){
-                                    app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
                                 }
                             }
                         }
@@ -573,7 +575,7 @@ public class EditLeaveFragment extends LinearNavActionbarFragment implements Lis
 
                         ParsePush parsePush = new ParsePush();
                         ParseQuery parseQuery = ParseInstallation.getQuery();
-                        parseQuery.whereEqualTo("staffID", app.getStaff().getApprover1ID());
+                        parseQuery.whereEqualTo("staffID", app.getStaff().getLeaveApprover1ID());
                         parsePush.sendMessageInBackground(ParseReceiver.createLeaveApprovalMessage(newLeave, app), parseQuery);
                         Toast.makeText(getActivity(), "Leave Updated Successfully!", Toast.LENGTH_SHORT).show();
                         LeaveListFragment.getInstance().sync();

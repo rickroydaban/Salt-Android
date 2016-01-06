@@ -7,9 +7,9 @@ import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.utils.interfaces.GroupedListItemInterface;
 
 public class GroupedListLocalHolidayItem implements GroupedListItemInterface{
-	private LocalHoliday localHoliday;
+	private Holiday localHoliday;
 	
-	public GroupedListLocalHolidayItem(LocalHoliday localHoliday){
+	public GroupedListLocalHolidayItem(Holiday localHoliday){
 		this.localHoliday = localHoliday;
 	}
 	
@@ -18,7 +18,7 @@ public class GroupedListLocalHolidayItem implements GroupedListItemInterface{
 		View view = a.getLayoutInflater().inflate(R.layout.cells_holiday_local, null);
 		((TextView)view.findViewById(R.id.tviews_cells_localholiday_title)).setText(localHoliday.getName());
 		((TextView)view.findViewById(R.id.tviews_cells_localholiday_day)).setText(localHoliday.getDay());
-		((TextView)view.findViewById(R.id.tviews_cells_localholiday_date)).setText(localHoliday.getDate());
+		((TextView)view.findViewById(R.id.tviews_cells_localholiday_date)).setText(localHoliday.getDateString());
 		
 		return view;
 	}

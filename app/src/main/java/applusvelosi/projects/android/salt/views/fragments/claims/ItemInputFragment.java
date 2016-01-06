@@ -1,402 +1,360 @@
 package applusvelosi.projects.android.salt.views.fragments.claims;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
+
 import applusvelosi.projects.android.salt.R;
-import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter;
-import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter.NodeSize;
-import applusvelosi.projects.android.salt.models.Office;
-import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
-import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
-import applusvelosi.projects.android.salt.utils.FileManager.AttachmentDownloadListener;
-import applusvelosi.projects.android.salt.utils.SaltDatePicker;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
+import applusvelosi.projects.android.salt.SaltApplication;
+import applusvelosi.projects.android.salt.models.Currency;
+import applusvelosi.projects.android.salt.models.Document;
+import applusvelosi.projects.android.salt.models.claimitems.Project;
+import applusvelosi.projects.android.salt.utils.FileManager;
 import applusvelosi.projects.android.salt.utils.interfaces.CameraCaptureInterface;
 import applusvelosi.projects.android.salt.utils.interfaces.FileSelectionInterface;
-import applusvelosi.projects.android.salt.views.HomeActivity;
+import applusvelosi.projects.android.salt.views.ManageClaimItemActivity;
+import applusvelosi.projects.android.salt.views.dialogs.DialogClaimItemAttendeeList;
+import applusvelosi.projects.android.salt.views.dialogs.DialogClaimItemChargeToList;
+import applusvelosi.projects.android.salt.views.dialogs.DialogClaimItemProjects;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
-import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
-public abstract class ItemInputFragment extends LinearNavActionbarFragment implements AttachmentDownloadListener,
-																				OnItemSelectedListener, OnCheckedChangeListener, TextWatcher, OnFocusChangeListener {
-	public static final String KEY_CLAIMITEMPOS = "claimitemkey";
-	public static final String KEY_CLAIMPOS = "claimposkey";
-	public static final String KEY_CLAIMITEMMAP = "claimItemMapkey";
-	protected final String HEADER_CATEGORY = " -Category- ";
-	protected final String HEADER_BILLTO = " -Company Code-";
-	// action bar buttons
-	protected TextView actionbarSaveButton, actionbarTitleTextview;
-	private RelativeLayout actionbarBackButton;
+/**
+ * Created by Velosi on 12/14/15.
+ */
+public abstract class ItemInputFragment extends LinearNavActionbarFragment implements CompoundButton.OnCheckedChangeListener, TextWatcher, CameraCaptureInterface, FileSelectionInterface, DatePickerDialog.OnDateSetListener, FileManager.AttachmentDownloadListener, DialogClaimItemProjects.DialogClaimItemProjectInterface {
+    ManageClaimItemActivity activity;
 
-	protected RelativeLayout buttonAttendees;
-	protected TextView 	tviewAttendeeCnt, buttonTakePicture, buttonChooseFromFile;
-	protected Spinner 	spinnerCategoryNames, spinnerForeignCurrencies, spinnerProject, spinnerOffices;
-	protected EditText 	etextDate, etextCurrencyLocal, etextAmountLocal, etextAmountForeign, etextExchangeRate, etextTaxRate, etextDesc, etextNotesClientToBill;
-	protected CheckBox 	cboxApplyTaxRate, cboxAttachment, cboxBillable;
-	protected TableRow 	trAttachmentHeader, trAttachmentPreview, trAttachmentAction;
-	protected SaltProgressDialog pd;
-	
-	protected ClaimItemAttendeeListFragment attendeeFragment;
-	protected ArrayList<Office> offices;
-	protected ArrayList<String> foreignCurrencies;
-	protected ArrayList<String> projectNames, officeNames;
-	protected HashMap<String, Integer> projectNameIDs;
-	protected ClaimHeader claimHeader;
-	protected TextView tvAttachment; 
-	private File prevSelectedAttachment;
-	private File capturedPhoto;
-	private SimpleDateFormat sdr;
-	
-	//web service properties
-	protected ClaimItem newClaimItem;
-	protected String oldClaimItemJSON;
-	
-	protected int prevSelectedForeignCurr = 0; //IMPORTANT! need to take note of the prev selected currency so that it can switch back in case of lost internet connection
-	@Override
-	protected RelativeLayout setupActionbar() {
-		sdr = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-		RelativeLayout actionbarLayout = (RelativeLayout) linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
-		actionbarBackButton = (RelativeLayout) actionbarLayout.findViewById(R.id.buttons_actionbar_back);
-		actionbarSaveButton = (TextView) actionbarLayout.findViewById(R.id.buttons_actionbar_done);
-		actionbarTitleTextview = (TextView) actionbarLayout.findViewById(R.id.tviews_actionbar_title);
-		actionbarTitleTextview.setText((getArguments() == null) ? "New Claim Item" : "Manage Claim Item");
-		actionbarBackButton.setOnClickListener(this);
-		actionbarSaveButton.setOnClickListener(this);
-		actionbarTitleTextview.setOnClickListener(this);
+    private TextView actionbarTitle, actionbarDone;
+    private RelativeLayout actionbarButtonBack;
 
-//		activity.setOnCameraCaptureListener(this);
-//		activity.setOnFileSelectionListener(this);
-		return actionbarLayout;
-	}
+    protected EditText etextAmount, etextLocalAmount, etextForex, etextTax, etextDesc;
+    protected TextView tviewsDate, tvCurrLocal, tvAttachment;
+    protected CheckBox cboxTaxable, cboxBillable;
+    protected ImageView buttonFile, buttonCamera;
+    protected TableRow trBillNotes;
+    public TextView tvBillTo;
+    protected TextView etextBillNotes;
+    protected RelativeLayout containerAttendees;
+    public TextView tvAttendees;
 
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		if(parent.getTag()!=null && Integer.parseInt(parent.getTag().toString()) != pos){
-			if(parent == spinnerForeignCurrencies){
-				if(!etextCurrencyLocal.getText().toString().equals(spinnerForeignCurrencies.getSelectedItem().toString())){
-					if(pd == null) pd = new SaltProgressDialog(linearNavFragmentActivity);
-					pd.show();
-					new Thread(new Runnable() {
-						
-						@Override
-						public void run() {
-							Object tempResult;
-							try{
-								tempResult = app.onlineGateway.getForexRate(spinnerForeignCurrencies.getSelectedItem().toString(), etextCurrencyLocal.getText().toString());
-							}catch(Exception e){
-								tempResult = e.getMessage();
-							}
-							
-							final Object result = tempResult;
-							new Handler(Looper.getMainLooper()).post(new Runnable() {
-								
-								@Override
-								public void run() {
-									pd.dismiss();
-//									try{
-//										float rate = Float.parseFloat(result); //make sure rate is a float before updating the rate field
-//										etextExchangeRate.setText(String.valueOf(rate));
-//										cboxApplyTaxRate.setChecked(false);
-//										cboxApplyTaxRate.setEnabled(false);
-//									}catch(NumberFormatException e){
-//										System.out.println("prev "+prevSelectedForeignCurr);
-//										spinnerForeignCurrencies.setSelection(prevSelectedForeignCurr);
-//										app.showMessageDialog(activity, result);
-//									}
-								}
-							});
-						}
-					}).start();
-				}else{
-					cboxApplyTaxRate.setChecked(true);
-					cboxApplyTaxRate.setEnabled(true);
-					etextExchangeRate.setText("1.00");
-				}
-			}else if(parent == spinnerOffices){
-				spinnerOffices.setVisibility(View.GONE);
-				cboxBillable.setVisibility(View.VISIBLE);
-				if(pos == 1){
-					cboxBillable.setChecked(false);
-					cboxBillable.setText("");
-				}else{
-					cboxBillable.setChecked(true);
-					cboxBillable.setText(officeNames.get(pos));
-				}
-				cboxBillable.setEnabled(true);
-			}
-		}
-	}
+    protected abstract View createClaimItemtView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    protected abstract void saveToServer();
 
-	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-	}
+    private DatePickerDialog datePicker;
+    private DialogClaimItemChargeToList dialogChargeTo;
+    private DialogClaimItemAttendeeList dialogAttendees;
 
-	@Override
-	public void onClick(View v) {
-		if (v == actionbarBackButton || v == actionbarTitleTextview) {
-			linearNavFragmentActivity.onBackPressed();
-		} else if (v == etextDate) {
-			new SaltDatePicker(linearNavFragmentActivity, etextDate);
-		} else if (v == tvAttachment) {
-//			try{
-//				System.out.println(tvAttachment.getTag());
-//				if(tvAttachment.getTag() != null){
-//					File attachment = (File)tvAttachment.getTag();
-//					String ext = "."+attachment.getName().substring(attachment.getName().lastIndexOf('.')+1, attachment.getName().length());
-//					app.fileManager.openAttachment(activity, ext, attachment);
-//				}else{
-//					System.out.println("is null");
-//					app.fileManager.openAttachment(activity, newClaimItem.getAttachmentExtension(), prevSelectedAttachment);
-//				}
-//			}catch(Exception e){
-//				app.showMessageDialog(activity, e.getMessage());
-//			}
-		} else if (v == buttonTakePicture) {
-			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-			try {
-				capturedPhoto = File.createTempFile("saltcapturedattachment_"+sdr.format(new Date())+"_", ".jpg", new File(app.fileManager.getDirForCapturedAttachments()));
-				intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(capturedPhoto));
-				prevSelectedAttachment = (File)tvAttachment.getTag();
-				tvAttachment.setTag(capturedPhoto);
-//				activity.startActivityForResult(intent, HomeActivity.RESULT_CAMERA);
-			} catch (Exception e) {
-				e.printStackTrace();
-				app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
-			}
-		} else if (v == buttonChooseFromFile) {
-			Intent fileintent = new Intent(Intent.ACTION_GET_CONTENT);
-			fileintent.setType("gagt/sdf");
-//			activity.startActivityForResult(fileintent, HomeActivity.RESULT_BROWSEFILES);
-		}else if(v == buttonAttendees){
-//			activity.changeChildPage(attendeeFragment);
-		}
-	}
+    protected File attachedFile;
+    private float forex;
+    private Calendar currCalendar;
 
-	@Override
-	public void onFocusChange(View v, boolean isFocused) {
-		if(isFocused){
-			if(v == etextDate)
-				new SaltDatePicker(linearNavFragmentActivity, etextDate);
-		}
-	}
-	
-//	@Override
-//	public void onCameraCaptureSuccess() {
-//		//uploading of attachment should be done before sending a request to create a claim item
-//		updateAttachment(capturedPhoto);
-//	}
-	
-//	@Override
-//	public void onCameraCaptureFailed() {
-//		tvAttachment.setTag(prevSelectedAttachment);
-//		tvAttachment.setText((prevSelectedAttachment!=null)?prevSelectedAttachment.getName():"No File Chosen");
-//	}
-	
-//	@Override
-//	public void onFileSelectionSuccess(File file) {
-//		//uploading of attachment should be done before sending a request to create a claim item
-//		updateAttachment(file);
-//	}
-	
-//	@Override
-//	public void onFileSelectionFailed() {
-//		tvAttachment.setTag(prevSelectedAttachment);
-//		tvAttachment.setText((prevSelectedAttachment!=null)?prevSelectedAttachment.getName():"No File Chosen");
-//	}
-	
-	private void updateAttachment(File file){
-//		pd.show();
-//		new Thread(new ClaimAttachmentUploader(file)).start();
-		if(tvAttachment.getTag() != null)
-			prevSelectedAttachment = (File)tvAttachment.getTag();
-		tvAttachment.setTag(file);
-		tvAttachment.setText(file.getName());
-	}
-		
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if(buttonView == cboxAttachment){
-//			trAttachmentPreview.setVisibility((isChecked)?View.VISIBLE:View.GONE);
-//			trAttachmentAction.setVisibility((isChecked)?View.VISIBLE:View.GONE);
-//			if(getArguments().containsKey(KEY_CLAIMITEMPOS)){
-//				try {
-//					app.fileManager.downloadAttachment(activity, newClaimItem, pd, this);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					app.showMessageDialog(activity, e.getMessage());
-//				}
-//			}
-		}else if(buttonView == cboxApplyTaxRate){
-			etextTaxRate.setEnabled((isChecked)?true:false);
-		}else if (buttonView == cboxBillable){
-			if(isChecked){
-				cboxBillable.setEnabled(false);
-				cboxBillable.setVisibility(View.GONE);
-				spinnerOffices.setVisibility(View.VISIBLE);
-				if(offices == null){
-					pd.show();
-					new Thread(new AllOfficeGetter()).start();					
-				}
-			}else{
-				cboxBillable.setText("");
-			}
-		}
-	}
+    @Override
+    protected RelativeLayout setupActionbar() {
+        activity = (ManageClaimItemActivity)getActivity();
 
-	@Override
-	public void onAttachmentDownloadFinish(File file) {
-		prevSelectedAttachment = file;
-		tvAttachment.setTag(prevSelectedAttachment);
-	}
-	
-	@Override
-	public void onAttachmentDownloadFailed(String errorMessage) {
-		app.showMessageDialog(linearNavFragmentActivity, errorMessage);
-	}
-	
-	@Override
-	public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
+        RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backdone, null);
+        actionbarButtonBack = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
+        actionbarDone = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_done);
+        actionbarTitle = (TextView)actionbarLayout.findViewById(R.id.tviews_actionbar_title);
+        actionbarTitle.setText(activity.claimItem.getCategoryName());
 
-	@Override
-	public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
-			
-	protected class ClaimItemProjectListGetter implements Runnable{
+        actionbarButtonBack.setOnClickListener(this);
+        actionbarTitle.setOnClickListener(this);
+        actionbarDone.setOnClickListener(this);
 
-		@Override
-		public void run() {
-			final Object result;
-			Object tempResult;
-			try{
-				tempResult = app.onlineGateway.getClaimItemProjectsByCostCenter(claimHeader.getCostCenterID());
-			}catch(Exception e){
-				tempResult = e.getMessage();
-			}
-			
-			result=tempResult;
-			new Handler(Looper.getMainLooper()).post(new Runnable() {
-				
-				@Override
-				public void run() {
-					pd.dismiss();					
-					if(result instanceof String){
-						new AlertDialog.Builder(linearNavFragmentActivity).setMessage("Cannot load projects. "+result)
-														 .setNeutralButton("Okay", new DialogInterface.OnClickListener() {
-															
-															@Override
-															public void onClick(DialogInterface dialog, int which) {
-																linearNavFragmentActivity.onBackPressed();
-															}
-														}).create().show();
-					}else{
-						projectNameIDs = new HashMap<String, Integer>();
-						projectNameIDs.putAll((HashMap<String, Integer>)result);
-						projectNames = new ArrayList<String>();
-						for(String projectName: projectNameIDs.keySet())
-							projectNames.add(projectName);
-						
-						spinnerProject.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, projectNames, NodeSize.SIZE_SMALL));
-						if(getArguments().getInt(KEY_CLAIMITEMPOS) >= 0)
-							spinnerProject.setSelection(projectNames.indexOf(newClaimItem.getProjectName()));
-						spinnerProject.setOnItemSelectedListener(ItemInputFragment.this);
-						spinnerProject.setTag("-1");							
-					}
-				}
-			});
-		}		
-	}	
+        return actionbarLayout;
+    }
 
-	private class AllOfficeGetter implements Runnable{
+    @Override
+    protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = createClaimItemtView(inflater, container, savedInstanceState);
 
-		@Override
-		public void run() {
-			final Object result;
-			Object tempResult;
-			try{
-				tempResult = app.onlineGateway.getAllOffices();
-			}catch(Exception e){
-				tempResult = e.getMessage();
-			}
-			
-			result=tempResult;
-			new Handler(Looper.getMainLooper()).post(new Runnable() {
-				
-				@Override
-				public void run() {
-					pd.dismiss();
-					spinnerOffices.setVisibility(View.VISIBLE);
-					cboxBillable.setVisibility(View.GONE);
-					if(result instanceof String)
-						app.showMessageDialog(linearNavFragmentActivity, "Cannot load offices. "+result);
-					else{
-						offices = new ArrayList<Office>();
-						officeNames = new ArrayList<String>();
-						officeNames.add(HEADER_BILLTO);
-						officeNames.add("SELECT TO WILLDISPLAY_NONE");
-						offices.addAll((ArrayList<Office>)result);
-						for(Office office :offices)
-							officeNames.add(office.getName());
-						
-						spinnerOffices.setAdapter(new SimpleSpinnerAdapter(linearNavFragmentActivity, officeNames, NodeSize.SIZE_SMALL));
-						spinnerOffices.setOnItemSelectedListener(ItemInputFragment.this);
-						spinnerOffices.setTag("0");
-					}
-				}
-			});
-		}		
-	}		
-	
-//	private class ClaimAttachmentUploader implements Runnable{
-//		private File fileToUpload;
-//		
-//		public ClaimAttachmentUploader(File fileToUpload){
-//			this.fileToUpload = fileToUpload;
-//		}
-//		
-//		@Override
-//		public void run() {
-//			Object tempResult;
-//			try{
-//				Document document = new Document(fileToUpload.getName(), fileToUpload.length(), app.getStaff().getStaffID(), 0);
-//				tempResult = app.onlineGateway.uploadAttachment(document.jsonize(app), fileToUpload);
-//			}catch(Exception e){
-//				e.printStackTrace();
-//				tempResult = e.getMessage();
-//			}
-//			final Object result = tempResult;
-//			new Handler(Looper.getMainLooper()).post(new Runnable(){
-//				
-//				@Override
-//				public void run(){
-//					pd.dismiss();
-//					app.showMessageDialog(activity, result.toString());
-//				}
-//			});
-//		}
-//		
-//	}
+        tviewsDate = (TextView)v.findViewById(R.id.tviews_claimiteminput_expenseDate);
+        etextAmount = (EditText)v.findViewById(R.id.etexts_claimiteminput_fc_amount);
+        etextLocalAmount = (EditText)v.findViewById(R.id.etexts_claimiteminput_lc_amount);
+        tvCurrLocal = (TextView)v.findViewById(R.id.tviews_claimiteminput_lc_curr);
+        etextForex = (EditText)v.findViewById(R.id.etexts_claimiteminput_forex);
+        etextTax = (EditText)v.findViewById(R.id.etexts_claimiteminput_tax);
+        cboxTaxable = (CheckBox)v.findViewById(R.id.cboxs_claimiteminput_tax);
+
+        tvAttachment = (TextView)v.findViewById(R.id.tviews_claimiteminput_attachment);
+        buttonCamera = (ImageView)v.findViewById(R.id.buttons_claimiteminput_camera);
+        buttonFile = (ImageView)v.findViewById(R.id.buttons_claimiteminput_files);
+
+        tvBillTo = (TextView)v.findViewById(R.id.tviews_claimiteminput_billTo);
+        cboxBillable = (CheckBox)v.findViewById(R.id.cboxs_claimiteminput_billable);
+        trBillNotes = (TableRow)v.findViewById(R.id.trs_claimiteminput_clienttobill);
+        etextBillNotes = (EditText)v.findViewById(R.id.etexts_claimiteminput_clienttobill);
+
+        containerAttendees =  (RelativeLayout)v.findViewById(R.id.containers_claimiteminput_attendees);
+        tvAttendees = (TextView)v.findViewById(R.id.tviews_claimiteminput_attendees);
+
+        etextDesc = (EditText)v.findViewById(R.id.etexts_claimiteminput_desc);
+
+        tviewsDate.setOnClickListener(this);
+        etextAmount.addTextChangedListener(this);
+        etextForex.addTextChangedListener(this);
+        etextTax.addTextChangedListener(this);
+        cboxTaxable.setOnCheckedChangeListener(this);
+        tvAttachment.setOnClickListener(this);
+        buttonCamera.setOnClickListener(this);
+        buttonFile.setOnClickListener(this);
+
+        tvBillTo.setOnClickListener(this);
+        cboxBillable.setOnCheckedChangeListener(this);
+        containerAttendees.setOnClickListener(this);
+        etextDesc.addTextChangedListener(this);
+
+        tvCurrLocal.setText(app.getStaffOffice().getBaseCurrencyThree());
+        activity.claimItem.setLocalCurrency(new Currency(app.getStaffOffice().getBaseCurrencyID(), app.getStaffOffice().getBaseCurrencyName(), app.getStaffOffice().getBaseCurrencyThree()));
+        currCalendar = Calendar.getInstance();
+        datePicker = new DatePickerDialog(linearNavFragmentActivity, this, currCalendar.get(Calendar.YEAR), currCalendar.get(Calendar.MONTH), currCalendar.get(Calendar.DAY_OF_MONTH));
+
+        if(app.getStaffOffice().getBaseCurrencyThree().equals(activity.claimItem.getForeignCurrencyName())){
+            forex = 1;
+            etextForex.setText("1.00");
+        }else{
+            activity.startLoading();
+            new ForexGetter().start();
+        }
+
+        dialogChargeTo = new DialogClaimItemChargeToList(this);
+        dialogAttendees = new DialogClaimItemAttendeeList(this);
+        if(activity.getAttachment() != null)
+            updateAttachment(activity.getAttachment());
+
+        activity.setCameraListener(this);
+        activity.setFileSelectionListener(this);
+
+        ((TextView)v.findViewById(R.id.tviews_claimiteminput_project)).setText(activity.claimItem.getProjectName());
+        ((TextView)v.findViewById(R.id.tviews_claimiteminput_fc_curr)).setText(activity.claimItem.getForeignCurrencyName());
+
+        return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == actionbarButtonBack || v == actionbarTitle)
+            linearNavFragmentActivity.onBackPressed();
+        else if(v == tviewsDate)
+            datePicker.show();
+        else if(v == containerAttendees)
+            dialogAttendees.show();
+        else if(v == tvBillTo)
+            dialogChargeTo.show();
+        else if(v == buttonCamera){
+            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            try {
+                attachedFile = File.createTempFile("attachment", ".jpg", new File(app.fileManager.getDirForCapturedAttachments()));
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(attachedFile));
+                activity.startActivityForResult(intent, SaltApplication.RESULT_CAMERA);
+            } catch (Exception e) {
+                e.printStackTrace();
+                app.showMessageDialog(activity, e.getMessage());
+            }
+        }else if (v == buttonFile) {
+            Intent fileintent = new Intent(Intent.ACTION_GET_CONTENT);
+            fileintent.setType("gagt/sdf");
+            activity.startActivityForResult(fileintent, SaltApplication.RESULT_BROWSEFILES);
+        }else if(v == tvAttachment) {
+            if(attachedFile == null) {
+                try{
+                    Document document = activity.claimItem.getAttachments().get(0);
+                    app.fileManager.downloadDocument(document.getDocID(), document.getRefID(), document.getObjectTypeID(), document.getDocName(), this);
+                }catch(Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(activity, "Cannot download document "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else if(v == actionbarDone)
+            saveToServer();
+
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton v, boolean isChecked) {
+        if(v == cboxTaxable){
+            activity.claimItem.setIsTaxRated(isChecked);
+            if(isChecked){
+                etextTax.setEnabled(true);
+                etextTax.setText(String.valueOf(app.getStaffOffice().getDefaultTax()/100));
+            }else{
+                etextTax.setEnabled(false);
+                etextTax.setText("(Tax Not Applicable)");
+            }
+        }else if(v == cboxBillable){
+            activity.claimItem.setIsRechargable(isChecked);
+            tvBillTo.setEnabled(isChecked);
+            if(isChecked){
+                trBillNotes.setVisibility(View.VISIBLE);
+                tvBillTo.setOnClickListener(this);
+            }else{
+                trBillNotes.setVisibility(View.GONE);
+                tvBillTo.setOnClickListener(null);
+            }
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        try{
+            float totalLC = Float.parseFloat(etextAmount.getText().toString()) * (Float.parseFloat(etextForex.getText().toString()));
+            if(cboxTaxable.isChecked()) totalLC = totalLC-(totalLC*=Float.parseFloat(etextTax.getText().toString()));
+            activity.claimItem.setAmountLC(totalLC);
+            etextLocalAmount.setText(String.valueOf(totalLC));
+
+            if(s.hashCode() == etextAmount.getText().hashCode()) activity.claimItem.setAmount(Float.parseFloat(etextAmount.getText().toString()));
+            else if(s.hashCode() == etextForex.getText().hashCode()) activity.claimItem.setForex(Float.parseFloat(etextForex.getText().toString()));
+            else if(s.hashCode() == etextTax.getText().hashCode()) activity.claimItem.setTaxAmount(Float.parseFloat(etextTax.getText().toString()));
+        }catch(Exception e){
+            e.printStackTrace();
+            etextLocalAmount.setText("0.00");
+        }
+
+        if(s.hashCode() == etextBillNotes.getText().hashCode()) activity.claimItem.setNotes(etextBillNotes.getText().toString());
+        else if (s.hashCode() == etextDesc.getText().hashCode()) activity.claimItem.setDescription(etextDesc.getText().toString());
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, monthOfYear);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        activity.claimItem.setDateExpensed(calendar.getTime(), app);
+        tviewsDate.setText(app.dateFormatDefault.format(calendar.getTime()));
+    }
+
+    @Override
+    public void onCameraCaptureSuccess() { updateAttachment(attachedFile); }
+
+    @Override
+    public void onCameraCaptureFailed() { updateAttachment(null); }
+
+    @Override
+    public void onFileSelectionSuccess(File file) { updateAttachment(file); }
+
+    @Override
+    public void onFileSelectionFailed() { updateAttachment(null); }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+    private void updateAttachment(File file){
+        attachedFile = file;
+        activity.claimItem.getAttachments().clear();
+        if(file == null){
+            resetAttachment();
+        }else{
+            if(file.length() <= 10485760){
+                if(SaltApplication.ACCEPTED_FILETYPES.contains(file.getName().substring(file.getName().lastIndexOf(".")+1, file.getName().length()))){
+                    activity.claimItem.addAttachment(new Document(file, activity.claimHeader, app.onlineGateway.jsonizeDate(new Date()), app.dateFormatClaimItemAttachment.format(new Date())));
+                    activity.claimItem.setHasReceipt(true);
+                    activity.updateAttachmentUri(file);
+                    tvAttachment.setText(file.getName());
+                    tvAttachment.setTextColor(getResources().getColor(android.R.color.black));
+                }else {
+                    resetAttachment();
+                    app.showMessageDialog(activity, "Invalid File Type");
+                }
+            }else {
+                resetAttachment();
+                app.showMessageDialog(activity, "File must not exceed 10mb");
+            }
+        }
+    }
+
+    private void resetAttachment(){
+        activity.claimItem.setHasReceipt(false);
+        tvAttachment.setText("No Selection");
+        tvAttachment.setTextColor(Color.parseColor("#909090"));
+    }
+
+    @Override
+    public void onProjectSelected(Project project) {
+        activity.claimItem.setProject(project);
+//        tvProject.setText(project.getName());
+    }
+
+    public class ForexGetter extends  Thread{
+
+        @Override
+        public void run() {
+            Object tempResult;
+            try{
+                tempResult = app.onlineGateway.getForexRate(activity.claimItem.getForeignCurrencyName(), app.getStaffOffice().getBaseCurrencyThree());
+            }catch(Exception e){
+                e.printStackTrace();
+                tempResult = e.getMessage();
+            }
+
+            final Object result = tempResult;
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    activity.finishLoading();
+                    if(result instanceof String){
+                        new AlertDialog.Builder(linearNavFragmentActivity).setTitle("").setMessage(result.toString())
+                                .setPositiveButton("Reload", new AlertDialog.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        activity.startLoading();
+                                        new ForexGetter().start();
+                                    }
+                                }).setNegativeButton("Cancel", new AlertDialog.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                linearNavFragmentActivity.finish();
+                            }
+                        }).create().show();
+                    }else{
+                        forex = Float.parseFloat(result.toString());
+                        etextForex.setText(String.valueOf(forex));
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onAttachmentDownloadFinish(File downloadedFile) {
+        attachedFile = downloadedFile;
+        app.fileManager.openDocument(activity, attachedFile);
+    }
+
+    @Override
+    public void onAttachmentDownloadFailed(String errorMessage) {
+        Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
+    }
 }

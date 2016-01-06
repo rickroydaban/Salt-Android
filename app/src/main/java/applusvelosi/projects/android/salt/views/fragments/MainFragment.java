@@ -27,6 +27,7 @@ public class MainFragment extends Fragment{
 	private RootFragment currRootFragment;
 	private RelativeLayout actionbar;
 
+	public TextView tviewOutdatedData;
     public RelativeLayout containersLoader;
     public TextView tviewsLoader;
     public ImageView ivLoader;
@@ -36,6 +37,7 @@ public class MainFragment extends Fragment{
 		activity = (HomeActivity)getActivity();
 		View view = inflater.inflate(R.layout.fragment_main, null);
 
+		tviewOutdatedData = (TextView)view.findViewById(R.id.tviews_outdateddata);
         containersLoader = (RelativeLayout)view.findViewById(R.id.containers_loader);
         tviewsLoader = (TextView)view.findViewById(R.id.tviews_loader);
         ivLoader = (ImageView)view.findViewById(R.id.iviews_loader);

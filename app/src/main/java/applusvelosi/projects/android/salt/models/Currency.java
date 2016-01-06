@@ -19,7 +19,14 @@ public class Currency implements Serializable{
 		map.put("CurrencyName", jsonCurrency.getString("CurrencyName"));
 		map.put("CurrencySymbol", jsonCurrency.getString("CurrencySymbol"));
 	}
-	
+
+	public Currency(int currencyID, String currencyName, String currencySymbol){
+		map = new HashMap<String, Object>();
+		map.put("CurrencyID", currencyID);
+		map.put("CurrencyName", currencyName);
+		map.put("CurrencySymbol", currencySymbol);
+	}
+
 	public HashMap<String, Object> getMap(){
 		return map;
 	}

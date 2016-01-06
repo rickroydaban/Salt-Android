@@ -1,5 +1,7 @@
 package applusvelosi.projects.android.salt.models.capex;
 
+import com.google.gson.JsonArray;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -156,6 +158,8 @@ public class CapexHeader implements Serializable{
         documents = new ArrayList<Document>();
         for(int i=0; i<jsonDocs.length(); i++)
             documents.add(new Document(jsonDocs.getJSONObject(i)));
+        System.out.println("SALTX jsondocs "+jsonCapexHeader.getJSONArray("Documents"));
+        System.out.println("SALTX docs "+documents);
     }
 
     public String getAttachedCer(){ return (attachedCER == null || attachedCER.length()<1 || attachedCER.equals(""))?NOATTACHMENT:attachedCER; }
@@ -201,7 +205,8 @@ public class CapexHeader implements Serializable{
     }
     public float getTotal(){ return total; }
     public float getTotalAmountInUSD(){ return totalAmountInUSD;}
-    public ArrayList<Document> getDocuments(){ return documents; }
+    public ArrayList<Document> getDocuments(){
+        System.out.println("SALTX "+documents); return documents; }
 
     public String getJSONFromUpdatingCapex(int statusID, String keyForUpdatableDate, SaltApplication app) throws Exception{
         HashMap<String, Object> tempMap = new HashMap<String, Object>();
@@ -239,6 +244,13 @@ public class CapexHeader implements Serializable{
         tempMap.put("Total", total);
         tempMap.put("TotalAmountInUSD", totalAmountInUSD);
         tempMap.put("CapexLineItems", new JSONArray());
+
+        JsonArray jsonDocs = new JsonArray();
+        for(Document document :documents){
+            jsonDocs.add(document.getJSONObject());
+        }
+
+        tempMap.put("Documents", jsonDocs);
 
         if(!keyForUpdatableDate.equals("NA"))
             tempMap.put(keyForUpdatableDate, app.onlineGateway.jsonizeDate(new Date()));

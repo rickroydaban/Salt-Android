@@ -2,7 +2,7 @@ package applusvelosi.projects.android.salt.views.fragments.claims;
 
 import java.io.File;
 
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,28 +13,27 @@ import android.widget.TextView;
 
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
+import applusvelosi.projects.android.salt.models.ClaimItemAttendee;
+import applusvelosi.projects.android.salt.models.Document;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
-import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.utils.FileManager.AttachmentDownloadListener;
+import applusvelosi.projects.android.salt.views.ClaimItemDetailActivity;
+import applusvelosi.projects.android.salt.views.ManageClaimItemActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
-import applusvelosi.projects.android.salt.views.fragments.roots.RootFragment;
 
 public class ClaimItemDetailGenericFragment extends LinearNavActionbarFragment implements AttachmentDownloadListener{
-	private static final String KEY_CLAIMID = "myclaimitemdetailclaimIDkey";
-	private static final String KEY_CLAIMITEMID = "myclaimitemdetailclaimitemIDKey";
 	//action bar buttons
 	private TextView actionbarEditButton, actionbarTitle;
 	private RelativeLayout actionbarBackButton;
 	
 	private LinearLayout containersAttendees;
-	private ClaimHeader claimHeader;
-	private ClaimItem claimItem;
 	private TextView attachment;
-	private SaltProgressDialog pd;
-	
+
+	ClaimItemDetailActivity activity;
+
 	@Override
 	protected RelativeLayout setupActionbar() {
+        activity = (ClaimItemDetailActivity)getActivity();
 		RelativeLayout actionbarLayout = (RelativeLayout)linearNavFragmentActivity.getLayoutInflater().inflate(R.layout.actionbar_backedit, null);
 		actionbarBackButton = (RelativeLayout)actionbarLayout.findViewById(R.id.buttons_actionbar_back);
 		actionbarEditButton = (TextView)actionbarLayout.findViewById(R.id.buttons_actionbar_edit);
@@ -42,60 +41,56 @@ public class ClaimItemDetailGenericFragment extends LinearNavActionbarFragment i
 		actionbarTitle.setText("Claim Item Detail");
 		
 		actionbarBackButton.setOnClickListener(this);
-		actionbarEditButton.setOnClickListener(this);;
+        System.out.println(activity.claimHeaderStatusKey+" "+ClaimHeader.STATUSKEY_SUBMITTED);
+        if(activity.claimHeaderStatusKey == ClaimHeader.STATUSKEY_OPEN)
+            actionbarEditButton.setOnClickListener(this);
+        else
+            actionbarEditButton.setVisibility(View.GONE);
+
 		actionbarTitle.setOnClickListener(this);
 		
 		return actionbarLayout;
 	}
 	
-	public static ClaimItemDetailGenericFragment newInstance(int claimID, int claimItemID){
-		ClaimItemDetailGenericFragment fragment = new ClaimItemDetailGenericFragment();
-		Bundle b = new Bundle();
-		b.putInt(KEY_CLAIMID, claimID);
-		b.putInt(KEY_CLAIMITEMID, claimItemID);
-		fragment.setArguments(b);
-		return fragment;
-	}
-	
+
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		claimHeader = app.getMyClaims().get(getArguments().getInt(KEY_CLAIMID));
-		claimItem = claimHeader.getClaimItems(app).get(getArguments().getInt(KEY_CLAIMITEMID));
 		View view = inflater.inflate(R.layout.fragment_claimitem_catgeneric_details, null);
 		
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_id)).setText(claimItem.getItemNumber());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_category)).setText(claimItem.getCategoryName());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_expenseDate)).setText(claimItem.getExpenseDate());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_amount)).setText(SaltApplication.decimalFormat.format(claimItem.getForeignAmount())+" "+claimItem.getForeignCurrencyName());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_amountLocal)).setText(SaltApplication.decimalFormat.format(claimItem.getLocalAmount())+" "+claimItem.getLocalCurrencyName());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_exRate)).setText(String.valueOf(claimItem.getOnFileExchangeRate()));
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_desc)).setText(claimItem.getDescription());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_project)).setText(claimItem.getProjectName());
-		((TextView)view.findViewById(R.id.tviews_claimitemdetail_taxRate)).setText(claimItem.isTaxApplied()?String.valueOf(claimItem.getTaxAmount()):"No");
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_id)).setText(activity.claimItem.getItemNumber());
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_category)).setText(activity.claimItem.getCategoryName());
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_expenseDate)).setText(activity.claimItem.getExpenseDate(app));
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_amount)).setText(SaltApplication.decimalFormat.format(activity.claimItem.getForeignAmount())+" "+activity.claimItem.getForeignCurrencyName());
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_amountLocal)).setText(SaltApplication.decimalFormat.format(activity.claimItem.getLocalAmount())+" "+activity.claimItem.getLocalCurrencyName());
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_exRate)).setText(String.valueOf(activity.claimItem.getStandardExchangeRate()));
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_desc)).setText(activity.claimItem.getDescription());
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_project)).setText(activity.claimItem.getProjectName());
+		((TextView)view.findViewById(R.id.tviews_claimitemdetail_taxRate)).setText(activity.claimItem.isTaxApplied()?String.valueOf(activity.claimItem.getTaxAmount()):"No");
 		containersAttendees = (LinearLayout)view.findViewById(R.id.containers_claimitemdetail_attendees);
-		if(claimItem.isBillable()){
-			((TextView)view.findViewById(R.id.tviews_claimitemdetail_billto)).setText(claimItem.getBillableCompanyName());			
-			((TextView)view.findViewById(R.id.tviews_claimitemdetail_notesorbillstoclient)).setText(claimItem.getNotes());
+		if(activity.claimItem.isBillable()){
+			((TextView)view.findViewById(R.id.tviews_claimitemdetail_billto)).setText(activity.claimItem.getBillableCompanyName());
+			((TextView)view.findViewById(R.id.tviews_claimitemdetail_notesorbillstoclient)).setText(activity.claimItem.getNotes());
 		}else{
 			((TextView)view.findViewById(R.id.tviews_claimitemdetail_billto)).setText("No");
 			view.findViewById(R.id.trs_claimitemdetail_notestoclient).setVisibility(View.GONE);
 		}
 		
 		attachment = (TextView)view.findViewById(R.id.tviews_claimitemdetail_attachment);
-		if(claimItem.hasReceipt()){
-			attachment.setText(claimItem.getAttachmentName());
+		if(activity.claimItem.hasReceipt()){
+			attachment.setText(activity.claimItem.getAttachmentName());
 			attachment.setTextColor(linearNavFragmentActivity.getResources().getColor(R.color.orange_velosi));
-			attachment.setTypeface(attachment.getTypeface(), Typeface.BOLD);
 			attachment.setOnClickListener(this);
 		}else{
 			attachment.setText("No");
 		}
 
-//		for(ClaimItemAttendee attendee :claimItem.getAttendees()){
-//			TextView tvAttendeeName = (TextView)inflater.inflate(R.layout.tv_claimitemattendee, null);
-//			tvAttendeeName.setText(attendee.getName());
-//			containersAttendees.addView(tvAttendeeName);
-//		}
+		for(ClaimItemAttendee attendee :activity.claimItem.getAttendees()){
+			LinearLayout v = (LinearLayout)inflater.inflate(R.layout.node_claimitemdetail_attendee, null);
+            ((TextView)v.findViewById(R.id.tviews_nodes_claimitemdetail_attendee)).setText(attendee.getName());
+            ((TextView)v.findViewById(R.id.tviews_nodes_claimitemdetail_jobtitle)).setText(attendee.getJobTitle());
+            ((TextView)v.findViewById(R.id.tviews_nodes_claimitemdetail_notes)).setText(attendee.getNote());
+			containersAttendees.addView(v);
+		}
 
 		return view;
 	}
@@ -107,34 +102,38 @@ public class ClaimItemDetailGenericFragment extends LinearNavActionbarFragment i
 		}else if(v == actionbarTitle){
 			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarEditButton){
-//			claimHeader.prepareForUpdatingClaimItem(getArguments().getInt(KEY_CLAIMITEMID), app);
-//			if(claimHeader.getTypeID() == ClaimHeader.TYPEKEY_ADVANCES)
-//				linearNavFragmentActivity.changePage(ItemInputFragmentBA.newInstance(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
-//			else
-//				linearNavFragmentActivity.changePage(ItemInputFragmentClaims.newInstanceForEditingClaimItem(getArguments().getInt(KEY_CLAIMID), getArguments().getInt(KEY_CLAIMITEMID)));
+            Intent intent = new Intent(new Intent(activity, ManageClaimItemActivity.class));
+            intent.putExtra(ManageClaimItemActivity.INTENTKEY_CLAIMHEADERPOS, activity.getIntent().getExtras().getString(ClaimItemDetailActivity.INTENTKEY_CLAIMHEADERID));
+            intent.putExtra(ManageClaimItemActivity.INTENTKEY_CLAIMITEM, activity.claimItem);
+            startActivity(intent);
 		}else if(v == attachment){
-//			try{
-//				if(pd == null)
-//					pd = new SaltProgressDialog(activity);
-//				app.fileManager.downloadAttachment(activity, claimItem, pd, this);
-//			}catch(Exception e){
-//				app.showMessageDialog(activity, e.getMessage());
-//			}
+			if(activity.claimItem.getAttachments().size() > 0) {
+				try {
+					Document doc = activity.claimItem.getAttachments().get(0);
+					int docID = doc.getDocID();
+					int objectTypeID = doc.getObjectTypeID();
+					int refID = doc.getRefID();
+					String filename = doc.getDocName();
+					activity.startLoading();
+					app.fileManager.downloadDocument(docID, refID, objectTypeID, filename, this);
+				} catch (Exception e) {
+					e.printStackTrace();
+					activity.finishLoading();
+					app.showMessageDialog(linearNavFragmentActivity, e.getMessage());
+				}
+			}
         }
 	}
 
 	@Override
 	public void onAttachmentDownloadFinish(File file) {
-//    	try {
-//			app.fileManager.openAttachment(linearNavFragmentActivity, claimItem.getAttachmentExtension(), file);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			((SaltApplication)activity.getApplication()).showMessageDialog(activity, e.getMessage());
-//		}
+		activity.finishLoading();
+		app.fileManager.openDocument(linearNavFragmentActivity, file);
 	}
 	
 	@Override
 	public void onAttachmentDownloadFailed(String errorMessage) {
-		app.showMessageDialog(linearNavFragmentActivity, "Download Failed! "+errorMessage);
+		activity.finishLoading();
+		app.showMessageDialog(linearNavFragmentActivity, errorMessage);
 	}
 }

@@ -22,7 +22,8 @@ import applusvelosi.projects.android.salt.models.claimitems.ClaimItem;
 import applusvelosi.projects.android.salt.utils.customviews.ListAdapter;
 import applusvelosi.projects.android.salt.utils.interfaces.ListAdapterInterface;
 import applusvelosi.projects.android.salt.views.ClaimDetailActivity;
-import applusvelosi.projects.android.salt.views.NewClaimItemActivity;
+import applusvelosi.projects.android.salt.views.ClaimItemDetailActivity;
+import applusvelosi.projects.android.salt.views.ManageClaimItemActivity;
 import applusvelosi.projects.android.salt.views.fragments.LinearNavActionbarFragment;
 
 public class ClaimItemListFragment extends LinearNavActionbarFragment implements OnItemClickListener, ListAdapterInterface{
@@ -32,7 +33,7 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
 	
 	private ListView lv;
 	private ListAdapter adapter;
-	private ArrayList<ClaimItem> claimItems;
+	private TextView tvNoItems;
 	private ClaimDetailActivity activity;
 	private ClaimHeader claimHeader;
 
@@ -59,12 +60,12 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
 	
 	@Override
 	protected View createView(LayoutInflater li, ViewGroup vg, Bundle b) {
-		claimItems = new ArrayList<ClaimItem>();
-		claimItems.addAll(claimHeader.getClaimItems(app));
 		actionbarTitleTextview.setText("Claim Item");
 		View view = li.inflate(R.layout.fragment_claimitemlist, null);
 		lv = (ListView)view.findViewById(R.id.lists_claimItemList);
 		adapter = new ListAdapter(this);
+		tvNoItems = (TextView)view.findViewById(R.id.tviews_listempty);
+
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
 
@@ -74,7 +75,8 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		refresh();
+		if(activity.shouldLoadLineItemOnResume)
+			refresh();
 	}
 
 	@Override
@@ -82,9 +84,8 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
 		if(v == actionbarBackButton || v == actionbarTitleTextview){
 			linearNavFragmentActivity.onBackPressed();
 		}else if(v == actionbarNewButton){
-//			claimHeader.prepareForCreatingNewClamItem(app);
-            Intent intent = new Intent(linearNavFragmentActivity, NewClaimItemActivity.class);
-            intent.putExtra(NewClaimItemActivity.INTENTKEY_CLAIMHEADER, app.gson.toJson(claimHeader.getMap()));
+            Intent intent = new Intent(linearNavFragmentActivity, ManageClaimItemActivity.class);
+            intent.putExtra(ManageClaimItemActivity.INTENTKEY_CLAIMHEADERPOS, activity.getClaimHeaderPos());
             startActivity(intent);
 		}else if(v == actionbarRefreshButton){
 			refresh();
@@ -109,21 +110,20 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
 				new Handler(Looper.getMainLooper()).post(new Runnable() {
 					@Override
 					public void run() {
+						activity.shouldLoadLineItemOnResume = true;
 						if(result instanceof String){
 							linearNavFragmentActivity.finishLoading(result.toString());
 						}else{
 							linearNavFragmentActivity.finishLoading();
-							claimItems.clear();
-
-							if(claimItems.size() > 0){
-								lv.setVisibility(View.VISIBLE);
-								claimItems.addAll((ArrayList<ClaimItem>)result);
+							activity.claimItems.clear();
+							activity.claimItems.addAll((ArrayList<ClaimItem>) result);
+							app.offlineGateway.serializeMyClaimItem(claimHeader.getClaimID(), activity.claimItems);
+							if(activity.claimItems.size() > 0){
+								tvNoItems.setVisibility(View.GONE);
 								adapter.notifyDataSetChanged();
-								claimHeader.updateLineItems(claimItems, app);
 							}else{
-								lv.setVisibility(View.GONE);
+								lv.setVisibility(View.VISIBLE);
 							}
-
 						}
 					}
 				});
@@ -133,10 +133,12 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-//		if(claimHeader.getClaimItems(app).get(pos).getCategoryTypeID() == Category.TYPE_MILEAGE) //type mileage
-//			linearNavFragmentActivity.changePage(ClaimItemDetailMileageFragment.newInstance(getArguments().getInt(KEY), pos));
-//		else
-//			linearNavFragmentActivity.changePage(ClaimItemDetailGenericFragment.newInstance(getArguments().getInt(KEY), pos));
+		Intent intent = new Intent(linearNavFragmentActivity, ClaimItemDetailActivity.class);
+		intent.putExtra(ClaimItemDetailActivity.INTENTKEY_CLAIMITEM, activity.claimItems.get(pos));
+        intent.putExtra(ClaimItemDetailActivity.INTENTKEY_CLAIMHEADERTYPE, activity.claimHeader.getTypeID());
+        intent.putExtra(ClaimItemDetailActivity.INTENTKEY_CLAIMHEADERID, activity.claimHeader.getClaimID());
+		intent.putExtra(ClaimItemDetailActivity.INTENTKEY_CLAIMHEADERSTATUS, activity.claimHeader.getStatusID());
+		startActivity(intent);
 	}
 
     @Override
@@ -153,25 +155,45 @@ public class ClaimItemListFragment extends LinearNavActionbarFragment implements
             holder.dateExpensedTV = (TextView)view.findViewById(R.id.tviews_cells_claimitem_expensedate);
             holder.statusTV = (TextView)view.findViewById(R.id.tviews_cells_claimitem_status);
             holder.descTV = (TextView)view.findViewById(R.id.tviews_cells_claimitem_description);
+			holder.dateExpensedTV.setTypeface(SaltApplication.myFont(activity));
 
             view.setTag(holder);
         }
 
         holder = (ClaimItemCellHolder)view.getTag();
-        ClaimItem claimItem = claimItems.get(position);
+        ClaimItem claimItem = activity.claimItems.get(position);
         holder.categoryTV.setText(claimItem.getCategoryName());
-        holder.amountFCTV.setText(SaltApplication.decimalFormat.format(claimItem.getForeignAmount())+" "+claimItem.getForeignCurrencyName());
-        holder.dateExpensedTV.setText(claimItem.getExpenseDate());
+        holder.amountFCTV.setText(SaltApplication.decimalFormat.format(claimItem.getForeignAmount()) + " " + claimItem.getForeignCurrencyName());
+        holder.dateExpensedTV.setText(claimItem.getExpenseDate(app));
         holder.receiptIV.setVisibility((claimItem.hasReceipt()) ? View.VISIBLE : View.GONE);
-        holder.statusTV.setText(claimItem.getStatusName());
-        holder.descTV.setText(claimItem.getDescription());
+		if(claimItem.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYAPPROVER) holder.statusTV.setText("Approver (A)");
+		else if(claimItem.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYAPPROVER) holder.statusTV.setText("Approver (R)");
+		else if(claimItem.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYACCOUNTS) holder.statusTV.setText("Accounts (A)");
+		else if(claimItem.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYACCOUNTS) holder.statusTV.setText("Accounts (R)");
+		else if(claimItem.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYCOUNTRYMANAGER) holder.statusTV.setText("CM (A)");
+		else if(claimItem.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYCOUNTRYMANAGER) holder.statusTV.setText("CM (R)");
+		else if(claimItem.getStatusID()==ClaimHeader.STATUSKEY_PAIDUNDERCOMPANYCARD) holder.statusTV.setText("Paid by CC");
+        else holder.statusTV.setText(claimItem.getStatusName());
+		if(claimHeader.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYACCOUNTS || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYAPPROVER || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_APPROVEDBYCOUNTRYMANAGER || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_PAID || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_PAIDUNDERCOMPANYCARD)
+			holder.statusTV.setTextColor(activity.getResources().getColor(R.color.green));
+		else if(claimHeader.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYACCOUNTS || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYAPPROVER || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDBYCOUNTRYMANAGER || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_REJECTEDFORSALARYDEDUCTION || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_RETURN || claimHeader.getStatusID()==ClaimHeader.STATUSKEY_CANCELLED)
+			holder.statusTV.setTextColor(activity.getResources().getColor(R.color.red));
+		else
+			holder.statusTV.setTextColor(activity.getResources().getColor(R.color.black));
+
+		if(claimItem.getDescription().length() < 1)
+			holder.descTV.setVisibility(View.GONE);
+		else{
+			holder.descTV.setVisibility(View.VISIBLE);
+			holder.descTV.setText(claimItem.getDescription());
+		}
 
         return view;
     }
 
     @Override
     public int getCount() {
-        return claimItems.size();
+        return activity.claimItems.size();
     }
 
     private class ClaimItemCellHolder{

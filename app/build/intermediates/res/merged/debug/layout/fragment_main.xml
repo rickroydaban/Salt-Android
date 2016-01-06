@@ -21,6 +21,17 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tviews_outdateddata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#FFF"
+        android:textSize="@dimen/fsizes_listcell_subheader"
+        android:gravity="center"
+        android:text="OUTDATED DATA"
+        android:background="@color/red"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,7 +40,8 @@
         <RelativeLayout
             android:id="@+id/activity_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
 
         <RelativeLayout
             android:id="@+id/containers_loader"

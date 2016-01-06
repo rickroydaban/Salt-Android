@@ -3,6 +3,7 @@ package applusvelosi.projects.android.salt.views.fragments.roots;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
+import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.adapters.lists.MyClaimsAdapter;
 import applusvelosi.projects.android.salt.models.claimheaders.ClaimHeader;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
@@ -35,7 +37,6 @@ public class ClaimListFragment extends RootFragment implements OnItemClickListen
 	
 	private ListView lv;
 	private MyClaimsAdapter adapter;
-	private ArrayList<ClaimHeader> claimHeaders;
 
 	public static ClaimListFragment getInstance(){
 		if(instance == null)
@@ -68,8 +69,7 @@ public class ClaimListFragment extends RootFragment implements OnItemClickListen
 	protected View createView(LayoutInflater li, ViewGroup vg, Bundle b) {
 		View view = li.inflate(R.layout.fragment_claimlist, null);
 		lv = (ListView)view.findViewById(R.id.lists_myclaims);		
-		claimHeaders = new ArrayList<ClaimHeader>();
-		adapter = new MyClaimsAdapter(activity, claimHeaders);
+		adapter = new MyClaimsAdapter(activity, app.getMyClaims());
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
 		
@@ -83,7 +83,12 @@ public class ClaimListFragment extends RootFragment implements OnItemClickListen
 
 	@Override
 	public void enableUserInteractionsOnSidebarHidden() {
-        lv.setEnabled(true);
+		try{
+			lv.setEnabled(true);
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("SALTX "+e.getMessage());
+		}
 	}
 
 	@Override
@@ -109,40 +114,51 @@ public class ClaimListFragment extends RootFragment implements OnItemClickListen
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-						if(result instanceof String){
-                            activity.finishLoading(result.toString());
-                        }else{
-							activity.finishLoading();
-                            app.updateMyClaims((ArrayList<ClaimHeader>)result);
-                            refetchClaims();
-                        }
+					if(result instanceof String){
+						String errorMessage = (String)result;
+						if(errorMessage.contains(SaltApplication.CONNECTION_ERROR)){
+							activity.finishLoadingAndShowOutdatedData();
+							ArrayList<HashMap<String, Object>> myClaimMaps = app.offlineGateway.deserializeMyClaims();
+							ArrayList<ClaimHeader> claimHeaders = new ArrayList<ClaimHeader>();
+							for(HashMap<String, Object> myClaimMap :myClaimMaps)
+								claimHeaders.add(new ClaimHeader(myClaimMap));
+							updateListSuccess(claimHeaders);
+						}else
+							activity.finishLoading(result.toString());
+					}else{
+						activity.finishLoading();
+						updateListSuccess((ArrayList<ClaimHeader>)result);
+					}
                     }
                 });
             }
         }).start();
 	}
 
+	private void updateListSuccess(ArrayList<ClaimHeader> claimHeaders){
+		ArrayList<ClaimHeader> tempClaimHeaders = new ArrayList<ClaimHeader>();
+		tempClaimHeaders.clear();
+		for(ClaimHeader myClaims :claimHeaders){
+			if(myClaims.getStaffID() == app.getStaff().getStaffID())
+				tempClaimHeaders.add(myClaims);
+		}
+
+		Collections.sort(tempClaimHeaders, new Comparator<ClaimHeader>() {
+			@Override
+			public int compare(ClaimHeader lhs, ClaimHeader rhs) {
+				return rhs.getClaimID() - lhs.getClaimID();
+			}
+		});
+
+		app.updateMyClaims(tempClaimHeaders);
+		adapter.notifyDataSetChanged();
+	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
         Intent intent = new Intent(activity, ClaimDetailActivity.class);
-        intent.putExtra(ClaimDetailActivity.INTENTKEY_CLAIMHEADER, app.gson.toJson(claimHeaders.get(pos).getMap()));
+        intent.putExtra(ClaimDetailActivity.INTENTKEY_CLAIMHEADERPOS, pos);
         startActivity(intent);
-	}
-	
-	private void refetchClaims(){
-		claimHeaders.clear();
-		for(ClaimHeader myClaims :app.getMyClaims()){
-			if(myClaims.getStaffID() == app.getStaff().getStaffID())
-				claimHeaders.add(myClaims);
-		}
-
-        Collections.sort(claimHeaders, new Comparator<ClaimHeader>() {
-            @Override
-            public int compare(ClaimHeader lhs, ClaimHeader rhs) {
-                return rhs.getClaimID() - lhs.getClaimID();
-            }
-        });
-		adapter.notifyDataSetChanged();
 	}
 
 	@Override

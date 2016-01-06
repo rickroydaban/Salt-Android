@@ -18,15 +18,13 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import applusvelosi.projects.android.salt.R;
+import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.adapters.lists.MyLeavesAdapter;
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter;
 import applusvelosi.projects.android.salt.adapters.spinners.SimpleSpinnerAdapter.NodeSize;
 import applusvelosi.projects.android.salt.models.Leave;
-import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 import applusvelosi.projects.android.salt.views.LeaveDetailActivity;
 import applusvelosi.projects.android.salt.views.NewLeaveRequestActivity;
-import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveDetailsFragment;
-import applusvelosi.projects.android.salt.views.fragments.leaves.LeaveInputFragment;
 
 public class LeaveListFragment extends RootFragment implements OnItemClickListener, OnItemSelectedListener{
 	private static LeaveListFragment instance;
@@ -146,19 +144,28 @@ public class LeaveListFragment extends RootFragment implements OnItemClickListen
 
 					@Override
 					public void run() {
-						if(myLeaveResult instanceof String)
-							activity.finishLoading(myLeaveResult.toString());
-						else{
+						if(myLeaveResult instanceof String){
+							String errorMessage = (String)myLeaveResult;
+                            if(errorMessage.contains(SaltApplication.CONNECTION_ERROR)){
+								activity.finishLoadingAndShowOutdatedData();
+								updateListSuccess(app.offlineGateway.deserializeMyLeaves());
+							}else
+								activity.finishLoading(errorMessage);
+						}else{
 							activity.finishLoading();
-							app.updateMyLeaves((ArrayList<Leave>)myLeaveResult);
-							statusSpinner.setSelection(1);
-							filterLeaves();
+                            updateListSuccess((ArrayList<Leave>)myLeaveResult);
 						}
 					}
 				});
 			}
 		}).start();
 	}
+
+    private void updateListSuccess(ArrayList<Leave> leaves){
+        app.updateMyLeaves(leaves);
+        statusSpinner.setSelection(1);
+        filterLeaves();
+    }
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {

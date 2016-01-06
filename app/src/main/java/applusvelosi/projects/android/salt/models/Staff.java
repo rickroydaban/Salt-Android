@@ -1,8 +1,8 @@
 package applusvelosi.projects.android.salt.models;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import org.json.JSONObject;
+
+import applusvelosi.projects.android.salt.SaltApplication;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 import applusvelosi.projects.android.salt.views.LoginActivity;
 
@@ -24,274 +24,199 @@ public class Staff {
 	
 	public static final String GENDER_MALE = "Male";
 	public static final String GENDER_FEMALE = "Female";
-	
-	private HashMap<String, Object> map;
-	
+
+	private String accountPersonName;
+	private int accountPersonID;
+	private boolean isActive;
+	private String activeDirUsername;
+	private float approverLimit, carryOverLeave;
+	private int costCenterID;
+	private String costCenterName, dateCreated, dateModified, dateOfBirth;
+	private int departmentID;
+	private String departmentName, email, employmentEndDate, employmentStartDate;
+	private int expApprover;
+	private String expenseApproverName, firstName;
+	private boolean hasFriday;
+	private String genderSex;
+	private boolean isADAuth, isAllowProxyubmission, isApprover, isCorporateApprover, isRegional;
+	private String jobTitle, lastName;
+	private int leaveApprover1ID;
+	private String leaveApprover1Email, leaveApprover1Name;
+	private int leaveApprover2ID;
+	private String leaveApprover2Email, leaveApprover2Name;
+	private int leaveApprover3ID;
+	private String leaveApprover3Email, leaveApprover3Name, location, lockDate;
+	private int maxConsecutiveDays;
+	private String mobile;
+	private boolean hasMonday;
+	private String notes, officeAddress;
+	private int officeID;
+	private String officeName, password, payrollID, phone, phoneExt;
+	private int prefCurrency;
+	private String prefCurrencyName;
+	private int proxyStaffID;
+	private String proxyStaffName;
+	private boolean hasSaturday;
+	private int securityLevel;
+	private String securityLevelName;
+	private float sickLeaveAllowance;
+	private int staffID;
+	private String staffNumber, status;
+	private int statusID;
+	private boolean hasSunday, hasThursday;
+	private String title;
+	private float totalVacationLeave;
+	private boolean hasTuesday;
+	private float vacationLeaveAllowance;
+	private boolean hasWednesday;
+	private int workingDays;
+
+	private USERPOSITION userPosition;
+
 	public Staff(OnlineGateway key, JSONObject jsonStaff) throws Exception{
-		map = new HashMap<String, Object>();
-		//staff specific related
-		map.put("Active", jsonStaff.getString("Active"));
-		map.put("StaffID", jsonStaff.getString("StaffID"));
-		map.put("SecurityLevel", jsonStaff.getString("SecurityLevel"));
-		map.put("LastName", jsonStaff.getString("LastName"));
-		map.put("FirstName", jsonStaff.getString("FirstName"));
-		map.put("OfficeID", jsonStaff.getString("OfficeID"));
-		map.put("OfficeName", jsonStaff.getString("OfficeName"));
-		map.put("Email", jsonStaff.getString("Email"));
-		map.put("JobTitle", jsonStaff.getString("JobTitle"));
-		map.put("GenderSex", jsonStaff.getString("GenderSex"));
-		map.put("MaxConsecutiveDays", jsonStaff.get("MaxConsecutiveDays"));
-		//leave specific related
-		map.put("TotalVacationLeave", jsonStaff.getString("TotalVacationLeave"));
-		map.put("SickLeaveAllowance", jsonStaff.getString("SickLeaveAllowance"));
-		map.put("LeaveApprover1", jsonStaff.getString("LeaveApprover1"));
-		map.put("LeaveApprover1Name", jsonStaff.getString("LeaveApprover1Name"));
-		map.put("LeaveApprover1Email", jsonStaff.getString("LeaveApprover1Email"));
-		map.put("LeaveApprover2", jsonStaff.getInt("LeaveApprover2"));
-		map.put("LeaveApprover2Name", jsonStaff.getString("LeaveApprover2Name"));
-		map.put("LeaveAprrover2Email", jsonStaff.getString("LeaveApprover2Email"));
-		map.put("LeaveApprover3", jsonStaff.getInt("LeaveApprover3"));
-		map.put("LeaveApprover3Name", jsonStaff.getString("LeaveApprover3Name"));
-		map.put("LeaveApprover3Email", jsonStaff.getString("LeaveApprover3Email"));
-		map.put("Monday", jsonStaff.getString("Monday"));
-		map.put("Tuesday", jsonStaff.getString("Tuesday"));
-		map.put("Wednesday", jsonStaff.getString("Wednesday"));
-		map.put("Thursday", jsonStaff.getString("Thursday"));
-		map.put("Friday", jsonStaff.getString("Friday"));
-		map.put("Saturday", jsonStaff.getString("Saturday"));
-		map.put("Sunday", jsonStaff.getString("Sunday"));
-		map.put("IsApprover", jsonStaff.getString("IsApprover"));
-		map.put("IsRegional", jsonStaff.getString("IsRegional"));
-		map.put("IsCorporateApprover", jsonStaff.getString("IsCorporateApprover"));
-		//claim specific related
-		map.put("CostCenterID", jsonStaff.getString("CostCenterID"));
-		map.put("CostCenterName", jsonStaff.getString("CostCenterName"));
-		map.put("ExpApprover", jsonStaff.getString("ExpApprover"));
-		map.put("ExpenseApproverName", jsonStaff.getString("ExpenseApproverName"));
-		map.put("AccountsPerson", jsonStaff.getString("AccountsPerson"));
+		accountPersonName = jsonStaff.getString("AccountPersonName");
+		accountPersonID = jsonStaff.getInt("AccountsPerson");
+		isActive = jsonStaff.getBoolean("Active");
+		activeDirUsername = jsonStaff.getString("ActiveDirectoryUsername");
+		approverLimit = (float)jsonStaff.getDouble("ApproverLimit");
+		carryOverLeave = (float)jsonStaff.getDouble("CarryOverLeave");
+		costCenterID = jsonStaff.getInt("CostCenterID");
+		costCenterName = jsonStaff.getString("CostCenterName");
+		dateCreated = jsonStaff.getString("DateCreated");
+		dateModified = jsonStaff.getString("DateModified");
+		dateOfBirth = jsonStaff.getString("DateOfBirth");
+		departmentID = jsonStaff.getInt("DepartmentID");
+		departmentName = jsonStaff.getString("DepartmentName");
+		email = jsonStaff.getString("Email");
+		employmentEndDate = jsonStaff.getString("EmploymentEndDate");
+		employmentStartDate = jsonStaff.getString("EmploymentStartDate");
+		expApprover = jsonStaff.getInt("ExpApprover");
+		expenseApproverName = jsonStaff.getString("ExpenseApproverName");
+		firstName = jsonStaff.getString("FirstName");
+		hasFriday = jsonStaff.getBoolean("Friday");
+		genderSex = jsonStaff.getString("GenderSex");
+		isADAuth = jsonStaff.getBoolean("IsADAuth");
+		isAllowProxyubmission = jsonStaff.getBoolean("IsAllowProxySubmission");
+		isApprover = jsonStaff.getBoolean("IsApprover");
+		isCorporateApprover = jsonStaff.getBoolean("IsCorporateApprover");
+		isRegional = jsonStaff.getBoolean("IsRegional");
+		jobTitle = jsonStaff.getString("JobTitle");
+		lastName = jsonStaff.getString("LastName");
+		leaveApprover1ID = jsonStaff.getInt("LeaveApprover1");
+		leaveApprover1Email = jsonStaff.getString("LeaveApprover1Email");
+		leaveApprover1Name = jsonStaff.getString("LeaveApprover1Name");
+		leaveApprover2ID = jsonStaff.getInt("LeaveApprover2");
+		leaveApprover2Email = jsonStaff.getString("LeaveApprover2Email");
+		leaveApprover2Name = jsonStaff.getString("LeaveApprover2Name");
+		leaveApprover3ID = jsonStaff.getInt("LeaveApprover3");
+		leaveApprover3Email = jsonStaff.getString("LeaveApprover3Email");
+		leaveApprover3Name = jsonStaff.getString("LeaveApprover3Name");
+		location = jsonStaff.getString("Location");
+		lockDate = jsonStaff.getString("LockDate");
+		maxConsecutiveDays = jsonStaff.getInt("MaxConsecutiveDays");
+		mobile = jsonStaff.getString("Mobile");
+		hasMonday = jsonStaff.getBoolean("Monday");
+		notes = jsonStaff.getString("Notes");
+		officeAddress = jsonStaff.getString("OfficeAddress");
+		officeID = jsonStaff.getInt("OfficeID");
+		officeName = jsonStaff.getString("OfficeName");
+		password = jsonStaff.getString("Password");
+		payrollID = jsonStaff.getString("PayrollID");
+		phone = jsonStaff.getString("Phone");
+		phoneExt = jsonStaff.getString("PhoneExt");
+		prefCurrency = jsonStaff.getInt("PrefCurrency");
+		prefCurrencyName = jsonStaff.getString("PrefCurrencyName");
+		proxyStaffID = jsonStaff.getInt("ProxyStaffID");
+		proxyStaffName = jsonStaff.getString("ProxyStaffName");
+		hasSaturday = jsonStaff.getBoolean("Saturday");
+		securityLevel = jsonStaff.getInt("SecurityLevel");
+		securityLevelName = jsonStaff.getString("SecurityLevelName");
+		sickLeaveAllowance = (float)jsonStaff.getDouble("SickLeaveAllowance");
+		staffID = jsonStaff.getInt("StaffID");
+		staffNumber = jsonStaff.getString("StaffNumber");
+		status = jsonStaff.getString("Status");
+		statusID = jsonStaff.getInt("StatusID");
+		hasSunday = jsonStaff.getBoolean("Sunday");
+		hasThursday = jsonStaff.getBoolean("Thursday");
+		title = jsonStaff.getString("Title");
+		totalVacationLeave = (float)jsonStaff.getDouble("TotalVacationLeave");
+		hasTuesday = jsonStaff.getBoolean("Tuesday");
+		vacationLeaveAllowance = (float)jsonStaff.getDouble("VacationLeaveAllowance");
+		hasWednesday = jsonStaff.getBoolean("Wednesday");
+		workingDays = jsonStaff.getInt("WorkingDays");
 	}
 	
-	public Staff(LoginActivity key, String staffID, String securityLevel, String staffOfficeID){ //initial temporary staff data only to be called bY the loginactivitY class
-		map = new HashMap<String, Object>();
-		map.put("StaffID", staffID);
-		map.put("SecurityLevel", securityLevel);
-		map.put("OfficeID", staffOfficeID);
-	}
-		
-	public Staff(HashMap<String, Object> staffMap){
-		this.map = staffMap;
-	}
-	
-	public boolean isActive(){
-		return Boolean.parseBoolean(map.get("Active").toString());
-	}
-	
-	public int getStaffID(){
-		return Integer.parseInt(map.get("StaffID").toString());
-	}
-	
-	public int getCostCenterID(){
-		return Integer.parseInt(map.get("CostCenterID").toString());
-	}
-	
-	public int getExpenseApproverID(){
-		return Integer.parseInt(map.get("ExpApprover").toString());
-	}
-	
-	public int getAccountID(){
-		return Integer.parseInt(map.get("AccountsPerson").toString());
-	}
-	
-	//TODO
-	public String getAccountName(){
-		return "";
-	}
-	
-	public String getAccountEmail(){
-		return "";
-	}
-	
-	public int getOfficeID(){
-		return Integer.parseInt(map.get("OfficeID").toString());
-	}
-	
-	public String getOfficeName(){
-		return toValidString(map.get("OfficeName"));
-	}
-	
-	public boolean isUser(){
-		return (Integer.parseInt(map.get("SecurityLevel").toString()) == SECURITYLEVEL_USER)?true:false;
+	public Staff(LoginActivity key, int staffID, int securityLevel, int staffOfficeID){ //initial temporary staff data only to be called bY the loginactivitY class
+		this.staffID = staffID;
+		this.securityLevel = securityLevel;
+		this.officeID = staffOfficeID;
 	}
 
-	public boolean isManager(){
-		return (Integer.parseInt(map.get("SecurityLevel").toString()) == SECURITYLEVEL_MANAGER)?true:false;
-	}
+    public String getAccountEmail(){ return ""; }
+	public String getAccountName(){ return accountPersonName; }
+	public int getAccountID(){ return accountPersonID; }
+	public boolean isActive(){ return isActive; }
+	public String getActiveDirUsername(){ return activeDirUsername; }
+	public float getApproverLimit(){ return approverLimit; }
+	public float getCarryOverLeave(){ return carryOverLeave; }
+	public int getCostCenterID(){ return costCenterID; }
+	public String getCostCenterName(){ return costCenterName; }
+	public String getDateCreated(SaltApplication app){ return app.onlineGateway.dJsonizeDate(dateCreated); }
+	public String getDateModified(SaltApplication app){ return app.onlineGateway.dJsonizeDate(dateModified); }
+	public String getDateOfBirth(SaltApplication app){ return app.onlineGateway.dJsonizeDate(dateOfBirth); }
+	public int getDepartmentID(){ return departmentID; }
+	public String getDepartmentName() { return departmentName; }
+	public String getEmail(){ return email; }
+	public String getEmploymentEndDate(SaltApplication app){ return app.onlineGateway.dJsonizeDate(employmentEndDate); }
+	public String getEmploymentStartDate(SaltApplication app){ return app.onlineGateway.dJsonizeDate(employmentStartDate); }
+	public int getExpenseApproverID(){ return expApprover; }
+    public String getExpenseApproverEmail(){ return ""; }
+	public String getExpenseApproverName(){ return expenseApproverName; }
+	public String getFname(){ return firstName; }
+	public boolean hasFriday(){ return hasFriday; }
+	public String getGenderSex(){ return genderSex; }
+	public boolean isADAuth(){ return isADAuth; }
+	public boolean isAllowProxyubmission(){ return isAllowProxyubmission; }
+	public boolean isApprover(){ return isApprover; }
+	public boolean isCorporateApprover(){ return isCorporateApprover; }
+	public boolean isRegional(){ return isRegional; }
+	public String getJobTitle(){ return jobTitle; }
+	public String getLname(){ return lastName; }
+	public int getLeaveApprover1ID(){ return leaveApprover1ID; }
+	public String getLeaveApprover1Email(){ return leaveApprover1Email; }
+	public String getLeaveApprover1Name(){ return leaveApprover1Name; }
+	public int getLeaveApprover2ID(){ return leaveApprover2ID; }
+	public String getLeaveApprover2Email(){ return leaveApprover2Email; }
+	public String getLeaveApprover2Name(){ return leaveApprover2Name; }
+	public int getLeaveApprover3ID(){ return leaveApprover3ID; }
+	public String getLeaveApprover3Email(){ return leaveApprover3Email; }
+	public String getLeaveApprover3Name(){ return leaveApprover3Name; }
+	public String getLocation(){ return location; }
+	public String getLockDate(SaltApplication app){ return app.onlineGateway.dJsonizeDate(lockDate); }
+	public int getMaxConsecutiveDays(){ return maxConsecutiveDays; }
+	public String getMobile(){ return mobile; }
+	public boolean hasMonday(){ return hasMonday; }
+	public String getNotes(){ return notes; }
+	public String getOfficeAddress(){ return officeAddress; }
+	public int getOfficeID(){ return officeID; }
+	public String getOfficeName(){ return officeName; }
+	public boolean hasSaturday(){ return hasSaturday; }
+    public int getSecurityLevel(){ return securityLevel; }
+	public int getStaffID(){ return staffID; }
+    public boolean hasSunday(){ return hasSunday; }
+	public boolean hasThursday(){ return hasThursday; }
+	public boolean hasTuesday(){ return hasTuesday; }
+	public boolean hasWednesday(){ return hasWednesday; }
+    public float getVacationLeaveAllowance(){ return vacationLeaveAllowance; }
+    public float getSickLeaveAllowance(){ return sickLeaveAllowance; }
 
-	public boolean isAccount(){
-		return (Integer.parseInt(map.get("SecurityLevel").toString()) == SECURITYLEVEL_ACCOUNT)?true:false;
-	}
+	public boolean isUser(){ return (securityLevel == SECURITYLEVEL_USER)?true:false; }
+	public boolean isManager(){ return (securityLevel == SECURITYLEVEL_MANAGER)?true:false; }
+	public boolean isAccount(){ return (securityLevel == SECURITYLEVEL_ACCOUNT)?true:false; }
+	public boolean isAdmin(){ return (securityLevel == SECURITYLEVEL_ADMIN)?true:false; }
+	public boolean isCM(){ return (securityLevel == SECURITYLEVEL_COUNTRYMANAGER)?true:false; }
+	public boolean isAM(){ return (securityLevel == SECURITYLEVEL_ACCOUNTMANAGER)?true:false; }
 
-	public boolean isAdmin(){
-		return (Integer.parseInt(map.get("SecurityLevel").toString()) == SECURITYLEVEL_ADMIN)?true:false;
-	}
-
-	public boolean isCM(){
-		return (Integer.parseInt(map.get("SecurityLevel").toString()) == SECURITYLEVEL_COUNTRYMANAGER)?true:false;
-	}
-
-	public boolean isAM(){
-		return (Integer.parseInt(map.get("SecurityLevel").toString()) == SECURITYLEVEL_ACCOUNTMANAGER)?true:false;
-	}
-	
-	public int getSecurityLevel(){
-		return Integer.parseInt(map.get("SecurityLevel").toString());
-	}
-	
-	
-	public String getFname(){
-		return toValidString(map.get("FirstName"));
-	}
-	
-	public String getLname(){
-		return toValidString(map.get("LastName"));
-	}
-	
-	public String getEmail(){
-		return toValidString(map.get("Email"));
-	}
-	
-	public String getJobTitle(){
-		return toValidString(map.get("JobTitle"));
-	}
-	
-	public String getGender(){
-		return toValidString(map.get("GenderSex"));
-	}
-	
-	public float getMaxVL(){
-		return toValidFloat(map.get("TotalVacationLeave"));
-	}
-	
-	public float getMaxSL(){
-		return  toValidFloat(map.get("SickLeaveAllowance"));
-	}
-	
-	public float getMaxConsecutiveLeave(){
-		return Float.parseFloat(map.get("MaxConsecutiveDays").toString());
-	}
-
-	public boolean isMyLeaveApprover(int staffID){
-		return (getApprover1ID()==staffID || getApprover2ID()==staffID || getApprover3ID()==staffID);
-	}
-	
-	public int getApprover1ID(){
-		return Integer.parseInt(map.get("LeaveApprover1").toString());
-	}
-	
-	public String getApprover1Name(){
-		return toValidString(map.get("LeaveApprover1Name"));
-	}
-	
-	public String getApprover1Email(){
-		return toValidString(map.get("LeaveApprover1Email"));
-	}
-	
-	public int getApprover2ID(){
-		return Integer.parseInt(map.get("LeaveApprover2").toString());
-	}
-	
-	public String getApprover2Name(){
-		return toValidString(map.get("LeaveApprover2Name"));
-	}
-	
-	public String getApprover2Email(){
-		return toValidString(map.get("LeaveApprover2Email"));
-	}
-	
-	public int getApprover3ID(){
-		return Integer.parseInt(map.get("LeaveApprover3").toString());
-	}
-	
-	public String getApprover3Name(){
-		return toValidString(map.get("LeaveApprover3Name"));
-	}
-	
-	public String getApprover3Email(){
-		return toValidString(map.get("LeaveApprover3Email"));
-	}
-	
-	public boolean hasMonday(){
-		return toValidBool(map.get("Monday"));
-	}
-	
-	public boolean hasTuesday(){
-		return toValidBool(map.get("Tuesday"));
-	}
-	
-	public boolean hasWednesday(){
-		return toValidBool(map.get("Wednesday"));
-	}
-	
-	public boolean hasThursday(){
-		return toValidBool(map.get("Thursday"));
-	}
-	
-	public boolean hasFriday(){
-		return toValidBool(map.get("Friday"));
-	}
-	
-	public boolean hasSaturday(){
-		return toValidBool(map.get("Saturday"));
-	}
-	
-	public boolean hasSunday(){
-		return toValidBool(map.get("Sunday"));
-	}
-	
-	public boolean isApprover(){
-		return toValidBool(map.get("IsApprover"));
-	}
-	
-	public boolean isRegional(){
-		return toValidBool(map.get("IsRegional"));
-	}
-	
-	public boolean isCorporateApprover(){
-		return toValidBool(map.get("IsCorporateApprover"));
-	}
-
-	public String getCostCenterName(){
-		return toValidString(map.get("CostCenterName"));
-	}
-	
-	public String getExpenseApproverName(){
-		return toValidString(map.get("ExpenseApproverName"));
-	}
-
-	public void setUserPosition(USERPOSITION userPosition){
-		System.out.println("userposition set "+userPosition); map.put("UserPosition", userPosition); }
-
-	public USERPOSITION getUserPosition(){ return USERPOSITION.valueOf(map.get("UserPosition").toString()); }
-
-	//TODO
-	public String getExpenseApproverEmail(){
-		return "";
-	}
-	
-	public HashMap<String, Object> getMap(){
-		return map;
-	}
-	
-	public String toValidString(Object field){
-		return (field!=null)?field.toString():"";
-	}
-	
-	public float toValidFloat(Object field){
-		return (field!=null)?Float.parseFloat(field.toString()):0;
-	}
-
-	public boolean toValidBool(Object field){
-		return (field!=null)?Boolean.parseBoolean(field.toString()):false;
-	}
-	
+	public void setUserPosition(USERPOSITION userPosition){ this.userPosition = userPosition; }
+	public USERPOSITION getUserPosition(){ return userPosition; }
 }

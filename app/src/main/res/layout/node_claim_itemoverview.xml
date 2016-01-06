@@ -17,7 +17,7 @@
         android:id="@+id/tviews_cells_claimitem_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/fsizes_listcell_subheader"
+        android:textSize="12sp"
         android:textColor="@color/black"
         android:layout_toLeftOf="@id/containers_nodes_next"
         android:layout_centerVertical="true"/>
@@ -31,41 +31,50 @@
         android:paddingLeft="15dp"
         android:paddingRight="5dp"
         android:layout_toLeftOf="@id/tviews_cells_claimitem_status">
-            
-		<TextView 
-		    android:id="@+id/tviews_cells_claimitem_category"
-			android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:textSize="@dimen/fsizes_listcell_header"
-            android:textColor="@color/black"
-		    android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/iviews_cells_claimitem_receipt"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/icon_receipt"/>
+                android:src="@drawable/icon_receipt"
+                android:layout_gravity="center_vertical"/>
 
             <TextView
-                android:id="@+id/tviews_cells_claimitem_foreign"
-                android:layout_width="wrap_content"
+                android:id="@+id/tviews_cells_claimitem_category"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/fsizes_listcell_subheader"
-                android:textColor="@color/black" />
+                android:textSize="@dimen/fsizes_listcell_header"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tviews_cells_claimitem_expensedate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/fsizes_listcell_subheader"
+                android:textColor="@color/black2"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/tviews_cells_claimitem_foreign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/fsizes_listcell_subheader"
                 android:layout_marginLeft="5dp"
-                android:textColor="#909090" />
+                android:textColor="@color/dark_orange"
+                android:layout_gravity="center_vertical" />
 
         </LinearLayout>
 

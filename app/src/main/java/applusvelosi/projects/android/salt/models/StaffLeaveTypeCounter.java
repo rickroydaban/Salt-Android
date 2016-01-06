@@ -205,11 +205,11 @@ public class StaffLeaveTypeCounter{
 	
 	//REMAINIG DAYS
 	public float getRemainingVLDays(){
-		return app.getStaff().getMaxVL() - approvedVLDays - pendingVLDays;
+		return app.getStaff().getVacationLeaveAllowance() - approvedVLDays - pendingVLDays;
 	}
 	
 	public float getRemainingSLDays(){
-		return app.getStaff().getMaxSL() - approvedSLDays - pendingSLDays;
+		return app.getStaff().getSickLeaveAllowance() - approvedSLDays - pendingSLDays;
 	}
 	
 	public float getRemainingBLDays(){

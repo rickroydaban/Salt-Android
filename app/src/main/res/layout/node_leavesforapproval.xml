@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+	<LinearLayout
+		android:id="@+id/containers_cells_leaveforapproval_actions"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+
+		<CheckBox
+			android:id="@+id/cboxes_cells_leavesforapproval_isSelected"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+		<ImageView
+			android:id="@+id/iviews_cells_leaveforapproval_next"
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:padding="5dp"
+			android:scaleType="fitXY"
+			android:src="@drawable/icon_next"/>
+
+	</LinearLayout>
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@id/containers_cells_leaveforapproval_actions">
+            
+        <TextView 
+            android:id="@+id/tviews_cells_leaveforapproval_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/fsizes_listcell_header"
+			android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+	    <TextView 
+	        android:id="@+id/tviews_cells_leaveforapproval_dates"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+          	android:layout_marginBottom="5dp"
+	        android:textSize="@dimen/fsizes_listcell_subheader"
+			android:textColor="@color/black"/>
+	        		
+		<TextView
+			android:id="@+id/tviews_cells_leaveforapproval_name"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textColor="@color/orange_velosi"
+			android:layout_centerVertical="true"
+			android:textStyle="bold" />
+
+    </LinearLayout>    
+        
+</RelativeLayout>

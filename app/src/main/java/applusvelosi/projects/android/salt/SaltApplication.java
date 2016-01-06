@@ -19,10 +19,10 @@ import android.net.NetworkInfo;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import applusvelosi.projects.android.salt.models.CountryHoliday;
 import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.Holiday;
 import applusvelosi.projects.android.salt.models.Leave;
-import applusvelosi.projects.android.salt.models.LocalHoliday;
 import applusvelosi.projects.android.salt.models.Office;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.models.StaffLeaveTypeCounter;
@@ -36,8 +36,6 @@ import applusvelosi.projects.android.salt.utils.OfflineGateway;
 import applusvelosi.projects.android.salt.utils.OnlineGateway;
 import applusvelosi.projects.android.salt.utils.TypeHolder;
 import applusvelosi.projects.android.salt.utils.enums.Months;
-import applusvelosi.projects.android.salt.views.LoginActivity;
-import applusvelosi.projects.android.salt.views.SplashActivity;
 import applusvelosi.projects.android.salt.views.fragments.roots.HolidaysLocalFragment;
 import applusvelosi.projects.android.salt.views.fragments.roots.HolidaysMonthlyFragment;
 //import com.google.android.gms.analytics.GoogleAnalytics;
@@ -99,9 +97,11 @@ public class SaltApplication extends Application {
 		return mTrackers.get(trackerId);
 	}
 
+	public static final String CONNECTION_ERROR = "No address associated with hostname";
 	public static final int RESULT_CAMERA = 1;
 	public static final int RESULT_BROWSEFILES = 2;
     public static final long ONEDAY = 24*60*60*1000;
+	public static final String ACCEPTED_FILETYPES = ".png.jpg.gif.pdf.jpeg";
 //	public static final String DEFAULT_FLOAT_FORMAT = "%.2f";
 	public static final DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
 	public static final int MAINHRID = 198;
@@ -116,13 +116,13 @@ public class SaltApplication extends Application {
 	public SimpleDateFormat dateTimeFormat, dateFormatDefault, dateFormatClaimItemAttachment;
 
 	private String savedMonthlyCalendarMonth;
-	private ArrayList<Holiday> nationalHolidays;
-	private ArrayList<LocalHoliday> localHolidays;
+	private ArrayList<CountryHoliday> nationalHolidays;
+	private ArrayList<Holiday> localHolidays;
 	private ArrayList<Leave> myLeaves;
 	private ArrayList<ClaimHeader> myClaimHeaders;
 	private boolean hasLoadedMonthlyHolidays, hasLoadedLocalHolidays;
 	private ArrayList<Currency> currencies;
-	private Staff staff; 
+	private Staff staff;
 	private Office office;
 	
 	public ArrayList<String> dropDownYears, dropDownMonths;
@@ -140,6 +140,7 @@ public class SaltApplication extends Application {
 		hasLoadedLocalHolidays = false;
 		dateTimeFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss", Locale.US);
 		dateFormatDefault = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+		dateFormatClaimItemAttachment = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss-S");
 		calendar = Calendar.getInstance();
 		gson = new Gson();
 		types = new TypeHolder();
@@ -172,8 +173,8 @@ public class SaltApplication extends Application {
 		}else{
 			myLeaves = new ArrayList<Leave>();
 			myClaimHeaders = new ArrayList<ClaimHeader>();
-			nationalHolidays = new ArrayList<Holiday>();
-			localHolidays = new ArrayList<LocalHoliday>();
+			nationalHolidays = new ArrayList<CountryHoliday>();
+			localHolidays = new ArrayList<Holiday>();
 		}
 
 		animationShow = new AlphaAnimation(0.0f,1.0f);
@@ -187,7 +188,6 @@ public class SaltApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Parse.initialize(this, "Lsnfv65XD5V1RlgoYnWX8DEB06EW9BCTOdwBDWRb", "CiYC18jb5FXSdjJgvJbixG0wqoC252dnR7YAwgBd");
-		System.out.println("Installation ID "+ParseInstallation.getCurrentInstallation().getInstallationId());
 		ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 
@@ -312,51 +312,53 @@ public class SaltApplication extends Application {
 		return myClaimHeaders;
 	}
 							
-	public ArrayList<Holiday> getNationalHolidays(){
+	public ArrayList<CountryHoliday> getNationalHolidays(){
 		return nationalHolidays;
 	}
 	
-	public ArrayList<LocalHoliday> getLocalHolidays(){
+	public ArrayList<Holiday> getLocalHolidays(){
 		return localHolidays;
 	}
 			
-	public int getHolidaysCountForIntervals(Date startDate, Date endDate) {
-		int count=0;
-
-		if(startDate.compareTo(endDate) == 0){ //lesser comparisons when start and end dates are the same
-			for(int i=0;i<nationalHolidays.size();i++){
-				if(nationalHolidays.get(i).getDate().compareTo(startDate) == 0)
-					count++;
-			}
-		}else{
-			for(int i=0;i<nationalHolidays.size(); i++){
-				Date currDate = nationalHolidays.get(i).getDate();
-				if(currDate.compareTo(startDate)==0 || currDate.compareTo(endDate)==0 || (currDate.compareTo(startDate)>0 && currDate.compareTo(endDate)<0))
-					count++;
-			}			
-		}
-		
-		return count;
-	}
+//	public int getHolidaysCountForIntervals(Date startDate, Date endDate) {
+//		int count=0;
+//
+//		if(startDate.compareTo(endDate) == 0){ //lesser comparisons when start and end dates are the same
+//			for(int i=0;i<nationalHolidays.size();i++){
+//				if(nationalHolidays.get(i).getDateString().compareTo(startDate) == 0)
+//					count++;
+//			}
+//		}else{
+//			for(int i=0;i<nationalHolidays.size(); i++){
+//				Date currDate = nationalHolidays.get(i).getDateString();
+//				if(currDate.compareTo(startDate)==0 || currDate.compareTo(endDate)==0 || (currDate.compareTo(startDate)>0 && currDate.compareTo(endDate)<0))
+//					count++;
+//			}
+//		}
+//
+//		return count;
+//	}
 	
 	public String getSavedMonthlyCalendarMonth(){
 		return savedMonthlyCalendarMonth;
 	}
 		
-	public void updateNationalHolidays(ArrayList<Holiday> nationalHolidays){
+	public void updateNationalHolidays(ArrayList<CountryHoliday> nationalHolidays){
 		this.nationalHolidays.clear();
 		this.nationalHolidays.addAll(nationalHolidays);
 		this.offlineGateway.serializeNationHolidays(this, nationalHolidays);
 	}
 	
-	public void updateLocalHolidays(ArrayList<LocalHoliday> localHolidays){
+	public void updateLocalHolidays(ArrayList<Holiday> localHolidays){
 		this.localHolidays.clear();
 		this.localHolidays.addAll(localHolidays);
 		this.offlineGateway.serializeLocalHolidays(this, localHolidays);
 	}
 	
 	public void setCurrencies(ArrayList<Currency> currencies){
-		this.currencies = currencies;
+		System.out.println("SALTX currencies set "+currencies.size());
+		this.currencies = new ArrayList<Currency>();
+		this.currencies.addAll(currencies);
 		offlineGateway.serializeCurrencies(currencies);
 	}
 	

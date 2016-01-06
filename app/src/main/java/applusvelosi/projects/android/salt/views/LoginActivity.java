@@ -15,8 +15,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
 import applusvelosi.projects.android.salt.R;
 import applusvelosi.projects.android.salt.SaltApplication;
+import applusvelosi.projects.android.salt.models.Currency;
 import applusvelosi.projects.android.salt.models.Staff;
 import applusvelosi.projects.android.salt.utils.SaltProgressDialog;
 
@@ -141,7 +146,31 @@ public class LoginActivity extends Activity implements OnClickListener{
 								pd.dismiss();
 								final String [] results = result.split("-"); 
 								if(results.length > 2){ //successful, no errors to show
-									app.setStaff(new Staff(LoginActivity.this, results[0], results[1], results[2]));
+									new Thread(new Runnable() {
+										@Override
+										public void run() {
+											Object tempResult;
+											try {
+												tempResult = app.onlineGateway.getCurrencies();
+											} catch (Exception e) {
+												e.printStackTrace();
+												tempResult = e.getMessage();
+											}
+
+											final Object result = tempResult;
+											new Handler(Looper.getMainLooper()).post(new Runnable() {
+												@Override
+												public void run() {
+													if(result instanceof String)
+														Toast.makeText(LoginActivity.this, result.toString(), Toast.LENGTH_SHORT).show();
+													else
+														app.setCurrencies((ArrayList<Currency>) result);
+												}
+											});
+										}
+									}).start();
+
+									app.setStaff(new Staff(LoginActivity.this, Integer.parseInt(results[0]), Integer.parseInt(results[1]), Integer.parseInt(results[2])));
 									startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 									finish();
 								}else
